@@ -1,20 +1,20 @@
-[ @file = "/Users/tk/Desktop/glidator2/source/Preferences.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Application,1,13,24]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Application,1,13,24]; ]
 using Toybox.Application;
-[ @file = "/Users/tk/Desktop/glidator2/source/Preferences.mc"; @line = 3; @symbol_classdef = [Preferences,3,6,17]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 3; @symbol_classdef = [Preferences,3,6,17]; ]
 class Preferences {
-    [ @file = "/Users/tk/Desktop/glidator2/source/Preferences.mc"; @line = 3; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 3; ]
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/Preferences.mc"; @line = 3; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 3; ]
     static
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/Preferences.mc"; @line = 5; @position = 5; @symbol_vardef = [app,5,5,8]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 5; @position = 5; @symbol_vardef = [app,5,5,8]; ]
     var app;
-    [ @file = "/Users/tk/Desktop/glidator2/source/Preferences.mc"; @line = 7; @symbol_functiondef = [initialize,7,10,20]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 7; @symbol_functiondef = [initialize,7,10,20]; ]
     function initialize() as Void {
-_Users_tk_Desktop_glidator2_source_Preferences_mc_8_4_10_4_start:
-[ "/Users/tk/Desktop/glidator2/source/Preferences.mc" 9 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_8_4_10_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc" 9 5 ]
         symbol [ Application %tmp.1 9 11 22 ];
         %tmp.1 = getm $.Toybox.Application;
         symbol [ getApp %tmp.2 9 23 29 ];
@@ -22,13 +22,13 @@ _Users_tk_Desktop_glidator2_source_Preferences_mc_8_4_10_4_start:
         %tmp.3 = invoke %tmp.1 %tmp.2();
         symbol [ app ? 9 5 8 ];
         putv self :app %tmp.3;
-_Users_tk_Desktop_glidator2_source_Preferences_mc_8_4_10_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_8_4_10_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/Preferences.mc"; @line = 12; @symbol_functiondef = [getBeep,12,13,20]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 12; @symbol_functiondef = [getBeep,12,13,20]; ]
     function getBeep() {
-_Users_tk_Desktop_glidator2_source_Preferences_mc_13_4_16_4_start:
-[ "/Users/tk/Desktop/glidator2/source/Preferences.mc" 14 5 ]
-        [ "_Users_tk_Desktop_glidator2_source_Preferences_mc_13_4_16_4_start" "_Users_tk_Desktop_glidator2_source_Preferences_mc_13_4_16_4_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_13_4_16_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc" 14 5 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_13_4_16_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_13_4_16_4_stop" ]
         %beep.1 = local;
         symbol [ beep %beep.1 14 9 13 ];
         symbol [ app %tmp.2 14 16 19 ];
@@ -39,31 +39,31 @@ _Users_tk_Desktop_glidator2_source_Preferences_mc_13_4_16_4_start:
         %tmp.5 = invoke %tmp.2 %tmp.3(%tmp.4);
         lputv %beep.1 %tmp.5;
         symbol [ beep %beep.1 14 9 13 ];
-[ "/Users/tk/Desktop/glidator2/source/Preferences.mc" 15 2 ]
-_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_begin:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc" 15 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_begin:
         %tmp.6 = lgetv %beep.1;
         symbol [ beep %tmp.6 15 10 14 ];
         %tmp.7 = null;
         %tmp.8 = eq %tmp.6 %tmp.7;
-        bf %tmp.8 @_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_false;
-_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_true:
+        bf %tmp.8 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_false;
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_true:
         %tmp.9 = false;
         push %tmp.9;
-        goto @_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_end;
-_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_false:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_false:
         %tmp.10 = lgetv %beep.1;
         symbol [ beep %tmp.10 15 32 36 ];
         %tmp.11 = as %tmp.10 { (!Null) };
         push %tmp.11;
-_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_end:
-        %tmp.12 = phi [%tmp.8 @_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_begin] [%tmp.9 @_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_true] [%tmp.11 @_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_false] [%tmp.12 @_Users_tk_Desktop_glidator2_source_Preferences_mc_15_10_15_32_end];
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_end:
+        %tmp.12 = phi [%tmp.8 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_begin] [%tmp.9 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_false] [%tmp.12 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_end];
         ret %tmp.12;
-_Users_tk_Desktop_glidator2_source_Preferences_mc_13_4_16_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_13_4_16_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/Preferences.mc"; @line = 18; @symbol_functiondef = [setBeep,18,13,20]; @symbol_param<0> = [newVal,18,22,28]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 18; @symbol_functiondef = [setBeep,18,13,20]; @symbol_param<0> = [newVal,18,22,28]; ]
     function setBeep(newVal) {
-_Users_tk_Desktop_glidator2_source_Preferences_mc_19_4_21_4_start:
-[ "/Users/tk/Desktop/glidator2/source/Preferences.mc" 20 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_19_4_21_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc" 20 5 ]
         symbol [ app %tmp.2 20 5 8 ];
         %tmp.2 = getv ? :app;
         symbol [ setProperty %tmp.3 20 9 20 ];
@@ -72,9 +72,9 @@ _Users_tk_Desktop_glidator2_source_Preferences_mc_19_4_21_4_start:
         %tmp.5 = lgetv %newVal;
         symbol [ newVal %tmp.5 20 29 35 ];
         invoke %tmp.2 %tmp.3(%tmp.4, %tmp.5);
-_Users_tk_Desktop_glidator2_source_Preferences_mc_19_4_21_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_19_4_21_4_stop:
     }
 }
-[ @file = "/Users/tk/Desktop/glidator2/source/Preferences.mc"; @line = 1; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 1; ]
 <init> {
 }

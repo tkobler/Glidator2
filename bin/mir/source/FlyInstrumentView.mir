@@ -1,42 +1,42 @@
-[ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Application,1,13,24]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Application,1,13,24]; ]
 using Toybox.Application;
-[ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
 using Toybox.WatchUi;
-[ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [ActivityRecording,3,13,30]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [ActivityRecording,3,13,30]; ]
 using Toybox.ActivityRecording;
-[ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 5; @symbol_classdef = [FlyInstrumentView,5,6,23]; @symbol_extends<0> = [WatchUi,5,32,39]; @symbol_extends<1> = [View,5,40,44]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 5; @symbol_classdef = [FlyInstrumentView,5,6,23]; @symbol_extends<0> = [WatchUi,5,32,39]; @symbol_extends<1> = [View,5,40,44]; ]
 class FlyInstrumentView extends WatchUi.View {
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 5; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 5; ]
     <init> {
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 7 5 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 7 5 ]
         symbol [ WatchData %tmp.4 7 16 25 ];
         %tmp.4 = getv ? :WatchData;
         %tmp.1 = newc %tmp.4 ();
         putv self :data %tmp.1;
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 5; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 5; ]
     static
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 7; @position = 5; @symbol_vardef = [data,7,5,9]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 7; @position = 5; @symbol_vardef = [data,7,5,9]; ]
     var data;
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 8; @position = 5; @symbol_vardef = [display,8,5,12]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 8; @position = 5; @symbol_vardef = [display,8,5,12]; ]
     var display = null;
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 10; @symbol_functiondef = [initialize,10,13,23]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 10; @symbol_functiondef = [initialize,10,13,23]; ]
     function initialize() as Void {
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_11_4_13_4_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 12 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_11_4_13_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 12 8 ]
         symbol [ View %tmp.2 12 8 12 ];
         %tmp.2 = getv ? :View;
         symbol [ initialize %tmp.3 12 13 23 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_11_4_13_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_11_4_13_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 16; @symbol_functiondef = [onLayout,16,13,21]; @symbol_param<0> = [dc,16,22,24]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 16; @symbol_functiondef = [onLayout,16,13,21]; @symbol_param<0> = [dc,16,22,24]; ]
     function onLayout(dc) {
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_17_4_19_4_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 18 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_17_4_19_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 18 5 ]
         symbol [ WatchDisplay %tmp.4 18 19 31 ];
         %tmp.4 = getv ? :WatchDisplay;
         %tmp.5 = lgetv %dc;
@@ -44,40 +44,40 @@ _Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_17_4_19_4_start:
         %tmp.1 = newc %tmp.4 (%tmp.5);
         symbol [ display ? 18 5 12 ];
         putv self :display %tmp.1;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_17_4_19_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_17_4_19_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 24; @symbol_functiondef = [onShow,24,13,19]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 24; @symbol_functiondef = [onShow,24,13,19]; ]
     function onShow() {
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 31; @symbol_functiondef = [onHide,31,13,19]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 31; @symbol_functiondef = [onHide,31,13,19]; ]
     function onHide() {
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 36; @symbol_functiondef = [onUpdate,36,13,21]; @symbol_param<0> = [dc,36,23,25]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 36; @symbol_functiondef = [onUpdate,36,13,21]; @symbol_param<0> = [dc,36,23,25]; ]
     function onUpdate(dc) {
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 38 5 ]
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 38 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_stmt:
         symbol [ display %tmp.2 38 9 16 ];
         %tmp.2 = getv ? :display;
         %tmp.3 = null;
         %tmp.4 = eq %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_true:
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_39_5_41_5_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 40 6 ]
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_39_5_41_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 40 6 ]
         ret ?;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_39_5_41_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 46 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_39_5_41_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 46 2 ]
         symbol [ display %tmp.5 46 2 9 ];
         %tmp.5 = getv self :display;
         %tmp.6 = lgetv %dc;
         symbol [ dc %tmp.6 46 15 17 ];
         symbol [ dc ? 46 10 12 ];
         putv %tmp.5 :dc %tmp.6;
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 48 2 ]
-        [ "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 48 2 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
         %vario.1 = local;
         symbol [ vario %vario.1 48 6 11 ];
         symbol [ data %tmp.8 48 15 19 ];
@@ -87,251 +87,222 @@ _Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_38_5_41_5_if_end:
         %tmp.10 = invoke %tmp.8 %tmp.9();
         lputv %vario.1 %tmp.10;
         symbol [ vario %vario.1 48 6 11 ];
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 49 2 ]
-        [ "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 49 2 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
         %record.2 = local;
         symbol [ record %record.2 49 6 12 ];
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_15_49_91_begin:
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_15_49_61_begin:
-        symbol [ Toybox %tmp.12 49 15 21 ];
-        %tmp.12 = getv ? :Toybox;
-        %tmp.14 = const :ActivityRecording;
-        symbol [ ActivityRecording %tmp.14 49 27 44 const ];
-        %tmp.15 = canhazplz %tmp.12 %tmp.14;
-        %tmp.16 = dup %tmp.15;
-        bf %tmp.16 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_48_49_61_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_48_49_61_true:
-        symbol [ $ %tmp.17 49 48 49 ];
-        %tmp.17 = getm $;
-        symbol [ session %tmp.18 49 50 57 ];
-        %tmp.18 = getv %tmp.17 :session;
-        %tmp.19 = null;
-        %tmp.20 = ne %tmp.18 %tmp.19;
-        %tmp.21 = and %tmp.15 %tmp.20;
-        push %tmp.21;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_48_49_61_end:
-        %tmp.22 = phi [%tmp.16 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_15_49_61_begin] [%tmp.21 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_48_49_61_true] [%tmp.22 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_48_49_61_end];
-        %tmp.23 = dup %tmp.22;
-        bf %tmp.23 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_69_49_91_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_69_49_91_true:
-        symbol [ $ %tmp.24 49 69 70 ];
-        %tmp.24 = getm $;
-        symbol [ session %tmp.25 49 71 78 ];
-        %tmp.25 = getv %tmp.24 :session;
-        symbol [ isRecording %tmp.26 49 79 90 ];
-        %tmp.26 = getv function %tmp.25 :isRecording;
-        %tmp.27 = invoke %tmp.25 %tmp.26();
-        %tmp.28 = and %tmp.22 %tmp.27;
-        push %tmp.28;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_69_49_91_end:
-        %tmp.29 = phi [%tmp.23 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_15_49_91_begin] [%tmp.28 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_69_49_91_true] [%tmp.29 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_49_69_49_91_end];
-        lputv %record.2 %tmp.29;
+        symbol [ $ %tmp.11 49 15 16 ];
+        %tmp.11 = getm $;
+        symbol [ isRecording %tmp.12 49 17 28 ];
+        %tmp.12 = getv function %tmp.11 :isRecording;
+        %tmp.13 = invoke %tmp.11 %tmp.12();
+        lputv %record.2 %tmp.13;
         symbol [ record %record.2 49 6 12 ];
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 51 8 ]
-        symbol [ display %tmp.31 51 8 15 ];
-        %tmp.31 = getv ? :display;
-        symbol [ start %tmp.32 51 16 21 ];
-        %tmp.32 = getv function %tmp.31 :start;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_begin:
-        %tmp.33 = lgetv %vario.1;
-        symbol [ vario %tmp.33 51 23 28 ];
-        %tmp.34 = null;
-        %tmp.35 = eq %tmp.33 %tmp.34;
-        bf %tmp.35 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_false;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_true:
-        %tmp.36 = 0.0;
-        push %tmp.36;
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_false:
-        %tmp.37 = lgetv %vario.1;
-        symbol [ vario %tmp.37 51 44 49 ];
-        %tmp.38 = as %tmp.37 { (!Null) };
-        push %tmp.38;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_end:
-        %tmp.39 = phi [%tmp.35 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_begin] [%tmp.36 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_true] [%tmp.38 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_false] [%tmp.39 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_51_23_51_44_end];
-        invoke %tmp.31 %tmp.32(%tmp.39);
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 53 9 ]
-        [ "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 51 8 ]
+        symbol [ display %tmp.15 51 8 15 ];
+        %tmp.15 = getv ? :display;
+        symbol [ start %tmp.16 51 16 21 ];
+        %tmp.16 = getv function %tmp.15 :start;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_begin:
+        %tmp.17 = lgetv %vario.1;
+        symbol [ vario %tmp.17 51 23 28 ];
+        %tmp.18 = null;
+        %tmp.19 = eq %tmp.17 %tmp.18;
+        bf %tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_false;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_true:
+        %tmp.20 = 0.0;
+        push %tmp.20;
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_false:
+        %tmp.21 = lgetv %vario.1;
+        symbol [ vario %tmp.21 51 44 49 ];
+        %tmp.22 = as %tmp.21 { (!Null) };
+        push %tmp.22;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_end:
+        %tmp.23 = phi [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_begin] [%tmp.20 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_true] [%tmp.22 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_false] [%tmp.23 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_51_23_51_44_end];
+        invoke %tmp.15 %tmp.16(%tmp.23);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 53 9 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
         %heading.3 = local;
         symbol [ heading %heading.3 53 13 20 ];
-        symbol [ data %tmp.41 53 23 27 ];
-        %tmp.41 = getv ? :data;
-        symbol [ getHeading %tmp.42 53 28 38 ];
-        %tmp.42 = getv function %tmp.41 :getHeading;
-        %tmp.43 = invoke %tmp.41 %tmp.42();
-        lputv %heading.3 %tmp.43;
+        symbol [ data %tmp.25 53 23 27 ];
+        %tmp.25 = getv ? :data;
+        symbol [ getHeading %tmp.26 53 28 38 ];
+        %tmp.26 = getv function %tmp.25 :getHeading;
+        %tmp.27 = invoke %tmp.25 %tmp.26();
+        lputv %heading.3 %tmp.27;
         symbol [ heading %heading.3 53 13 20 ];
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 54 3 ]
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_stmt:
-        %tmp.44 = lgetv %heading.3;
-        symbol [ heading %tmp.44 54 7 14 ];
-        %tmp.45 = null;
-        %tmp.46 = ne %tmp.44 %tmp.45;
-        bf %tmp.46 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_true:
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_55_3_57_3_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 56 4 ]
-        symbol [ display %tmp.48 56 4 11 ];
-        %tmp.48 = getv ? :display;
-        symbol [ heading %tmp.49 56 12 19 ];
-        %tmp.49 = getv function %tmp.48 :heading;
-        %tmp.50 = lgetv %heading.3;
-        symbol [ heading %tmp.50 56 21 28 ];
-        %tmp.51 = as %tmp.50 { (!Null) };
-        invoke %tmp.48 %tmp.49(%tmp.51);
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_55_3_57_3_stop:
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_end:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 59 3 ]
-        [ "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 54 3 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_stmt:
+        %tmp.28 = lgetv %heading.3;
+        symbol [ heading %tmp.28 54 7 14 ];
+        %tmp.29 = null;
+        %tmp.30 = ne %tmp.28 %tmp.29;
+        bf %tmp.30 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_55_3_57_3_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 56 4 ]
+        symbol [ display %tmp.32 56 4 11 ];
+        %tmp.32 = getv ? :display;
+        symbol [ heading %tmp.33 56 12 19 ];
+        %tmp.33 = getv function %tmp.32 :heading;
+        %tmp.34 = lgetv %heading.3;
+        symbol [ heading %tmp.34 56 21 28 ];
+        %tmp.35 = as %tmp.34 { (!Null) };
+        invoke %tmp.32 %tmp.33(%tmp.35);
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_55_3_57_3_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_54_3_57_3_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 59 3 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
         %altitude.4 = local;
         symbol [ altitude %altitude.4 59 7 15 ];
-        symbol [ data %tmp.53 59 18 22 ];
-        %tmp.53 = getv ? :data;
-        symbol [ getAltitude %tmp.54 59 23 34 ];
-        %tmp.54 = getv function %tmp.53 :getAltitude;
-        %tmp.55 = invoke %tmp.53 %tmp.54();
-        lputv %altitude.4 %tmp.55;
+        symbol [ data %tmp.37 59 18 22 ];
+        %tmp.37 = getv ? :data;
+        symbol [ getAltitude %tmp.38 59 23 34 ];
+        %tmp.38 = getv function %tmp.37 :getAltitude;
+        %tmp.39 = invoke %tmp.37 %tmp.38();
+        lputv %altitude.4 %tmp.39;
         symbol [ altitude %altitude.4 59 7 15 ];
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 60 9 ]
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_stmt:
-        %tmp.56 = lgetv %altitude.4;
-        symbol [ altitude %tmp.56 60 13 21 ];
-        %tmp.57 = null;
-        %tmp.58 = eq %tmp.56 %tmp.57;
-        bf %tmp.58 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_true:
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_61_9_64_9_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 62 10 ]
-        symbol [ display %tmp.60 62 10 17 ];
-        %tmp.60 = getv ? :display;
-        symbol [ waitForAltitude %tmp.61 62 18 33 ];
-        %tmp.61 = getv function %tmp.60 :waitForAltitude;
-        invoke %tmp.60 %tmp.61();
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 63 7 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 60 9 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_stmt:
+        %tmp.40 = lgetv %altitude.4;
+        symbol [ altitude %tmp.40 60 13 21 ];
+        %tmp.41 = null;
+        %tmp.42 = eq %tmp.40 %tmp.41;
+        bf %tmp.42 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_61_9_64_9_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 62 10 ]
+        symbol [ display %tmp.44 62 10 17 ];
+        %tmp.44 = getv ? :display;
+        symbol [ waitForAltitude %tmp.45 62 18 33 ];
+        %tmp.45 = getv function %tmp.44 :waitForAltitude;
+        invoke %tmp.44 %tmp.45();
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 63 7 ]
         ret ?;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_61_9_64_9_stop:
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_end:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 65 9 ]
-        symbol [ display %tmp.63 65 9 16 ];
-        %tmp.63 = getv ? :display;
-        symbol [ altitude %tmp.64 65 17 25 ];
-        %tmp.64 = getv function %tmp.63 :altitude;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_begin:
-        %tmp.65 = lgetv %altitude.4;
-        symbol [ altitude %tmp.65 65 27 35 ];
-        %tmp.66 = null;
-        %tmp.67 = eq %tmp.65 %tmp.66;
-        bf %tmp.67 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_false;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_true:
-        %tmp.68 = null;
-        push %tmp.68;
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_false:
-        symbol [ Math %tmp.70 65 52 56 ];
-        %tmp.70 = getv ? :Math;
-        symbol [ round %tmp.71 65 57 62 ];
-        %tmp.71 = getv function %tmp.70 :round;
-        %tmp.72 = lgetv %altitude.4;
-        symbol [ altitude %tmp.72 65 63 71 ];
-        %tmp.73 = as %tmp.72 { (!Null) };
-        %tmp.74 = invoke %tmp.70 %tmp.71(%tmp.73);
-        symbol [ toNumber %tmp.75 65 73 81 ];
-        %tmp.75 = getv function %tmp.74 :toNumber;
-        %tmp.76 = invoke %tmp.74 %tmp.75();
-        symbol [ toString %tmp.77 65 84 92 ];
-        %tmp.77 = getv function %tmp.76 :toString;
-        %tmp.78 = invoke %tmp.76 %tmp.77();
-        push %tmp.78;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_end:
-        %tmp.79 = phi [%tmp.67 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_begin] [%tmp.68 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_true] [%tmp.78 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_false] [%tmp.79 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_65_27_65_93_end];
-        %tmp.80 = lgetv %record.2;
-        symbol [ record %tmp.80 65 96 102 ];
-        invoke %tmp.63 %tmp.64(%tmp.79, %tmp.80);
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 67 3 ]
-        [ "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_61_9_64_9_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_60_9_64_9_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 65 9 ]
+        symbol [ display %tmp.47 65 9 16 ];
+        %tmp.47 = getv ? :display;
+        symbol [ altitude %tmp.48 65 17 25 ];
+        %tmp.48 = getv function %tmp.47 :altitude;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_begin:
+        %tmp.49 = lgetv %altitude.4;
+        symbol [ altitude %tmp.49 65 27 35 ];
+        %tmp.50 = null;
+        %tmp.51 = eq %tmp.49 %tmp.50;
+        bf %tmp.51 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_false;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_true:
+        %tmp.52 = null;
+        push %tmp.52;
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_false:
+        symbol [ Math %tmp.54 65 52 56 ];
+        %tmp.54 = getv ? :Math;
+        symbol [ round %tmp.55 65 57 62 ];
+        %tmp.55 = getv function %tmp.54 :round;
+        %tmp.56 = lgetv %altitude.4;
+        symbol [ altitude %tmp.56 65 63 71 ];
+        %tmp.57 = as %tmp.56 { (!Null) };
+        %tmp.58 = invoke %tmp.54 %tmp.55(%tmp.57);
+        symbol [ toNumber %tmp.59 65 73 81 ];
+        %tmp.59 = getv function %tmp.58 :toNumber;
+        %tmp.60 = invoke %tmp.58 %tmp.59();
+        symbol [ toString %tmp.61 65 84 92 ];
+        %tmp.61 = getv function %tmp.60 :toString;
+        %tmp.62 = invoke %tmp.60 %tmp.61();
+        push %tmp.62;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_end:
+        %tmp.63 = phi [%tmp.51 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_begin] [%tmp.52 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_true] [%tmp.62 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_false] [%tmp.63 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_65_27_65_93_end];
+        %tmp.64 = lgetv %record.2;
+        symbol [ record %tmp.64 65 96 102 ];
+        invoke %tmp.47 %tmp.48(%tmp.63, %tmp.64);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 67 3 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop" ]
         %speed.5 = local;
         symbol [ speed %speed.5 67 7 12 ];
-        symbol [ data %tmp.82 67 15 19 ];
-        %tmp.82 = getv ? :data;
-        symbol [ getSpeed %tmp.83 67 20 28 ];
-        %tmp.83 = getv function %tmp.82 :getSpeed;
-        %tmp.84 = invoke %tmp.82 %tmp.83();
-        lputv %speed.5 %tmp.84;
+        symbol [ data %tmp.66 67 15 19 ];
+        %tmp.66 = getv ? :data;
+        symbol [ getSpeed %tmp.67 67 20 28 ];
+        %tmp.67 = getv function %tmp.66 :getSpeed;
+        %tmp.68 = invoke %tmp.66 %tmp.67();
+        lputv %speed.5 %tmp.68;
         symbol [ speed %speed.5 67 7 12 ];
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 68 3 ]
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_stmt:
-        %tmp.85 = lgetv %speed.5;
-        symbol [ speed %tmp.85 68 7 12 ];
-        %tmp.86 = null;
-        %tmp.87 = ne %tmp.85 %tmp.86;
-        bf %tmp.87 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_true:
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_69_3_73_3_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 70 4 ]
-        %tmp.88 = lgetv %speed.5;
-        symbol [ speed %tmp.88 70 4 9 ];
-        %tmp.89 = as %tmp.88 { (!Null) };
-        %tmp.90 = 3.6;
-        %tmp.91 = mul %tmp.89 %tmp.90;
-        lputv %speed.5 %tmp.91;
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 68 3 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_stmt:
+        %tmp.69 = lgetv %speed.5;
+        symbol [ speed %tmp.69 68 7 12 ];
+        %tmp.70 = null;
+        %tmp.71 = ne %tmp.69 %tmp.70;
+        bf %tmp.71 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_69_3_73_3_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 70 4 ]
+        %tmp.72 = lgetv %speed.5;
+        symbol [ speed %tmp.72 70 4 9 ];
+        %tmp.73 = as %tmp.72 { (!Null) };
+        %tmp.74 = 3.6;
+        %tmp.75 = mul %tmp.73 %tmp.74;
+        lputv %speed.5 %tmp.75;
         symbol [ speed %speed.5 70 4 9 ];
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 71 4 ]
-        symbol [ display %tmp.93 71 4 11 ];
-        %tmp.93 = getv ? :display;
-        symbol [ speed %tmp.94 71 12 17 ];
-        %tmp.94 = getv function %tmp.93 :speed;
-        %tmp.95 = lgetv %speed.5;
-        symbol [ speed %tmp.95 71 19 24 ];
-        symbol [ format %tmp.96 71 25 31 ];
-        %tmp.96 = getv function %tmp.95 :format;
-        %tmp.97 = "%.0f";
-        %tmp.98 = invoke %tmp.95 %tmp.96(%tmp.97);
-        invoke %tmp.93 %tmp.94(%tmp.98);
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_69_3_73_3_stop:
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_end:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 75 3 ]
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_stmt:
-        %tmp.99 = lgetv %vario.1;
-        symbol [ vario %tmp.99 75 7 12 ];
-        %tmp.100 = null;
-        %tmp.101 = ne %tmp.99 %tmp.100;
-        bf %tmp.101 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_true:
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_76_3_78_2_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 77 4 ]
-        symbol [ display %tmp.103 77 4 11 ];
-        %tmp.103 = getv ? :display;
-        symbol [ vario %tmp.104 77 12 17 ];
-        %tmp.104 = getv function %tmp.103 :vario;
-        %tmp.105 = lgetv %vario.1;
-        symbol [ vario %tmp.105 77 19 24 ];
-        %tmp.106 = as %tmp.105 { (!Null) };
-        invoke %tmp.103 %tmp.104(%tmp.106);
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_76_3_78_2_stop:
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_end:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 80 2 ]
-        symbol [ display %tmp.108 80 2 9 ];
-        %tmp.108 = getv ? :display;
-        symbol [ end %tmp.109 80 10 13 ];
-        %tmp.109 = getv function %tmp.108 :end;
-        invoke %tmp.108 %tmp.109();
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 71 4 ]
+        symbol [ display %tmp.77 71 4 11 ];
+        %tmp.77 = getv ? :display;
+        symbol [ speed %tmp.78 71 12 17 ];
+        %tmp.78 = getv function %tmp.77 :speed;
+        %tmp.79 = lgetv %speed.5;
+        symbol [ speed %tmp.79 71 19 24 ];
+        symbol [ format %tmp.80 71 25 31 ];
+        %tmp.80 = getv function %tmp.79 :format;
+        %tmp.81 = "%.0f";
+        %tmp.82 = invoke %tmp.79 %tmp.80(%tmp.81);
+        invoke %tmp.77 %tmp.78(%tmp.82);
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_69_3_73_3_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_68_3_73_3_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 75 3 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_stmt:
+        %tmp.83 = lgetv %vario.1;
+        symbol [ vario %tmp.83 75 7 12 ];
+        %tmp.84 = null;
+        %tmp.85 = ne %tmp.83 %tmp.84;
+        bf %tmp.85 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_76_3_78_2_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 77 4 ]
+        symbol [ display %tmp.87 77 4 11 ];
+        %tmp.87 = getv ? :display;
+        symbol [ vario %tmp.88 77 12 17 ];
+        %tmp.88 = getv function %tmp.87 :vario;
+        %tmp.89 = lgetv %vario.1;
+        symbol [ vario %tmp.89 77 19 24 ];
+        %tmp.90 = as %tmp.89 { (!Null) };
+        invoke %tmp.87 %tmp.88(%tmp.90);
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_76_3_78_2_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_75_3_78_2_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 80 2 ]
+        symbol [ display %tmp.92 80 2 9 ];
+        %tmp.92 = getv ? :display;
+        symbol [ end %tmp.93 80 10 13 ];
+        %tmp.93 = getv function %tmp.92 :end;
+        invoke %tmp.92 %tmp.93();
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_37_4_98_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 100; @symbol_functiondef = [updateData,100,13,23]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 100; @symbol_functiondef = [updateData,100,13,23]; ]
     function updateData() {
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_101_4_125_4_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 102 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_101_4_125_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 102 5 ]
         symbol [ data %tmp.2 102 5 9 ];
         %tmp.2 = getv ? :data;
         symbol [ startMeasure %tmp.3 102 10 22 ];
         %tmp.3 = getv function %tmp.2 :startMeasure;
         invoke %tmp.2 %tmp.3();
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 104 6 ]
-        [ "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_101_4_125_4_start" "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_101_4_125_4_stop" ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 104 6 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_101_4_125_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_101_4_125_4_stop" ]
         %position.1 = local;
         symbol [ position %position.1 104 10 18 ];
         symbol [ Position %tmp.5 104 21 29 ];
@@ -341,16 +312,16 @@ _Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_101_4_125_4_start:
         %tmp.7 = invoke %tmp.5 %tmp.6();
         lputv %position.1 %tmp.7;
         symbol [ position %position.1 104 10 18 ];
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 105 6 ]
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_stmt:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 105 6 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_stmt:
         %tmp.8 = lgetv %position.1;
         symbol [ position %tmp.8 105 10 18 ];
         %tmp.9 = null;
         %tmp.10 = ne %tmp.8 %tmp.9;
-        bf %tmp.10 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_true:
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_106_6_108_6_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 107 7 ]
+        bf %tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_106_6_108_6_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 107 7 ]
         symbol [ data %tmp.12 107 7 11 ];
         %tmp.12 = getv ? :data;
         symbol [ updateInfo %tmp.13 107 12 22 ];
@@ -359,11 +330,11 @@ _Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_106_6_108_6_start:
         symbol [ position %tmp.14 107 24 32 ];
         %tmp.15 = as %tmp.14 { (!Null) };
         invoke %tmp.12 %tmp.13(%tmp.15);
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_106_6_108_6_stop:
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_end:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 110 6 ]
-        [ "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_101_4_125_4_start" "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_101_4_125_4_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_106_6_108_6_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 110 6 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_101_4_125_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_101_4_125_4_stop" ]
         %activity.2 = local;
         symbol [ activity %activity.2 110 10 18 ];
         symbol [ Activity %tmp.17 110 21 29 ];
@@ -373,16 +344,16 @@ _Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_105_6_108_6_if_end:
         %tmp.19 = invoke %tmp.17 %tmp.18();
         lputv %activity.2 %tmp.19;
         symbol [ activity %activity.2 110 10 18 ];
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 111 6 ]
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_stmt:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 111 6 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_stmt:
         %tmp.20 = lgetv %activity.2;
         symbol [ activity %tmp.20 111 10 18 ];
         %tmp.21 = null;
         %tmp.22 = ne %tmp.20 %tmp.21;
-        bf %tmp.22 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_true:
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_112_6_114_6_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 113 7 ]
+        bf %tmp.22 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_112_6_114_6_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 113 7 ]
         symbol [ data %tmp.24 113 7 11 ];
         %tmp.24 = getv ? :data;
         symbol [ updateActivityInfo %tmp.25 113 12 30 ];
@@ -391,11 +362,11 @@ _Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_112_6_114_6_start:
         symbol [ activity %tmp.26 113 32 40 ];
         %tmp.27 = as %tmp.26 { (!Null) };
         invoke %tmp.24 %tmp.25(%tmp.27);
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_112_6_114_6_stop:
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_end:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 116 6 ]
-        [ "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_101_4_125_4_start" "_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_101_4_125_4_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_112_6_114_6_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 116 6 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_101_4_125_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_101_4_125_4_stop" ]
         %sensor.3 = local;
         symbol [ sensor %sensor.3 116 10 16 ];
         symbol [ Sensor %tmp.29 116 19 25 ];
@@ -405,16 +376,16 @@ _Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_111_6_114_6_if_end:
         %tmp.31 = invoke %tmp.29 %tmp.30();
         lputv %sensor.3 %tmp.31;
         symbol [ sensor %sensor.3 116 10 16 ];
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 117 6 ]
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_stmt:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 117 6 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_stmt:
         %tmp.32 = lgetv %sensor.3;
         symbol [ sensor %tmp.32 117 10 16 ];
         %tmp.33 = null;
         %tmp.34 = ne %tmp.32 %tmp.33;
-        bf %tmp.34 @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_true:
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_118_6_120_6_start:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 119 7 ]
+        bf %tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_118_6_120_6_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 119 7 ]
         symbol [ data %tmp.36 119 7 11 ];
         %tmp.36 = getv ? :data;
         symbol [ updateSensorInfo %tmp.37 119 12 28 ];
@@ -423,24 +394,24 @@ _Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_118_6_120_6_start:
         symbol [ sensor %tmp.38 119 30 36 ];
         %tmp.39 = as %tmp.38 { (!Null) };
         invoke %tmp.36 %tmp.37(%tmp.39);
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_118_6_120_6_stop:
-        goto @_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_end;
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_end:
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 122 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_118_6_120_6_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_117_6_120_6_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 122 5 ]
         symbol [ data %tmp.41 122 5 9 ];
         %tmp.41 = getv ? :data;
         symbol [ endMeasure %tmp.42 122 10 20 ];
         %tmp.42 = getv function %tmp.41 :endMeasure;
         invoke %tmp.41 %tmp.42();
-[ "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc" 124 8 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc" 124 8 ]
         symbol [ WatchUi %tmp.43 124 8 15 ];
         %tmp.43 = getm $.Toybox.WatchUi;
         symbol [ requestUpdate %tmp.44 124 16 29 ];
         %tmp.44 = getv function %tmp.43 :requestUpdate;
         invoke %tmp.43 %tmp.44();
-_Users_tk_Desktop_glidator2_source_FlyInstrumentView_mc_101_4_125_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentView_mc_101_4_125_4_stop:
     }
 }
-[ @file = "/Users/tk/Desktop/glidator2/source/FlyInstrumentView.mc"; @line = 1; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentView.mc"; @line = 1; ]
 <init> {
 }

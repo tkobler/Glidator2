@@ -1,0 +1,167 @@
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [System,2,13,19]; ]
+using Toybox.System;
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [Graphics,3,13,21]; ]
+using Toybox.Graphics;
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 10; @symbol_classdef = [HikeMapView,10,6,17]; @symbol_extends<0> = [WatchUi,10,26,33]; @symbol_extends<1> = [View,10,34,38]; ]
+class HikeMapView extends WatchUi.View {
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 10; ]
+    <init> {
+    }
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 10; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 11; @position = 8; @symbol_vardef = [app,11,8,11]; ]
+    var app;
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 12; @position = 8; @symbol_vardef = [display,12,8,15]; ]
+    var display;
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 14; @symbol_functiondef = [initialize,14,13,23]; @symbol_param<0> = [appInstance,14,24,35]; ]
+    function initialize(appInstance) as Void {
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_14_37_17_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 15 8 ]
+        symbol [ View %tmp.2 15 8 12 ];
+        %tmp.2 = getv ? :View;
+        symbol [ initialize %tmp.3 15 13 23 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 16 8 ]
+        %tmp.4 = lgetv %appInstance;
+        symbol [ appInstance %tmp.4 16 14 25 ];
+        symbol [ app ? 16 8 11 ];
+        putv self :app %tmp.4;
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_14_37_17_4_stop:
+    }
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 19; @symbol_functiondef = [onLayout,19,13,21]; @symbol_param<0> = [dc,19,22,24]; ]
+    function onLayout(dc) {
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_19_26_21_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 20 8 ]
+        symbol [ WatchDisplay %tmp.4 20 22 34 ];
+        %tmp.4 = getv ? :WatchDisplay;
+        %tmp.5 = lgetv %dc;
+        symbol [ dc %tmp.5 20 35 37 ];
+        %tmp.1 = newc %tmp.4 (%tmp.5);
+        symbol [ display ? 20 8 15 ];
+        putv self :display %tmp.1;
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_19_26_21_4_stop:
+    }
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 23; @symbol_functiondef = [onShow,23,13,19]; ]
+    function onShow() {
+    }
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 26; @symbol_functiondef = [onHide,26,13,19]; ]
+    function onHide() {
+    }
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 29; @symbol_functiondef = [onUpdate,29,13,21]; @symbol_param<0> = [dc,29,22,24]; ]
+    function onUpdate(dc) {
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 30 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_8_32_8_if_stmt:
+        symbol [ display %tmp.2 30 12 19 ];
+        %tmp.2 = getv ? :display;
+        %tmp.3 = null;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_8_32_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_8_32_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_29_32_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 31 12 ]
+        ret ?;
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_29_32_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_8_32_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_8_32_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 34 8 ]
+        symbol [ display %tmp.5 34 8 15 ];
+        %tmp.5 = getv self :display;
+        %tmp.6 = lgetv %dc;
+        symbol [ dc %tmp.6 34 21 23 ];
+        symbol [ dc ? 34 16 18 ];
+        putv %tmp.5 :dc %tmp.6;
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 36 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 36 8 10 ];
+        symbol [ setColor %tmp.8 36 11 19 ];
+        %tmp.8 = getv function %tmp.7 :setColor;
+        symbol [ Graphics %tmp.9 36 20 28 ];
+        %tmp.9 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.10 36 29 40 ];
+        %tmp.10 = getv %tmp.9 :COLOR_WHITE;
+        symbol [ Graphics %tmp.11 36 42 50 ];
+        %tmp.11 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.12 36 51 62 ];
+        %tmp.12 = getv %tmp.11 :COLOR_WHITE;
+        invoke %tmp.7 %tmp.8(%tmp.10, %tmp.12);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 37 8 ]
+        %tmp.13 = lgetv %dc;
+        symbol [ dc %tmp.13 37 8 10 ];
+        symbol [ clear %tmp.14 37 11 16 ];
+        %tmp.14 = getv function %tmp.13 :clear;
+        invoke %tmp.13 %tmp.14();
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 39 8 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_stop" ]
+        %trail.1 = local;
+        symbol [ trail %trail.1 39 12 17 ];
+        symbol [ app %tmp.16 39 20 23 ];
+        %tmp.16 = getv ? :app;
+        symbol [ breadcrumbTrail %tmp.17 39 24 39 ];
+        %tmp.17 = getv %tmp.16 :breadcrumbTrail;
+        lputv %trail.1 %tmp.17;
+        symbol [ trail %trail.1 39 12 17 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 40 8 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_stop" ]
+        %curData.2 = local;
+        symbol [ curData %curData.2 40 12 19 ];
+        symbol [ app %tmp.19 40 22 25 ];
+        %tmp.19 = getv ? :app;
+        symbol [ mainView %tmp.20 40 26 34 ];
+        %tmp.20 = getv %tmp.19 :mainView;
+        symbol [ data %tmp.21 40 35 39 ];
+        %tmp.21 = getv %tmp.20 :data;
+        lputv %curData.2 %tmp.21;
+        symbol [ curData %curData.2 40 12 19 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 42 8 ]
+        symbol [ display %tmp.23 42 8 15 ];
+        %tmp.23 = getv ? :display;
+        symbol [ map %tmp.24 42 16 19 ];
+        %tmp.24 = getv function %tmp.23 :map;
+        %tmp.25 = lgetv %trail.1;
+        symbol [ trail %tmp.25 43 12 17 ];
+        symbol [ getLats %tmp.26 43 18 25 ];
+        %tmp.26 = getv function %tmp.25 :getLats;
+        %tmp.27 = invoke %tmp.25 %tmp.26();
+        %tmp.28 = lgetv %trail.1;
+        symbol [ trail %tmp.28 43 29 34 ];
+        symbol [ getLons %tmp.29 43 35 42 ];
+        %tmp.29 = getv function %tmp.28 :getLons;
+        %tmp.30 = invoke %tmp.28 %tmp.29();
+        %tmp.31 = lgetv %trail.1;
+        symbol [ trail %tmp.31 43 46 51 ];
+        symbol [ getCount %tmp.32 43 52 60 ];
+        %tmp.32 = getv function %tmp.31 :getCount;
+        %tmp.33 = invoke %tmp.31 %tmp.32();
+        %tmp.34 = lgetv %trail.1;
+        symbol [ trail %tmp.34 43 64 69 ];
+        symbol [ getWriteIndex %tmp.35 43 70 83 ];
+        %tmp.35 = getv function %tmp.34 :getWriteIndex;
+        %tmp.36 = invoke %tmp.34 %tmp.35();
+        %tmp.37 = lgetv %curData.2;
+        symbol [ curData %tmp.37 44 12 19 ];
+        symbol [ getLat %tmp.38 44 20 26 ];
+        %tmp.38 = getv function %tmp.37 :getLat;
+        %tmp.39 = invoke %tmp.37 %tmp.38();
+        %tmp.40 = lgetv %curData.2;
+        symbol [ curData %tmp.40 44 30 37 ];
+        symbol [ getLon %tmp.41 44 38 44 ];
+        %tmp.41 = getv function %tmp.40 :getLon;
+        %tmp.42 = invoke %tmp.40 %tmp.41();
+        %tmp.43 = lgetv %curData.2;
+        symbol [ curData %tmp.43 44 48 55 ];
+        symbol [ getHeading %tmp.44 44 56 66 ];
+        %tmp.44 = getv function %tmp.43 :getHeading;
+        %tmp.45 = invoke %tmp.43 %tmp.44();
+        invoke %tmp.23 %tmp.24(%tmp.27, %tmp.30, %tmp.33, %tmp.36, %tmp.39, %tmp.42, %tmp.45);
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_stop:
+    }
+}
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 1; ]
+<init> {
+}

@@ -124,14 +124,38 @@ class WatchData
         {
         	data ["heartRate"] = info.currentHeartRate;
         }
-        
+
         // The true north referenced heading in radians.
         // WARNING: only provides compass information
-		if (info has :currentHeading)    
+		if (info has :currentHeading)
         {
         	data ["heading"] = info.currentHeading;
         }
-    
+
+        // The current speed in meters per second (mps).
+        if (info has :currentSpeed)
+        {
+        	data ["speed"] = info.currentSpeed;
+        }
+
+        // The total ascent during the current activity in meters (m).
+        if (info has :totalAscent)
+        {
+        	data ["totalAscent"] = info.totalAscent;
+        }
+
+        // The elapsed distance of the current activity in meters (m).
+        if (info has :elapsedDistance)
+        {
+        	data ["distance"] = info.elapsedDistance;
+        }
+
+        // The current Timer value in milliseconds (ms).
+        if (info has :timerTime)
+        {
+        	data ["timerTime"] = info.timerTime;
+        }
+
     	activityData = data;
     }
     
@@ -211,12 +235,17 @@ class WatchData
     	{
     		return sensorData ["speed"];
     	}
-    
+
     	if (gpsData != null && gpsData.hasKey("speed"))
     	{
     		return gpsData ["speed"];
     	}
-    	
+
+    	if (activityData != null && activityData.hasKey("speed"))
+    	{
+    		return activityData ["speed"];
+    	}
+
     	return null;
     }
     
@@ -233,7 +262,43 @@ class WatchData
     	{
     		return sensorData ["heartRate"];
     	}
-    	    	
+
+    	return null;
+    }
+
+    (:typecheck(false))
+	// See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    function getTotalAscent ()
+    {
+    	if (activityData != null && activityData.hasKey("totalAscent"))
+    	{
+    		return activityData ["totalAscent"];
+    	}
+
+    	return null;
+    }
+
+    (:typecheck(false))
+	// See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    function getDistance ()
+    {
+    	if (activityData != null && activityData.hasKey("distance"))
+    	{
+    		return activityData ["distance"];
+    	}
+
+    	return null;
+    }
+
+    (:typecheck(false))
+	// See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    function getTimerTime ()
+    {
+    	if (activityData != null && activityData.hasKey("timerTime"))
+    	{
+    		return activityData ["timerTime"];
+    	}
+
     	return null;
     }
 

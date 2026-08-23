@@ -354,6 +354,201 @@ class WatchDisplay
         }
     }
 
+    // Small hand-drawn heart icon (two circles + a triangle), same technique
+    // as the battery icon in time_and_battery() below -- Connect IQ has no
+    // built-in icon font glyph guaranteed available across every device.
+    function drawHeart(centerX, centerY, size)
+    {
+        var r = size / 2.0;
+        dc.fillCircle(centerX - r * 0.6, centerY - r * 0.3, r * 0.7);
+        dc.fillCircle(centerX + r * 0.6, centerY - r * 0.3, r * 0.7);
+        dc.fillPolygon([
+            [centerX - r * 1.25, centerY - r * 0.1],
+            [centerX + r * 1.25, centerY - r * 0.1],
+            [centerX, centerY + r * 1.3]
+        ]);
+    }
+
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    // 4-field grid used by the Hiking Position and Pace pages: a full-width
+    // top field (optionally with a heart icon instead of a label), a divider,
+    // a two-column middle row split by a vertical divider, another divider,
+    // and a big full-width bottom field for the timer -- modeled on a
+    // standard Garmin data screen layout.
+    function hikeGrid(topLabel, topValue, showHeartIcon, leftLabel, leftValue, rightLabel, rightValue, bottomLabel, bottomValue)
+    {
+        var w = dc.getWidth();
+        var h = dc.getHeight();
+        var centerX = w / 2;
+        var marginX = w * 0.1;
+        var left = marginX;
+        var right = w - marginX;
+
+        var y0 = h * 0.10;
+        var y1 = h * 0.35; // divider 1
+        var y2 = h * 0.65; // divider 2
+        var y3 = h * 0.90;
+
+        // Top field
+        var topCenterY = (y0 + y1) / 2;
+        if (showHeartIcon)
+        {
+            var valueWidth = dc.getTextWidthInPixels(topValue, Graphics.FONT_NUMBER_MILD);
+            dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+            drawHeart(centerX - valueWidth / 2 - 16, topCenterY, 16);
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(centerX + 10, topCenterY, Graphics.FONT_NUMBER_MILD, topValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        }
+        else
+        {
+            dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(centerX, topCenterY - 18, Graphics.FONT_XTINY, topLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(centerX, topCenterY + 12, Graphics.FONT_NUMBER_MILD, topValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        }
+
+        dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(2);
+        dc.drawLine(left, y1, right, y1);
+
+        // Middle two columns
+        var midCenterY = (y1 + y2) / 2;
+        var colLeftX = (left + centerX) / 2 - 5;
+        var colRightX = (centerX + right) / 2 + 5;
+
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(colLeftX, midCenterY - 28, Graphics.FONT_XTINY, leftLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colRightX, midCenterY - 28, Graphics.FONT_XTINY, rightLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(colLeftX, midCenterY + 12, Graphics.FONT_NUMBER_MILD, leftValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colRightX, midCenterY + 12, Graphics.FONT_NUMBER_MILD, rightValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(centerX, y1 + 8, centerX, y2 - 8);
+        dc.drawLine(left, y2, right, y2);
+        dc.setPenWidth(1);
+
+        // Bottom field (timer) -- biggest text on the page
+        var bottomCenterY = (y2 + y3) / 2;
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, y2 + 14, Graphics.FONT_XTINY, bottomLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, bottomCenterY + 14, Graphics.FONT_NUMBER_MEDIUM, bottomValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    // Live breadcrumb map: draws the recorded trail (a ring buffer, oldest-to-newest
+    // starting at writeIndex once it has wrapped) plus a heading-oriented marker at
+    // the current position, scaled and centered to fit whatever's been recorded so far.
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    function map(lats, lons, count, writeIndex, curLat, curLon, heading)
+    {
+        if (curLat == null || curLon == null)
+        {
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 - 15, Graphics.FONT_SMALL, "Waiting for", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 15, Graphics.FONT_SMALL, "GPS", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            return;
+        }
+
+        var capacity = lats.size();
+        var centerX = dc.getWidth() / 2;
+        var centerY = dc.getHeight() / 2;
+        var screenRadius = dc.getWidth() / 2 - borderSize;
+
+        // Bounding box (in degrees) over the trail plus the current position.
+        var minLat = curLat, maxLat = curLat, minLon = curLon, maxLon = curLon;
+        for (var i = 0; i < count; i++)
+        {
+            var idx = (writeIndex - count + i + capacity) % capacity;
+            var lat = lats[idx];
+            var lon = lons[idx];
+            if (lat < minLat) { minLat = lat; }
+            if (lat > maxLat) { maxLat = lat; }
+            if (lon < minLon) { minLon = lon; }
+            if (lon > maxLon) { maxLon = lon; }
+        }
+
+        var centerLat = (minLat + maxLat) / 2.0;
+        var centerLon = (minLon + maxLon) / 2.0;
+        var cosLat = Math.cos(Math.toRadians(centerLat));
+
+        // Longitude-compressed local projection (equirectangular); the scale unit
+        // doesn't matter since it only feeds a fit-to-screen ratio below.
+        var maxRange = 0.0001; // floor avoids a divide-by-zero when stationary
+        for (var i = 0; i < count; i++)
+        {
+            var idx = (writeIndex - count + i + capacity) % capacity;
+            var dx = (lons[idx] - centerLon) * cosLat;
+            var dy = lats[idx] - centerLat;
+            var r = (dx.abs() > dy.abs()) ? dx.abs() : dy.abs();
+            if (r > maxRange) { maxRange = r; }
+        }
+        var curDx = (curLon - centerLon) * cosLat;
+        var curDy = curLat - centerLat;
+        var curR = (curDx.abs() > curDy.abs()) ? curDx.abs() : curDy.abs();
+        if (curR > maxRange) { maxRange = curR; }
+
+        var scale = (screenRadius * 0.85) / maxRange;
+
+        // Trail line, oldest to newest, connected through to the current position.
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(3);
+        var prevX = null, prevY = null;
+        for (var i = 0; i < count; i++)
+        {
+            var idx = (writeIndex - count + i + capacity) % capacity;
+            var dx = (lons[idx] - centerLon) * cosLat;
+            var dy = lats[idx] - centerLat;
+            var x = centerX + dx * scale;
+            var y = centerY - dy * scale;
+            if (prevX != null)
+            {
+                dc.drawLine(prevX, prevY, x, y);
+            }
+            prevX = x;
+            prevY = y;
+        }
+
+        var curX = centerX + curDx * scale;
+        var curY = centerY - curDy * scale;
+        if (prevX != null)
+        {
+            dc.drawLine(prevX, prevY, curX, curY);
+        }
+        dc.setPenWidth(1);
+
+        // Current position marker: a small heading-oriented arrow, or a plain dot
+        // if heading isn't available yet.
+        if (heading != null)
+        {
+            var size = 8;
+            var points = [[-size / 2, size], [0, -size], [size / 2, size]];
+            var cos = Math.cos(heading);
+            var sin = Math.sin(heading);
+
+            var poly = new [3];
+            for (var i = 0; i < 3; i++)
+            {
+                var x0 = points[i][0];
+                var y0 = points[i][1];
+                var rx = x0 * cos - y0 * sin;
+                var ry = x0 * sin + y0 * cos;
+                poly[i] = [curX + rx, curY + ry];
+            }
+
+            dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+            dc.fillPolygon(poly);
+        }
+        else
+        {
+            dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+            dc.fillCircle(curX, curY, 5);
+        }
+    }
+
     function time_and_battery(timeStr, battery){
         // Draw time in BLACK with a large font, centered in the middle of the screen
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);

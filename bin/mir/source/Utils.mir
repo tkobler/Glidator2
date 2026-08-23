@@ -1,0 +1,122 @@
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc"; @line = 6; @symbol_functiondef = [formatDuration,6,9,23]; @symbol_param<0> = [ms,6,24,26]; ]
+function formatDuration(ms) {
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 8 1 ]
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_stmt:
+    %tmp.1 = lgetv %ms;
+    symbol [ ms %tmp.1 8 5 7 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_9_1_11_1_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 10 2 ]
+    %tmp.4 = "--:--";
+    ret %tmp.4;
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_9_1_11_1_stop:
+    goto @_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 13 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop" ]
+    %totalSeconds.1 = local;
+    symbol [ totalSeconds %totalSeconds.1 13 5 17 ];
+    %tmp.5 = lgetv %ms;
+    symbol [ ms %tmp.5 13 21 23 ];
+    %tmp.6 = 1000;
+    %tmp.7 = div %tmp.5 %tmp.6;
+    symbol [ toNumber %tmp.8 13 32 40 ];
+    %tmp.8 = getv function %tmp.7 :toNumber;
+    %tmp.9 = invoke %tmp.7 %tmp.8();
+    lputv %totalSeconds.1 %tmp.9;
+    symbol [ totalSeconds %totalSeconds.1 13 5 17 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 14 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop" ]
+    %hours.2 = local;
+    symbol [ hours %hours.2 14 5 10 ];
+    %tmp.10 = lgetv %totalSeconds.1;
+    symbol [ totalSeconds %tmp.10 14 13 25 ];
+    %tmp.11 = 3600;
+    %tmp.12 = div %tmp.10 %tmp.11;
+    lputv %hours.2 %tmp.12;
+    symbol [ hours %hours.2 14 5 10 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 15 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop" ]
+    %minutes.3 = local;
+    symbol [ minutes %minutes.3 15 5 12 ];
+    %tmp.13 = lgetv %totalSeconds.1;
+    symbol [ totalSeconds %tmp.13 15 16 28 ];
+    %tmp.14 = 3600;
+    %tmp.15 = mod %tmp.13 %tmp.14;
+    %tmp.16 = 60;
+    %tmp.17 = div %tmp.15 %tmp.16;
+    lputv %minutes.3 %tmp.17;
+    symbol [ minutes %minutes.3 15 5 12 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 16 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop" ]
+    %seconds.4 = local;
+    symbol [ seconds %seconds.4 16 5 12 ];
+    %tmp.18 = lgetv %totalSeconds.1;
+    symbol [ totalSeconds %tmp.18 16 15 27 ];
+    %tmp.19 = 60;
+    %tmp.20 = mod %tmp.18 %tmp.19;
+    lputv %seconds.4 %tmp.20;
+    symbol [ seconds %seconds.4 16 5 12 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 18 1 ]
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_stmt:
+    %tmp.21 = lgetv %hours.2;
+    symbol [ hours %tmp.21 18 5 10 ];
+    %tmp.22 = 0;
+    %tmp.23 = gt %tmp.21 %tmp.22;
+    bf %tmp.23 @_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_19_1_21_1_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 20 2 ]
+    %tmp.24 = lgetv %hours.2;
+    symbol [ hours %tmp.24 20 9 14 ];
+    symbol [ toString %tmp.25 20 15 23 ];
+    %tmp.25 = getv function %tmp.24 :toString;
+    %tmp.26 = invoke %tmp.24 %tmp.25();
+    %tmp.27 = ":";
+    %tmp.28 = add %tmp.26 %tmp.27;
+    %tmp.29 = lgetv %minutes.3;
+    symbol [ minutes %tmp.29 20 34 41 ];
+    symbol [ format %tmp.30 20 42 48 ];
+    %tmp.30 = getv function %tmp.29 :format;
+    %tmp.31 = "%02d";
+    %tmp.32 = invoke %tmp.29 %tmp.30(%tmp.31);
+    %tmp.33 = add %tmp.28 %tmp.32;
+    %tmp.34 = ":";
+    %tmp.35 = add %tmp.33 %tmp.34;
+    %tmp.36 = lgetv %seconds.4;
+    symbol [ seconds %tmp.36 20 65 72 ];
+    symbol [ format %tmp.37 20 73 79 ];
+    %tmp.37 = getv function %tmp.36 :format;
+    %tmp.38 = "%02d";
+    %tmp.39 = invoke %tmp.36 %tmp.37(%tmp.38);
+    %tmp.40 = add %tmp.35 %tmp.39;
+    ret %tmp.40;
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_19_1_21_1_stop:
+    goto @_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 23 1 ]
+    %tmp.41 = lgetv %minutes.3;
+    symbol [ minutes %tmp.41 23 8 15 ];
+    symbol [ format %tmp.42 23 16 22 ];
+    %tmp.42 = getv function %tmp.41 :format;
+    %tmp.43 = "%02d";
+    %tmp.44 = invoke %tmp.41 %tmp.42(%tmp.43);
+    %tmp.45 = ":";
+    %tmp.46 = add %tmp.44 %tmp.45;
+    %tmp.47 = lgetv %seconds.4;
+    symbol [ seconds %tmp.47 23 39 46 ];
+    symbol [ format %tmp.48 23 47 53 ];
+    %tmp.48 = getv function %tmp.47 :format;
+    %tmp.49 = "%02d";
+    %tmp.50 = invoke %tmp.47 %tmp.48(%tmp.49);
+    %tmp.51 = add %tmp.46 %tmp.50;
+    ret %tmp.51;
+_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop:
+}
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc"; @line = 6; ]
+<init> {
+}

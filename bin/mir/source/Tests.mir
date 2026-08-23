@@ -1,0 +1,680 @@
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Test,1,13,17]; ]
+using Toybox.Test;
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc"; @line = 9; test = true; @symbol_functiondef = [testFormatDuration,9,9,27]; @symbol_param<0> = [logger,9,28,34]; ]
+function testFormatDuration(logger) {
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_10_0_19_0_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 11 1 ]
+    symbol [ Test %tmp.1 11 1 5 ];
+    %tmp.1 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.2 11 6 24 ];
+    %tmp.2 = getv function %tmp.1 :assertEqualMessage;
+    %tmp.3 = self;
+    symbol [ formatDuration %tmp.4 11 25 39 ];
+    %tmp.4 = getv function %tmp.3 :formatDuration;
+    %tmp.5 = null;
+    %tmp.6 = invoke %tmp.3 %tmp.4(%tmp.5);
+    %tmp.7 = "--:--";
+    %tmp.8 = "null duration should show placeholder";
+    invoke %tmp.1 %tmp.2(%tmp.6, %tmp.7, %tmp.8);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 12 1 ]
+    symbol [ Test %tmp.9 12 1 5 ];
+    %tmp.9 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.10 12 6 24 ];
+    %tmp.10 = getv function %tmp.9 :assertEqualMessage;
+    %tmp.11 = self;
+    symbol [ formatDuration %tmp.12 12 25 39 ];
+    %tmp.12 = getv function %tmp.11 :formatDuration;
+    %tmp.13 = 0;
+    %tmp.14 = invoke %tmp.11 %tmp.12(%tmp.13);
+    %tmp.15 = "00:00";
+    %tmp.16 = "zero ms";
+    invoke %tmp.9 %tmp.10(%tmp.14, %tmp.15, %tmp.16);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 13 1 ]
+    symbol [ Test %tmp.17 13 1 5 ];
+    %tmp.17 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.18 13 6 24 ];
+    %tmp.18 = getv function %tmp.17 :assertEqualMessage;
+    %tmp.19 = self;
+    symbol [ formatDuration %tmp.20 13 25 39 ];
+    %tmp.20 = getv function %tmp.19 :formatDuration;
+    %tmp.21 = 59000;
+    %tmp.22 = invoke %tmp.19 %tmp.20(%tmp.21);
+    %tmp.23 = "00:59";
+    %tmp.24 = "59 seconds";
+    invoke %tmp.17 %tmp.18(%tmp.22, %tmp.23, %tmp.24);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 14 1 ]
+    symbol [ Test %tmp.25 14 1 5 ];
+    %tmp.25 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.26 14 6 24 ];
+    %tmp.26 = getv function %tmp.25 :assertEqualMessage;
+    %tmp.27 = self;
+    symbol [ formatDuration %tmp.28 14 25 39 ];
+    %tmp.28 = getv function %tmp.27 :formatDuration;
+    %tmp.29 = 60000;
+    %tmp.30 = invoke %tmp.27 %tmp.28(%tmp.29);
+    %tmp.31 = "01:00";
+    %tmp.32 = "exactly one minute";
+    invoke %tmp.25 %tmp.26(%tmp.30, %tmp.31, %tmp.32);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 15 1 ]
+    symbol [ Test %tmp.33 15 1 5 ];
+    %tmp.33 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.34 15 6 24 ];
+    %tmp.34 = getv function %tmp.33 :assertEqualMessage;
+    %tmp.35 = self;
+    symbol [ formatDuration %tmp.36 15 25 39 ];
+    %tmp.36 = getv function %tmp.35 :formatDuration;
+    %tmp.37 = 3599000;
+    %tmp.38 = invoke %tmp.35 %tmp.36(%tmp.37);
+    %tmp.39 = "59:59";
+    %tmp.40 = "just under an hour";
+    invoke %tmp.33 %tmp.34(%tmp.38, %tmp.39, %tmp.40);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 16 1 ]
+    symbol [ Test %tmp.41 16 1 5 ];
+    %tmp.41 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.42 16 6 24 ];
+    %tmp.42 = getv function %tmp.41 :assertEqualMessage;
+    %tmp.43 = self;
+    symbol [ formatDuration %tmp.44 16 25 39 ];
+    %tmp.44 = getv function %tmp.43 :formatDuration;
+    %tmp.45 = 3600000;
+    %tmp.46 = invoke %tmp.43 %tmp.44(%tmp.45);
+    %tmp.47 = "1:00:00";
+    %tmp.48 = "exactly one hour rolls into h:mm:ss";
+    invoke %tmp.41 %tmp.42(%tmp.46, %tmp.47, %tmp.48);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 17 1 ]
+    symbol [ Test %tmp.49 17 1 5 ];
+    %tmp.49 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.50 17 6 24 ];
+    %tmp.50 = getv function %tmp.49 :assertEqualMessage;
+    %tmp.51 = self;
+    symbol [ formatDuration %tmp.52 17 25 39 ];
+    %tmp.52 = getv function %tmp.51 :formatDuration;
+    %tmp.53 = 3661000;
+    %tmp.54 = invoke %tmp.51 %tmp.52(%tmp.53);
+    %tmp.55 = "1:01:01";
+    %tmp.56 = "one hour, one minute, one second";
+    invoke %tmp.49 %tmp.50(%tmp.54, %tmp.55, %tmp.56);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 18 1 ]
+    %tmp.57 = true;
+    ret %tmp.57;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_10_0_19_0_stop:
+}
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc"; @line = 22; test = true; @symbol_functiondef = [testBreadcrumbTrailDecimation,22,9,38]; @symbol_param<0> = [logger,22,39,45]; ]
+function testBreadcrumbTrailDecimation(logger) {
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_23_0_38_0_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 24 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_23_0_38_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_23_0_38_0_stop" ]
+    %trail.1 = local;
+    symbol [ trail %trail.1 24 5 10 ];
+    symbol [ BreadcrumbTrail %tmp.4 24 17 32 ];
+    %tmp.4 = getv ? :BreadcrumbTrail;
+    %tmp.1 = newc %tmp.4 ();
+    lputv %trail.1 %tmp.1;
+    symbol [ trail %trail.1 24 5 10 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 26 1 ]
+    %tmp.5 = lgetv %trail.1;
+    symbol [ trail %tmp.5 26 1 6 ];
+    symbol [ update %tmp.6 26 7 13 ];
+    %tmp.6 = getv function %tmp.5 :update;
+    %tmp.7 = 46.0;
+    %tmp.8 = 7.0;
+    invoke %tmp.5 %tmp.6(%tmp.7, %tmp.8);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 27 1 ]
+    symbol [ Test %tmp.9 27 1 5 ];
+    %tmp.9 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.10 27 6 24 ];
+    %tmp.10 = getv function %tmp.9 :assertEqualMessage;
+    %tmp.11 = lgetv %trail.1;
+    symbol [ trail %tmp.11 27 25 30 ];
+    symbol [ getCount %tmp.12 27 31 39 ];
+    %tmp.12 = getv function %tmp.11 :getCount;
+    %tmp.13 = invoke %tmp.11 %tmp.12();
+    %tmp.14 = 1;
+    %tmp.15 = "first point is always stored";
+    invoke %tmp.9 %tmp.10(%tmp.13, %tmp.14, %tmp.15);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 30 1 ]
+    %tmp.16 = lgetv %trail.1;
+    symbol [ trail %tmp.16 30 1 6 ];
+    symbol [ update %tmp.17 30 7 13 ];
+    %tmp.17 = getv function %tmp.16 :update;
+    %tmp.18 = 46.00001;
+    %tmp.19 = 7.0;
+    invoke %tmp.16 %tmp.17(%tmp.18, %tmp.19);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 31 1 ]
+    symbol [ Test %tmp.20 31 1 5 ];
+    %tmp.20 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.21 31 6 24 ];
+    %tmp.21 = getv function %tmp.20 :assertEqualMessage;
+    %tmp.22 = lgetv %trail.1;
+    symbol [ trail %tmp.22 31 25 30 ];
+    symbol [ getCount %tmp.23 31 31 39 ];
+    %tmp.23 = getv function %tmp.22 :getCount;
+    %tmp.24 = invoke %tmp.22 %tmp.23();
+    %tmp.25 = 1;
+    %tmp.26 = "sub-threshold move should be decimated away";
+    invoke %tmp.20 %tmp.21(%tmp.24, %tmp.25, %tmp.26);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 34 1 ]
+    %tmp.27 = lgetv %trail.1;
+    symbol [ trail %tmp.27 34 1 6 ];
+    symbol [ update %tmp.28 34 7 13 ];
+    %tmp.28 = getv function %tmp.27 :update;
+    %tmp.29 = 46.00018;
+    %tmp.30 = 7.0;
+    invoke %tmp.27 %tmp.28(%tmp.29, %tmp.30);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 35 1 ]
+    symbol [ Test %tmp.31 35 1 5 ];
+    %tmp.31 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.32 35 6 24 ];
+    %tmp.32 = getv function %tmp.31 :assertEqualMessage;
+    %tmp.33 = lgetv %trail.1;
+    symbol [ trail %tmp.33 35 25 30 ];
+    symbol [ getCount %tmp.34 35 31 39 ];
+    %tmp.34 = getv function %tmp.33 :getCount;
+    %tmp.35 = invoke %tmp.33 %tmp.34();
+    %tmp.36 = 2;
+    %tmp.37 = "above-threshold move should be stored";
+    invoke %tmp.31 %tmp.32(%tmp.35, %tmp.36, %tmp.37);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 37 1 ]
+    %tmp.38 = true;
+    ret %tmp.38;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_23_0_38_0_stop:
+}
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc"; @line = 42; test = true; typecheck = false; @symbol_functiondef = [testBreadcrumbTrailRingBufferWraparound,42,9,48]; @symbol_param<0> = [logger,42,49,55]; ]
+function testBreadcrumbTrailRingBufferWraparound(logger) {
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 44 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_stop" ]
+    %trail.1 = local;
+    symbol [ trail %trail.1 44 5 10 ];
+    symbol [ BreadcrumbTrail %tmp.4 44 17 32 ];
+    %tmp.4 = getv ? :BreadcrumbTrail;
+    %tmp.1 = newc %tmp.4 ();
+    lputv %trail.1 %tmp.1;
+    symbol [ trail %trail.1 44 5 10 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 45 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_stop" ]
+    %capacity.2 = local;
+    symbol [ capacity %capacity.2 45 5 13 ];
+    %tmp.5 = 250;
+    lputv %capacity.2 %tmp.5;
+    symbol [ capacity %capacity.2 45 5 13 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 49 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_stop" ]
+    %lat.3 = local;
+    symbol [ lat %lat.3 49 5 8 ];
+    %tmp.6 = 46.0;
+    lputv %lat.3 %tmp.6;
+    symbol [ lat %lat.3 49 5 8 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 50 1 ]
+    for @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_test @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_incr @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_init:
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_begin" "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_end" ]
+    %i.4 = local;
+    symbol [ i %i.4 50 10 11 ];
+    %tmp.7 = 0;
+    lputv %i.4 %tmp.7;
+    symbol [ i %i.4 50 10 11 ];
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_test:
+    %tmp.8 = lgetv %i.4;
+    symbol [ i %tmp.8 50 17 18 ];
+    %tmp.9 = lgetv %capacity.2;
+    symbol [ capacity %tmp.9 50 21 29 ];
+    %tmp.10 = 10;
+    %tmp.11 = add %tmp.9 %tmp.10;
+    %tmp.12 = lt %tmp.8 %tmp.11;
+    bf %tmp.12 @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_begin:
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_51_1_54_1_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 52 2 ]
+    %tmp.13 = lgetv %lat.3;
+    symbol [ lat %tmp.13 52 2 5 ];
+    %tmp.14 = 0.001;
+    %tmp.15 = add %tmp.13 %tmp.14;
+    lputv %lat.3 %tmp.15;
+    symbol [ lat %lat.3 52 2 5 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 53 2 ]
+    %tmp.16 = lgetv %trail.1;
+    symbol [ trail %tmp.16 53 2 7 ];
+    symbol [ update %tmp.17 53 8 14 ];
+    %tmp.17 = getv function %tmp.16 :update;
+    %tmp.18 = lgetv %lat.3;
+    symbol [ lat %tmp.18 53 15 18 ];
+    %tmp.19 = 7.0;
+    invoke %tmp.16 %tmp.17(%tmp.18, %tmp.19);
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_51_1_54_1_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_incr:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 50 ]
+    %tmp.22 = lgetv %i.4;
+    symbol [ i %tmp.22 50 36 37 ];
+    %tmp.23 = add %tmp.22 1;
+    lputv %i.4 %tmp.23;
+    symbol [ i %i.4 50 36 37 ];
+    goto @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_test;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_50_1_54_1_for_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 56 1 ]
+    symbol [ Test %tmp.24 56 1 5 ];
+    %tmp.24 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.25 56 6 24 ];
+    %tmp.25 = getv function %tmp.24 :assertEqualMessage;
+    %tmp.26 = lgetv %trail.1;
+    symbol [ trail %tmp.26 56 25 30 ];
+    symbol [ getCount %tmp.27 56 31 39 ];
+    %tmp.27 = getv function %tmp.26 :getCount;
+    %tmp.28 = invoke %tmp.26 %tmp.27();
+    %tmp.29 = lgetv %capacity.2;
+    symbol [ capacity %tmp.29 56 43 51 ];
+    %tmp.30 = "count should cap at capacity once the ring buffer is full";
+    invoke %tmp.24 %tmp.25(%tmp.28, %tmp.29, %tmp.30);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 61 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_stop" ]
+    %idx.5 = local;
+    symbol [ idx %idx.5 61 5 8 ];
+    %tmp.31 = lgetv %trail.1;
+    symbol [ trail %tmp.31 61 11 16 ];
+    symbol [ getWriteIndex %tmp.32 61 17 30 ];
+    %tmp.32 = getv function %tmp.31 :getWriteIndex;
+    %tmp.33 = invoke %tmp.31 %tmp.32();
+    lputv %idx.5 %tmp.33;
+    symbol [ idx %idx.5 61 5 8 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 62 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_stop" ]
+    %oldestLat.6 = local;
+    symbol [ oldestLat %oldestLat.6 62 5 14 ];
+    %tmp.34 = lgetv %trail.1;
+    symbol [ trail %tmp.34 62 17 22 ];
+    symbol [ getLats %tmp.35 62 23 30 ];
+    %tmp.35 = getv function %tmp.34 :getLats;
+    %tmp.36 = invoke %tmp.34 %tmp.35();
+    %tmp.37 = lgetv %idx.5;
+    symbol [ idx %tmp.37 62 33 36 ];
+    %tmp.38 = agetv %tmp.36 %tmp.37;
+    lputv %oldestLat.6 %tmp.38;
+    symbol [ oldestLat %oldestLat.6 62 5 14 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 63 1 ]
+    symbol [ Test %tmp.39 63 1 5 ];
+    %tmp.39 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.40 63 6 19 ];
+    %tmp.40 = getv function %tmp.39 :assertMessage;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_63_20_63_55_begin:
+    %tmp.41 = lgetv %oldestLat.6;
+    symbol [ oldestLat %tmp.41 63 20 29 ];
+    %tmp.42 = 46.0105;
+    %tmp.43 = gt %tmp.41 %tmp.42;
+    %tmp.44 = dup %tmp.43;
+    bf %tmp.44 @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_63_43_63_55_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_63_43_63_55_true:
+    %tmp.45 = lgetv %oldestLat.6;
+    symbol [ oldestLat %tmp.45 63 43 52 ];
+    %tmp.46 = 46.0115;
+    %tmp.47 = lt %tmp.45 %tmp.46;
+    %tmp.48 = and %tmp.43 %tmp.47;
+    push %tmp.48;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_63_43_63_55_end:
+    %tmp.49 = phi [%tmp.44 @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_63_20_63_55_begin] [%tmp.48 @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_63_43_63_55_true] [%tmp.49 @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_63_43_63_55_end];
+    %tmp.50 = "oldest retained point should be push #11 (~46.011), got ";
+    %tmp.51 = lgetv %oldestLat.6;
+    symbol [ oldestLat %tmp.51 63 125 134 ];
+    %tmp.52 = add %tmp.50 %tmp.51;
+    invoke %tmp.39 %tmp.40(%tmp.49, %tmp.52);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 65 1 ]
+    %tmp.53 = true;
+    ret %tmp.53;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_43_0_66_0_stop:
+}
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc"; @line = 69; test = true; @symbol_functiondef = [testWatchDataAccessorsFallBackToActivityData,69,9,53]; @symbol_param<0> = [logger,69,54,60]; ]
+function testWatchDataAccessorsFallBackToActivityData(logger) {
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_70_0_101_0_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 71 1 ]
+    [ "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_70_0_101_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_70_0_101_0_stop" ]
+    %data.1 = local;
+    symbol [ data %data.1 71 5 9 ];
+    symbol [ WatchData %tmp.4 71 16 25 ];
+    %tmp.4 = getv ? :WatchData;
+    %tmp.1 = newc %tmp.4 ();
+    lputv %data.1 %tmp.1;
+    symbol [ data %data.1 71 5 9 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 76 1 ]
+    symbol [ Test %tmp.5 76 1 5 ];
+    %tmp.5 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.6 76 6 19 ];
+    %tmp.6 = getv function %tmp.5 :assertMessage;
+    %tmp.7 = lgetv %data.1;
+    symbol [ data %tmp.7 76 20 24 ];
+    symbol [ getTotalAscent %tmp.8 76 25 39 ];
+    %tmp.8 = getv function %tmp.7 :getTotalAscent;
+    %tmp.9 = invoke %tmp.7 %tmp.8();
+    %tmp.10 = null;
+    %tmp.11 = eq %tmp.9 %tmp.10;
+    %tmp.12 = "no data collected yet (totalAscent)";
+    invoke %tmp.5 %tmp.6(%tmp.11, %tmp.12);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 77 1 ]
+    symbol [ Test %tmp.13 77 1 5 ];
+    %tmp.13 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.14 77 6 19 ];
+    %tmp.14 = getv function %tmp.13 :assertMessage;
+    %tmp.15 = lgetv %data.1;
+    symbol [ data %tmp.15 77 20 24 ];
+    symbol [ getDistance %tmp.16 77 25 36 ];
+    %tmp.16 = getv function %tmp.15 :getDistance;
+    %tmp.17 = invoke %tmp.15 %tmp.16();
+    %tmp.18 = null;
+    %tmp.19 = eq %tmp.17 %tmp.18;
+    %tmp.20 = "no data collected yet (distance)";
+    invoke %tmp.13 %tmp.14(%tmp.19, %tmp.20);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 78 1 ]
+    symbol [ Test %tmp.21 78 1 5 ];
+    %tmp.21 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.22 78 6 19 ];
+    %tmp.22 = getv function %tmp.21 :assertMessage;
+    %tmp.23 = lgetv %data.1;
+    symbol [ data %tmp.23 78 20 24 ];
+    symbol [ getTimerTime %tmp.24 78 25 37 ];
+    %tmp.24 = getv function %tmp.23 :getTimerTime;
+    %tmp.25 = invoke %tmp.23 %tmp.24();
+    %tmp.26 = null;
+    %tmp.27 = eq %tmp.25 %tmp.26;
+    %tmp.28 = "no data collected yet (timerTime)";
+    invoke %tmp.21 %tmp.22(%tmp.27, %tmp.28);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 79 1 ]
+    symbol [ Test %tmp.29 79 1 5 ];
+    %tmp.29 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.30 79 6 19 ];
+    %tmp.30 = getv function %tmp.29 :assertMessage;
+    %tmp.31 = lgetv %data.1;
+    symbol [ data %tmp.31 79 20 24 ];
+    symbol [ getSpeed %tmp.32 79 25 33 ];
+    %tmp.32 = getv function %tmp.31 :getSpeed;
+    %tmp.33 = invoke %tmp.31 %tmp.32();
+    %tmp.34 = null;
+    %tmp.35 = eq %tmp.33 %tmp.34;
+    %tmp.36 = "no data collected yet (speed)";
+    invoke %tmp.29 %tmp.30(%tmp.35, %tmp.36);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 83 1 ]
+    %tmp.37 = lgetv %data.1;
+    symbol [ data %tmp.37 83 1 5 ];
+    %tmp.38 = newd 4;
+    %tmp.39 = "totalAscent";
+    %tmp.40 = 123.4;
+    %tmp.41 = dup %tmp.38;
+    %tmp.42 = aputv %tmp.41 %tmp.39 %tmp.40;
+    %tmp.43 = "distance";
+    %tmp.44 = 5000.0;
+    %tmp.45 = dup %tmp.42;
+    %tmp.46 = aputv %tmp.45 %tmp.43 %tmp.44;
+    %tmp.47 = "timerTime";
+    %tmp.48 = 65000;
+    %tmp.49 = dup %tmp.46;
+    %tmp.50 = aputv %tmp.49 %tmp.47 %tmp.48;
+    %tmp.51 = "speed";
+    %tmp.52 = 2.5;
+    %tmp.53 = dup %tmp.50;
+    %tmp.54 = aputv %tmp.53 %tmp.51 %tmp.52;
+    symbol [ activityData ? 83 6 18 ];
+    putv %tmp.37 :activityData %tmp.54;
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 90 1 ]
+    symbol [ Test %tmp.55 90 1 5 ];
+    %tmp.55 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.56 90 6 24 ];
+    %tmp.56 = getv function %tmp.55 :assertEqualMessage;
+    %tmp.57 = lgetv %data.1;
+    symbol [ data %tmp.57 90 25 29 ];
+    symbol [ getTotalAscent %tmp.58 90 30 44 ];
+    %tmp.58 = getv function %tmp.57 :getTotalAscent;
+    %tmp.59 = invoke %tmp.57 %tmp.58();
+    %tmp.60 = 123.4;
+    %tmp.61 = "totalAscent read from activityData";
+    invoke %tmp.55 %tmp.56(%tmp.59, %tmp.60, %tmp.61);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 91 1 ]
+    symbol [ Test %tmp.62 91 1 5 ];
+    %tmp.62 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.63 91 6 24 ];
+    %tmp.63 = getv function %tmp.62 :assertEqualMessage;
+    %tmp.64 = lgetv %data.1;
+    symbol [ data %tmp.64 91 25 29 ];
+    symbol [ getDistance %tmp.65 91 30 41 ];
+    %tmp.65 = getv function %tmp.64 :getDistance;
+    %tmp.66 = invoke %tmp.64 %tmp.65();
+    %tmp.67 = 5000.0;
+    %tmp.68 = "distance read from activityData";
+    invoke %tmp.62 %tmp.63(%tmp.66, %tmp.67, %tmp.68);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 92 1 ]
+    symbol [ Test %tmp.69 92 1 5 ];
+    %tmp.69 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.70 92 6 24 ];
+    %tmp.70 = getv function %tmp.69 :assertEqualMessage;
+    %tmp.71 = lgetv %data.1;
+    symbol [ data %tmp.71 92 25 29 ];
+    symbol [ getTimerTime %tmp.72 92 30 42 ];
+    %tmp.72 = getv function %tmp.71 :getTimerTime;
+    %tmp.73 = invoke %tmp.71 %tmp.72();
+    %tmp.74 = 65000;
+    %tmp.75 = "timerTime read from activityData";
+    invoke %tmp.69 %tmp.70(%tmp.73, %tmp.74, %tmp.75);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 93 1 ]
+    symbol [ Test %tmp.76 93 1 5 ];
+    %tmp.76 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.77 93 6 24 ];
+    %tmp.77 = getv function %tmp.76 :assertEqualMessage;
+    %tmp.78 = lgetv %data.1;
+    symbol [ data %tmp.78 93 25 29 ];
+    symbol [ getSpeed %tmp.79 93 30 38 ];
+    %tmp.79 = getv function %tmp.78 :getSpeed;
+    %tmp.80 = invoke %tmp.78 %tmp.79();
+    %tmp.81 = 2.5;
+    %tmp.82 = "getSpeed() should fall back to activityData when sensor/GPS speed are absent";
+    invoke %tmp.76 %tmp.77(%tmp.80, %tmp.81, %tmp.82);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 97 1 ]
+    %tmp.83 = lgetv %data.1;
+    symbol [ data %tmp.83 97 1 5 ];
+    %tmp.84 = newd 1;
+    %tmp.85 = "speed";
+    %tmp.86 = 9.9;
+    %tmp.87 = dup %tmp.84;
+    %tmp.88 = aputv %tmp.87 %tmp.85 %tmp.86;
+    symbol [ sensorData ? 97 6 16 ];
+    putv %tmp.83 :sensorData %tmp.88;
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 98 1 ]
+    symbol [ Test %tmp.89 98 1 5 ];
+    %tmp.89 = getm $.Toybox.Test;
+    symbol [ assertEqualMessage %tmp.90 98 6 24 ];
+    %tmp.90 = getv function %tmp.89 :assertEqualMessage;
+    %tmp.91 = lgetv %data.1;
+    symbol [ data %tmp.91 98 25 29 ];
+    symbol [ getSpeed %tmp.92 98 30 38 ];
+    %tmp.92 = getv function %tmp.91 :getSpeed;
+    %tmp.93 = invoke %tmp.91 %tmp.92();
+    %tmp.94 = 9.9;
+    %tmp.95 = "getSpeed() should prefer sensorData over activityData";
+    invoke %tmp.89 %tmp.90(%tmp.93, %tmp.94, %tmp.95);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 100 1 ]
+    %tmp.96 = true;
+    ret %tmp.96;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_70_0_101_0_stop:
+}
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc"; @line = 104; test = true; @symbol_functiondef = [testSessionStateMachine,104,9,32]; @symbol_param<0> = [logger,104,33,39]; ]
+function testSessionStateMachine(logger) {
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_105_0_133_0_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 107 1 ]
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_107_1_110_1_if_stmt:
+    symbol [ $ %tmp.1 107 5 6 ];
+    %tmp.1 = getm $;
+    symbol [ hasActiveSession %tmp.2 107 7 23 ];
+    %tmp.2 = getv function %tmp.1 :hasActiveSession;
+    %tmp.3 = invoke %tmp.1 %tmp.2();
+    bf %tmp.3 @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_107_1_110_1_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_107_1_110_1_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_108_1_110_1_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 109 2 ]
+    symbol [ $ %tmp.4 109 2 3 ];
+    %tmp.4 = getm $;
+    symbol [ stopRecording %tmp.5 109 4 17 ];
+    %tmp.5 = getv function %tmp.4 :stopRecording;
+    %tmp.6 = false;
+    invoke %tmp.4 %tmp.5(%tmp.6);
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_108_1_110_1_stop:
+    goto @_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_107_1_110_1_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_107_1_110_1_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 112 1 ]
+    symbol [ Test %tmp.7 112 1 5 ];
+    %tmp.7 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.8 112 6 19 ];
+    %tmp.8 = getv function %tmp.7 :assertMessage;
+    symbol [ $ %tmp.9 112 21 22 ];
+    %tmp.9 = getm $;
+    symbol [ hasActiveSession %tmp.10 112 23 39 ];
+    %tmp.10 = getv function %tmp.9 :hasActiveSession;
+    %tmp.11 = invoke %tmp.9 %tmp.10();
+    %tmp.12 = not %tmp.11;
+    %tmp.13 = "no session initially";
+    invoke %tmp.7 %tmp.8(%tmp.12, %tmp.13);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 113 1 ]
+    symbol [ Test %tmp.14 113 1 5 ];
+    %tmp.14 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.15 113 6 19 ];
+    %tmp.15 = getv function %tmp.14 :assertMessage;
+    symbol [ $ %tmp.16 113 21 22 ];
+    %tmp.16 = getm $;
+    symbol [ isRecording %tmp.17 113 23 34 ];
+    %tmp.17 = getv function %tmp.16 :isRecording;
+    %tmp.18 = invoke %tmp.16 %tmp.17();
+    %tmp.19 = not %tmp.18;
+    %tmp.20 = "not recording initially";
+    invoke %tmp.14 %tmp.15(%tmp.19, %tmp.20);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 115 1 ]
+    symbol [ $ %tmp.21 115 1 2 ];
+    %tmp.21 = getm $;
+    symbol [ startRecording %tmp.22 115 3 17 ];
+    %tmp.22 = getv function %tmp.21 :startRecording;
+    invoke %tmp.21 %tmp.22();
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 116 1 ]
+    symbol [ Test %tmp.23 116 1 5 ];
+    %tmp.23 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.24 116 6 19 ];
+    %tmp.24 = getv function %tmp.23 :assertMessage;
+    symbol [ $ %tmp.25 116 20 21 ];
+    %tmp.25 = getm $;
+    symbol [ hasActiveSession %tmp.26 116 22 38 ];
+    %tmp.26 = getv function %tmp.25 :hasActiveSession;
+    %tmp.27 = invoke %tmp.25 %tmp.26();
+    %tmp.28 = "session exists after startRecording()";
+    invoke %tmp.23 %tmp.24(%tmp.27, %tmp.28);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 117 1 ]
+    symbol [ Test %tmp.29 117 1 5 ];
+    %tmp.29 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.30 117 6 19 ];
+    %tmp.30 = getv function %tmp.29 :assertMessage;
+    symbol [ $ %tmp.31 117 20 21 ];
+    %tmp.31 = getm $;
+    symbol [ isRecording %tmp.32 117 22 33 ];
+    %tmp.32 = getv function %tmp.31 :isRecording;
+    %tmp.33 = invoke %tmp.31 %tmp.32();
+    %tmp.34 = "actively recording after startRecording()";
+    invoke %tmp.29 %tmp.30(%tmp.33, %tmp.34);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 119 1 ]
+    symbol [ $ %tmp.35 119 1 2 ];
+    %tmp.35 = getm $;
+    symbol [ pauseRecording %tmp.36 119 3 17 ];
+    %tmp.36 = getv function %tmp.35 :pauseRecording;
+    invoke %tmp.35 %tmp.36();
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 120 1 ]
+    symbol [ Test %tmp.37 120 1 5 ];
+    %tmp.37 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.38 120 6 19 ];
+    %tmp.38 = getv function %tmp.37 :assertMessage;
+    symbol [ $ %tmp.39 120 20 21 ];
+    %tmp.39 = getm $;
+    symbol [ hasActiveSession %tmp.40 120 22 38 ];
+    %tmp.40 = getv function %tmp.39 :hasActiveSession;
+    %tmp.41 = invoke %tmp.39 %tmp.40();
+    %tmp.42 = "session must still exist while paused -- this is exactly what the BACK quit-menu gate relies on to offer Save/Discard instead of silently exiting";
+    invoke %tmp.37 %tmp.38(%tmp.41, %tmp.42);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 121 1 ]
+    symbol [ Test %tmp.43 121 1 5 ];
+    %tmp.43 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.44 121 6 19 ];
+    %tmp.44 = getv function %tmp.43 :assertMessage;
+    symbol [ $ %tmp.45 121 21 22 ];
+    %tmp.45 = getm $;
+    symbol [ isRecording %tmp.46 121 23 34 ];
+    %tmp.46 = getv function %tmp.45 :isRecording;
+    %tmp.47 = invoke %tmp.45 %tmp.46();
+    %tmp.48 = not %tmp.47;
+    %tmp.49 = "not actively recording while paused";
+    invoke %tmp.43 %tmp.44(%tmp.48, %tmp.49);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 123 1 ]
+    symbol [ $ %tmp.50 123 1 2 ];
+    %tmp.50 = getm $;
+    symbol [ resumeRecording %tmp.51 123 3 18 ];
+    %tmp.51 = getv function %tmp.50 :resumeRecording;
+    invoke %tmp.50 %tmp.51();
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 124 1 ]
+    symbol [ Test %tmp.52 124 1 5 ];
+    %tmp.52 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.53 124 6 19 ];
+    %tmp.53 = getv function %tmp.52 :assertMessage;
+    symbol [ $ %tmp.54 124 20 21 ];
+    %tmp.54 = getm $;
+    symbol [ hasActiveSession %tmp.55 124 22 38 ];
+    %tmp.55 = getv function %tmp.54 :hasActiveSession;
+    %tmp.56 = invoke %tmp.54 %tmp.55();
+    %tmp.57 = "session exists after resume";
+    invoke %tmp.52 %tmp.53(%tmp.56, %tmp.57);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 125 1 ]
+    symbol [ Test %tmp.58 125 1 5 ];
+    %tmp.58 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.59 125 6 19 ];
+    %tmp.59 = getv function %tmp.58 :assertMessage;
+    symbol [ $ %tmp.60 125 20 21 ];
+    %tmp.60 = getm $;
+    symbol [ isRecording %tmp.61 125 22 33 ];
+    %tmp.61 = getv function %tmp.60 :isRecording;
+    %tmp.62 = invoke %tmp.60 %tmp.61();
+    %tmp.63 = "actively recording again after resume";
+    invoke %tmp.58 %tmp.59(%tmp.62, %tmp.63);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 127 1 ]
+    symbol [ $ %tmp.64 127 1 2 ];
+    %tmp.64 = getm $;
+    symbol [ pauseRecording %tmp.65 127 3 17 ];
+    %tmp.65 = getv function %tmp.64 :pauseRecording;
+    invoke %tmp.64 %tmp.65();
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 128 1 ]
+    symbol [ $ %tmp.66 128 1 2 ];
+    %tmp.66 = getm $;
+    symbol [ stopRecording %tmp.67 128 3 16 ];
+    %tmp.67 = getv function %tmp.66 :stopRecording;
+    %tmp.68 = false;
+    invoke %tmp.66 %tmp.67(%tmp.68);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 129 1 ]
+    symbol [ Test %tmp.69 129 1 5 ];
+    %tmp.69 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.70 129 6 19 ];
+    %tmp.70 = getv function %tmp.69 :assertMessage;
+    symbol [ $ %tmp.71 129 21 22 ];
+    %tmp.71 = getm $;
+    symbol [ hasActiveSession %tmp.72 129 23 39 ];
+    %tmp.72 = getv function %tmp.71 :hasActiveSession;
+    %tmp.73 = invoke %tmp.71 %tmp.72();
+    %tmp.74 = not %tmp.73;
+    %tmp.75 = "session gone after stopRecording()";
+    invoke %tmp.69 %tmp.70(%tmp.74, %tmp.75);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 130 1 ]
+    symbol [ Test %tmp.76 130 1 5 ];
+    %tmp.76 = getm $.Toybox.Test;
+    symbol [ assertMessage %tmp.77 130 6 19 ];
+    %tmp.77 = getv function %tmp.76 :assertMessage;
+    symbol [ $ %tmp.78 130 21 22 ];
+    %tmp.78 = getm $;
+    symbol [ isRecording %tmp.79 130 23 34 ];
+    %tmp.79 = getv function %tmp.78 :isRecording;
+    %tmp.80 = invoke %tmp.78 %tmp.79();
+    %tmp.81 = not %tmp.80;
+    %tmp.82 = "not recording after stopRecording()";
+    invoke %tmp.76 %tmp.77(%tmp.81, %tmp.82);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc" 132 1 ]
+    %tmp.83 = true;
+    ret %tmp.83;
+_Users_tk_Desktop_Claude_Glidator2_source_Tests_mc_105_0_133_0_stop:
+}
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Tests.mc"; @line = 1; ]
+<init> {
+}

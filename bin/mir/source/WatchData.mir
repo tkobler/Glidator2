@@ -1,48 +1,48 @@
-[ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; ]
 using Toybox.WatchUi;
-[ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Math,2,13,17]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Math,2,13,17]; ]
 using Toybox.Math;
-[ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 4; @symbol_classdef = [WatchData,4,6,15]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 4; @symbol_classdef = [WatchData,4,6,15]; ]
 class WatchData {
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 4; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 4; ]
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 4; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 4; ]
     static
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 6; @position = 5; @symbol_vardef = [gpsData,6,5,12]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 6; @position = 5; @symbol_vardef = [gpsData,6,5,12]; ]
     var gpsData = null;
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 7; @position = 5; @symbol_vardef = [activityData,7,5,17]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 7; @position = 5; @symbol_vardef = [activityData,7,5,17]; ]
     var activityData = null;
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 8; @position = 5; @symbol_vardef = [sensorData,8,5,15]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 8; @position = 5; @symbol_vardef = [sensorData,8,5,15]; ]
     var sensorData = null;
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 10; @position = 5; @symbol_vardef = [oldAlt,10,5,11]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 10; @position = 5; @symbol_vardef = [oldAlt,10,5,11]; ]
     var oldAlt = null;
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 14; @position = 5; @symbol_vardef = [vario,14,5,10]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 14; @position = 5; @symbol_vardef = [vario,14,5,10]; ]
     var vario = null;
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 16; @symbol_functiondef = [startMeasure,16,10,22]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 16; @symbol_functiondef = [startMeasure,16,10,22]; ]
     function startMeasure() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_17_1_21_1_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 18 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_17_1_21_1_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 18 2 ]
         %tmp.1 = null;
         symbol [ gpsData ? 18 2 9 ];
         putv self :gpsData %tmp.1;
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 19 2 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 19 2 ]
         %tmp.2 = null;
         symbol [ activityData ? 19 2 14 ];
         putv self :activityData %tmp.2;
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 20 2 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 20 2 ]
         %tmp.3 = null;
         symbol [ sensorData ? 20 2 12 ];
         putv self :sensorData %tmp.3;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_17_1_21_1_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_17_1_21_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 24; @symbol_functiondef = [endMeasure,24,10,20]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 24; @symbol_functiondef = [endMeasure,24,10,20]; ]
     function endMeasure() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_25_1_42_1_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 26 2 ]
-        [ "_Users_tk_Desktop_glidator2_source_WatchData_mc_25_1_42_1_start" "_Users_tk_Desktop_glidator2_source_WatchData_mc_25_1_42_1_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_25_1_42_1_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 26 2 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_25_1_42_1_start" "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_25_1_42_1_stop" ]
         %alt.1 = local;
         symbol [ alt %alt.1 26 6 9 ];
         %tmp.1 = self;
@@ -51,25 +51,25 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_25_1_42_1_start:
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %alt.1 %tmp.3;
         symbol [ alt %alt.1 26 6 9 ];
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 27 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_27_2_41_2_if_stmt:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 27 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_stmt:
         %tmp.4 = lgetv %alt.1;
         symbol [ alt %tmp.4 27 6 9 ];
         %tmp.5 = null;
         %tmp.6 = ne %tmp.4 %tmp.5;
-        bf %tmp.6 @_Users_tk_Desktop_glidator2_source_WatchData_mc_27_2_41_2_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_27_2_41_2_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_28_2_41_2_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 29 3 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_29_3_39_3_if_stmt:
+        bf %tmp.6 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_28_2_41_2_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 29 3 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_stmt:
         symbol [ oldAlt %tmp.8 29 7 13 ];
         %tmp.8 = getv ? :oldAlt;
         %tmp.9 = null;
         %tmp.10 = ne %tmp.8 %tmp.9;
-        bf %tmp.10 @_Users_tk_Desktop_glidator2_source_WatchData_mc_29_3_39_3_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_29_3_39_3_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_30_3_39_3_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 38 4 ]
+        bf %tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_30_3_39_3_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 38 4 ]
         %tmp.11 = lgetv %alt.1;
         symbol [ alt %tmp.11 38 12 15 ];
         %tmp.12 = as %tmp.11 { (!Null) };
@@ -79,50 +79,50 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_30_3_39_3_start:
         %tmp.16 = sub %tmp.12 %tmp.15;
         symbol [ vario ? 38 4 9 ];
         putv self :vario %tmp.16;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_30_3_39_3_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_29_3_39_3_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_29_3_39_3_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 40 3 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_30_3_39_3_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 40 3 ]
         %tmp.17 = lgetv %alt.1;
         symbol [ alt %tmp.17 40 12 15 ];
         %tmp.18 = as %tmp.17 { (!Null) };
         symbol [ oldAlt ? 40 3 9 ];
         putv self :oldAlt %tmp.18;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_28_2_41_2_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_27_2_41_2_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_27_2_41_2_if_end:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_25_1_42_1_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_28_2_41_2_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_end:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_25_1_42_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 44; @symbol_functiondef = [getVario,44,10,18]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 44; @symbol_functiondef = [getVario,44,10,18]; ]
     function getVario() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_45_4_47_4_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 46 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_45_4_47_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 46 5 ]
         symbol [ vario %tmp.2 46 12 17 ];
         %tmp.2 = getv ? :vario;
         ret %tmp.2;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_45_4_47_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_45_4_47_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 53; typecheck = false; @symbol_functiondef = [updateInfo,53,10,20]; @symbol_param<0> = [info,53,22,26]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 53; typecheck = false; @symbol_functiondef = [updateInfo,53,10,20]; @symbol_param<0> = [info,53,22,26]; ]
     function updateInfo(info) {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_54_1_109_4_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 55 2 ]
-        [ "_Users_tk_Desktop_glidator2_source_WatchData_mc_54_1_109_4_start" "_Users_tk_Desktop_glidator2_source_WatchData_mc_54_1_109_4_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_54_1_109_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 55 2 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_54_1_109_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_54_1_109_4_stop" ]
         %data.1 = local;
         symbol [ data %data.1 55 6 10 ];
         %tmp.1 = newd 0;
         lputv %data.1 %tmp.1;
         symbol [ data %data.1 55 6 10 ];
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 59 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_59_2_62_8_if_stmt:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 59 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_stmt:
         %tmp.2 = lgetv %info;
         symbol [ info %tmp.2 59 6 10 ];
         %tmp.4 = const :altitude;
         symbol [ altitude %tmp.4 59 16 24 const ];
         %tmp.5 = canhazplz %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_tk_Desktop_glidator2_source_WatchData_mc_59_2_62_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_59_2_62_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_60_8_62_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 61 9 ]
+        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_60_8_62_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 61 9 ]
         %tmp.6 = lgetv %data.1;
         symbol [ data %tmp.6 61 9 13 ];
         %tmp.7 = lgetv %info;
@@ -132,20 +132,20 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_60_8_62_8_start:
         %tmp.9 = getv %tmp.8 :altitude;
         %tmp.10 = "altitude";
         aputv %tmp.6 %tmp.10 %tmp.9;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_60_8_62_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_59_2_62_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_59_2_62_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 68 8 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_68_8_72_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_60_8_62_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 68 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_stmt:
         %tmp.11 = lgetv %info;
         symbol [ info %tmp.11 68 12 16 ];
         %tmp.13 = const :position;
         symbol [ position %tmp.13 68 22 30 const ];
         %tmp.14 = canhazplz %tmp.11 %tmp.13;
-        bf %tmp.14 @_Users_tk_Desktop_glidator2_source_WatchData_mc_68_8_72_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_68_8_72_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_69_8_72_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 70 9 ]
+        bf %tmp.14 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_69_8_72_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 70 9 ]
         %tmp.15 = lgetv %data.1;
         symbol [ data %tmp.15 70 9 13 ];
         %tmp.16 = lgetv %info;
@@ -160,7 +160,7 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_69_8_72_8_start:
         %tmp.22 = agetv %tmp.20 %tmp.21;
         %tmp.23 = "lat";
         aputv %tmp.15 %tmp.23 %tmp.22;
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 71 9 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 71 9 ]
         %tmp.24 = lgetv %data.1;
         symbol [ data %tmp.24 71 9 13 ];
         %tmp.25 = lgetv %info;
@@ -175,20 +175,20 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_69_8_72_8_start:
         %tmp.31 = agetv %tmp.29 %tmp.30;
         %tmp.32 = "long";
         aputv %tmp.24 %tmp.32 %tmp.31;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_69_8_72_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_68_8_72_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_68_8_72_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 75 8 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_75_8_78_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_69_8_72_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 75 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_stmt:
         %tmp.33 = lgetv %info;
         symbol [ info %tmp.33 75 12 16 ];
         %tmp.35 = const :accuracy;
         symbol [ accuracy %tmp.35 75 22 30 const ];
         %tmp.36 = canhazplz %tmp.33 %tmp.35;
-        bf %tmp.36 @_Users_tk_Desktop_glidator2_source_WatchData_mc_75_8_78_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_75_8_78_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_76_8_78_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 77 9 ]
+        bf %tmp.36 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_76_8_78_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 77 9 ]
         %tmp.37 = lgetv %data.1;
         symbol [ data %tmp.37 77 9 13 ];
         %tmp.38 = lgetv %info;
@@ -198,20 +198,20 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_76_8_78_8_start:
         %tmp.40 = getv %tmp.39 :accuracy;
         %tmp.41 = "accuracy";
         aputv %tmp.37 %tmp.41 %tmp.40;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_76_8_78_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_75_8_78_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_75_8_78_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 88 8 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_88_8_91_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_76_8_78_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 88 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_stmt:
         %tmp.42 = lgetv %info;
         symbol [ info %tmp.42 88 12 16 ];
         %tmp.44 = const :speed;
         symbol [ speed %tmp.44 88 22 27 const ];
         %tmp.45 = canhazplz %tmp.42 %tmp.44;
-        bf %tmp.45 @_Users_tk_Desktop_glidator2_source_WatchData_mc_88_8_91_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_88_8_91_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_89_8_91_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 90 9 ]
+        bf %tmp.45 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_89_8_91_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 90 9 ]
         %tmp.46 = lgetv %data.1;
         symbol [ data %tmp.46 90 9 13 ];
         %tmp.47 = lgetv %info;
@@ -221,20 +221,20 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_89_8_91_8_start:
         %tmp.49 = getv %tmp.48 :speed;
         %tmp.50 = "speed";
         aputv %tmp.46 %tmp.50 %tmp.49;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_89_8_91_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_88_8_91_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_88_8_91_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 95 8 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_95_8_98_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_89_8_91_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 95 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_stmt:
         %tmp.51 = lgetv %info;
         symbol [ info %tmp.51 95 12 16 ];
         %tmp.53 = const :heading;
         symbol [ heading %tmp.53 95 22 29 const ];
         %tmp.54 = canhazplz %tmp.51 %tmp.53;
-        bf %tmp.54 @_Users_tk_Desktop_glidator2_source_WatchData_mc_95_8_98_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_95_8_98_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_96_8_98_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 97 9 ]
+        bf %tmp.54 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_96_8_98_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 97 9 ]
         %tmp.55 = lgetv %data.1;
         symbol [ data %tmp.55 97 9 13 ];
         %tmp.56 = lgetv %info;
@@ -244,20 +244,20 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_96_8_98_8_start:
         %tmp.58 = getv %tmp.57 :heading;
         %tmp.59 = "heading";
         aputv %tmp.55 %tmp.59 %tmp.58;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_96_8_98_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_95_8_98_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_95_8_98_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 103 8 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_103_8_106_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_96_8_98_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 103 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_stmt:
         %tmp.60 = lgetv %info;
         symbol [ info %tmp.60 103 12 16 ];
         %tmp.62 = const :when;
         symbol [ when %tmp.62 103 22 26 const ];
         %tmp.63 = canhazplz %tmp.60 %tmp.62;
-        bf %tmp.63 @_Users_tk_Desktop_glidator2_source_WatchData_mc_103_8_106_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_103_8_106_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_104_8_106_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 105 9 ]
+        bf %tmp.63 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_104_8_106_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 105 9 ]
         %tmp.64 = lgetv %data.1;
         symbol [ data %tmp.64 105 9 13 ];
         %tmp.65 = lgetv %info;
@@ -267,37 +267,37 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_104_8_106_8_start:
         %tmp.67 = getv %tmp.66 :when;
         %tmp.68 = "when";
         aputv %tmp.64 %tmp.68 %tmp.67;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_104_8_106_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_103_8_106_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_103_8_106_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 108 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_104_8_106_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 108 8 ]
         %tmp.69 = lgetv %data.1;
         symbol [ data %tmp.69 108 18 22 ];
         symbol [ gpsData ? 108 8 15 ];
         putv self :gpsData %tmp.69;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_54_1_109_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_54_1_109_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 112; @symbol_functiondef = [updateActivityInfo,112,10,28]; @symbol_param<0> = [info,112,30,34]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 112; @symbol_functiondef = [updateActivityInfo,112,10,28]; @symbol_param<0> = [info,112,30,34]; ]
     function updateActivityInfo(info) {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_113_1_136_4_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 114 2 ]
-        [ "_Users_tk_Desktop_glidator2_source_WatchData_mc_113_1_136_4_start" "_Users_tk_Desktop_glidator2_source_WatchData_mc_113_1_136_4_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_113_1_160_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 114 2 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_113_1_160_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_113_1_160_4_stop" ]
         %data.1 = local;
         symbol [ data %data.1 114 6 10 ];
         %tmp.1 = newd 0;
         lputv %data.1 %tmp.1;
         symbol [ data %data.1 114 6 10 ];
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 117 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_117_2_120_8_if_stmt:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 117 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_stmt:
         %tmp.2 = lgetv %info;
         symbol [ info %tmp.2 117 6 10 ];
         %tmp.4 = const :altitude;
         symbol [ altitude %tmp.4 117 16 24 const ];
         %tmp.5 = canhazplz %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_tk_Desktop_glidator2_source_WatchData_mc_117_2_120_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_117_2_120_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_118_8_120_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 119 9 ]
+        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_118_8_120_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 119 9 ]
         %tmp.6 = lgetv %data.1;
         symbol [ data %tmp.6 119 9 13 ];
         %tmp.7 = lgetv %info;
@@ -307,20 +307,20 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_118_8_120_8_start:
         %tmp.9 = getv %tmp.8 :altitude;
         %tmp.10 = "altitude";
         aputv %tmp.6 %tmp.10 %tmp.9;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_118_8_120_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_117_2_120_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_117_2_120_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 123 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_123_2_126_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_118_8_120_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 123 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_stmt:
         %tmp.11 = lgetv %info;
         symbol [ info %tmp.11 123 6 10 ];
         %tmp.13 = const :currentHeartRate;
         symbol [ currentHeartRate %tmp.13 123 16 32 const ];
         %tmp.14 = canhazplz %tmp.11 %tmp.13;
-        bf %tmp.14 @_Users_tk_Desktop_glidator2_source_WatchData_mc_123_2_126_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_123_2_126_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_124_8_126_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 125 9 ]
+        bf %tmp.14 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_124_8_126_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 125 9 ]
         %tmp.15 = lgetv %data.1;
         symbol [ data %tmp.15 125 9 13 ];
         %tmp.16 = lgetv %info;
@@ -330,20 +330,20 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_124_8_126_8_start:
         %tmp.18 = getv %tmp.17 :currentHeartRate;
         %tmp.19 = "heartRate";
         aputv %tmp.15 %tmp.19 %tmp.18;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_124_8_126_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_123_2_126_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_123_2_126_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 130 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_130_2_133_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_124_8_126_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 130 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_stmt:
         %tmp.20 = lgetv %info;
         symbol [ info %tmp.20 130 6 10 ];
         %tmp.22 = const :currentHeading;
         symbol [ currentHeading %tmp.22 130 16 30 const ];
         %tmp.23 = canhazplz %tmp.20 %tmp.22;
-        bf %tmp.23 @_Users_tk_Desktop_glidator2_source_WatchData_mc_130_2_133_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_130_2_133_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_131_8_133_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 132 9 ]
+        bf %tmp.23 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_131_8_133_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 132 9 ]
         %tmp.24 = lgetv %data.1;
         symbol [ data %tmp.24 132 9 13 ];
         %tmp.25 = lgetv %info;
@@ -353,523 +353,763 @@ _Users_tk_Desktop_glidator2_source_WatchData_mc_131_8_133_8_start:
         %tmp.27 = getv %tmp.26 :currentHeading;
         %tmp.28 = "heading";
         aputv %tmp.24 %tmp.28 %tmp.27;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_131_8_133_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_130_2_133_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_130_2_133_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 135 5 ]
-        %tmp.29 = lgetv %data.1;
-        symbol [ data %tmp.29 135 20 24 ];
-        symbol [ activityData ? 135 5 17 ];
-        putv self :activityData %tmp.29;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_113_1_136_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_131_8_133_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 136 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_stmt:
+        %tmp.29 = lgetv %info;
+        symbol [ info %tmp.29 136 12 16 ];
+        %tmp.31 = const :currentSpeed;
+        symbol [ currentSpeed %tmp.31 136 22 34 const ];
+        %tmp.32 = canhazplz %tmp.29 %tmp.31;
+        bf %tmp.32 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_137_8_139_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 138 9 ]
+        %tmp.33 = lgetv %data.1;
+        symbol [ data %tmp.33 138 9 13 ];
+        %tmp.34 = lgetv %info;
+        symbol [ info %tmp.34 138 26 30 ];
+        %tmp.35 = as %tmp.34 { (interface { var currentSpeed; }) };
+        symbol [ currentSpeed %tmp.36 138 31 43 ];
+        %tmp.36 = getv %tmp.35 :currentSpeed;
+        %tmp.37 = "speed";
+        aputv %tmp.33 %tmp.37 %tmp.36;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_137_8_139_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 142 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_stmt:
+        %tmp.38 = lgetv %info;
+        symbol [ info %tmp.38 142 12 16 ];
+        %tmp.40 = const :totalAscent;
+        symbol [ totalAscent %tmp.40 142 22 33 const ];
+        %tmp.41 = canhazplz %tmp.38 %tmp.40;
+        bf %tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_143_8_145_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 144 9 ]
+        %tmp.42 = lgetv %data.1;
+        symbol [ data %tmp.42 144 9 13 ];
+        %tmp.43 = lgetv %info;
+        symbol [ info %tmp.43 144 32 36 ];
+        %tmp.44 = as %tmp.43 { (interface { var totalAscent; }) };
+        symbol [ totalAscent %tmp.45 144 37 48 ];
+        %tmp.45 = getv %tmp.44 :totalAscent;
+        %tmp.46 = "totalAscent";
+        aputv %tmp.42 %tmp.46 %tmp.45;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_143_8_145_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 148 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_stmt:
+        %tmp.47 = lgetv %info;
+        symbol [ info %tmp.47 148 12 16 ];
+        %tmp.49 = const :elapsedDistance;
+        symbol [ elapsedDistance %tmp.49 148 22 37 const ];
+        %tmp.50 = canhazplz %tmp.47 %tmp.49;
+        bf %tmp.50 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_149_8_151_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 150 9 ]
+        %tmp.51 = lgetv %data.1;
+        symbol [ data %tmp.51 150 9 13 ];
+        %tmp.52 = lgetv %info;
+        symbol [ info %tmp.52 150 29 33 ];
+        %tmp.53 = as %tmp.52 { (interface { var elapsedDistance; }) };
+        symbol [ elapsedDistance %tmp.54 150 34 49 ];
+        %tmp.54 = getv %tmp.53 :elapsedDistance;
+        %tmp.55 = "distance";
+        aputv %tmp.51 %tmp.55 %tmp.54;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_149_8_151_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 154 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_stmt:
+        %tmp.56 = lgetv %info;
+        symbol [ info %tmp.56 154 12 16 ];
+        %tmp.58 = const :timerTime;
+        symbol [ timerTime %tmp.58 154 22 31 const ];
+        %tmp.59 = canhazplz %tmp.56 %tmp.58;
+        bf %tmp.59 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_155_8_157_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 156 9 ]
+        %tmp.60 = lgetv %data.1;
+        symbol [ data %tmp.60 156 9 13 ];
+        %tmp.61 = lgetv %info;
+        symbol [ info %tmp.61 156 30 34 ];
+        %tmp.62 = as %tmp.61 { (interface { var timerTime; }) };
+        symbol [ timerTime %tmp.63 156 35 44 ];
+        %tmp.63 = getv %tmp.62 :timerTime;
+        %tmp.64 = "timerTime";
+        aputv %tmp.60 %tmp.64 %tmp.63;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_155_8_157_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 159 5 ]
+        %tmp.65 = lgetv %data.1;
+        symbol [ data %tmp.65 159 20 24 ];
+        symbol [ activityData ? 159 5 17 ];
+        putv self :activityData %tmp.65;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_113_1_160_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 142; typecheck = false; @symbol_functiondef = [updateSensorInfo,142,13,29]; @symbol_param<0> = [info,142,31,35]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 166; typecheck = false; @symbol_functiondef = [updateSensorInfo,166,13,29]; @symbol_param<0> = [info,166,31,35]; ]
     function updateSensorInfo(info) {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_143_1_181_4_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 144 2 ]
-        [ "_Users_tk_Desktop_glidator2_source_WatchData_mc_143_1_181_4_start" "_Users_tk_Desktop_glidator2_source_WatchData_mc_143_1_181_4_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_167_1_205_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 168 2 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_167_1_205_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_167_1_205_4_stop" ]
         %data.1 = local;
-        symbol [ data %data.1 144 6 10 ];
+        symbol [ data %data.1 168 6 10 ];
         %tmp.1 = newd 0;
         lputv %data.1 %tmp.1;
-        symbol [ data %data.1 144 6 10 ];
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 149 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_149_2_152_8_if_stmt:
+        symbol [ data %data.1 168 6 10 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 173 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_stmt:
         %tmp.2 = lgetv %info;
-        symbol [ info %tmp.2 149 6 10 ];
+        symbol [ info %tmp.2 173 6 10 ];
         %tmp.4 = const :altitude;
-        symbol [ altitude %tmp.4 149 16 24 const ];
+        symbol [ altitude %tmp.4 173 16 24 const ];
         %tmp.5 = canhazplz %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_tk_Desktop_glidator2_source_WatchData_mc_149_2_152_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_149_2_152_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_150_8_152_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 151 9 ]
+        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_174_8_176_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 175 9 ]
         %tmp.6 = lgetv %data.1;
-        symbol [ data %tmp.6 151 9 13 ];
+        symbol [ data %tmp.6 175 9 13 ];
         %tmp.7 = lgetv %info;
-        symbol [ info %tmp.7 151 29 33 ];
+        symbol [ info %tmp.7 175 29 33 ];
         %tmp.8 = as %tmp.7 { (interface { var altitude; }) };
-        symbol [ altitude %tmp.9 151 34 42 ];
+        symbol [ altitude %tmp.9 175 34 42 ];
         %tmp.9 = getv %tmp.8 :altitude;
         %tmp.10 = "altitude";
         aputv %tmp.6 %tmp.10 %tmp.9;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_150_8_152_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_149_2_152_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_149_2_152_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 163 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_163_2_166_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_174_8_176_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 187 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_stmt:
         %tmp.11 = lgetv %info;
-        symbol [ info %tmp.11 163 6 10 ];
+        symbol [ info %tmp.11 187 6 10 ];
         %tmp.13 = const :heartRate;
-        symbol [ heartRate %tmp.13 163 16 25 const ];
+        symbol [ heartRate %tmp.13 187 16 25 const ];
         %tmp.14 = canhazplz %tmp.11 %tmp.13;
-        bf %tmp.14 @_Users_tk_Desktop_glidator2_source_WatchData_mc_163_2_166_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_163_2_166_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_164_8_166_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 165 9 ]
+        bf %tmp.14 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_188_8_190_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 189 9 ]
         %tmp.15 = lgetv %data.1;
-        symbol [ data %tmp.15 165 9 13 ];
+        symbol [ data %tmp.15 189 9 13 ];
         %tmp.16 = lgetv %info;
-        symbol [ info %tmp.16 165 30 34 ];
+        symbol [ info %tmp.16 189 30 34 ];
         %tmp.17 = as %tmp.16 { (interface { var heartRate; }) };
-        symbol [ heartRate %tmp.18 165 35 44 ];
+        symbol [ heartRate %tmp.18 189 35 44 ];
         %tmp.18 = getv %tmp.17 :heartRate;
         %tmp.19 = "heartRate";
         aputv %tmp.15 %tmp.19 %tmp.18;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_164_8_166_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_163_2_166_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_163_2_166_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 169 8 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_169_8_172_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_188_8_190_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 193 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_stmt:
         %tmp.20 = lgetv %info;
-        symbol [ info %tmp.20 169 12 16 ];
+        symbol [ info %tmp.20 193 12 16 ];
         %tmp.22 = const :speed;
-        symbol [ speed %tmp.22 169 22 27 const ];
+        symbol [ speed %tmp.22 193 22 27 const ];
         %tmp.23 = canhazplz %tmp.20 %tmp.22;
-        bf %tmp.23 @_Users_tk_Desktop_glidator2_source_WatchData_mc_169_8_172_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_169_8_172_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_170_8_172_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 171 9 ]
+        bf %tmp.23 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_194_8_196_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 195 9 ]
         %tmp.24 = lgetv %data.1;
-        symbol [ data %tmp.24 171 9 13 ];
+        symbol [ data %tmp.24 195 9 13 ];
         %tmp.25 = lgetv %info;
-        symbol [ info %tmp.25 171 26 30 ];
+        symbol [ info %tmp.25 195 26 30 ];
         %tmp.26 = as %tmp.25 { (interface { var speed; }) };
-        symbol [ speed %tmp.27 171 31 36 ];
+        symbol [ speed %tmp.27 195 31 36 ];
         %tmp.27 = getv %tmp.26 :speed;
         %tmp.28 = "speed";
         aputv %tmp.24 %tmp.28 %tmp.27;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_170_8_172_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_169_8_172_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_169_8_172_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 174 8 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_174_8_177_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_194_8_196_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 198 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_stmt:
         %tmp.29 = lgetv %info;
-        symbol [ info %tmp.29 174 12 16 ];
+        symbol [ info %tmp.29 198 12 16 ];
         %tmp.31 = const :magnetometer;
-        symbol [ magnetometer %tmp.31 174 22 34 const ];
+        symbol [ magnetometer %tmp.31 198 22 34 const ];
         %tmp.32 = canhazplz %tmp.29 %tmp.31;
-        bf %tmp.32 @_Users_tk_Desktop_glidator2_source_WatchData_mc_174_8_177_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_174_8_177_8_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_175_8_177_8_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 176 12 ]
+        bf %tmp.32 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_199_8_201_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 200 12 ]
         %tmp.33 = lgetv %data.1;
-        symbol [ data %tmp.33 176 12 16 ];
+        symbol [ data %tmp.33 200 12 16 ];
         %tmp.34 = lgetv %info;
-        symbol [ info %tmp.34 176 35 39 ];
+        symbol [ info %tmp.34 200 35 39 ];
         %tmp.35 = as %tmp.34 { (interface { var magnetometer; }) };
-        symbol [ magnetometer %tmp.36 176 40 52 ];
+        symbol [ magnetometer %tmp.36 200 40 52 ];
         %tmp.36 = getv %tmp.35 :magnetometer;
         %tmp.37 = "magnetometer";
         aputv %tmp.33 %tmp.37 %tmp.36;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_175_8_177_8_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_174_8_177_8_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_174_8_177_8_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 180 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_199_8_201_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 204 5 ]
         %tmp.38 = lgetv %data.1;
-        symbol [ data %tmp.38 180 18 22 ];
-        symbol [ sensorData ? 180 5 15 ];
+        symbol [ data %tmp.38 204 18 22 ];
+        symbol [ sensorData ? 204 5 15 ];
         putv self :sensorData %tmp.38;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_143_1_181_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_167_1_205_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 185; typecheck = false; @symbol_functiondef = [getAltitude,185,13,24]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 209; typecheck = false; @symbol_functiondef = [getAltitude,209,13,24]; ]
     function getAltitude() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_186_4_204_4_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 187 5 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_187_5_190_5_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_187_9_187_63_begin:
-        symbol [ activityData %tmp.2 187 9 21 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_210_4_228_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 211 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_9_211_63_begin:
+        symbol [ activityData %tmp.2 211 9 21 ];
         %tmp.2 = getv ? :activityData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_187_5_190_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_187_33_187_63_true:
-        symbol [ activityData %tmp.6 187 33 45 ];
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_33_211_63_true:
+        symbol [ activityData %tmp.6 211 33 45 ];
         %tmp.6 = getv ? :activityData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 187 46 52 ];
+        symbol [ hasKey %tmp.8 211 46 52 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "altitude";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_187_33_187_63_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_187_9_187_63_begin] [%tmp.10 @_Users_tk_Desktop_glidator2_source_WatchData_mc_187_33_187_63_true] [%tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_187_33_187_63_end];
-        bf %tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_187_5_190_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_187_5_190_5_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_188_5_190_5_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 189 6 ]
-        symbol [ activityData %tmp.13 189 13 25 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_33_211_63_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_9_211_63_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_33_211_63_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_33_211_63_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_212_5_214_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 213 6 ]
+        symbol [ activityData %tmp.13 213 13 25 ];
         %tmp.13 = getv ? :activityData;
         %tmp.14 = "altitude";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_188_5_190_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_187_5_190_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_187_5_190_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 193 5 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_193_5_196_5_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_193_9_193_59_begin:
-        symbol [ sensorData %tmp.17 193 9 19 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_212_5_214_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 217 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_9_217_59_begin:
+        symbol [ sensorData %tmp.17 217 9 19 ];
         %tmp.17 = getv ? :sensorData;
         %tmp.18 = null;
         %tmp.19 = ne %tmp.17 %tmp.18;
-        bf %tmp.19 @_Users_tk_Desktop_glidator2_source_WatchData_mc_193_5_196_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_193_31_193_59_true:
-        symbol [ sensorData %tmp.21 193 31 41 ];
+        bf %tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_31_217_59_true:
+        symbol [ sensorData %tmp.21 217 31 41 ];
         %tmp.21 = getv ? :sensorData;
         %tmp.22 = as %tmp.21 { (!Null) };
-        symbol [ hasKey %tmp.23 193 42 48 ];
+        symbol [ hasKey %tmp.23 217 42 48 ];
         %tmp.23 = getv function %tmp.22 :hasKey;
         %tmp.24 = "altitude";
         %tmp.25 = invoke %tmp.22 %tmp.23(%tmp.24);
         push %tmp.25;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_193_31_193_59_end:
-        %tmp.26 = phi [%tmp.19 @_Users_tk_Desktop_glidator2_source_WatchData_mc_193_9_193_59_begin] [%tmp.25 @_Users_tk_Desktop_glidator2_source_WatchData_mc_193_31_193_59_true] [%tmp.26 @_Users_tk_Desktop_glidator2_source_WatchData_mc_193_31_193_59_end];
-        bf %tmp.26 @_Users_tk_Desktop_glidator2_source_WatchData_mc_193_5_196_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_193_5_196_5_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_194_5_196_5_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 195 6 ]
-        symbol [ sensorData %tmp.28 195 13 23 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_31_217_59_end:
+        %tmp.26 = phi [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_9_217_59_begin] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_31_217_59_true] [%tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_31_217_59_end];
+        bf %tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_218_5_220_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 219 6 ]
+        symbol [ sensorData %tmp.28 219 13 23 ];
         %tmp.28 = getv ? :sensorData;
         %tmp.29 = "altitude";
         %tmp.30 = agetv %tmp.28 %tmp.29;
         ret %tmp.30;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_194_5_196_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_193_5_196_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_193_5_196_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 198 5 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_198_5_201_5_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_198_9_198_53_begin:
-        symbol [ gpsData %tmp.32 198 9 16 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_218_5_220_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 222 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_9_222_53_begin:
+        symbol [ gpsData %tmp.32 222 9 16 ];
         %tmp.32 = getv ? :gpsData;
         %tmp.33 = null;
         %tmp.34 = ne %tmp.32 %tmp.33;
-        bf %tmp.34 @_Users_tk_Desktop_glidator2_source_WatchData_mc_198_5_201_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_198_28_198_53_true:
-        symbol [ gpsData %tmp.36 198 28 35 ];
+        bf %tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_28_222_53_true:
+        symbol [ gpsData %tmp.36 222 28 35 ];
         %tmp.36 = getv ? :gpsData;
         %tmp.37 = as %tmp.36 { (!Null) };
-        symbol [ hasKey %tmp.38 198 36 42 ];
+        symbol [ hasKey %tmp.38 222 36 42 ];
         %tmp.38 = getv function %tmp.37 :hasKey;
         %tmp.39 = "altitude";
         %tmp.40 = invoke %tmp.37 %tmp.38(%tmp.39);
         push %tmp.40;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_198_28_198_53_end:
-        %tmp.41 = phi [%tmp.34 @_Users_tk_Desktop_glidator2_source_WatchData_mc_198_9_198_53_begin] [%tmp.40 @_Users_tk_Desktop_glidator2_source_WatchData_mc_198_28_198_53_true] [%tmp.41 @_Users_tk_Desktop_glidator2_source_WatchData_mc_198_28_198_53_end];
-        bf %tmp.41 @_Users_tk_Desktop_glidator2_source_WatchData_mc_198_5_201_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_198_5_201_5_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_199_5_201_5_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 200 6 ]
-        symbol [ gpsData %tmp.43 200 13 20 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_28_222_53_end:
+        %tmp.41 = phi [%tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_9_222_53_begin] [%tmp.40 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_28_222_53_true] [%tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_28_222_53_end];
+        bf %tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_223_5_225_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 224 6 ]
+        symbol [ gpsData %tmp.43 224 13 20 ];
         %tmp.43 = getv ? :gpsData;
         %tmp.44 = "altitude";
         %tmp.45 = agetv %tmp.43 %tmp.44;
         ret %tmp.45;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_199_5_201_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_198_5_201_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_198_5_201_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 203 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_223_5_225_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 227 5 ]
         %tmp.46 = null;
         ret %tmp.46;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_186_4_204_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_210_4_228_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 208; typecheck = false; @symbol_functiondef = [getSpeed,208,13,21]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 232; typecheck = false; @symbol_functiondef = [getSpeed,232,13,21]; ]
     function getSpeed() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_209_4_221_4_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 210 5 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_210_5_213_5_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_210_9_210_56_begin:
-        symbol [ sensorData %tmp.2 210 9 19 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_233_4_250_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 234 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_9_234_56_begin:
+        symbol [ sensorData %tmp.2 234 9 19 ];
         %tmp.2 = getv ? :sensorData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_210_5_213_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_210_31_210_56_true:
-        symbol [ sensorData %tmp.6 210 31 41 ];
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_31_234_56_true:
+        symbol [ sensorData %tmp.6 234 31 41 ];
         %tmp.6 = getv ? :sensorData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 210 42 48 ];
+        symbol [ hasKey %tmp.8 234 42 48 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "speed";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_210_31_210_56_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_210_9_210_56_begin] [%tmp.10 @_Users_tk_Desktop_glidator2_source_WatchData_mc_210_31_210_56_true] [%tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_210_31_210_56_end];
-        bf %tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_210_5_213_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_210_5_213_5_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_211_5_213_5_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 212 6 ]
-        symbol [ sensorData %tmp.13 212 13 23 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_31_234_56_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_9_234_56_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_31_234_56_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_31_234_56_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_235_5_237_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 236 6 ]
+        symbol [ sensorData %tmp.13 236 13 23 ];
         %tmp.13 = getv ? :sensorData;
         %tmp.14 = "speed";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_211_5_213_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_210_5_213_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_210_5_213_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 215 5 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_215_5_218_5_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_215_9_215_50_begin:
-        symbol [ gpsData %tmp.17 215 9 16 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_235_5_237_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 239 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_9_239_50_begin:
+        symbol [ gpsData %tmp.17 239 9 16 ];
         %tmp.17 = getv ? :gpsData;
         %tmp.18 = null;
         %tmp.19 = ne %tmp.17 %tmp.18;
-        bf %tmp.19 @_Users_tk_Desktop_glidator2_source_WatchData_mc_215_5_218_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_215_28_215_50_true:
-        symbol [ gpsData %tmp.21 215 28 35 ];
+        bf %tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_28_239_50_true:
+        symbol [ gpsData %tmp.21 239 28 35 ];
         %tmp.21 = getv ? :gpsData;
         %tmp.22 = as %tmp.21 { (!Null) };
-        symbol [ hasKey %tmp.23 215 36 42 ];
+        symbol [ hasKey %tmp.23 239 36 42 ];
         %tmp.23 = getv function %tmp.22 :hasKey;
         %tmp.24 = "speed";
         %tmp.25 = invoke %tmp.22 %tmp.23(%tmp.24);
         push %tmp.25;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_215_28_215_50_end:
-        %tmp.26 = phi [%tmp.19 @_Users_tk_Desktop_glidator2_source_WatchData_mc_215_9_215_50_begin] [%tmp.25 @_Users_tk_Desktop_glidator2_source_WatchData_mc_215_28_215_50_true] [%tmp.26 @_Users_tk_Desktop_glidator2_source_WatchData_mc_215_28_215_50_end];
-        bf %tmp.26 @_Users_tk_Desktop_glidator2_source_WatchData_mc_215_5_218_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_215_5_218_5_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_216_5_218_5_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 217 6 ]
-        symbol [ gpsData %tmp.28 217 13 20 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_28_239_50_end:
+        %tmp.26 = phi [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_9_239_50_begin] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_28_239_50_true] [%tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_28_239_50_end];
+        bf %tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_240_5_242_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 241 6 ]
+        symbol [ gpsData %tmp.28 241 13 20 ];
         %tmp.28 = getv ? :gpsData;
         %tmp.29 = "speed";
         %tmp.30 = agetv %tmp.28 %tmp.29;
         ret %tmp.30;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_216_5_218_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_215_5_218_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_215_5_218_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 220 5 ]
-        %tmp.31 = null;
-        ret %tmp.31;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_209_4_221_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_240_5_242_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 244 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_9_244_60_begin:
+        symbol [ activityData %tmp.32 244 9 21 ];
+        %tmp.32 = getv ? :activityData;
+        %tmp.33 = null;
+        %tmp.34 = ne %tmp.32 %tmp.33;
+        bf %tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_33_244_60_true:
+        symbol [ activityData %tmp.36 244 33 45 ];
+        %tmp.36 = getv ? :activityData;
+        %tmp.37 = as %tmp.36 { (!Null) };
+        symbol [ hasKey %tmp.38 244 46 52 ];
+        %tmp.38 = getv function %tmp.37 :hasKey;
+        %tmp.39 = "speed";
+        %tmp.40 = invoke %tmp.37 %tmp.38(%tmp.39);
+        push %tmp.40;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_33_244_60_end:
+        %tmp.41 = phi [%tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_9_244_60_begin] [%tmp.40 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_33_244_60_true] [%tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_33_244_60_end];
+        bf %tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_245_5_247_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 246 6 ]
+        symbol [ activityData %tmp.43 246 13 25 ];
+        %tmp.43 = getv ? :activityData;
+        %tmp.44 = "speed";
+        %tmp.45 = agetv %tmp.43 %tmp.44;
+        ret %tmp.45;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_245_5_247_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 249 5 ]
+        %tmp.46 = null;
+        ret %tmp.46;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_233_4_250_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 225; typecheck = false; @symbol_functiondef = [getHeartRate,225,13,25]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 254; typecheck = false; @symbol_functiondef = [getHeartRate,254,13,25]; ]
     function getHeartRate() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_226_4_238_4_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 227 5 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_227_5_230_5_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_227_9_227_64_begin:
-        symbol [ activityData %tmp.2 227 9 21 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_255_4_267_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 256 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_9_256_64_begin:
+        symbol [ activityData %tmp.2 256 9 21 ];
         %tmp.2 = getv ? :activityData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_227_5_230_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_227_33_227_64_true:
-        symbol [ activityData %tmp.6 227 33 45 ];
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_33_256_64_true:
+        symbol [ activityData %tmp.6 256 33 45 ];
         %tmp.6 = getv ? :activityData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 227 46 52 ];
+        symbol [ hasKey %tmp.8 256 46 52 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "heartRate";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_227_33_227_64_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_227_9_227_64_begin] [%tmp.10 @_Users_tk_Desktop_glidator2_source_WatchData_mc_227_33_227_64_true] [%tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_227_33_227_64_end];
-        bf %tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_227_5_230_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_227_5_230_5_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_228_5_230_5_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 229 6 ]
-        symbol [ activityData %tmp.13 229 13 25 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_33_256_64_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_9_256_64_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_33_256_64_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_33_256_64_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_257_5_259_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 258 6 ]
+        symbol [ activityData %tmp.13 258 13 25 ];
         %tmp.13 = getv ? :activityData;
         %tmp.14 = "heartRate";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_228_5_230_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_227_5_230_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_227_5_230_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 232 5 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_232_5_235_5_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_232_9_232_60_begin:
-        symbol [ sensorData %tmp.17 232 9 19 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_257_5_259_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 261 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_9_261_60_begin:
+        symbol [ sensorData %tmp.17 261 9 19 ];
         %tmp.17 = getv ? :sensorData;
         %tmp.18 = null;
         %tmp.19 = ne %tmp.17 %tmp.18;
-        bf %tmp.19 @_Users_tk_Desktop_glidator2_source_WatchData_mc_232_5_235_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_232_31_232_60_true:
-        symbol [ sensorData %tmp.21 232 31 41 ];
+        bf %tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_31_261_60_true:
+        symbol [ sensorData %tmp.21 261 31 41 ];
         %tmp.21 = getv ? :sensorData;
         %tmp.22 = as %tmp.21 { (!Null) };
-        symbol [ hasKey %tmp.23 232 42 48 ];
+        symbol [ hasKey %tmp.23 261 42 48 ];
         %tmp.23 = getv function %tmp.22 :hasKey;
         %tmp.24 = "heartRate";
         %tmp.25 = invoke %tmp.22 %tmp.23(%tmp.24);
         push %tmp.25;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_232_31_232_60_end:
-        %tmp.26 = phi [%tmp.19 @_Users_tk_Desktop_glidator2_source_WatchData_mc_232_9_232_60_begin] [%tmp.25 @_Users_tk_Desktop_glidator2_source_WatchData_mc_232_31_232_60_true] [%tmp.26 @_Users_tk_Desktop_glidator2_source_WatchData_mc_232_31_232_60_end];
-        bf %tmp.26 @_Users_tk_Desktop_glidator2_source_WatchData_mc_232_5_235_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_232_5_235_5_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_233_5_235_5_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 234 6 ]
-        symbol [ sensorData %tmp.28 234 13 23 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_31_261_60_end:
+        %tmp.26 = phi [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_9_261_60_begin] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_31_261_60_true] [%tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_31_261_60_end];
+        bf %tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_262_5_264_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 263 6 ]
+        symbol [ sensorData %tmp.28 263 13 23 ];
         %tmp.28 = getv ? :sensorData;
         %tmp.29 = "heartRate";
         %tmp.30 = agetv %tmp.28 %tmp.29;
         ret %tmp.30;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_233_5_235_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_232_5_235_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_232_5_235_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 237 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_262_5_264_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 266 5 ]
         %tmp.31 = null;
         ret %tmp.31;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_226_4_238_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_255_4_267_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 242; typecheck = false; @symbol_functiondef = [getHeading,242,13,23]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 271; typecheck = false; @symbol_functiondef = [getTotalAscent,271,13,27]; ]
+    function getTotalAscent() {
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_272_4_279_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 273 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_9_273_66_begin:
+        symbol [ activityData %tmp.2 273 9 21 ];
+        %tmp.2 = getv ? :activityData;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_33_273_66_true:
+        symbol [ activityData %tmp.6 273 33 45 ];
+        %tmp.6 = getv ? :activityData;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ hasKey %tmp.8 273 46 52 ];
+        %tmp.8 = getv function %tmp.7 :hasKey;
+        %tmp.9 = "totalAscent";
+        %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
+        push %tmp.10;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_33_273_66_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_9_273_66_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_33_273_66_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_33_273_66_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_274_5_276_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 275 6 ]
+        symbol [ activityData %tmp.13 275 13 25 ];
+        %tmp.13 = getv ? :activityData;
+        %tmp.14 = "totalAscent";
+        %tmp.15 = agetv %tmp.13 %tmp.14;
+        ret %tmp.15;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_274_5_276_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 278 5 ]
+        %tmp.16 = null;
+        ret %tmp.16;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_272_4_279_4_stop:
+    }
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 283; typecheck = false; @symbol_functiondef = [getDistance,283,13,24]; ]
+    function getDistance() {
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_284_4_291_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 285 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_9_285_63_begin:
+        symbol [ activityData %tmp.2 285 9 21 ];
+        %tmp.2 = getv ? :activityData;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_33_285_63_true:
+        symbol [ activityData %tmp.6 285 33 45 ];
+        %tmp.6 = getv ? :activityData;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ hasKey %tmp.8 285 46 52 ];
+        %tmp.8 = getv function %tmp.7 :hasKey;
+        %tmp.9 = "distance";
+        %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
+        push %tmp.10;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_33_285_63_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_9_285_63_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_33_285_63_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_33_285_63_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_286_5_288_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 287 6 ]
+        symbol [ activityData %tmp.13 287 13 25 ];
+        %tmp.13 = getv ? :activityData;
+        %tmp.14 = "distance";
+        %tmp.15 = agetv %tmp.13 %tmp.14;
+        ret %tmp.15;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_286_5_288_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 290 5 ]
+        %tmp.16 = null;
+        ret %tmp.16;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_284_4_291_4_stop:
+    }
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 295; typecheck = false; @symbol_functiondef = [getTimerTime,295,13,25]; ]
+    function getTimerTime() {
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_296_4_303_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 297 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_9_297_64_begin:
+        symbol [ activityData %tmp.2 297 9 21 ];
+        %tmp.2 = getv ? :activityData;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_33_297_64_true:
+        symbol [ activityData %tmp.6 297 33 45 ];
+        %tmp.6 = getv ? :activityData;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ hasKey %tmp.8 297 46 52 ];
+        %tmp.8 = getv function %tmp.7 :hasKey;
+        %tmp.9 = "timerTime";
+        %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
+        push %tmp.10;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_33_297_64_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_9_297_64_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_33_297_64_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_33_297_64_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_298_5_300_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 299 6 ]
+        symbol [ activityData %tmp.13 299 13 25 ];
+        %tmp.13 = getv ? :activityData;
+        %tmp.14 = "timerTime";
+        %tmp.15 = agetv %tmp.13 %tmp.14;
+        ret %tmp.15;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_298_5_300_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 302 5 ]
+        %tmp.16 = null;
+        ret %tmp.16;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_296_4_303_4_stop:
+    }
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 307; typecheck = false; @symbol_functiondef = [getHeading,307,13,23]; ]
     function getHeading() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_243_4_262_4_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 256 5 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_256_5_259_5_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_256_9_256_52_begin:
-        symbol [ gpsData %tmp.2 256 9 16 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_308_4_327_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 321 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_9_321_52_begin:
+        symbol [ gpsData %tmp.2 321 9 16 ];
         %tmp.2 = getv ? :gpsData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_256_5_259_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_256_28_256_52_true:
-        symbol [ gpsData %tmp.6 256 28 35 ];
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_28_321_52_true:
+        symbol [ gpsData %tmp.6 321 28 35 ];
         %tmp.6 = getv ? :gpsData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 256 36 42 ];
+        symbol [ hasKey %tmp.8 321 36 42 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "heading";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_256_28_256_52_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_256_9_256_52_begin] [%tmp.10 @_Users_tk_Desktop_glidator2_source_WatchData_mc_256_28_256_52_true] [%tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_256_28_256_52_end];
-        bf %tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_256_5_259_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_256_5_259_5_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_257_5_259_5_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 258 6 ]
-        symbol [ gpsData %tmp.13 258 13 20 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_28_321_52_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_9_321_52_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_28_321_52_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_28_321_52_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_322_5_324_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 323 6 ]
+        symbol [ gpsData %tmp.13 323 13 20 ];
         %tmp.13 = getv ? :gpsData;
         %tmp.14 = "heading";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_257_5_259_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_256_5_259_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_256_5_259_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 261 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_322_5_324_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 326 5 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_243_4_262_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_308_4_327_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 264; @symbol_functiondef = [getNorth,264,10,18]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 329; @symbol_functiondef = [getNorth,329,10,18]; ]
     function getNorth() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_264_21_279_1_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 265 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_265_2_268_5_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_265_6_265_59_begin:
-        symbol [ activityData %tmp.2 265 6 18 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_329_21_344_1_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 330 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_6_330_59_begin:
+        symbol [ activityData %tmp.2 330 6 18 ];
         %tmp.2 = getv ? :activityData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_265_2_268_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_265_30_265_59_true:
-        symbol [ activityData %tmp.6 265 30 42 ];
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_30_330_59_true:
+        symbol [ activityData %tmp.6 330 30 42 ];
         %tmp.6 = getv ? :activityData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 265 43 49 ];
+        symbol [ hasKey %tmp.8 330 43 49 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "heading";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_265_30_265_59_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_265_6_265_59_begin] [%tmp.10 @_Users_tk_Desktop_glidator2_source_WatchData_mc_265_30_265_59_true] [%tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_265_30_265_59_end];
-        bf %tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_265_2_268_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_265_2_268_5_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_266_5_268_5_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 267 6 ]
-        symbol [ activityData %tmp.13 267 13 25 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_30_330_59_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_6_330_59_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_30_330_59_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_30_330_59_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_331_5_333_5_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 332 6 ]
+        symbol [ activityData %tmp.13 332 13 25 ];
         %tmp.13 = getv ? :activityData;
         %tmp.14 = "heading";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_266_5_268_5_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_265_2_268_5_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_265_2_268_5_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 269 5 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_331_5_333_5_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 334 5 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_264_21_279_1_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_329_21_344_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 282; @symbol_functiondef = [getLat,282,10,16]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 347; @symbol_functiondef = [getLat,347,10,16]; ]
     function getLat() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_282_19_287_1_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 283 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_283_2_285_2_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_283_6_283_45_begin:
-        symbol [ gpsData %tmp.2 283 6 13 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_347_19_352_1_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 348 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_6_348_45_begin:
+        symbol [ gpsData %tmp.2 348 6 13 ];
         %tmp.2 = getv ? :gpsData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_283_2_285_2_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_283_25_283_45_true:
-        symbol [ gpsData %tmp.6 283 25 32 ];
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_25_348_45_true:
+        symbol [ gpsData %tmp.6 348 25 32 ];
         %tmp.6 = getv ? :gpsData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 283 33 39 ];
+        symbol [ hasKey %tmp.8 348 33 39 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "lat";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_283_25_283_45_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_283_6_283_45_begin] [%tmp.10 @_Users_tk_Desktop_glidator2_source_WatchData_mc_283_25_283_45_true] [%tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_283_25_283_45_end];
-        bf %tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_283_2_285_2_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_283_2_285_2_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_283_47_285_2_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 284 3 ]
-        symbol [ gpsData %tmp.13 284 10 17 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_25_348_45_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_6_348_45_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_25_348_45_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_25_348_45_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_47_350_2_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 349 3 ]
+        symbol [ gpsData %tmp.13 349 10 17 ];
         %tmp.13 = getv ? :gpsData;
         %tmp.14 = "lat";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_283_47_285_2_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_283_2_285_2_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_283_2_285_2_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 286 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_47_350_2_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 351 2 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_282_19_287_1_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_347_19_352_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 290; @symbol_functiondef = [getLon,290,10,16]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 355; @symbol_functiondef = [getLon,355,10,16]; ]
     function getLon() {
-_Users_tk_Desktop_glidator2_source_WatchData_mc_290_18_295_1_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 291 2 ]
-_Users_tk_Desktop_glidator2_source_WatchData_mc_291_2_293_2_if_stmt:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_291_6_291_46_begin:
-        symbol [ gpsData %tmp.2 291 6 13 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_355_18_360_1_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 356 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_6_356_46_begin:
+        symbol [ gpsData %tmp.2 356 6 13 ];
         %tmp.2 = getv ? :gpsData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_291_2_293_2_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_291_25_291_46_true:
-        symbol [ gpsData %tmp.6 291 25 32 ];
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_25_356_46_true:
+        symbol [ gpsData %tmp.6 356 25 32 ];
         %tmp.6 = getv ? :gpsData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 291 33 39 ];
+        symbol [ hasKey %tmp.8 356 33 39 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "long";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_291_25_291_46_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_glidator2_source_WatchData_mc_291_6_291_46_begin] [%tmp.10 @_Users_tk_Desktop_glidator2_source_WatchData_mc_291_25_291_46_true] [%tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_291_25_291_46_end];
-        bf %tmp.11 @_Users_tk_Desktop_glidator2_source_WatchData_mc_291_2_293_2_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_291_2_293_2_if_true:
-_Users_tk_Desktop_glidator2_source_WatchData_mc_291_48_293_2_start:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 292 3 ]
-        symbol [ gpsData %tmp.13 292 10 17 ];
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_25_356_46_end:
+        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_6_356_46_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_25_356_46_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_25_356_46_end];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_48_358_2_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 357 3 ]
+        symbol [ gpsData %tmp.13 357 10 17 ];
         %tmp.13 = getv ? :gpsData;
         %tmp.14 = "long";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_291_48_293_2_stop:
-        goto @_Users_tk_Desktop_glidator2_source_WatchData_mc_291_2_293_2_if_end;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_291_2_293_2_if_end:
-[ "/Users/tk/Desktop/glidator2/source/WatchData.mc" 294 2 ]
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_48_358_2_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 359 2 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_glidator2_source_WatchData_mc_290_18_295_1_stop:
+_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_355_18_360_1_stop:
     }
 }
-[ @file = "/Users/tk/Desktop/glidator2/source/WatchData.mc"; @line = 1; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 1; ]
 <init> {
 }
