@@ -397,6 +397,43 @@ class WatchDisplay
         ]);
     }
 
+    // Ladder for the bottom (hero/timer) value font in hikeGrid(): prefer
+    // FONT_NUMBER_MEDIUM (the size fenix6pro uses) but fall back to the
+    // smaller FONT_NUMBER_MILD if MEDIUM doesn't fit -- protects against
+    // per-device font quirks like fr55, where FONT_NUMBER_MEDIUM renders
+    // wider than its entire 208px-wide screen. Labels and the top/mid values
+    // stay on fenix6pro's original fonts (FONT_XTINY / FONT_NUMBER_MILD)
+    // with no ladder: nothing bigger should ever be substituted in for them,
+    // only this one field ever needed a shrink fallback.
+    const HIKE_GRID_HERO_VALUE_FONTS = [Graphics.FONT_NUMBER_MILD, Graphics.FONT_NUMBER_MEDIUM];
+
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    // Returns the largest font in `fonts` (ordered smallest to largest) for
+    // which every string in `strings` fits within maxWidth x maxHeight.
+    // Falls back to the smallest font if none of them fit.
+    function pickFont(fonts, strings, maxWidth, maxHeight)
+    {
+        for (var i = fonts.size() - 1; i >= 0; i -= 1)
+        {
+            var fits = true;
+            for (var j = 0; j < strings.size(); j += 1)
+            {
+                var dim = dc.getTextDimensions(strings[j], fonts[i]);
+                if (dim[0] > maxWidth || dim[1] > maxHeight)
+                {
+                    fits = false;
+                    break;
+                }
+            }
+            if (fits)
+            {
+                return fonts[i];
+            }
+        }
+        return fonts[0];
+    }
+
     (:typecheck(false))
     // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
     // 4-field grid used by the Hiking Position and Pace pages: a full-width
@@ -404,66 +441,87 @@ class WatchDisplay
     // a two-column middle row split by a vertical divider, another divider,
     // and a big full-width bottom field for the timer -- modeled on a
     // standard Garmin data screen layout.
+    //
+    // Every offset below was tuned by eye against fenix6pro (260x260,
+    // "REF_SIZE"), which is why they're plain pixel numbers. `scale` re-bases
+    // them to whatever screen this actually is, so the same proportions --
+    // gap between a label and its value, icon size, divider inset -- hold up
+    // on a 163px Instinct2s and a 466px fenix9pro51mm alike, instead of
+    // staying frozen in fenix6pro pixels while the fonts around them grow or
+    // shrink with the device.
     function hikeGrid(topLabel, topValue, showHeartIcon, leftLabel, leftValue, rightLabel, rightValue, bottomLabel, bottomValue)
     {
         var w = dc.getWidth();
         var h = dc.getHeight();
+        var refSize = 260.0;
+        var scale = (w < h ? w : h) / refSize;
+
         var centerX = w / 2;
         var marginX = w * 0.1;
         var left = marginX;
         var right = w - marginX;
+        var fullWidth = right - left;
 
         var y0 = h * 0.10;
         var y1 = h * 0.35; // divider 1
         var y2 = h * 0.65; // divider 2
         var y3 = h * 0.90;
 
+        var dividerPenWidth = (2 * scale).toNumber();
+        if (dividerPenWidth < 1)
+        {
+            dividerPenWidth = 1;
+        }
+
         // Top field
         var topCenterY = (y0 + y1) / 2;
         if (showHeartIcon)
         {
             var valueWidth = dc.getTextWidthInPixels(topValue, Graphics.FONT_NUMBER_MILD);
+            var heartSize = 16 * scale;
             dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
-            drawHeart(centerX - valueWidth / 2 - 16, topCenterY, 16);
+            drawHeart(centerX - valueWidth / 2 - heartSize, topCenterY, heartSize);
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(centerX + 10, topCenterY, Graphics.FONT_NUMBER_MILD, topValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(centerX + 10 * scale, topCenterY, Graphics.FONT_NUMBER_MILD, topValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
         else
         {
             dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(centerX, topCenterY - 18, Graphics.FONT_XTINY, topLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(centerX, topCenterY - 18 * scale, Graphics.FONT_XTINY, topLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(centerX, topCenterY + 12, Graphics.FONT_NUMBER_MILD, topValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(centerX, topCenterY + 12 * scale, Graphics.FONT_NUMBER_MILD, topValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
 
         dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
-        dc.setPenWidth(2);
+        dc.setPenWidth(dividerPenWidth);
         dc.drawLine(left, y1, right, y1);
 
         // Middle two columns
         var midCenterY = (y1 + y2) / 2;
-        var colLeftX = (left + centerX) / 2 - 5;
-        var colRightX = (centerX + right) / 2 + 5;
+        var colOffset = 5 * scale;
+        var colLeftX = (left + centerX) / 2 - colOffset;
+        var colRightX = (centerX + right) / 2 + colOffset;
 
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(colLeftX, midCenterY - 28, Graphics.FONT_XTINY, leftLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.drawText(colRightX, midCenterY - 28, Graphics.FONT_XTINY, rightLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colLeftX, midCenterY - 28 * scale, Graphics.FONT_XTINY, leftLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colRightX, midCenterY - 28 * scale, Graphics.FONT_XTINY, rightLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(colLeftX, midCenterY + 12, Graphics.FONT_NUMBER_MILD, leftValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.drawText(colRightX, midCenterY + 12, Graphics.FONT_NUMBER_MILD, rightValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colLeftX, midCenterY + 12 * scale, Graphics.FONT_NUMBER_MILD, leftValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colRightX, midCenterY + 12 * scale, Graphics.FONT_NUMBER_MILD, rightValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(centerX, y1 + 8, centerX, y2 - 8);
+        dc.drawLine(centerX, y1 + 8 * scale, centerX, y2 - 8 * scale);
         dc.drawLine(left, y2, right, y2);
         dc.setPenWidth(1);
 
         // Bottom field (timer) -- biggest text on the page
         var bottomCenterY = (y2 + y3) / 2;
+        var bottomValueFont = pickFont(HIKE_GRID_HERO_VALUE_FONTS, [bottomValue], fullWidth, 74 * scale);
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, y2 + 14, Graphics.FONT_XTINY, bottomLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(centerX, y2 + 14 * scale, Graphics.FONT_XTINY, bottomLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, bottomCenterY + 14, Graphics.FONT_NUMBER_MEDIUM, bottomValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(centerX, bottomCenterY + 14 * scale, bottomValueFont, bottomValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
     // Live breadcrumb map: draws the recorded trail (a ring buffer, oldest-to-newest
