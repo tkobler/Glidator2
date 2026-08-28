@@ -56,7 +56,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_22_26_24_4_stop:
     }
     [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc"; @line = 32; @symbol_functiondef = [onUpdate,32,13,21]; @symbol_param<0> = [dc,32,22,24]; ]
     function onUpdate(dc) {
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start:
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start:
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 33 8 ]
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_33_8_35_8_if_stmt:
         symbol [ display %tmp.2 33 12 19 ];
@@ -99,7 +99,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_33_8_35_8_if_end:
         %tmp.14 = getv function %tmp.13 :clear;
         invoke %tmp.13 %tmp.14();
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 42 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop" ]
         %data.1 = local;
         symbol [ data %data.1 42 12 16 ];
         symbol [ app %tmp.16 42 19 22 ];
@@ -111,7 +111,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_33_8_35_8_if_end:
         lputv %data.1 %tmp.18;
         symbol [ data %data.1 42 12 16 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 44 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop" ]
         %altitude.2 = local;
         symbol [ altitude %altitude.2 44 12 20 ];
         %tmp.19 = lgetv %data.1;
@@ -122,20 +122,20 @@ _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_33_8_35_8_if_end:
         lputv %altitude.2 %tmp.21;
         symbol [ altitude %altitude.2 44 12 20 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 45 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop" ]
         %altStr.3 = local;
         symbol [ altStr %altStr.3 45 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_begin:
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_begin:
         %tmp.22 = lgetv %altitude.2;
         symbol [ altitude %tmp.22 45 22 30 ];
         %tmp.23 = null;
         %tmp.24 = eq %tmp.22 %tmp.23;
-        bf %tmp.24 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_false;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_true:
+        bf %tmp.24 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_else_false;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_true:
         %tmp.25 = "--";
         push %tmp.25;
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_false:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_end;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_else_false:
         symbol [ Math %tmp.26 45 49 53 ];
         %tmp.26 = getm $.Toybox.Math;
         symbol [ round %tmp.27 45 54 59 ];
@@ -150,178 +150,191 @@ _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_false:
         symbol [ toString %tmp.33 45 81 89 ];
         %tmp.33 = getv function %tmp.32 :toString;
         %tmp.34 = invoke %tmp.32 %tmp.33();
-        %tmp.35 = " m";
-        %tmp.36 = add %tmp.34 %tmp.35;
-        push %tmp.36;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_end:
-        %tmp.37 = phi [%tmp.24 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_begin] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_true] [%tmp.36 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_false] [%tmp.37 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_94_end];
-        lputv %altStr.3 %tmp.37;
+        push %tmp.34;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_end:
+        %tmp.35 = phi [%tmp.24 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_begin] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_true] [%tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_else_false] [%tmp.35 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_45_21_45_90_end];
+        lputv %altStr.3 %tmp.35;
         symbol [ altStr %altStr.3 45 12 18 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 47 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop" ]
         %hasSession.4 = local;
         symbol [ hasSession %hasSession.4 47 12 22 ];
-        symbol [ $ %tmp.38 47 25 26 ];
-        %tmp.38 = getm $;
-        symbol [ hasActiveSession %tmp.39 47 27 43 ];
-        %tmp.39 = getv function %tmp.38 :hasActiveSession;
-        %tmp.40 = invoke %tmp.38 %tmp.39();
-        lputv %hasSession.4 %tmp.40;
+        symbol [ $ %tmp.36 47 25 26 ];
+        %tmp.36 = getm $;
+        symbol [ hasActiveSession %tmp.37 47 27 43 ];
+        %tmp.37 = getv function %tmp.36 :hasActiveSession;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        lputv %hasSession.4 %tmp.38;
         symbol [ hasSession %hasSession.4 47 12 22 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 49 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop" ]
         %ascent.5 = local;
         symbol [ ascent %ascent.5 49 12 18 ];
-        %tmp.41 = lgetv %data.1;
-        symbol [ data %tmp.41 49 21 25 ];
-        symbol [ getTotalAscent %tmp.42 49 26 40 ];
-        %tmp.42 = getv function %tmp.41 :getTotalAscent;
-        %tmp.43 = invoke %tmp.41 %tmp.42();
-        lputv %ascent.5 %tmp.43;
+        %tmp.39 = lgetv %data.1;
+        symbol [ data %tmp.39 49 21 25 ];
+        symbol [ getTotalAscent %tmp.40 49 26 40 ];
+        %tmp.40 = getv function %tmp.39 :getTotalAscent;
+        %tmp.41 = invoke %tmp.39 %tmp.40();
+        lputv %ascent.5 %tmp.41;
         symbol [ ascent %ascent.5 49 12 18 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 50 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop" ]
         %ascentStr.6 = local;
         symbol [ ascentStr %ascentStr.6 50 12 21 ];
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_begin:
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_begin:
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_25_50_50_begin:
-        %tmp.44 = lgetv %hasSession.4;
-        symbol [ hasSession %tmp.44 50 26 36 ];
-        %tmp.45 = not %tmp.44;
-        bt %tmp.45 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_true;
+        %tmp.42 = lgetv %hasSession.4;
+        symbol [ hasSession %tmp.42 50 26 36 ];
+        %tmp.43 = not %tmp.42;
+        bt %tmp.43 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_true;
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_40_50_50_false:
-        %tmp.46 = lgetv %ascent.5;
-        symbol [ ascent %tmp.46 50 40 46 ];
-        %tmp.47 = null;
-        %tmp.48 = eq %tmp.46 %tmp.47;
-        push %tmp.48;
+        %tmp.44 = lgetv %ascent.5;
+        symbol [ ascent %tmp.44 50 40 46 ];
+        %tmp.45 = null;
+        %tmp.46 = eq %tmp.44 %tmp.45;
+        push %tmp.46;
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_40_50_50_end:
-        %tmp.49 = phi [%tmp.45 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_25_50_50_begin] [%tmp.48 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_40_50_50_false] [%tmp.49 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_40_50_50_end];
-        bf %tmp.49 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_false;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_true:
-        %tmp.50 = "--";
-        push %tmp.50;
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_false:
-        symbol [ Math %tmp.51 50 65 69 ];
-        %tmp.51 = getm $.Toybox.Math;
-        symbol [ round %tmp.52 50 70 75 ];
-        %tmp.52 = getv function %tmp.51 :round;
-        %tmp.53 = lgetv %ascent.5;
-        symbol [ ascent %tmp.53 50 76 82 ];
-        %tmp.54 = as %tmp.53 { (!Null) };
-        %tmp.55 = invoke %tmp.51 %tmp.52(%tmp.54);
-        symbol [ toNumber %tmp.56 50 84 92 ];
-        %tmp.56 = getv function %tmp.55 :toNumber;
+        %tmp.47 = phi [%tmp.43 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_25_50_50_begin] [%tmp.46 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_40_50_50_false] [%tmp.47 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_40_50_50_end];
+        bf %tmp.47 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_else_false;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_true:
+        %tmp.48 = "--";
+        push %tmp.48;
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_end;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_else_false:
+        symbol [ Math %tmp.49 50 65 69 ];
+        %tmp.49 = getm $.Toybox.Math;
+        symbol [ round %tmp.50 50 70 75 ];
+        %tmp.50 = getv function %tmp.49 :round;
+        %tmp.51 = lgetv %ascent.5;
+        symbol [ ascent %tmp.51 50 76 82 ];
+        %tmp.52 = as %tmp.51 { (!Null) };
+        %tmp.53 = invoke %tmp.49 %tmp.50(%tmp.52);
+        symbol [ toNumber %tmp.54 50 84 92 ];
+        %tmp.54 = getv function %tmp.53 :toNumber;
+        %tmp.55 = invoke %tmp.53 %tmp.54();
+        symbol [ toString %tmp.56 50 95 103 ];
+        %tmp.56 = getv function %tmp.55 :toString;
         %tmp.57 = invoke %tmp.55 %tmp.56();
-        symbol [ toString %tmp.58 50 95 103 ];
-        %tmp.58 = getv function %tmp.57 :toString;
-        %tmp.59 = invoke %tmp.57 %tmp.58();
-        %tmp.60 = " m";
-        %tmp.61 = add %tmp.59 %tmp.60;
-        push %tmp.61;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_end:
-        %tmp.62 = phi [%tmp.49 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_begin] [%tmp.50 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_true] [%tmp.61 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_false] [%tmp.62 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_108_end];
-        lputv %ascentStr.6 %tmp.62;
+        push %tmp.57;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_end:
+        %tmp.58 = phi [%tmp.47 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_begin] [%tmp.48 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_true] [%tmp.57 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_else_false] [%tmp.58 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_50_24_50_104_end];
+        lputv %ascentStr.6 %tmp.58;
         symbol [ ascentStr %ascentStr.6 50 12 21 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 52 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop" ]
         %distance.7 = local;
         symbol [ distance %distance.7 52 12 20 ];
-        %tmp.63 = lgetv %data.1;
-        symbol [ data %tmp.63 52 23 27 ];
-        symbol [ getDistance %tmp.64 52 28 39 ];
-        %tmp.64 = getv function %tmp.63 :getDistance;
-        %tmp.65 = invoke %tmp.63 %tmp.64();
-        lputv %distance.7 %tmp.65;
+        %tmp.59 = lgetv %data.1;
+        symbol [ data %tmp.59 52 23 27 ];
+        symbol [ getDistance %tmp.60 52 28 39 ];
+        %tmp.60 = getv function %tmp.59 :getDistance;
+        %tmp.61 = invoke %tmp.59 %tmp.60();
+        lputv %distance.7 %tmp.61;
         symbol [ distance %distance.7 52 12 20 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 53 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop" ]
         %distStr.8 = local;
         symbol [ distStr %distStr.8 53 12 19 ];
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_begin:
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_begin:
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_23_53_50_begin:
-        %tmp.66 = lgetv %hasSession.4;
-        symbol [ hasSession %tmp.66 53 24 34 ];
-        %tmp.67 = not %tmp.66;
-        bt %tmp.67 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_true;
+        %tmp.62 = lgetv %hasSession.4;
+        symbol [ hasSession %tmp.62 53 24 34 ];
+        %tmp.63 = not %tmp.62;
+        bt %tmp.63 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_true;
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_38_53_50_false:
-        %tmp.68 = lgetv %distance.7;
-        symbol [ distance %tmp.68 53 38 46 ];
-        %tmp.69 = null;
-        %tmp.70 = eq %tmp.68 %tmp.69;
-        push %tmp.70;
+        %tmp.64 = lgetv %distance.7;
+        symbol [ distance %tmp.64 53 38 46 ];
+        %tmp.65 = null;
+        %tmp.66 = eq %tmp.64 %tmp.65;
+        push %tmp.66;
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_38_53_50_end:
-        %tmp.71 = phi [%tmp.67 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_23_53_50_begin] [%tmp.70 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_38_53_50_false] [%tmp.71 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_38_53_50_end];
-        bf %tmp.71 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_false;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_true:
-        %tmp.72 = "--";
-        push %tmp.72;
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_false:
-        %tmp.73 = lgetv %distance.7;
-        symbol [ distance %tmp.73 53 66 74 ];
-        %tmp.74 = as %tmp.73 { (!Null) };
-        %tmp.75 = 1000.0;
-        %tmp.76 = div %tmp.74 %tmp.75;
-        symbol [ format %tmp.77 53 85 91 ];
-        %tmp.77 = getv function %tmp.76 :format;
-        %tmp.78 = "%.1f";
-        %tmp.79 = invoke %tmp.76 %tmp.77(%tmp.78);
-        %tmp.80 = " km";
-        %tmp.81 = add %tmp.79 %tmp.80;
-        push %tmp.81;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_end:
-        %tmp.82 = phi [%tmp.71 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_begin] [%tmp.72 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_true] [%tmp.81 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_false] [%tmp.82 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_102_end];
-        lputv %distStr.8 %tmp.82;
+        %tmp.67 = phi [%tmp.63 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_23_53_50_begin] [%tmp.66 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_38_53_50_false] [%tmp.67 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_38_53_50_end];
+        bf %tmp.67 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_else_false;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_true:
+        %tmp.68 = "--";
+        push %tmp.68;
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_end;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_else_false:
+        %tmp.69 = lgetv %distance.7;
+        symbol [ distance %tmp.69 53 66 74 ];
+        %tmp.70 = as %tmp.69 { (!Null) };
+        %tmp.71 = 1000.0;
+        %tmp.72 = div %tmp.70 %tmp.71;
+        symbol [ format %tmp.73 53 85 91 ];
+        %tmp.73 = getv function %tmp.72 :format;
+        %tmp.74 = "%.1f";
+        %tmp.75 = invoke %tmp.72 %tmp.73(%tmp.74);
+        push %tmp.75;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_end:
+        %tmp.76 = phi [%tmp.67 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_begin] [%tmp.68 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_true] [%tmp.75 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_else_false] [%tmp.76 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_53_22_53_98_end];
+        lputv %distStr.8 %tmp.76;
         symbol [ distStr %distStr.8 53 12 19 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 55 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop" ]
         %timerStr.9 = local;
         symbol [ timerStr %timerStr.9 55 12 20 ];
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_begin:
-        %tmp.83 = lgetv %hasSession.4;
-        symbol [ hasSession %tmp.83 55 23 33 ];
-        bf %tmp.83 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_false;
+        %tmp.77 = lgetv %hasSession.4;
+        symbol [ hasSession %tmp.77 55 23 33 ];
+        bf %tmp.77 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_else_false;
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_true:
-        %tmp.84 = self;
-        symbol [ formatDuration %tmp.85 55 36 50 ];
-        %tmp.85 = getv function %tmp.84 :formatDuration;
-        %tmp.86 = lgetv %data.1;
-        symbol [ data %tmp.86 55 51 55 ];
-        symbol [ getTimerTime %tmp.87 55 56 68 ];
-        %tmp.87 = getv function %tmp.86 :getTimerTime;
-        %tmp.88 = invoke %tmp.86 %tmp.87();
-        %tmp.89 = invoke %tmp.84 %tmp.85(%tmp.88);
-        push %tmp.89;
+        %tmp.78 = self;
+        symbol [ formatDuration %tmp.79 55 36 50 ];
+        %tmp.79 = getv function %tmp.78 :formatDuration;
+        %tmp.80 = lgetv %data.1;
+        symbol [ data %tmp.80 55 51 55 ];
+        symbol [ getTimerTime %tmp.81 55 56 68 ];
+        %tmp.81 = getv function %tmp.80 :getTimerTime;
+        %tmp.82 = invoke %tmp.80 %tmp.81();
+        %tmp.83 = invoke %tmp.78 %tmp.79(%tmp.82);
+        push %tmp.83;
         goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_false:
-        %tmp.90 = "--:--";
-        push %tmp.90;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_else_false:
+        %tmp.84 = "--:--";
+        push %tmp.84;
 _Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_end:
-        %tmp.91 = phi [%tmp.83 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_begin] [%tmp.89 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_true] [%tmp.90 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_false] [%tmp.91 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_end];
-        lputv %timerStr.9 %tmp.91;
+        %tmp.85 = phi [%tmp.77 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_begin] [%tmp.83 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_true] [%tmp.84 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_else_false] [%tmp.85 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_55_23_55_74_end];
+        lputv %timerStr.9 %tmp.85;
         symbol [ timerStr %timerStr.9 55 12 20 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 57 8 ]
-        symbol [ display %tmp.93 57 8 15 ];
-        %tmp.93 = getv ? :display;
-        symbol [ hikeGrid %tmp.94 57 16 24 ];
-        %tmp.94 = getv function %tmp.93 :hikeGrid;
-        %tmp.95 = "ALTITUDE";
-        %tmp.96 = lgetv %altStr.3;
-        symbol [ altStr %tmp.96 58 24 30 ];
-        %tmp.97 = false;
-        %tmp.98 = "ELEV GAIN";
-        %tmp.99 = lgetv %ascentStr.6;
-        symbol [ ascentStr %tmp.99 59 25 34 ];
-        %tmp.100 = "DISTANCE";
-        %tmp.101 = lgetv %distStr.8;
-        symbol [ distStr %tmp.101 60 24 31 ];
-        %tmp.102 = "TIMER";
-        %tmp.103 = lgetv %timerStr.9;
-        symbol [ timerStr %tmp.103 61 21 29 ];
-        invoke %tmp.93 %tmp.94(%tmp.95, %tmp.96, %tmp.97, %tmp.98, %tmp.99, %tmp.100, %tmp.101, %tmp.102, %tmp.103);
-_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_63_4_stop:
+        symbol [ display %tmp.87 57 8 15 ];
+        %tmp.87 = getv ? :display;
+        symbol [ hikeGrid %tmp.88 57 16 24 ];
+        %tmp.88 = getv function %tmp.87 :hikeGrid;
+        %tmp.89 = "ALTITUDE";
+        %tmp.90 = lgetv %altStr.3;
+        symbol [ altStr %tmp.90 58 24 30 ];
+        %tmp.91 = false;
+        %tmp.92 = "ELEV. GAIN";
+        %tmp.93 = lgetv %ascentStr.6;
+        symbol [ ascentStr %tmp.93 59 26 35 ];
+        %tmp.94 = "DISTANCE";
+        %tmp.95 = lgetv %distStr.8;
+        symbol [ distStr %tmp.95 60 24 31 ];
+        %tmp.96 = "TIMER";
+        %tmp.97 = lgetv %timerStr.9;
+        symbol [ timerStr %tmp.97 61 21 29 ];
+        invoke %tmp.87 %tmp.88(%tmp.89, %tmp.90, %tmp.91, %tmp.92, %tmp.93, %tmp.94, %tmp.95, %tmp.96, %tmp.97);
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 64 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_64_8_66_8_if_stmt:
+        symbol [ $ %tmp.98 64 12 13 ];
+        %tmp.98 = getm $;
+        symbol [ isRecordFlashActive %tmp.99 64 14 33 ];
+        %tmp.99 = getv function %tmp.98 :isRecordFlashActive;
+        %tmp.100 = invoke %tmp.98 %tmp.99();
+        bf %tmp.100 @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_64_8_66_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_64_8_66_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_64_37_66_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc" 65 12 ]
+        symbol [ display %tmp.102 65 12 19 ];
+        %tmp.102 = getv ? :display;
+        symbol [ recordingStartIcon %tmp.103 65 20 38 ];
+        %tmp.103 = getv function %tmp.102 :recordingStartIcon;
+        invoke %tmp.102 %tmp.103();
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_64_37_66_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_64_8_66_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_64_8_66_8_if_end:
+_Users_tk_Desktop_Claude_Glidator2_source_HikePositionView_mc_32_26_67_4_stop:
     }
 }
 [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePositionView.mc"; @line = 1; ]

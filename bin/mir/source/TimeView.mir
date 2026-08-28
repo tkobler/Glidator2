@@ -67,7 +67,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_21_22_23_4_stop:
     }
     [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/TimeView.mc"; @line = 25; @symbol_functiondef = [onUpdate,25,13,21]; @symbol_param<0> = [dc,25,22,24]; ]
     function onUpdate(dc) {
-_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_47_4_start:
+_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_51_4_start:
 [ "/Users/tk/Desktop/Claude/Glidator2/source/TimeView.mc" 26 8 ]
 _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_26_8_28_8_if_stmt:
         symbol [ display %tmp.2 26 12 19 ];
@@ -110,7 +110,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_26_8_28_8_if_end:
         %tmp.14 = getv function %tmp.13 :clear;
         invoke %tmp.13 %tmp.14();
 [ "/Users/tk/Desktop/Claude/Glidator2/source/TimeView.mc" 38 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_47_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_47_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_51_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_51_4_stop" ]
         %now.1 = local;
         symbol [ now %now.1 38 12 15 ];
         symbol [ System %tmp.15 38 18 24 ];
@@ -121,7 +121,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_26_8_28_8_if_end:
         lputv %now.1 %tmp.17;
         symbol [ now %now.1 38 12 15 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/TimeView.mc" 39 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_47_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_47_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_51_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_51_4_stop" ]
         %timeStr.2 = local;
         symbol [ timeStr %timeStr.2 39 12 19 ];
         %tmp.18 = lgetv %now.1;
@@ -146,7 +146,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_26_8_28_8_if_end:
         lputv %timeStr.2 %tmp.30;
         symbol [ timeStr %timeStr.2 39 12 19 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/TimeView.mc" 42 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_47_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_47_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_51_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_51_4_stop" ]
         %battery.3 = local;
         symbol [ battery %battery.3 42 12 19 ];
 _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_begin:
@@ -162,7 +162,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_begin:
         symbol [ Float %tmp.37 42 71 76 ];
         %tmp.37 = getv %tmp.36 :Float;
         %tmp.38 = isa %tmp.34 %tmp.37;
-        bf %tmp.38 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_false;
+        bf %tmp.38 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_else_false;
 _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_true:
         symbol [ System %tmp.39 43 14 20 ];
         %tmp.39 = getm $.Toybox.System;
@@ -176,7 +176,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_true:
         %tmp.44 = invoke %tmp.42 %tmp.43();
         push %tmp.44;
         goto @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_end;
-_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_false:
+_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_else_false:
         symbol [ System %tmp.45 44 14 20 ];
         %tmp.45 = getm $.Toybox.System;
         symbol [ getSystemStats %tmp.46 44 21 35 ];
@@ -186,7 +186,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_false:
         %tmp.48 = getv %tmp.47 :battery;
         push %tmp.48;
 _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_end:
-        %tmp.49 = phi [%tmp.38 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_begin] [%tmp.44 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_true] [%tmp.48 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_false] [%tmp.49 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_end];
+        %tmp.49 = phi [%tmp.38 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_begin] [%tmp.44 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_true] [%tmp.48 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_else_false] [%tmp.49 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_end];
         lputv %battery.3 %tmp.49;
         symbol [ battery %battery.3 42 12 19 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/TimeView.mc" 46 8 ]
@@ -199,7 +199,26 @@ _Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_42_22_44_38_end:
         %tmp.54 = lgetv %battery.3;
         symbol [ battery %tmp.54 46 42 49 ];
         invoke %tmp.51 %tmp.52(%tmp.53, %tmp.54);
-_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_47_4_stop:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/TimeView.mc" 48 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_48_8_50_8_if_stmt:
+        symbol [ $ %tmp.55 48 12 13 ];
+        %tmp.55 = getm $;
+        symbol [ isRecordFlashActive %tmp.56 48 14 33 ];
+        %tmp.56 = getv function %tmp.55 :isRecordFlashActive;
+        %tmp.57 = invoke %tmp.55 %tmp.56();
+        bf %tmp.57 @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_48_8_50_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_48_8_50_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_48_37_50_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/TimeView.mc" 49 12 ]
+        symbol [ display %tmp.59 49 12 19 ];
+        %tmp.59 = getv ? :display;
+        symbol [ recordingStartIcon %tmp.60 49 20 38 ];
+        %tmp.60 = getv function %tmp.59 :recordingStartIcon;
+        invoke %tmp.59 %tmp.60();
+_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_48_37_50_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_48_8_50_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_48_8_50_8_if_end:
+_Users_tk_Desktop_Claude_Glidator2_source_TimeView_mc_25_26_51_4_stop:
     }
 }
 [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/TimeView.mc"; @line = 1; ]

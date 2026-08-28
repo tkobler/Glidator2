@@ -1,36 +1,36 @@
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
 import Toybox.Lang;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Test,2,14,18]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Test,2,14,18]; ]
 import Toybox.Test;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 5; typecheck = false; languageServer = do_not_complete; @symbol_functiondef = [getTestObject,5,9,22]; @symbol_return<0> = [RunNoEvil,5,28,37]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 5; typecheck = false; languageServer = do_not_complete; @symbol_functiondef = [getTestObject,5,9,22]; @symbol_return<0> = [RunNoEvil,5,28,37]; ]
 function getTestObject() as RunNoEvil {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_5_38_7_0_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 6 4 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_5_38_7_0_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 6 4 ]
     symbol [ RunNoEvil %tmp.4 6 15 24 ];
     %tmp.4 = getv ? :RunNoEvil;
     %tmp.1 = newc %tmp.4 ();
     ret %tmp.1;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_5_38_7_0_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_5_38_7_0_stop:
 }
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 10; typecheck = false; languageServer = do_not_complete; @symbol_classdef = [RunNoEvil,10,6,15]; @symbol_extends<0> = [Test,10,24,28]; @symbol_extends<1> = [Test,10,29,33]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 10; typecheck = false; languageServer = do_not_complete; @symbol_classdef = [RunNoEvil,10,6,15]; @symbol_extends<0> = [Test,10,24,28]; @symbol_extends<1> = [Test,10,29,33]; ]
 class RunNoEvil extends Test.Test {
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 10; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 10; ]
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 10; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 10; ]
     static
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 11; @position = 16; @symbol_vardef = [logger,11,16,22]; @symbol_type<0> = [Logger,11,26,32]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 11; @position = 16; @symbol_vardef = [logger,11,16,22]; @symbol_type<0> = [Logger,11,26,32]; ]
     private
     var logger as Logger;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 12; @position = 16; @symbol_vardef = [idToName,12,16,24]; @symbol_type<0> = [Array,12,28,33]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 12; @position = 16; @symbol_vardef = [idToName,12,16,24]; @symbol_type<0> = [Array,12,28,33]; ]
     private
     var idToName as Array;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 14; @symbol_functiondef = [initialize,14,13,23]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 14; @symbol_functiondef = [initialize,14,13,23]; ]
     function initialize() as Void {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_14_26_19_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 15 8 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_14_26_19_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 15 8 ]
         symbol [ Test %tmp.1 15 8 12 ];
         %tmp.1 = getm $.Toybox.Test;
         symbol [ Test %tmp.2 15 13 17 ];
@@ -38,7 +38,7 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_1
         symbol [ initialize %tmp.3 15 18 28 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 16 8 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 16 8 ]
         symbol [ Test %tmp.6 16 21 25 ];
         %tmp.6 = getm $.Toybox.Test;
         symbol [ Logger %tmp.7 16 26 32 ];
@@ -46,32 +46,32 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_1
         %tmp.4 = newc %tmp.7 ();
         symbol [ logger ? 16 8 14 ];
         putv self :logger %tmp.4;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 17 8 ]
-        %tmp.9 = 30;
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 17 8 ]
+        %tmp.9 = 5;
         %tmp.8 = newa %tmp.9;
         symbol [ idToName ? 17 8 16 ];
         putv self :idToName %tmp.8;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 18 8 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 18 8 ]
         %tmp.10 = self;
-        symbol [ populate_test_entries_0_to_30 %tmp.11 18 8 37 ];
-        %tmp.11 = getv function %tmp.10 :populate_test_entries_0_to_30;
+        symbol [ populate_test_entries_0_to_5 %tmp.11 18 8 36 ];
+        %tmp.11 = getv function %tmp.10 :populate_test_entries_0_to_5;
         invoke %tmp.10 %tmp.11();
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_14_26_19_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_14_26_19_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 21; @symbol_functiondef = [getIndexOf,21,13,23]; @symbol_param<0> = [name,21,24,28]; @symbol_param<0>_type<0> = [String,21,32,38]; @symbol_return<0> = [Number,21,43,49]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 21; @symbol_functiondef = [getIndexOf,21,13,23]; @symbol_param<0> = [name,21,24,28]; @symbol_param<0>_type<0> = [String,21,32,38]; @symbol_return<0> = [Number,21,43,49]; ]
     function getIndexOf(name as String) as Number {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_21_50_34_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 22 8 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_22_8_24_8_if_stmt:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_21_50_34_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 22 8 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_22_8_24_8_if_stmt:
         symbol [ idToName %tmp.2 22 12 20 ];
         %tmp.2 = getv ? :idToName;
         %tmp.4 = const :indexOf;
         symbol [ indexOf %tmp.4 22 26 33 const ];
         %tmp.5 = canhazplz %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_22_8_24_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_22_8_24_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_22_35_24_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 23 12 ]
+        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_22_8_24_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_22_8_24_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_22_35_24_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 23 12 ]
         symbol [ idToName %tmp.7 23 19 27 ];
         %tmp.7 = getv ? :idToName;
         %tmp.8 = as %tmp.7 { (interface { var indexOf; }) };
@@ -81,11 +81,11 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_2
         symbol [ name %tmp.10 23 36 40 ];
         %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
         ret %tmp.11;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_22_35_24_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_22_8_24_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_22_8_24_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 26 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_21_50_34_4_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_21_50_34_4_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_22_35_24_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_22_8_24_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_22_8_24_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 26 8 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_21_50_34_4_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_21_50_34_4_stop" ]
         %j.1 = local;
         symbol [ j %j.1 26 12 13 ];
         symbol [ idToName %tmp.13 26 16 24 ];
@@ -95,26 +95,26 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_2
         %tmp.15 = invoke %tmp.13 %tmp.14();
         lputv %j.1 %tmp.15;
         symbol [ j %j.1 26 12 13 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 27 8 ]
-        for @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_test @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_incr @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_init:
-        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_begin" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_end" ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 27 8 ]
+        for @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_test @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_incr @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_init:
+        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_begin" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_end" ]
         %i.2 = local;
         symbol [ i %i.2 27 17 18 ];
         %tmp.16 = 0;
         lputv %i.2 %tmp.16;
         symbol [ i %i.2 27 17 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_test:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_test:
         %tmp.17 = lgetv %i.2;
         symbol [ i %tmp.17 27 24 25 ];
         %tmp.18 = lgetv %j.1;
         symbol [ j %tmp.18 27 28 29 ];
         %tmp.19 = lt %tmp.17 %tmp.18;
-        bf %tmp.19 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_begin:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_36_31_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 28 12 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_28_12_30_12_if_stmt:
+        bf %tmp.19 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_begin:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_36_31_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 28 12 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_28_12_30_12_if_stmt:
         symbol [ idToName %tmp.21 28 16 24 ];
         %tmp.21 = getv ? :idToName;
         %tmp.22 = lgetv %i.2;
@@ -125,1051 +125,326 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_2
         %tmp.25 = lgetv %name;
         symbol [ name %tmp.25 28 35 39 ];
         %tmp.26 = invoke %tmp.23 %tmp.24(%tmp.25);
-        bf %tmp.26 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_28_12_30_12_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_28_12_30_12_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_28_42_30_12_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 29 16 ]
+        bf %tmp.26 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_28_12_30_12_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_28_12_30_12_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_28_42_30_12_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 29 16 ]
         %tmp.27 = lgetv %i.2;
         symbol [ i %tmp.27 29 23 24 ];
         ret %tmp.27;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_28_42_30_12_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_28_12_30_12_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_28_12_30_12_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_36_31_8_stop:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_incr:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 27 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_28_42_30_12_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_28_12_30_12_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_28_12_30_12_if_end:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_36_31_8_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_incr:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 27 ]
         %tmp.30 = lgetv %i.2;
         symbol [ i %tmp.30 27 33 34 ];
         %tmp.31 = add %tmp.30 1;
         lputv %i.2 %tmp.31;
         symbol [ i %i.2 27 33 34 ];
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_test;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_27_8_31_8_for_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 33 8 ]
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_test;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_27_8_31_8_for_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 33 8 ]
         %tmp.32 = -1;
         ret %tmp.32;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_21_50_34_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_21_50_34_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 36; @symbol_functiondef = [getTestName,36,13,24]; @symbol_param<0> = [id,36,25,27]; @symbol_param<0>_type<0> = [Number,36,31,37]; @symbol_return<0> = [String,36,42,48]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 36; @symbol_functiondef = [getTestName,36,13,24]; @symbol_param<0> = [id,36,25,27]; @symbol_param<0>_type<0> = [Number,36,31,37]; @symbol_return<0> = [String,36,42,48]; ]
     function getTestName(id as Number) as String {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_36_49_38_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 37 8 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_36_49_38_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 37 8 ]
         symbol [ idToName %tmp.2 37 15 23 ];
         %tmp.2 = getv ? :idToName;
         %tmp.3 = lgetv %id;
         symbol [ id %tmp.3 37 24 26 ];
         %tmp.4 = agetv %tmp.2 %tmp.3;
         ret %tmp.4;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_36_49_38_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_36_49_38_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 40; @symbol_functiondef = [getNumberOfTests,40,13,29]; @symbol_return<0> = [Number,40,35,41]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 40; @symbol_functiondef = [getNumberOfTests,40,13,29]; @symbol_return<0> = [Number,40,35,41]; ]
     function getNumberOfTests() as Number {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_40_42_42_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 41 8 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_40_42_42_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 41 8 ]
         symbol [ idToName %tmp.2 41 15 23 ];
         %tmp.2 = getv ? :idToName;
         symbol [ size %tmp.3 41 24 28 ];
         %tmp.3 = getv function %tmp.2 :size;
         %tmp.4 = invoke %tmp.2 %tmp.3();
         ret %tmp.4;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_40_42_42_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_40_42_42_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 44; @symbol_functiondef = [populate_test_entries_0_to_30,44,13,42]; ]
-    function populate_test_entries_0_to_30() as Void {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_44_53_75_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 45 8 ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 44; @symbol_functiondef = [populate_test_entries_0_to_5,44,13,41]; ]
+    function populate_test_entries_0_to_5() as Void {
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_44_52_50_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 45 8 ]
         symbol [ idToName %tmp.1 45 8 16 ];
         %tmp.1 = getv self :idToName;
         %tmp.2 = "testFormatDuration";
         %tmp.3 = 0;
         aputv %tmp.1 %tmp.3 %tmp.2;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 46 8 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 46 8 ]
         symbol [ idToName %tmp.4 46 8 16 ];
         %tmp.4 = getv self :idToName;
         %tmp.5 = "testBreadcrumbTrailDecimation";
         %tmp.6 = 1;
         aputv %tmp.4 %tmp.6 %tmp.5;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 47 8 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 47 8 ]
         symbol [ idToName %tmp.7 47 8 16 ];
         %tmp.7 = getv self :idToName;
         %tmp.8 = "testBreadcrumbTrailRingBufferWraparound";
         %tmp.9 = 2;
         aputv %tmp.7 %tmp.9 %tmp.8;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 48 8 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 48 8 ]
         symbol [ idToName %tmp.10 48 8 16 ];
         %tmp.10 = getv self :idToName;
         %tmp.11 = "testWatchDataAccessorsFallBackToActivityData";
         %tmp.12 = 3;
         aputv %tmp.10 %tmp.12 %tmp.11;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 49 8 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 49 8 ]
         symbol [ idToName %tmp.13 49 8 16 ];
         %tmp.13 = getv self :idToName;
         %tmp.14 = "testSessionStateMachine";
         %tmp.15 = 4;
         aputv %tmp.13 %tmp.15 %tmp.14;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 50 8 ]
-        symbol [ idToName %tmp.16 50 8 16 ];
-        %tmp.16 = getv self :idToName;
-        %tmp.17 = "testFormatDuration";
-        %tmp.18 = 5;
-        aputv %tmp.16 %tmp.18 %tmp.17;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 51 8 ]
-        symbol [ idToName %tmp.19 51 8 16 ];
-        %tmp.19 = getv self :idToName;
-        %tmp.20 = "testBreadcrumbTrailDecimation";
-        %tmp.21 = 6;
-        aputv %tmp.19 %tmp.21 %tmp.20;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 52 8 ]
-        symbol [ idToName %tmp.22 52 8 16 ];
-        %tmp.22 = getv self :idToName;
-        %tmp.23 = "testBreadcrumbTrailRingBufferWraparound";
-        %tmp.24 = 7;
-        aputv %tmp.22 %tmp.24 %tmp.23;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 53 8 ]
-        symbol [ idToName %tmp.25 53 8 16 ];
-        %tmp.25 = getv self :idToName;
-        %tmp.26 = "testWatchDataAccessorsFallBackToActivityData";
-        %tmp.27 = 8;
-        aputv %tmp.25 %tmp.27 %tmp.26;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 54 8 ]
-        symbol [ idToName %tmp.28 54 8 16 ];
-        %tmp.28 = getv self :idToName;
-        %tmp.29 = "testSessionStateMachine";
-        %tmp.30 = 9;
-        aputv %tmp.28 %tmp.30 %tmp.29;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 55 8 ]
-        symbol [ idToName %tmp.31 55 8 16 ];
-        %tmp.31 = getv self :idToName;
-        %tmp.32 = "testFormatDuration";
-        %tmp.33 = 10;
-        aputv %tmp.31 %tmp.33 %tmp.32;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 56 8 ]
-        symbol [ idToName %tmp.34 56 8 16 ];
-        %tmp.34 = getv self :idToName;
-        %tmp.35 = "testBreadcrumbTrailDecimation";
-        %tmp.36 = 11;
-        aputv %tmp.34 %tmp.36 %tmp.35;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 57 8 ]
-        symbol [ idToName %tmp.37 57 8 16 ];
-        %tmp.37 = getv self :idToName;
-        %tmp.38 = "testBreadcrumbTrailRingBufferWraparound";
-        %tmp.39 = 12;
-        aputv %tmp.37 %tmp.39 %tmp.38;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 58 8 ]
-        symbol [ idToName %tmp.40 58 8 16 ];
-        %tmp.40 = getv self :idToName;
-        %tmp.41 = "testWatchDataAccessorsFallBackToActivityData";
-        %tmp.42 = 13;
-        aputv %tmp.40 %tmp.42 %tmp.41;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 59 8 ]
-        symbol [ idToName %tmp.43 59 8 16 ];
-        %tmp.43 = getv self :idToName;
-        %tmp.44 = "testSessionStateMachine";
-        %tmp.45 = 14;
-        aputv %tmp.43 %tmp.45 %tmp.44;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 60 8 ]
-        symbol [ idToName %tmp.46 60 8 16 ];
-        %tmp.46 = getv self :idToName;
-        %tmp.47 = "testFormatDuration";
-        %tmp.48 = 15;
-        aputv %tmp.46 %tmp.48 %tmp.47;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 61 8 ]
-        symbol [ idToName %tmp.49 61 8 16 ];
-        %tmp.49 = getv self :idToName;
-        %tmp.50 = "testBreadcrumbTrailDecimation";
-        %tmp.51 = 16;
-        aputv %tmp.49 %tmp.51 %tmp.50;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 62 8 ]
-        symbol [ idToName %tmp.52 62 8 16 ];
-        %tmp.52 = getv self :idToName;
-        %tmp.53 = "testBreadcrumbTrailRingBufferWraparound";
-        %tmp.54 = 17;
-        aputv %tmp.52 %tmp.54 %tmp.53;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 63 8 ]
-        symbol [ idToName %tmp.55 63 8 16 ];
-        %tmp.55 = getv self :idToName;
-        %tmp.56 = "testWatchDataAccessorsFallBackToActivityData";
-        %tmp.57 = 18;
-        aputv %tmp.55 %tmp.57 %tmp.56;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 64 8 ]
-        symbol [ idToName %tmp.58 64 8 16 ];
-        %tmp.58 = getv self :idToName;
-        %tmp.59 = "testSessionStateMachine";
-        %tmp.60 = 19;
-        aputv %tmp.58 %tmp.60 %tmp.59;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 65 8 ]
-        symbol [ idToName %tmp.61 65 8 16 ];
-        %tmp.61 = getv self :idToName;
-        %tmp.62 = "testFormatDuration";
-        %tmp.63 = 20;
-        aputv %tmp.61 %tmp.63 %tmp.62;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 66 8 ]
-        symbol [ idToName %tmp.64 66 8 16 ];
-        %tmp.64 = getv self :idToName;
-        %tmp.65 = "testBreadcrumbTrailDecimation";
-        %tmp.66 = 21;
-        aputv %tmp.64 %tmp.66 %tmp.65;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 67 8 ]
-        symbol [ idToName %tmp.67 67 8 16 ];
-        %tmp.67 = getv self :idToName;
-        %tmp.68 = "testBreadcrumbTrailRingBufferWraparound";
-        %tmp.69 = 22;
-        aputv %tmp.67 %tmp.69 %tmp.68;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 68 8 ]
-        symbol [ idToName %tmp.70 68 8 16 ];
-        %tmp.70 = getv self :idToName;
-        %tmp.71 = "testWatchDataAccessorsFallBackToActivityData";
-        %tmp.72 = 23;
-        aputv %tmp.70 %tmp.72 %tmp.71;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 69 8 ]
-        symbol [ idToName %tmp.73 69 8 16 ];
-        %tmp.73 = getv self :idToName;
-        %tmp.74 = "testSessionStateMachine";
-        %tmp.75 = 24;
-        aputv %tmp.73 %tmp.75 %tmp.74;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 70 8 ]
-        symbol [ idToName %tmp.76 70 8 16 ];
-        %tmp.76 = getv self :idToName;
-        %tmp.77 = "testFormatDuration";
-        %tmp.78 = 25;
-        aputv %tmp.76 %tmp.78 %tmp.77;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 71 8 ]
-        symbol [ idToName %tmp.79 71 8 16 ];
-        %tmp.79 = getv self :idToName;
-        %tmp.80 = "testBreadcrumbTrailDecimation";
-        %tmp.81 = 26;
-        aputv %tmp.79 %tmp.81 %tmp.80;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 72 8 ]
-        symbol [ idToName %tmp.82 72 8 16 ];
-        %tmp.82 = getv self :idToName;
-        %tmp.83 = "testBreadcrumbTrailRingBufferWraparound";
-        %tmp.84 = 27;
-        aputv %tmp.82 %tmp.84 %tmp.83;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 73 8 ]
-        symbol [ idToName %tmp.85 73 8 16 ];
-        %tmp.85 = getv self :idToName;
-        %tmp.86 = "testWatchDataAccessorsFallBackToActivityData";
-        %tmp.87 = 28;
-        aputv %tmp.85 %tmp.87 %tmp.86;
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 74 8 ]
-        symbol [ idToName %tmp.88 74 8 16 ];
-        %tmp.88 = getv self :idToName;
-        %tmp.89 = "testSessionStateMachine";
-        %tmp.90 = 29;
-        aputv %tmp.88 %tmp.90 %tmp.89;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_44_53_75_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_44_52_50_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 77; @symbol_functiondef = [evaluate_test_entries_0_to_30,77,13,42]; @symbol_param<0> = [id,77,43,45]; @symbol_param<0>_type<0> = [Number,77,49,55]; @symbol_param<1> = [logger,77,57,63]; @symbol_param<1>_type<0> = [Logger,77,67,73]; ]
-    function evaluate_test_entries_0_to_30(id as Number, logger as Logger) {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_77_75_142_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 78 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_77_75_142_4_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_77_75_142_4_stop" ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 52; @symbol_functiondef = [evaluate_test_entries_0_to_5,52,13,41]; @symbol_param<0> = [id,52,42,44]; @symbol_param<0>_type<0> = [Number,52,48,54]; @symbol_param<1> = [logger,52,56,62]; @symbol_param<1>_type<0> = [Logger,52,66,72]; ]
+    function evaluate_test_entries_0_to_5(id as Number, logger as Logger) {
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_52_74_67_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 53 8 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_52_74_67_4_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_52_74_67_4_stop" ]
         %result.1 = local;
-        symbol [ result %result.1 78 12 18 ];
+        symbol [ result %result.1 53 12 18 ];
         %tmp.1 = false;
         lputv %result.1 %tmp.1;
-        symbol [ result %result.1 78 12 18 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 79 8 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_79_8_139_8_if_stmt:
+        symbol [ result %result.1 53 12 18 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 54 8 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_54_8_64_8_if_stmt:
         %tmp.2 = lgetv %id;
-        symbol [ id %tmp.2 79 12 14 ];
+        symbol [ id %tmp.2 54 12 14 ];
         %tmp.3 = 0;
         %tmp.4 = eq %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_79_8_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_79_8_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_79_21_81_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 80 12 ]
-        symbol [ $ %tmp.5 80 21 22 ];
+        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_54_8_64_8_if_false;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_54_8_64_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_54_21_56_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 55 12 ]
+        symbol [ $ %tmp.5 55 21 22 ];
         %tmp.5 = getm $;
-        symbol [ testFormatDuration %tmp.6 80 23 41 ];
+        symbol [ testFormatDuration %tmp.6 55 23 41 ];
         %tmp.6 = getv function %tmp.5 :testFormatDuration;
         %tmp.7 = lgetv %logger;
-        symbol [ logger %tmp.7 80 42 48 ];
+        symbol [ logger %tmp.7 55 42 48 ];
         %tmp.8 = invoke %tmp.5 %tmp.6(%tmp.7);
         lputv %result.1 %tmp.8;
-        symbol [ result %result.1 80 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_79_21_81_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_79_8_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_79_8_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 81 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_81_15_139_8_if_stmt:
+        symbol [ result %result.1 55 12 18 ];
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_54_21_56_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_54_8_64_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_54_8_64_8_if_false:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 56 15 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_56_15_64_8_if_stmt:
         %tmp.9 = lgetv %id;
-        symbol [ id %tmp.9 81 19 21 ];
+        symbol [ id %tmp.9 56 19 21 ];
         %tmp.10 = 1;
         %tmp.11 = eq %tmp.9 %tmp.10;
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_81_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_81_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_81_28_83_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 82 12 ]
-        symbol [ $ %tmp.12 82 21 22 ];
+        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_56_15_64_8_if_false;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_56_15_64_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_56_28_58_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 57 12 ]
+        symbol [ $ %tmp.12 57 21 22 ];
         %tmp.12 = getm $;
-        symbol [ testBreadcrumbTrailDecimation %tmp.13 82 23 52 ];
+        symbol [ testBreadcrumbTrailDecimation %tmp.13 57 23 52 ];
         %tmp.13 = getv function %tmp.12 :testBreadcrumbTrailDecimation;
         %tmp.14 = lgetv %logger;
-        symbol [ logger %tmp.14 82 53 59 ];
+        symbol [ logger %tmp.14 57 53 59 ];
         %tmp.15 = invoke %tmp.12 %tmp.13(%tmp.14);
         lputv %result.1 %tmp.15;
-        symbol [ result %result.1 82 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_81_28_83_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_81_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_81_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 83 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_83_15_139_8_if_stmt:
+        symbol [ result %result.1 57 12 18 ];
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_56_28_58_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_56_15_64_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_56_15_64_8_if_false:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 58 15 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_58_15_64_8_if_stmt:
         %tmp.16 = lgetv %id;
-        symbol [ id %tmp.16 83 19 21 ];
+        symbol [ id %tmp.16 58 19 21 ];
         %tmp.17 = 2;
         %tmp.18 = eq %tmp.16 %tmp.17;
-        bf %tmp.18 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_83_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_83_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_83_28_85_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 84 12 ]
-        symbol [ $ %tmp.19 84 21 22 ];
+        bf %tmp.18 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_58_15_64_8_if_false;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_58_15_64_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_58_28_60_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 59 12 ]
+        symbol [ $ %tmp.19 59 21 22 ];
         %tmp.19 = getm $;
-        symbol [ testBreadcrumbTrailRingBufferWraparound %tmp.20 84 23 62 ];
+        symbol [ testBreadcrumbTrailRingBufferWraparound %tmp.20 59 23 62 ];
         %tmp.20 = getv function %tmp.19 :testBreadcrumbTrailRingBufferWraparound;
         %tmp.21 = lgetv %logger;
-        symbol [ logger %tmp.21 84 63 69 ];
+        symbol [ logger %tmp.21 59 63 69 ];
         %tmp.22 = invoke %tmp.19 %tmp.20(%tmp.21);
         lputv %result.1 %tmp.22;
-        symbol [ result %result.1 84 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_83_28_85_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_83_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_83_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 85 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_85_15_139_8_if_stmt:
+        symbol [ result %result.1 59 12 18 ];
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_58_28_60_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_58_15_64_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_58_15_64_8_if_false:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 60 15 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_60_15_64_8_if_stmt:
         %tmp.23 = lgetv %id;
-        symbol [ id %tmp.23 85 19 21 ];
+        symbol [ id %tmp.23 60 19 21 ];
         %tmp.24 = 3;
         %tmp.25 = eq %tmp.23 %tmp.24;
-        bf %tmp.25 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_85_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_85_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_85_28_87_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 86 12 ]
-        symbol [ $ %tmp.26 86 21 22 ];
+        bf %tmp.25 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_60_15_64_8_if_false;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_60_15_64_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_60_28_62_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 61 12 ]
+        symbol [ $ %tmp.26 61 21 22 ];
         %tmp.26 = getm $;
-        symbol [ testWatchDataAccessorsFallBackToActivityData %tmp.27 86 23 67 ];
+        symbol [ testWatchDataAccessorsFallBackToActivityData %tmp.27 61 23 67 ];
         %tmp.27 = getv function %tmp.26 :testWatchDataAccessorsFallBackToActivityData;
         %tmp.28 = lgetv %logger;
-        symbol [ logger %tmp.28 86 68 74 ];
+        symbol [ logger %tmp.28 61 68 74 ];
         %tmp.29 = invoke %tmp.26 %tmp.27(%tmp.28);
         lputv %result.1 %tmp.29;
-        symbol [ result %result.1 86 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_85_28_87_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_85_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_85_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 87 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_87_15_139_8_if_stmt:
+        symbol [ result %result.1 61 12 18 ];
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_60_28_62_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_60_15_64_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_60_15_64_8_if_false:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 62 15 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_62_15_64_8_if_stmt:
         %tmp.30 = lgetv %id;
-        symbol [ id %tmp.30 87 19 21 ];
+        symbol [ id %tmp.30 62 19 21 ];
         %tmp.31 = 4;
         %tmp.32 = eq %tmp.30 %tmp.31;
-        bf %tmp.32 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_87_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_87_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_87_28_89_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 88 12 ]
-        symbol [ $ %tmp.33 88 21 22 ];
+        bf %tmp.32 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_62_15_64_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_62_15_64_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_62_28_64_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 63 12 ]
+        symbol [ $ %tmp.33 63 21 22 ];
         %tmp.33 = getm $;
-        symbol [ testSessionStateMachine %tmp.34 88 23 46 ];
+        symbol [ testSessionStateMachine %tmp.34 63 23 46 ];
         %tmp.34 = getv function %tmp.33 :testSessionStateMachine;
         %tmp.35 = lgetv %logger;
-        symbol [ logger %tmp.35 88 47 53 ];
+        symbol [ logger %tmp.35 63 47 53 ];
         %tmp.36 = invoke %tmp.33 %tmp.34(%tmp.35);
         lputv %result.1 %tmp.36;
-        symbol [ result %result.1 88 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_87_28_89_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_87_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_87_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 89 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_89_15_139_8_if_stmt:
-        %tmp.37 = lgetv %id;
-        symbol [ id %tmp.37 89 19 21 ];
-        %tmp.38 = 5;
-        %tmp.39 = eq %tmp.37 %tmp.38;
-        bf %tmp.39 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_89_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_89_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_89_28_91_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 90 12 ]
-        symbol [ $ %tmp.40 90 21 22 ];
-        %tmp.40 = getm $;
-        symbol [ testFormatDuration %tmp.41 90 23 41 ];
-        %tmp.41 = getv function %tmp.40 :testFormatDuration;
-        %tmp.42 = lgetv %logger;
-        symbol [ logger %tmp.42 90 42 48 ];
-        %tmp.43 = invoke %tmp.40 %tmp.41(%tmp.42);
-        lputv %result.1 %tmp.43;
-        symbol [ result %result.1 90 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_89_28_91_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_89_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_89_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 91 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_91_15_139_8_if_stmt:
-        %tmp.44 = lgetv %id;
-        symbol [ id %tmp.44 91 19 21 ];
-        %tmp.45 = 6;
-        %tmp.46 = eq %tmp.44 %tmp.45;
-        bf %tmp.46 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_91_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_91_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_91_28_93_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 92 12 ]
-        symbol [ $ %tmp.47 92 21 22 ];
-        %tmp.47 = getm $;
-        symbol [ testBreadcrumbTrailDecimation %tmp.48 92 23 52 ];
-        %tmp.48 = getv function %tmp.47 :testBreadcrumbTrailDecimation;
-        %tmp.49 = lgetv %logger;
-        symbol [ logger %tmp.49 92 53 59 ];
-        %tmp.50 = invoke %tmp.47 %tmp.48(%tmp.49);
-        lputv %result.1 %tmp.50;
-        symbol [ result %result.1 92 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_91_28_93_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_91_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_91_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 93 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_93_15_139_8_if_stmt:
-        %tmp.51 = lgetv %id;
-        symbol [ id %tmp.51 93 19 21 ];
-        %tmp.52 = 7;
-        %tmp.53 = eq %tmp.51 %tmp.52;
-        bf %tmp.53 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_93_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_93_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_93_28_95_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 94 12 ]
-        symbol [ $ %tmp.54 94 21 22 ];
-        %tmp.54 = getm $;
-        symbol [ testBreadcrumbTrailRingBufferWraparound %tmp.55 94 23 62 ];
-        %tmp.55 = getv function %tmp.54 :testBreadcrumbTrailRingBufferWraparound;
-        %tmp.56 = lgetv %logger;
-        symbol [ logger %tmp.56 94 63 69 ];
-        %tmp.57 = invoke %tmp.54 %tmp.55(%tmp.56);
-        lputv %result.1 %tmp.57;
-        symbol [ result %result.1 94 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_93_28_95_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_93_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_93_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 95 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_95_15_139_8_if_stmt:
-        %tmp.58 = lgetv %id;
-        symbol [ id %tmp.58 95 19 21 ];
-        %tmp.59 = 8;
-        %tmp.60 = eq %tmp.58 %tmp.59;
-        bf %tmp.60 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_95_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_95_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_95_28_97_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 96 12 ]
-        symbol [ $ %tmp.61 96 21 22 ];
-        %tmp.61 = getm $;
-        symbol [ testWatchDataAccessorsFallBackToActivityData %tmp.62 96 23 67 ];
-        %tmp.62 = getv function %tmp.61 :testWatchDataAccessorsFallBackToActivityData;
-        %tmp.63 = lgetv %logger;
-        symbol [ logger %tmp.63 96 68 74 ];
-        %tmp.64 = invoke %tmp.61 %tmp.62(%tmp.63);
-        lputv %result.1 %tmp.64;
-        symbol [ result %result.1 96 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_95_28_97_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_95_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_95_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 97 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_97_15_139_8_if_stmt:
-        %tmp.65 = lgetv %id;
-        symbol [ id %tmp.65 97 19 21 ];
-        %tmp.66 = 9;
-        %tmp.67 = eq %tmp.65 %tmp.66;
-        bf %tmp.67 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_97_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_97_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_97_28_99_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 98 12 ]
-        symbol [ $ %tmp.68 98 21 22 ];
-        %tmp.68 = getm $;
-        symbol [ testSessionStateMachine %tmp.69 98 23 46 ];
-        %tmp.69 = getv function %tmp.68 :testSessionStateMachine;
-        %tmp.70 = lgetv %logger;
-        symbol [ logger %tmp.70 98 47 53 ];
-        %tmp.71 = invoke %tmp.68 %tmp.69(%tmp.70);
-        lputv %result.1 %tmp.71;
-        symbol [ result %result.1 98 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_97_28_99_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_97_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_97_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 99 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_99_15_139_8_if_stmt:
-        %tmp.72 = lgetv %id;
-        symbol [ id %tmp.72 99 19 21 ];
-        %tmp.73 = 10;
-        %tmp.74 = eq %tmp.72 %tmp.73;
-        bf %tmp.74 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_99_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_99_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_99_29_101_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 100 12 ]
-        symbol [ $ %tmp.75 100 21 22 ];
-        %tmp.75 = getm $;
-        symbol [ testFormatDuration %tmp.76 100 23 41 ];
-        %tmp.76 = getv function %tmp.75 :testFormatDuration;
-        %tmp.77 = lgetv %logger;
-        symbol [ logger %tmp.77 100 42 48 ];
-        %tmp.78 = invoke %tmp.75 %tmp.76(%tmp.77);
-        lputv %result.1 %tmp.78;
-        symbol [ result %result.1 100 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_99_29_101_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_99_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_99_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 101 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_101_15_139_8_if_stmt:
-        %tmp.79 = lgetv %id;
-        symbol [ id %tmp.79 101 19 21 ];
-        %tmp.80 = 11;
-        %tmp.81 = eq %tmp.79 %tmp.80;
-        bf %tmp.81 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_101_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_101_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_101_29_103_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 102 12 ]
-        symbol [ $ %tmp.82 102 21 22 ];
-        %tmp.82 = getm $;
-        symbol [ testBreadcrumbTrailDecimation %tmp.83 102 23 52 ];
-        %tmp.83 = getv function %tmp.82 :testBreadcrumbTrailDecimation;
-        %tmp.84 = lgetv %logger;
-        symbol [ logger %tmp.84 102 53 59 ];
-        %tmp.85 = invoke %tmp.82 %tmp.83(%tmp.84);
-        lputv %result.1 %tmp.85;
-        symbol [ result %result.1 102 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_101_29_103_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_101_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_101_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 103 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_103_15_139_8_if_stmt:
-        %tmp.86 = lgetv %id;
-        symbol [ id %tmp.86 103 19 21 ];
-        %tmp.87 = 12;
-        %tmp.88 = eq %tmp.86 %tmp.87;
-        bf %tmp.88 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_103_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_103_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_103_29_105_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 104 12 ]
-        symbol [ $ %tmp.89 104 21 22 ];
-        %tmp.89 = getm $;
-        symbol [ testBreadcrumbTrailRingBufferWraparound %tmp.90 104 23 62 ];
-        %tmp.90 = getv function %tmp.89 :testBreadcrumbTrailRingBufferWraparound;
-        %tmp.91 = lgetv %logger;
-        symbol [ logger %tmp.91 104 63 69 ];
-        %tmp.92 = invoke %tmp.89 %tmp.90(%tmp.91);
-        lputv %result.1 %tmp.92;
-        symbol [ result %result.1 104 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_103_29_105_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_103_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_103_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 105 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_105_15_139_8_if_stmt:
-        %tmp.93 = lgetv %id;
-        symbol [ id %tmp.93 105 19 21 ];
-        %tmp.94 = 13;
-        %tmp.95 = eq %tmp.93 %tmp.94;
-        bf %tmp.95 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_105_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_105_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_105_29_107_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 106 12 ]
-        symbol [ $ %tmp.96 106 21 22 ];
-        %tmp.96 = getm $;
-        symbol [ testWatchDataAccessorsFallBackToActivityData %tmp.97 106 23 67 ];
-        %tmp.97 = getv function %tmp.96 :testWatchDataAccessorsFallBackToActivityData;
-        %tmp.98 = lgetv %logger;
-        symbol [ logger %tmp.98 106 68 74 ];
-        %tmp.99 = invoke %tmp.96 %tmp.97(%tmp.98);
-        lputv %result.1 %tmp.99;
-        symbol [ result %result.1 106 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_105_29_107_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_105_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_105_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 107 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_107_15_139_8_if_stmt:
-        %tmp.100 = lgetv %id;
-        symbol [ id %tmp.100 107 19 21 ];
-        %tmp.101 = 14;
-        %tmp.102 = eq %tmp.100 %tmp.101;
-        bf %tmp.102 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_107_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_107_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_107_29_109_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 108 12 ]
-        symbol [ $ %tmp.103 108 21 22 ];
-        %tmp.103 = getm $;
-        symbol [ testSessionStateMachine %tmp.104 108 23 46 ];
-        %tmp.104 = getv function %tmp.103 :testSessionStateMachine;
-        %tmp.105 = lgetv %logger;
-        symbol [ logger %tmp.105 108 47 53 ];
-        %tmp.106 = invoke %tmp.103 %tmp.104(%tmp.105);
-        lputv %result.1 %tmp.106;
-        symbol [ result %result.1 108 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_107_29_109_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_107_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_107_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 109 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_109_15_139_8_if_stmt:
-        %tmp.107 = lgetv %id;
-        symbol [ id %tmp.107 109 19 21 ];
-        %tmp.108 = 15;
-        %tmp.109 = eq %tmp.107 %tmp.108;
-        bf %tmp.109 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_109_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_109_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_109_29_111_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 110 12 ]
-        symbol [ $ %tmp.110 110 21 22 ];
-        %tmp.110 = getm $;
-        symbol [ testFormatDuration %tmp.111 110 23 41 ];
-        %tmp.111 = getv function %tmp.110 :testFormatDuration;
-        %tmp.112 = lgetv %logger;
-        symbol [ logger %tmp.112 110 42 48 ];
-        %tmp.113 = invoke %tmp.110 %tmp.111(%tmp.112);
-        lputv %result.1 %tmp.113;
-        symbol [ result %result.1 110 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_109_29_111_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_109_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_109_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 111 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_111_15_139_8_if_stmt:
-        %tmp.114 = lgetv %id;
-        symbol [ id %tmp.114 111 19 21 ];
-        %tmp.115 = 16;
-        %tmp.116 = eq %tmp.114 %tmp.115;
-        bf %tmp.116 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_111_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_111_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_111_29_113_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 112 12 ]
-        symbol [ $ %tmp.117 112 21 22 ];
-        %tmp.117 = getm $;
-        symbol [ testBreadcrumbTrailDecimation %tmp.118 112 23 52 ];
-        %tmp.118 = getv function %tmp.117 :testBreadcrumbTrailDecimation;
-        %tmp.119 = lgetv %logger;
-        symbol [ logger %tmp.119 112 53 59 ];
-        %tmp.120 = invoke %tmp.117 %tmp.118(%tmp.119);
-        lputv %result.1 %tmp.120;
-        symbol [ result %result.1 112 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_111_29_113_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_111_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_111_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 113 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_113_15_139_8_if_stmt:
-        %tmp.121 = lgetv %id;
-        symbol [ id %tmp.121 113 19 21 ];
-        %tmp.122 = 17;
-        %tmp.123 = eq %tmp.121 %tmp.122;
-        bf %tmp.123 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_113_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_113_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_113_29_115_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 114 12 ]
-        symbol [ $ %tmp.124 114 21 22 ];
-        %tmp.124 = getm $;
-        symbol [ testBreadcrumbTrailRingBufferWraparound %tmp.125 114 23 62 ];
-        %tmp.125 = getv function %tmp.124 :testBreadcrumbTrailRingBufferWraparound;
-        %tmp.126 = lgetv %logger;
-        symbol [ logger %tmp.126 114 63 69 ];
-        %tmp.127 = invoke %tmp.124 %tmp.125(%tmp.126);
-        lputv %result.1 %tmp.127;
-        symbol [ result %result.1 114 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_113_29_115_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_113_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_113_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 115 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_115_15_139_8_if_stmt:
-        %tmp.128 = lgetv %id;
-        symbol [ id %tmp.128 115 19 21 ];
-        %tmp.129 = 18;
-        %tmp.130 = eq %tmp.128 %tmp.129;
-        bf %tmp.130 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_115_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_115_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_115_29_117_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 116 12 ]
-        symbol [ $ %tmp.131 116 21 22 ];
-        %tmp.131 = getm $;
-        symbol [ testWatchDataAccessorsFallBackToActivityData %tmp.132 116 23 67 ];
-        %tmp.132 = getv function %tmp.131 :testWatchDataAccessorsFallBackToActivityData;
-        %tmp.133 = lgetv %logger;
-        symbol [ logger %tmp.133 116 68 74 ];
-        %tmp.134 = invoke %tmp.131 %tmp.132(%tmp.133);
-        lputv %result.1 %tmp.134;
-        symbol [ result %result.1 116 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_115_29_117_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_115_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_115_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 117 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_117_15_139_8_if_stmt:
-        %tmp.135 = lgetv %id;
-        symbol [ id %tmp.135 117 19 21 ];
-        %tmp.136 = 19;
-        %tmp.137 = eq %tmp.135 %tmp.136;
-        bf %tmp.137 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_117_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_117_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_117_29_119_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 118 12 ]
-        symbol [ $ %tmp.138 118 21 22 ];
-        %tmp.138 = getm $;
-        symbol [ testSessionStateMachine %tmp.139 118 23 46 ];
-        %tmp.139 = getv function %tmp.138 :testSessionStateMachine;
-        %tmp.140 = lgetv %logger;
-        symbol [ logger %tmp.140 118 47 53 ];
-        %tmp.141 = invoke %tmp.138 %tmp.139(%tmp.140);
-        lputv %result.1 %tmp.141;
-        symbol [ result %result.1 118 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_117_29_119_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_117_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_117_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 119 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_119_15_139_8_if_stmt:
-        %tmp.142 = lgetv %id;
-        symbol [ id %tmp.142 119 19 21 ];
-        %tmp.143 = 20;
-        %tmp.144 = eq %tmp.142 %tmp.143;
-        bf %tmp.144 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_119_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_119_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_119_29_121_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 120 12 ]
-        symbol [ $ %tmp.145 120 21 22 ];
-        %tmp.145 = getm $;
-        symbol [ testFormatDuration %tmp.146 120 23 41 ];
-        %tmp.146 = getv function %tmp.145 :testFormatDuration;
-        %tmp.147 = lgetv %logger;
-        symbol [ logger %tmp.147 120 42 48 ];
-        %tmp.148 = invoke %tmp.145 %tmp.146(%tmp.147);
-        lputv %result.1 %tmp.148;
-        symbol [ result %result.1 120 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_119_29_121_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_119_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_119_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 121 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_121_15_139_8_if_stmt:
-        %tmp.149 = lgetv %id;
-        symbol [ id %tmp.149 121 19 21 ];
-        %tmp.150 = 21;
-        %tmp.151 = eq %tmp.149 %tmp.150;
-        bf %tmp.151 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_121_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_121_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_121_29_123_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 122 12 ]
-        symbol [ $ %tmp.152 122 21 22 ];
-        %tmp.152 = getm $;
-        symbol [ testBreadcrumbTrailDecimation %tmp.153 122 23 52 ];
-        %tmp.153 = getv function %tmp.152 :testBreadcrumbTrailDecimation;
-        %tmp.154 = lgetv %logger;
-        symbol [ logger %tmp.154 122 53 59 ];
-        %tmp.155 = invoke %tmp.152 %tmp.153(%tmp.154);
-        lputv %result.1 %tmp.155;
-        symbol [ result %result.1 122 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_121_29_123_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_121_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_121_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 123 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_123_15_139_8_if_stmt:
-        %tmp.156 = lgetv %id;
-        symbol [ id %tmp.156 123 19 21 ];
-        %tmp.157 = 22;
-        %tmp.158 = eq %tmp.156 %tmp.157;
-        bf %tmp.158 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_123_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_123_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_123_29_125_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 124 12 ]
-        symbol [ $ %tmp.159 124 21 22 ];
-        %tmp.159 = getm $;
-        symbol [ testBreadcrumbTrailRingBufferWraparound %tmp.160 124 23 62 ];
-        %tmp.160 = getv function %tmp.159 :testBreadcrumbTrailRingBufferWraparound;
-        %tmp.161 = lgetv %logger;
-        symbol [ logger %tmp.161 124 63 69 ];
-        %tmp.162 = invoke %tmp.159 %tmp.160(%tmp.161);
-        lputv %result.1 %tmp.162;
-        symbol [ result %result.1 124 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_123_29_125_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_123_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_123_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 125 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_125_15_139_8_if_stmt:
-        %tmp.163 = lgetv %id;
-        symbol [ id %tmp.163 125 19 21 ];
-        %tmp.164 = 23;
-        %tmp.165 = eq %tmp.163 %tmp.164;
-        bf %tmp.165 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_125_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_125_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_125_29_127_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 126 12 ]
-        symbol [ $ %tmp.166 126 21 22 ];
-        %tmp.166 = getm $;
-        symbol [ testWatchDataAccessorsFallBackToActivityData %tmp.167 126 23 67 ];
-        %tmp.167 = getv function %tmp.166 :testWatchDataAccessorsFallBackToActivityData;
-        %tmp.168 = lgetv %logger;
-        symbol [ logger %tmp.168 126 68 74 ];
-        %tmp.169 = invoke %tmp.166 %tmp.167(%tmp.168);
-        lputv %result.1 %tmp.169;
-        symbol [ result %result.1 126 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_125_29_127_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_125_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_125_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 127 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_127_15_139_8_if_stmt:
-        %tmp.170 = lgetv %id;
-        symbol [ id %tmp.170 127 19 21 ];
-        %tmp.171 = 24;
-        %tmp.172 = eq %tmp.170 %tmp.171;
-        bf %tmp.172 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_127_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_127_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_127_29_129_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 128 12 ]
-        symbol [ $ %tmp.173 128 21 22 ];
-        %tmp.173 = getm $;
-        symbol [ testSessionStateMachine %tmp.174 128 23 46 ];
-        %tmp.174 = getv function %tmp.173 :testSessionStateMachine;
-        %tmp.175 = lgetv %logger;
-        symbol [ logger %tmp.175 128 47 53 ];
-        %tmp.176 = invoke %tmp.173 %tmp.174(%tmp.175);
-        lputv %result.1 %tmp.176;
-        symbol [ result %result.1 128 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_127_29_129_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_127_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_127_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 129 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_129_15_139_8_if_stmt:
-        %tmp.177 = lgetv %id;
-        symbol [ id %tmp.177 129 19 21 ];
-        %tmp.178 = 25;
-        %tmp.179 = eq %tmp.177 %tmp.178;
-        bf %tmp.179 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_129_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_129_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_129_29_131_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 130 12 ]
-        symbol [ $ %tmp.180 130 21 22 ];
-        %tmp.180 = getm $;
-        symbol [ testFormatDuration %tmp.181 130 23 41 ];
-        %tmp.181 = getv function %tmp.180 :testFormatDuration;
-        %tmp.182 = lgetv %logger;
-        symbol [ logger %tmp.182 130 42 48 ];
-        %tmp.183 = invoke %tmp.180 %tmp.181(%tmp.182);
-        lputv %result.1 %tmp.183;
-        symbol [ result %result.1 130 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_129_29_131_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_129_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_129_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 131 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_131_15_139_8_if_stmt:
-        %tmp.184 = lgetv %id;
-        symbol [ id %tmp.184 131 19 21 ];
-        %tmp.185 = 26;
-        %tmp.186 = eq %tmp.184 %tmp.185;
-        bf %tmp.186 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_131_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_131_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_131_29_133_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 132 12 ]
-        symbol [ $ %tmp.187 132 21 22 ];
-        %tmp.187 = getm $;
-        symbol [ testBreadcrumbTrailDecimation %tmp.188 132 23 52 ];
-        %tmp.188 = getv function %tmp.187 :testBreadcrumbTrailDecimation;
-        %tmp.189 = lgetv %logger;
-        symbol [ logger %tmp.189 132 53 59 ];
-        %tmp.190 = invoke %tmp.187 %tmp.188(%tmp.189);
-        lputv %result.1 %tmp.190;
-        symbol [ result %result.1 132 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_131_29_133_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_131_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_131_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 133 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_133_15_139_8_if_stmt:
-        %tmp.191 = lgetv %id;
-        symbol [ id %tmp.191 133 19 21 ];
-        %tmp.192 = 27;
-        %tmp.193 = eq %tmp.191 %tmp.192;
-        bf %tmp.193 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_133_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_133_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_133_29_135_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 134 12 ]
-        symbol [ $ %tmp.194 134 21 22 ];
-        %tmp.194 = getm $;
-        symbol [ testBreadcrumbTrailRingBufferWraparound %tmp.195 134 23 62 ];
-        %tmp.195 = getv function %tmp.194 :testBreadcrumbTrailRingBufferWraparound;
-        %tmp.196 = lgetv %logger;
-        symbol [ logger %tmp.196 134 63 69 ];
-        %tmp.197 = invoke %tmp.194 %tmp.195(%tmp.196);
-        lputv %result.1 %tmp.197;
-        symbol [ result %result.1 134 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_133_29_135_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_133_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_133_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 135 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_135_15_139_8_if_stmt:
-        %tmp.198 = lgetv %id;
-        symbol [ id %tmp.198 135 19 21 ];
-        %tmp.199 = 28;
-        %tmp.200 = eq %tmp.198 %tmp.199;
-        bf %tmp.200 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_135_15_139_8_if_false;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_135_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_135_29_137_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 136 12 ]
-        symbol [ $ %tmp.201 136 21 22 ];
-        %tmp.201 = getm $;
-        symbol [ testWatchDataAccessorsFallBackToActivityData %tmp.202 136 23 67 ];
-        %tmp.202 = getv function %tmp.201 :testWatchDataAccessorsFallBackToActivityData;
-        %tmp.203 = lgetv %logger;
-        symbol [ logger %tmp.203 136 68 74 ];
-        %tmp.204 = invoke %tmp.201 %tmp.202(%tmp.203);
-        lputv %result.1 %tmp.204;
-        symbol [ result %result.1 136 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_135_29_137_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_135_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_135_15_139_8_if_false:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 137 15 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_137_15_139_8_if_stmt:
-        %tmp.205 = lgetv %id;
-        symbol [ id %tmp.205 137 19 21 ];
-        %tmp.206 = 29;
-        %tmp.207 = eq %tmp.205 %tmp.206;
-        bf %tmp.207 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_137_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_137_15_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_137_29_139_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 138 12 ]
-        symbol [ $ %tmp.208 138 21 22 ];
-        %tmp.208 = getm $;
-        symbol [ testSessionStateMachine %tmp.209 138 23 46 ];
-        %tmp.209 = getv function %tmp.208 :testSessionStateMachine;
-        %tmp.210 = lgetv %logger;
-        symbol [ logger %tmp.210 138 47 53 ];
-        %tmp.211 = invoke %tmp.208 %tmp.209(%tmp.210);
-        lputv %result.1 %tmp.211;
-        symbol [ result %result.1 138 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_137_29_139_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_137_15_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_137_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_135_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_133_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_131_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_129_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_127_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_125_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_123_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_121_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_119_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_117_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_115_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_113_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_111_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_109_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_107_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_105_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_103_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_101_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_99_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_97_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_95_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_93_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_91_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_89_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_87_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_85_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_83_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_81_15_139_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_79_8_139_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 141 8 ]
-        %tmp.212 = lgetv %result.1;
-        symbol [ result %tmp.212 141 15 21 ];
-        ret %tmp.212;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_77_75_142_4_stop:
+        symbol [ result %result.1 63 12 18 ];
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_62_28_64_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_62_15_64_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_62_15_64_8_if_end:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_60_15_64_8_if_end:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_58_15_64_8_if_end:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_56_15_64_8_if_end:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_54_8_64_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 66 8 ]
+        %tmp.37 = lgetv %result.1;
+        symbol [ result %tmp.37 66 15 21 ];
+        ret %tmp.37;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_52_74_67_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 144; @symbol_functiondef = [runTest,144,13,20]; @symbol_param<0> = [test,144,21,25]; @symbol_param<0>_type<0> = [String,144,29,35]; @symbol_param<0>_type<1> = [Number,144,39,45]; @symbol_return<0> = [Boolean,144,50,57]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 69; @symbol_functiondef = [runTest,69,13,20]; @symbol_param<0> = [test,69,21,25]; @symbol_param<0>_type<0> = [String,69,29,35]; @symbol_param<0>_type<1> = [Number,69,39,45]; @symbol_return<0> = [Boolean,69,50,57]; ]
     function runTest(test as String or Number) as Boolean {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_144_58_161_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 145 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_144_58_161_4_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_144_58_161_4_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_69_58_86_4_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 70 8 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_69_58_86_4_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_69_58_86_4_stop" ]
         %id.1 = local;
-        symbol [ id %id.1 145 12 14 ];
+        symbol [ id %id.1 70 12 14 ];
         %tmp.1 = lgetv %test;
-        symbol [ test %tmp.1 145 17 21 ];
+        symbol [ test %tmp.1 70 17 21 ];
         lputv %id.1 %tmp.1;
-        symbol [ id %id.1 145 12 14 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 146 8 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_146_8_148_8_if_stmt:
+        symbol [ id %id.1 70 12 14 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 71 8 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_71_8_73_8_if_stmt:
         %tmp.2 = lgetv %test;
-        symbol [ test %tmp.2 146 12 16 ];
-        symbol [ Lang %tmp.3 146 28 32 ];
+        symbol [ test %tmp.2 71 12 16 ];
+        symbol [ Lang %tmp.3 71 28 32 ];
         %tmp.3 = getm $.Toybox.Lang;
-        symbol [ String %tmp.4 146 33 39 ];
+        symbol [ String %tmp.4 71 33 39 ];
         %tmp.4 = getv %tmp.3 :String;
         %tmp.5 = isa %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_146_8_148_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_146_8_148_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_146_41_148_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 147 12 ]
+        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_71_8_73_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_71_8_73_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_71_41_73_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 72 12 ]
         %tmp.6 = self;
-        symbol [ getIndexOf %tmp.7 147 17 27 ];
+        symbol [ getIndexOf %tmp.7 72 17 27 ];
         %tmp.7 = getv function %tmp.6 :getIndexOf;
         %tmp.8 = lgetv %test;
-        symbol [ test %tmp.8 147 28 32 ];
+        symbol [ test %tmp.8 72 28 32 ];
         %tmp.9 = as %tmp.8 { (Lang.String) };
         %tmp.10 = invoke %tmp.6 %tmp.7(%tmp.9);
         lputv %id.1 %tmp.10;
-        symbol [ id %id.1 147 12 14 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_146_41_148_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_146_8_148_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_146_8_148_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 150 8 ]
+        symbol [ id %id.1 72 12 14 ];
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_71_41_73_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_71_8_73_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_71_8_73_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 75 8 ]
         %tmp.11 = self;
-        symbol [ assertMessage %tmp.12 150 8 21 ];
+        symbol [ assertMessage %tmp.12 75 8 21 ];
         %tmp.12 = getv function %tmp.11 :assertMessage;
         %tmp.13 = lgetv %id.1;
-        symbol [ id %tmp.13 150 22 24 ];
+        symbol [ id %tmp.13 75 22 24 ];
         %tmp.14 = 0;
         %tmp.15 = gte %tmp.13 %tmp.14;
         %tmp.16 = "Could not find '";
         %tmp.17 = lgetv %test;
-        symbol [ test %tmp.17 150 52 56 ];
+        symbol [ test %tmp.17 75 52 56 ];
         %tmp.18 = add %tmp.16 %tmp.17;
         %tmp.19 = "'";
         %tmp.20 = add %tmp.18 %tmp.19;
         invoke %tmp.11 %tmp.12(%tmp.15, %tmp.20);
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 151 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_144_58_161_4_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_144_58_161_4_stop" ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 76 8 ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_69_58_86_4_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_69_58_86_4_stop" ]
         %result.2 = local;
-        symbol [ result %result.2 151 12 18 ];
+        symbol [ result %result.2 76 12 18 ];
         %tmp.21 = false;
         lputv %result.2 %tmp.21;
-        symbol [ result %result.2 151 12 18 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 152 8 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_152_8_154_8_if_stmt:
+        symbol [ result %result.2 76 12 18 ];
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 77 8 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_77_8_79_8_if_stmt:
         %tmp.22 = lgetv %id.1;
-        symbol [ id %tmp.22 152 12 14 ];
-        %tmp.23 = 30;
+        symbol [ id %tmp.22 77 12 14 ];
+        %tmp.23 = 5;
         %tmp.24 = lt %tmp.22 %tmp.23;
-        bf %tmp.24 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_152_8_154_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_152_8_154_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_152_21_154_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 153 12 ]
+        bf %tmp.24 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_77_8_79_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_77_8_79_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_77_20_79_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 78 12 ]
         %tmp.25 = self;
-        symbol [ self %tmp.25 153 21 25 ];
-        symbol [ evaluate_test_entries_0_to_30 %tmp.26 153 26 55 ];
-        %tmp.26 = getv function %tmp.25 :evaluate_test_entries_0_to_30;
+        symbol [ self %tmp.25 78 21 25 ];
+        symbol [ evaluate_test_entries_0_to_5 %tmp.26 78 26 54 ];
+        %tmp.26 = getv function %tmp.25 :evaluate_test_entries_0_to_5;
         %tmp.27 = lgetv %id.1;
-        symbol [ id %tmp.27 153 56 58 ];
-        symbol [ logger %tmp.29 153 60 66 ];
+        symbol [ id %tmp.27 78 55 57 ];
+        symbol [ logger %tmp.29 78 59 65 ];
         %tmp.29 = getv ? :logger;
         %tmp.30 = invoke %tmp.25 %tmp.26(%tmp.27, %tmp.29);
         lputv %result.2 %tmp.30;
-        symbol [ result %result.2 153 12 18 ];
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_152_21_154_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_152_8_154_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_152_8_154_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 156 8 ]
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_156_8_158_8_if_stmt:
+        symbol [ result %result.2 78 12 18 ];
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_77_20_79_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_77_8_79_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_77_8_79_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 81 8 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_81_8_83_8_if_stmt:
         %tmp.31 = lgetv %result.2;
-        symbol [ result %tmp.31 156 12 18 ];
-        symbol [ Boolean %tmp.33 156 30 37 ];
+        symbol [ result %tmp.31 81 12 18 ];
+        symbol [ Boolean %tmp.33 81 30 37 ];
         %tmp.33 = getv ? :Boolean;
         %tmp.34 = isa %tmp.31 %tmp.33;
-        bf %tmp.34 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_156_8_158_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_156_8_158_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_156_39_158_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 157 12 ]
+        bf %tmp.34 @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_81_8_83_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_81_8_83_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_81_39_83_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 82 12 ]
         %tmp.35 = lgetv %result.2;
-        symbol [ result %tmp.35 157 19 25 ];
+        symbol [ result %tmp.35 82 19 25 ];
         %tmp.36 = as %tmp.35 { (Boolean) };
         ret %tmp.36;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_156_39_158_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_156_8_158_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_156_8_158_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen" 160 8 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_81_39_83_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_81_8_83_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_81_8_83_8_if_end:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen" 85 8 ]
         %tmp.37 = false;
         ret %tmp.37;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3290_00_source_UnitTests_mcgen_144_58_161_4_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B3289_00_source_UnitTests_mcgen_69_58_86_4_stop:
     }
 }
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3290-00/source/UnitTests.mcgen"; @line = 1; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B3289-00/source/UnitTests.mcgen"; @line = 1; ]
 <init> {
 }

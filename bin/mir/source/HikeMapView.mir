@@ -54,7 +54,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_19_26_21_4_stop:
     }
     [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 29; @symbol_functiondef = [onUpdate,29,13,21]; @symbol_param<0> = [dc,29,22,24]; ]
     function onUpdate(dc) {
-_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_start:
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_50_4_start:
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 30 8 ]
 _Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_8_32_8_if_stmt:
         symbol [ display %tmp.2 30 12 19 ];
@@ -97,7 +97,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_8_32_8_if_end:
         %tmp.14 = getv function %tmp.13 :clear;
         invoke %tmp.13 %tmp.14();
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 39 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_50_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_50_4_stop" ]
         %trail.1 = local;
         symbol [ trail %trail.1 39 12 17 ];
         symbol [ app %tmp.16 39 20 23 ];
@@ -107,7 +107,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_8_32_8_if_end:
         lputv %trail.1 %tmp.17;
         symbol [ trail %trail.1 39 12 17 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 40 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_50_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_50_4_stop" ]
         %curData.2 = local;
         symbol [ curData %curData.2 40 12 19 ];
         symbol [ app %tmp.19 40 22 25 ];
@@ -159,7 +159,26 @@ _Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_30_8_32_8_if_end:
         %tmp.44 = getv function %tmp.43 :getHeading;
         %tmp.45 = invoke %tmp.43 %tmp.44();
         invoke %tmp.23 %tmp.24(%tmp.27, %tmp.30, %tmp.33, %tmp.36, %tmp.39, %tmp.42, %tmp.45);
-_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_46_4_stop:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 47 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_47_8_49_8_if_stmt:
+        symbol [ $ %tmp.46 47 12 13 ];
+        %tmp.46 = getm $;
+        symbol [ isRecordFlashActive %tmp.47 47 14 33 ];
+        %tmp.47 = getv function %tmp.46 :isRecordFlashActive;
+        %tmp.48 = invoke %tmp.46 %tmp.47();
+        bf %tmp.48 @_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_47_8_49_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_47_8_49_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_47_37_49_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc" 48 12 ]
+        symbol [ display %tmp.50 48 12 19 ];
+        %tmp.50 = getv ? :display;
+        symbol [ recordingStartIcon %tmp.51 48 20 38 ];
+        %tmp.51 = getv function %tmp.50 :recordingStartIcon;
+        invoke %tmp.50 %tmp.51();
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_47_37_49_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_47_8_49_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_47_8_49_8_if_end:
+_Users_tk_Desktop_Claude_Glidator2_source_HikeMapView_mc_29_26_50_4_stop:
     }
 }
 [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikeMapView.mc"; @line = 1; ]

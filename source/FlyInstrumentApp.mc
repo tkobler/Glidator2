@@ -19,6 +19,22 @@ using Toybox.System as Sys;
 
 var session;
 
+// --------------------------------------------------------------------------------
+// Start-recording banner: a "start" icon shown centered on whichever page is on
+// screen for a few seconds right after a session begins. recordFlashStartMs is
+// the System.getTimer() timestamp of that moment, or null when no flash should
+// be showing; every View's onUpdate() checks isRecordFlashActive() and draws
+// the overlay via WatchDisplay.recordingStartIcon() on top of its own content.
+// --------------------------------------------------------------------------------
+
+var recordFlashStartMs = null;
+const RECORD_FLASH_DURATION_MS = 3000;
+
+function isRecordFlashActive()
+{
+    return $.recordFlashStartMs != null && (Sys.getTimer() - $.recordFlashStartMs) < RECORD_FLASH_DURATION_MS;
+}
+
 function hasActiveSession()
 {
     return (Toybox has :ActivityRecording) && $.session != null;
@@ -42,6 +58,7 @@ function startRecording()
             :name=>"Glide",
             :sport=>Activity.SPORT_FLYING});
         $.session.start();
+        $.recordFlashStartMs = Sys.getTimer();
 
         if (Attention has :playTone)
         {

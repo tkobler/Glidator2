@@ -281,7 +281,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_b
         %tmp.11 = getv ? :app;
         %tmp.12 = null;
         %tmp.13 = ne %tmp.11 %tmp.12;
-        bf %tmp.13 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_false;
+        bf %tmp.13 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_else_false;
 _Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_true:
         symbol [ app %tmp.15 90 76 79 ];
         %tmp.15 = getv ? :app;
@@ -291,11 +291,11 @@ _Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_t
         %tmp.18 = invoke %tmp.16 %tmp.17();
         push %tmp.18;
         goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_end;
-_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_false:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_else_false:
         %tmp.19 = "null";
         push %tmp.19;
 _Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_end:
-        %tmp.20 = phi [%tmp.13 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_begin] [%tmp.18 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_true] [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_false] [%tmp.20 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_end];
+        %tmp.20 = phi [%tmp.13 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_begin] [%tmp.18 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_true] [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_else_false] [%tmp.20 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_90_62_90_93_end];
         %tmp.21 = add %tmp.9 %tmp.20;
         invoke %tmp.7 %tmp.8(%tmp.21);
 [ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentDelegate.mc" 94 8 ]
@@ -783,12 +783,12 @@ _Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75
         symbol [ startMs %tmp.16 199 26 33 ];
         %tmp.17 = null;
         %tmp.18 = eq %tmp.16 %tmp.17;
-        bf %tmp.18 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_false;
+        bf %tmp.18 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_else_false;
 _Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_true:
         %tmp.19 = -1;
         push %tmp.19;
         goto @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_end;
-_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_false:
+_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_else_false:
         symbol [ Sys %tmp.20 199 51 54 ];
         %tmp.20 = getm $.Toybox.System;
         symbol [ getTimer %tmp.21 199 55 63 ];
@@ -800,7 +800,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75
         %tmp.25 = sub %tmp.22 %tmp.24;
         push %tmp.25;
 _Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_end:
-        %tmp.26 = phi [%tmp.18 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_begin] [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_true] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_false] [%tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_end];
+        %tmp.26 = phi [%tmp.18 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_begin] [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_true] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_else_false] [%tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_FlyInstrumentDelegate_mc_199_25_199_75_end];
         lputv %heldMs.3 %tmp.26;
         symbol [ heldMs %heldMs.3 199 16 22 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/FlyInstrumentDelegate.mc" 200 12 ]

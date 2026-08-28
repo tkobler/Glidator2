@@ -43,5 +43,9 @@ class HikeMapView extends WatchUi.View {
             trail.getLats(), trail.getLons(), trail.getCount(), trail.getWriteIndex(),
             curData.getLat(), curData.getLon(), curData.getHeading()
         );
+
+        if ($.isRecordFlashActive()) {
+            display.recordingStartIcon();
+        }
     }
 }

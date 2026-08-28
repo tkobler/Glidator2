@@ -65,7 +65,7 @@ class WatchData
         // the position is propagated (i.e. dead-reckoned) using the last known heading
         // and last known speed. After a short period of time, the position will cease
         // to be propagated to avoid excessive accumulation of position errors.
-        if (info has :position)
+        if (info has :position && info.position != null)
         {
         	data ["lat"]  = info.position.toDegrees()[0];
         	data ["long"] = info.position.toDegrees()[1];

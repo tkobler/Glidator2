@@ -12,10 +12,12 @@ module Rez {
 
     module Layouts {
         function MainLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
-            var rez_cmp_local_text_1193959466 = new WatchUi.Text({:color=>Graphics.COLOR_WHITE, :locX=>(260 * 0.5), :locY=>5, :text=>$.Rez.Strings.prompt, :justification=>Graphics.TEXT_JUSTIFY_CENTER, :font=>Graphics.FONT_MEDIUM});
+            var rez_cmp_local_var_dc_getWidth = dc.getWidth();
+
+            var rez_cmp_local_text_1193959466 = new WatchUi.Text({:color=>Graphics.COLOR_WHITE, :locX=>(rez_cmp_local_var_dc_getWidth * 0.5), :locY=>5, :text=>$.Rez.Strings.prompt, :justification=>Graphics.TEXT_JUSTIFY_CENTER, :font=>Graphics.FONT_MEDIUM});
 
             var rez_cmp_local_bitmap_id_monkey = new WatchUi.Bitmap({:identifier=>"id_monkey", :rezId=>$.Rez.Drawables.id_monkey, :locX=>WatchUi.LAYOUT_HALIGN_CENTER, :locY=>30});
-            rez_cmp_local_bitmap_id_monkey.setLocation(((260 - rez_cmp_local_bitmap_id_monkey.width) * 0.5), rez_cmp_local_bitmap_id_monkey.locY);
+            rez_cmp_local_bitmap_id_monkey.setLocation(((rez_cmp_local_var_dc_getWidth - rez_cmp_local_bitmap_id_monkey.width) * 0.5), rez_cmp_local_bitmap_id_monkey.locY);
 
             return [rez_cmp_local_text_1193959466, rez_cmp_local_bitmap_id_monkey] as Array<WatchUi.Drawable>;
         }

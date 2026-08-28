@@ -46,13 +46,13 @@ module Rez {
         } // prompt_font_enhanced_readability__body_with_title
 
         module system_size__menu_header {
-            const width as Number = 260;
-            const height as Number = 81;
+            const width as Number = 390;
+            const height as Number = 140;
         } // system_size__menu_header
 
         module system_loc__hint_button_left_bottom {
-            const x as Number = 10;
-            const y as Number = 172;
+            const x as Number = 0;
+            const y as Number = 254;
         } // system_loc__hint_button_left_bottom
 
         module prompt_font_enhanced_readability__body_no_title {
@@ -60,24 +60,25 @@ module Rez {
         } // prompt_font_enhanced_readability__body_no_title
 
         module prompt_loc__body_no_title {
-            const x as Number = 26;
-            const y as Number = 26;
+            const x as Number = 39;
+            const y as Number = 39;
         } // prompt_loc__body_no_title
 
         module system_icon_dark__about {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__about.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__about.svg";
             const compress as String = "true";
             const dithering as String = "none";
             const automaticPalette as String = "true";
         } // system_icon_dark__about
 
         module system_icon_light__question {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__question.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__question.svg";
             const dithering as String = "none";
         } // system_icon_light__question
 
         module system_loc__hint_button_left_top {
-            const exclude as Boolean = true;
+            const x as Number = 0;
+            const y as Number = 69;
         } // system_loc__hint_button_left_top
 
         module prompt_font__title {
@@ -86,15 +87,15 @@ module Rez {
         } // prompt_font__title
 
         module system_icon_dark__discard {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__discard.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__discard.svg";
             const compress as String = "true";
             const dithering as String = "none";
             const automaticPalette as String = "true";
         } // system_icon_dark__discard
 
         module system_size__menu_item {
-            const width as Number = 260;
-            const height as Number = 68;
+            const width as Number = 390;
+            const height as Number = 116;
         } // system_size__menu_item
 
         module system_color_dark__text {
@@ -103,18 +104,19 @@ module Rez {
         } // system_color_dark__text
 
         module system_icon_destructive__discard {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_destructive__discard.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_destructive__discard.svg";
             const dithering as String = "none";
         } // system_icon_destructive__discard
 
         module system_icon_dark__hint_action_menu {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__hint_button_right_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_right_top.svg";
             const dithering as String = "none";
+            const automaticPalette as Boolean = true;
         } // system_icon_dark__hint_action_menu
 
         module prompt_size__title {
-            const width as Number = 208;
-            const height as Number = 39;
+            const width as Number = 312;
+            const height as Number = 59;
         } // prompt_size__title
 
         module confirmation_font__body {
@@ -128,13 +130,13 @@ module Rez {
         } // system_color_dark__background
 
         module system_icon_destructive__hint_button_left_top {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_destructive__hint_button_left_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_destructive__hint_button_left_top.svg";
             const dithering as String = "none";
         } // system_icon_destructive__hint_button_left_top
 
         module system_size__launch_icon {
-            const scaleX as Number = 40;
-            const scaleY as Number = 40;
+            const scaleX as Number = 60;
+            const scaleY as Number = 60;
             const scaleRelativeTo as String = "screen";
         } // system_size__launch_icon
 
@@ -148,12 +150,12 @@ module Rez {
         } // prompt_font__body_with_title
 
         module confirmation_loc__body {
-            const x as Number = 52;
-            const y as Number = 52;
+            const x as Number = 78;
+            const y as Number = 78;
         } // confirmation_loc__body
 
         module system_icon_destructive__hint_button_left_bottom {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_destructive__hint_button_left_bottom.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_destructive__hint_button_left_bottom.svg";
             const dithering as String = "none";
         } // system_icon_destructive__hint_button_left_bottom
 
@@ -163,38 +165,39 @@ module Rez {
         } // prompt_color_dark__background
 
         module system_icon_destructive__hint_action_menu {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_destructive__hint_button_right_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_destructive__hint_button_right_top.svg";
             const dithering as String = "none";
+            const automaticPalette as Boolean = true;
         } // system_icon_destructive__hint_action_menu
 
         module system_loc__hint_action_menu {
-            const x as Number = 225;
-            const y as Number = 48;
+            const x as Number = 333;
+            const y as Number = 69;
         } // system_loc__hint_action_menu
 
         module confirmation_icon__hint_confirm {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_completion.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_completion.svg";
             const dithering as String = "none";
         } // confirmation_icon__hint_confirm
 
         module system_loc__hint_button_left_middle {
-            const x as Number = 3;
-            const y as Number = 108;
+            const x as Number = 0;
+            const y as Number = 158;
         } // system_loc__hint_button_left_middle
 
         module prompt_size__body_no_title {
-            const width as Number = 208;
-            const height as Number = 208;
+            const width as Number = 312;
+            const height as Number = 312;
         } // prompt_size__body_no_title
 
         module system_icon_light__hint_button_left_top {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__hint_button_left_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_left_top.svg";
             const dithering as String = "none";
         } // system_icon_light__hint_button_left_top
 
         module prompt_color_light__background {
-            const color as Number = 0xFFFFFF;
-            const background as Number = 0xFFFFFF;
+            const color as Number = 0x000000;
+            const background as Number = 0x000000;
         } // prompt_color_light__background
 
         module confirmation_input__delete {
@@ -202,7 +205,7 @@ module Rez {
         } // confirmation_input__delete
 
         module system_icon_dark__hint_button_left_top {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__hint_button_left_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_left_top.svg";
             const dithering as String = "none";
         } // system_icon_dark__hint_button_left_top
 
@@ -211,12 +214,12 @@ module Rez {
         } // system_input__action_menu
 
         module system_icon_light__save {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__save.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__save.svg";
             const dithering as String = "none";
         } // system_icon_light__save
 
         module prompt_color_light__body {
-            const color as Number = 0x000000;
+            const color as Number = 0xFFFFFF;
             const background = Graphics.COLOR_TRANSPARENT;
         } // prompt_color_light__body
 
@@ -225,53 +228,53 @@ module Rez {
         } // system_loc__subwindow
 
         module system_icon_light__warning {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__warning.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__warning.svg";
             const dithering as String = "none";
         } // system_icon_light__warning
 
         module confirmation_color_light__body {
-            const color as Number = 0x000000;
+            const color as Number = 0xFFFFFF;
             const background = Graphics.COLOR_TRANSPARENT;
         } // confirmation_color_light__body
 
         module confirmation_icon_light__hint_keep {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_keep.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_keep.svg";
             const dithering as String = "none";
         } // confirmation_icon_light__hint_keep
 
         module activity_color_light__background {
-            const color as Number = 0xFFFFFF;
-            const background as Number = 0xFFFFFF;
+            const color as Number = 0x000000;
+            const background as Number = 0x000000;
         } // activity_color_light__background
 
         module system_icon_positive__hint_button_right_top {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_positive__hint_button_right_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_positive__hint_button_right_top.svg";
             const dithering as String = "none";
         } // system_icon_positive__hint_button_right_top
 
         module system_size__screen {
-            const width as Number = 260;
-            const height as Number = 260;
+            const width as Number = 390;
+            const height as Number = 390;
         } // system_size__screen
 
         module system_icon_destructive__hint_button_right_bottom {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_destructive__hint_button_right_bottom.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_destructive__hint_button_right_bottom.svg";
             const dithering as String = "none";
         } // system_icon_destructive__hint_button_right_bottom
 
         module system_color_light__background {
-            const color as Number = 0xFFFFFF;
-            const background as Number = 0xFFFFFF;
+            const color as Number = 0x000000;
+            const background as Number = 0x000000;
         } // system_color_light__background
 
         module system_icon_destructive__hint_button_right_top {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_destructive__hint_button_right_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_destructive__hint_button_right_top.svg";
             const dithering as String = "none";
         } // system_icon_destructive__hint_button_right_top
 
         module confirmation_loc__hint_confirm {
-            const x as Number = 210;
-            const y as Number = 48;
+            const x as Number = 285;
+            const y as Number = 0;
         } // confirmation_loc__hint_confirm
 
         module activity_color_dark__text {
@@ -284,61 +287,61 @@ module Rez {
         } // confirmation_input__keep
 
         module prompt_loc__body_with_title {
-            const x as Number = 26;
-            const y as Number = 78;
+            const x as Number = 39;
+            const y as Number = 117;
         } // prompt_loc__body_with_title
 
         module system_icon_dark__search {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__search.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__search.svg";
             const compress as String = "true";
             const dithering as String = "none";
             const automaticPalette as String = "true";
         } // system_icon_dark__search
 
         module activity_color_light__text {
-            const color as Number = 0x000000;
+            const color as Number = 0xFFFFFF;
             const background = Graphics.COLOR_TRANSPARENT;
         } // activity_color_light__text
 
         module confirmation_icon__hint_keep {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_keep.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_keep.svg";
             const dithering as String = "none";
         } // confirmation_icon__hint_keep
 
         module system_icon_dark__save {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__save.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__save.svg";
             const compress as String = "true";
             const dithering as String = "none";
             const automaticPalette as String = "true";
         } // system_icon_dark__save
 
         module system_icon_destructive__hint_button_left_middle {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_destructive__hint_button_left_middle.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_destructive__hint_button_left_middle.svg";
             const dithering as String = "none";
         } // system_icon_destructive__hint_button_left_middle
 
         module system_icon_light__search {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__search.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__search.svg";
             const dithering as String = "none";
         } // system_icon_light__search
 
         module system_icon_dark__hint_button_left_bottom {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__hint_button_left_bottom.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_left_bottom.svg";
             const dithering as String = "none";
         } // system_icon_dark__hint_button_left_bottom
 
         module system_icon_positive__hint_button_left_top {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_positive_hint_button_left_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_positive__hint_button_left_top.svg";
             const dithering as String = "none";
         } // system_icon_positive__hint_button_left_top
 
         module system_loc__hint_button_right_bottom {
-            const x as Number = 225;
-            const y as Number = 172;
+            const x as Number = 333;
+            const y as Number = 254;
         } // system_loc__hint_button_right_bottom
 
         module confirmation_icon_dark__hint_reject {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_reject.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_reject.svg";
             const dithering as String = "none";
         } // confirmation_icon_dark__hint_reject
 
@@ -348,7 +351,7 @@ module Rez {
         } // confirmation_color_dark__body
 
         module confirmation_icon_light__hint_confirm {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_completion.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_completion.svg";
             const dithering as String = "none";
         } // confirmation_icon_light__hint_confirm
 
@@ -358,18 +361,18 @@ module Rez {
         } // prompt_color_dark__title
 
         module system_icon_destructive__cancel {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_destructive__cancel.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_destructive__cancel.svg";
             const dithering as String = "none";
         } // system_icon_destructive__cancel
 
         module system_icon_light__hint_button_right_bottom {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__hint_button_right_bottom.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_right_bottom.svg";
             const dithering as String = "none";
         } // system_icon_light__hint_button_right_bottom
 
         module prompt_loc__title {
-            const x as Number = 26;
-            const y as Number = 19;
+            const x as Number = 39;
+            const y as Number = 29;
         } // prompt_loc__title
 
         module confirmation_font_enhanced_readability__body {
@@ -377,37 +380,37 @@ module Rez {
         } // confirmation_font_enhanced_readability__body
 
         module prompt_color_light__title {
-            const color as Number = 0x000000;
+            const color as Number = 0xFFFFFF;
             const background = Graphics.COLOR_TRANSPARENT;
         } // prompt_color_light__title
 
         module system_icon_dark__hint_button_right_top {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__hint_button_right_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_right_top.svg";
             const dithering as String = "none";
         } // system_icon_dark__hint_button_right_top
 
         module system_icon_dark__hint_button_left_middle {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__hint_button_left_middle.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_left_middle.svg";
             const dithering as String = "none";
         } // system_icon_dark__hint_button_left_middle
 
         module confirmation_icon_dark__hint_keep {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_keep.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_keep.svg";
             const dithering as String = "none";
         } // confirmation_icon_dark__hint_keep
 
         module system_icon_light__cancel {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__cancel.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__cancel.svg";
             const dithering as String = "none";
         } // system_icon_light__cancel
 
         module confirmation_icon_light__hint_reject {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_reject.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_reject.svg";
             const dithering as String = "none";
         } // confirmation_icon_light__hint_reject
 
         module system_icon_light__about {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__about.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__about.svg";
             const dithering as String = "none";
         } // system_icon_light__about
 
@@ -422,13 +425,14 @@ module Rez {
         } // system_icon_dark__hint_button_right_middle
 
         module confirmation_icon__hint_reject {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_reject.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_reject.svg";
             const dithering as String = "none";
         } // confirmation_icon__hint_reject
 
         module system_icon_light__hint_action_menu {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__hint_button_right_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_right_top.svg";
             const dithering as String = "none";
+            const automaticPalette as Boolean = true;
         } // system_icon_light__hint_action_menu
 
         module system_icon_light__hint_button_right_middle {
@@ -440,13 +444,13 @@ module Rez {
         } // system_icon_destructive__hint_button_right_middle
 
         module confirmation_loc__hint_reject {
-            const x as Number = 10;
-            const y as Number = 172;
+            const x as Number = 0;
+            const y as Number = 245;
             const horizontalJustification as String = "left";
         } // confirmation_loc__hint_reject
 
         module confirmation_icon_dark__hint_delete {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_delete.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_delete.svg";
             const dithering as String = "none";
         } // confirmation_icon_dark__hint_delete
 
@@ -456,23 +460,23 @@ module Rez {
         } // activity_color_dark__background
 
         module system_icon_light__hint_button_left_bottom {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__hint_button_left_bottom.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_left_bottom.svg";
             const dithering as String = "none";
         } // system_icon_light__hint_button_left_bottom
 
         module system_icon_positive__hint_button_left_middle {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_positive__hint_button_left_middle.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_positive__hint_button_left_middle.svg";
             const dithering as String = "none";
         } // system_icon_positive__hint_button_left_middle
 
         module system_size__menu_icon {
-            const scaleX as Number = 40;
-            const scaleY as Number = 40;
+            const scaleX as Number = 54;
+            const scaleY as Number = 54;
             const scaleRelativeTo as String = "screen";
         } // system_size__menu_icon
 
         module system_icon_destructive__warning {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_destructive__warning.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_destructive__warning.svg";
             const dithering as String = "none";
         } // system_icon_destructive__warning
 
@@ -481,29 +485,29 @@ module Rez {
         } // system_loc__hint_button_right_middle
 
         module system_icon_dark__cancel {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__cancel.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__cancel.svg";
             const compress as String = "true";
             const dithering as String = "none";
             const automaticPalette as String = "true";
         } // system_icon_dark__cancel
 
         module prompt_size__body_with_title {
-            const width as Number = 208;
-            const height as Number = 156;
+            const width as Number = 312;
+            const height as Number = 234;
         } // prompt_size__body_with_title
 
         module system_loc__hint_button_right_top {
-            const x as Number = 225;
-            const y as Number = 48;
+            const x as Number = 333;
+            const y as Number = 69;
         } // system_loc__hint_button_right_top
 
         module system_color_light__text {
-            const color as Number = 0x000000;
+            const color as Number = 0xFFFFFF;
             const background = Graphics.COLOR_TRANSPARENT;
         } // system_color_light__text
 
         module system_icon_light__check {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__check.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__check.svg";
             const dithering as String = "none";
         } // system_icon_light__check
 
@@ -512,7 +516,7 @@ module Rez {
         } // confirmation_input__reject
 
         module system_icon_light__revert {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__revert.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__revert.svg";
             const dithering as String = "none";
         } // system_icon_light__revert
 
@@ -521,31 +525,32 @@ module Rez {
         } // system_size__subwindow
 
         module system_icon_positive__hint_button_left_bottom {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_positive__hint_button_left_bottom.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_positive__hint_button_left_bottom.svg";
             const dithering as String = "none";
         } // system_icon_positive__hint_button_left_bottom
 
         module system_icon_dark__check {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__check.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__check.svg";
             const compress as String = "true";
             const dithering as String = "none";
             const automaticPalette as String = "true";
         } // system_icon_dark__check
 
         module confirmation_loc__hint_keep {
-            const x as Number = 10;
-            const y as Number = 172;
+            const x as Number = 0;
+            const y as Number = 245;
             const horizontalJustification as String = "left";
         } // confirmation_loc__hint_keep
 
         module confirmation_loc__hint_delete {
-            const x as Number = 210;
-            const y as Number = 48;
+            const x as Number = 285;
+            const y as Number = 0;
         } // confirmation_loc__hint_delete
 
         module system_icon_positive__hint_action_menu {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_positive__hint_button_right_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_positive__hint_button_right_top.svg";
             const dithering as String = "none";
+            const automaticPalette as Boolean = true;
         } // system_icon_positive__hint_action_menu
 
         module system_icon_positive__hint_button_right_middle {
@@ -553,56 +558,56 @@ module Rez {
         } // system_icon_positive__hint_button_right_middle
 
         module system_icon_light__hint_button_left_middle {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__hint_button_left_middle.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_left_middle.svg";
             const dithering as String = "none";
         } // system_icon_light__hint_button_left_middle
 
         module system_icon_dark__hint_button_right_bottom {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__hint_button_right_bottom.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_right_bottom.svg";
             const dithering as String = "none";
         } // system_icon_dark__hint_button_right_bottom
 
         module system_icon_positive__hint_button_right_bottom {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_positive__hint_button_right_bottom.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_positive__hint_button_right_bottom.svg";
             const dithering as String = "none";
         } // system_icon_positive__hint_button_right_bottom
 
         module system_icon_dark__revert {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__revert.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__revert.svg";
             const compress as String = "true";
             const dithering as String = "none";
             const automaticPalette as String = "true";
         } // system_icon_dark__revert
 
         module confirmation_icon_light__hint_delete {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_delete.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_delete.svg";
             const dithering as String = "none";
         } // confirmation_icon_light__hint_delete
 
         module system_icon_dark__question {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__question.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__question.svg";
             const compress as String = "true";
             const dithering as String = "none";
             const automaticPalette as String = "true";
         } // system_icon_dark__question
 
         module system_icon_light__discard {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__discard.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__discard.svg";
             const dithering as String = "none";
         } // system_icon_light__discard
 
         module device_info {
-            const screenWidth as Number = 260;
+            const screenWidth as Number = 390;
             const screenShape = Toybox.System.SCREEN_SHAPE_ROUND;
             const hasNightMode as Boolean = false;
-            const hasGpu as Boolean = false;
-            const screenHeight as Number = 260;
+            const hasGpu as Boolean = true;
+            const screenHeight as Number = 390;
             const hasTouchScreen as Boolean = false;
             const hasEnhancedReadabilityMode as Boolean = false;
         } // device_info
 
         module confirmation_icon_dark__hint_confirm {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_completion.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_completion.svg";
             const dithering as String = "none";
         } // confirmation_icon_dark__hint_confirm
 
@@ -617,15 +622,15 @@ module Rez {
         } // prompt_size__title_icon
 
         module system_icon_dark__warning {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_dark__warning.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__warning.svg";
             const compress as String = "true";
             const dithering as String = "none";
             const automaticPalette as String = "true";
         } // system_icon_dark__warning
 
         module prompt_loc__title_icon {
-            const x as Number = 130;
-            const y as Number = 39;
+            const x as Number = 195;
+            const y as Number = 59;
             const horizontalJustification as String = "center";
             const verticalJustification as String = "center";
         } // prompt_loc__title_icon
@@ -640,22 +645,22 @@ module Rez {
         } // prompt_color_dark__body
 
         module confirmation_icon__hint_delete {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/confirmation_icon__hint_delete.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/confirmation_icon__hint_delete.svg";
             const dithering as String = "none";
         } // confirmation_icon__hint_delete
 
         module system_icon_light__hint_button_right_top {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_light__hint_button_right_top.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon__hint_button_right_top.svg";
             const dithering as String = "none";
         } // system_icon_light__hint_button_right_top
 
         module confirmation_size__body {
-            const width as Number = 156;
-            const height as Number = 156;
+            const width as Number = 234;
+            const height as Number = 234;
         } // confirmation_size__body
 
         module system_icon_positive__check {
-            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/fenix6/system_icon_positive__check.svg";
+            const filename as String = "/Users/tk/Library/Application Support/Garmin/ConnectIQ/Devices/instinct3amoled45mm/system_icon_positive__check.svg";
             const dithering as String = "none";
         } // system_icon_positive__check
     } // Styles

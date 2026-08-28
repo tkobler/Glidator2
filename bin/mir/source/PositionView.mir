@@ -75,7 +75,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_23_22_25_4_stop:
     }
     [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc"; @line = 27; @symbol_functiondef = [onUpdate,27,13,21]; @symbol_param<0> = [dc,27,22,24]; ]
     function onUpdate(dc) {
-_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_start:
+_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_start:
 [ "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc" 28 8 ]
 _Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_28_8_30_8_if_stmt:
         symbol [ display %tmp.2 28 12 19 ];
@@ -124,7 +124,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_28_8_30_8_if_end:
         %tmp.17 = getv function %tmp.16 :startMeasure;
         invoke %tmp.16 %tmp.17();
 [ "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc" 41 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_stop" ]
         %position.1 = local;
         symbol [ position %position.1 41 12 20 ];
         symbol [ Position %tmp.19 41 23 31 ];
@@ -162,7 +162,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_42_8_44_8_if_end:
         %tmp.32 = getv function %tmp.31 :endMeasure;
         invoke %tmp.31 %tmp.32();
 [ "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc" 48 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_stop" ]
         %heading.2 = local;
         symbol [ heading %heading.2 48 12 19 ];
         symbol [ data %tmp.34 48 22 26 ];
@@ -173,7 +173,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_42_8_44_8_if_end:
         lputv %heading.2 %tmp.36;
         symbol [ heading %heading.2 48 12 19 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc" 49 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_stop" ]
         %trueNorth.3 = local;
         symbol [ trueNorth %trueNorth.3 49 12 21 ];
         symbol [ data %tmp.38 49 24 28 ];
@@ -184,7 +184,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_42_8_44_8_if_end:
         lputv %trueNorth.3 %tmp.40;
         symbol [ trueNorth %trueNorth.3 49 12 21 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc" 51 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_stop" ]
         %lat.4 = local;
         symbol [ lat %lat.4 51 12 15 ];
         symbol [ data %tmp.42 51 18 22 ];
@@ -195,7 +195,7 @@ _Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_42_8_44_8_if_end:
         lputv %lat.4 %tmp.44;
         symbol [ lat %lat.4 51 12 15 ];
 [ "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc" 52 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_stop" ]
+        [ "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_stop" ]
         %lon.5 = local;
         symbol [ lon %lon.5 52 12 15 ];
         symbol [ data %tmp.46 52 18 22 ];
@@ -217,7 +217,26 @@ _Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_42_8_44_8_if_end:
         %tmp.54 = lgetv %lon.5;
         symbol [ lon %tmp.54 56 38 41 ];
         invoke %tmp.50 %tmp.51(%tmp.52, %tmp.53, %tmp.54);
-_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_57_4_stop:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc" 58 8 ]
+_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_58_8_60_8_if_stmt:
+        symbol [ $ %tmp.55 58 12 13 ];
+        %tmp.55 = getm $;
+        symbol [ isRecordFlashActive %tmp.56 58 14 33 ];
+        %tmp.56 = getv function %tmp.55 :isRecordFlashActive;
+        %tmp.57 = invoke %tmp.55 %tmp.56();
+        bf %tmp.57 @_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_58_8_60_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_58_8_60_8_if_true:
+_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_58_37_60_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc" 59 12 ]
+        symbol [ display %tmp.59 59 12 19 ];
+        %tmp.59 = getv ? :display;
+        symbol [ recordingStartIcon %tmp.60 59 20 38 ];
+        %tmp.60 = getv function %tmp.59 :recordingStartIcon;
+        invoke %tmp.59 %tmp.60();
+_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_58_37_60_8_stop:
+        goto @_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_58_8_60_8_if_end;
+_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_58_8_60_8_if_end:
+_Users_tk_Desktop_Claude_Glidator2_source_PositionView_mc_27_26_61_4_stop:
     }
 }
 [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/PositionView.mc"; @line = 1; ]

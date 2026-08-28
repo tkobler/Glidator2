@@ -60,6 +60,10 @@ class FlyInstrumentView extends WatchUi.View
 	        if (altitude == null)
 	        {
 	        	display.waitForAltitude ();
+	        	if ($.isRecordFlashActive())
+	        	{
+	        		display.recordingStartIcon();
+	        	}
 	   			return;
 	        }
 	        display.altitude (altitude == null ? null: Math.round(altitude).toNumber().toString(), record);
@@ -74,10 +78,15 @@ class FlyInstrumentView extends WatchUi.View
 				
 			if (vario != null)
 			{
-				display.vario (vario); 
-		} 
-		
+				display.vario (vario);
+		}
+
 		display.end ();
+
+		if ($.isRecordFlashActive())
+		{
+			display.recordingStartIcon();
+		}
 		
 		
 		// DEBUG

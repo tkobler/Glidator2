@@ -120,19 +120,22 @@ class WatchDisplay
         
         xOffset -= (dimAlt[0] + (recording ? 1.5 : 1) * dimUnit[0]) / 2;
         
+
+        /*
+        var circleX = xOffset - 10;
         if (recording)
         {
             if (blink)
             {
                 dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-                dc.fillCircle(xOffset, yOffset, dimUnit[0] / 2);
+                dc.fillCircle(circleX, yOffset, dimUnit[0] / 2);
             }
             blink = !blink;
             
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawCircle(xOffset, yOffset, dimUnit[0] / 2);
+            dc.drawCircle(circleX, yOffset, dimUnit[0] / 2);
             xOffset += 2 * dimUnit[0] / 3;
-        }
+        } */
         
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(xOffset, yOffset, Graphics.FONT_NUMBER_HOT, alt, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
@@ -211,7 +214,7 @@ class WatchDisplay
         if (color != Graphics.COLOR_TRANSPARENT)
         {    
             dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-            var y0 = 3 * dc.getHeight() / 4 - dimVario[1];
+            var y0 = dc.getHeight() - 1.5 * dimVario[1];
             dc.setClip(0, y0, dc.getWidth(), dc.getHeight());
             dc.fillCircle(dc.getWidth() / 2, dc.getHeight() / 2, dc.getWidth() / 2 - borderSize);
             dc.clearClip();
@@ -352,6 +355,31 @@ class WatchDisplay
             );
             Sys.println("Compass drawn, waiting for GPS");
         }
+    }
+
+    // "Recording started" banner: a green circle with a white play triangle,
+    // centered on screen. Shown by every View's onUpdate() for a few seconds
+    // right after SELECT starts a session -- see FlyInstrumentApp.mc's
+    // recordFlashStartMs/isRecordFlashActive().
+    function recordingStartIcon()
+    {
+        var centerX = dc.getWidth() / 2;
+        var centerY = dc.getHeight() / 2;
+        var radius = dc.getWidth() / 5;
+
+        var triSize = radius * 0.7;
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.fillPolygon([
+            [centerX - triSize * 0.7 - triSize * 0.05, centerY - triSize - triSize * 0.1],
+            [centerX - triSize * 0.7 - triSize * 0.05, centerY + triSize + triSize * 0.1],
+            [centerX + triSize + triSize * 0.1, centerY]
+        ]);
+        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+        dc.fillPolygon([
+            [centerX - triSize * 0.7, centerY - triSize],
+            [centerX - triSize * 0.7, centerY + triSize],
+            [centerX + triSize, centerY]
+        ]);
     }
 
     // Small hand-drawn heart icon (two circles + a triangle), same technique

@@ -54,5 +54,9 @@ class PositionView extends WatchUi.View {
         // Draw the compass with coordinates using WatchDisplay
         // Show the true north, latitude, and longitude
         display.compass(heading, lat, lon);   //!!!!!
+
+        if ($.isRecordFlashActive()) {
+            display.recordingStartIcon();
+        }
     }
 }

@@ -38,12 +38,12 @@ class HikePaceView extends WatchUi.View {
         var data = app.mainView.data;
 
         var heartRate = data.getHeartRate();
-        var hrStr = (heartRate == null) ? "--" : heartRate.toString() + " bpm";
+        var hrStr = (heartRate == null) ? "--" : heartRate.toString(); // bpm
 
-        // Vertical pace: same instantaneous altitude-delta the Vario page already
+        // Vertical speed: same instantaneous altitude-delta the Vario page already
         // uses, just expressed as a climb rate (m/h) instead of m/s.
         var vario = data.getVario();
-        var vPaceStr = (vario == null) ? "--" : (vario >= 0 ? "+" : "") + Math.round(vario * 3600).toNumber().toString() + " m/h";
+        var vPaceStr = (vario == null) ? "--" : (vario >= 0 ? "+" : "") + Math.round(vario * 3600).toNumber().toString(); // m/h
 
         var speed = data.getSpeed();
         var hPaceStr = "--:--";
@@ -51,16 +51,20 @@ class HikePaceView extends WatchUi.View {
             var paceMinPerKm = 1000.0 / (speed * 60.0);
             var paceMinutes = paceMinPerKm.toNumber();
             var paceSeconds = Math.round((paceMinPerKm - paceMinutes) * 60).toNumber();
-            hPaceStr = paceMinutes.toString() + ":" + paceSeconds.format("%02d") + " /km";
+            hPaceStr = paceMinutes.toString() + ":" + paceSeconds.format("%02d"); // min/km 
         }
 
         var timerStr = $.hasActiveSession() ? formatDuration(data.getTimerTime()) : "--:--";
 
         display.hikeGrid(
             "Heart Rate", hrStr, true,
-            "VERT. PACE", vPaceStr,
+            "VERT. SPD.", vPaceStr,
             "PACE", hPaceStr,
             "TIMER", timerStr
         );
+
+        if ($.isRecordFlashActive()) {
+            display.recordingStartIcon();
+        }
     }
 }

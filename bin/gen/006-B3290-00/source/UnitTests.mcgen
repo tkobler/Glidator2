@@ -14,8 +14,8 @@ class RunNoEvil extends Test.Test {
     function initialize() {
         Test.Test.initialize();
         logger = new Test.Logger();
-        idToName = new [30];
-        populate_test_entries_0_to_30();
+        idToName = new [5];
+        populate_test_entries_0_to_5();
     }
 
     function getIndexOf(name as String) as Number {
@@ -41,40 +41,15 @@ class RunNoEvil extends Test.Test {
         return idToName.size();
     }
 
-    function populate_test_entries_0_to_30() as Void {
+    function populate_test_entries_0_to_5() as Void {
         idToName[0] = "testFormatDuration";
         idToName[1] = "testBreadcrumbTrailDecimation";
         idToName[2] = "testBreadcrumbTrailRingBufferWraparound";
         idToName[3] = "testWatchDataAccessorsFallBackToActivityData";
         idToName[4] = "testSessionStateMachine";
-        idToName[5] = "testFormatDuration";
-        idToName[6] = "testBreadcrumbTrailDecimation";
-        idToName[7] = "testBreadcrumbTrailRingBufferWraparound";
-        idToName[8] = "testWatchDataAccessorsFallBackToActivityData";
-        idToName[9] = "testSessionStateMachine";
-        idToName[10] = "testFormatDuration";
-        idToName[11] = "testBreadcrumbTrailDecimation";
-        idToName[12] = "testBreadcrumbTrailRingBufferWraparound";
-        idToName[13] = "testWatchDataAccessorsFallBackToActivityData";
-        idToName[14] = "testSessionStateMachine";
-        idToName[15] = "testFormatDuration";
-        idToName[16] = "testBreadcrumbTrailDecimation";
-        idToName[17] = "testBreadcrumbTrailRingBufferWraparound";
-        idToName[18] = "testWatchDataAccessorsFallBackToActivityData";
-        idToName[19] = "testSessionStateMachine";
-        idToName[20] = "testFormatDuration";
-        idToName[21] = "testBreadcrumbTrailDecimation";
-        idToName[22] = "testBreadcrumbTrailRingBufferWraparound";
-        idToName[23] = "testWatchDataAccessorsFallBackToActivityData";
-        idToName[24] = "testSessionStateMachine";
-        idToName[25] = "testFormatDuration";
-        idToName[26] = "testBreadcrumbTrailDecimation";
-        idToName[27] = "testBreadcrumbTrailRingBufferWraparound";
-        idToName[28] = "testWatchDataAccessorsFallBackToActivityData";
-        idToName[29] = "testSessionStateMachine";
     }
 
-    function evaluate_test_entries_0_to_30(id as Number, logger as Logger) {
+    function evaluate_test_entries_0_to_5(id as Number, logger as Logger) {
         var result = false;
         if (id == 0) {
             result = $.testFormatDuration(logger);
@@ -85,56 +60,6 @@ class RunNoEvil extends Test.Test {
         } else if (id == 3) {
             result = $.testWatchDataAccessorsFallBackToActivityData(logger);
         } else if (id == 4) {
-            result = $.testSessionStateMachine(logger);
-        } else if (id == 5) {
-            result = $.testFormatDuration(logger);
-        } else if (id == 6) {
-            result = $.testBreadcrumbTrailDecimation(logger);
-        } else if (id == 7) {
-            result = $.testBreadcrumbTrailRingBufferWraparound(logger);
-        } else if (id == 8) {
-            result = $.testWatchDataAccessorsFallBackToActivityData(logger);
-        } else if (id == 9) {
-            result = $.testSessionStateMachine(logger);
-        } else if (id == 10) {
-            result = $.testFormatDuration(logger);
-        } else if (id == 11) {
-            result = $.testBreadcrumbTrailDecimation(logger);
-        } else if (id == 12) {
-            result = $.testBreadcrumbTrailRingBufferWraparound(logger);
-        } else if (id == 13) {
-            result = $.testWatchDataAccessorsFallBackToActivityData(logger);
-        } else if (id == 14) {
-            result = $.testSessionStateMachine(logger);
-        } else if (id == 15) {
-            result = $.testFormatDuration(logger);
-        } else if (id == 16) {
-            result = $.testBreadcrumbTrailDecimation(logger);
-        } else if (id == 17) {
-            result = $.testBreadcrumbTrailRingBufferWraparound(logger);
-        } else if (id == 18) {
-            result = $.testWatchDataAccessorsFallBackToActivityData(logger);
-        } else if (id == 19) {
-            result = $.testSessionStateMachine(logger);
-        } else if (id == 20) {
-            result = $.testFormatDuration(logger);
-        } else if (id == 21) {
-            result = $.testBreadcrumbTrailDecimation(logger);
-        } else if (id == 22) {
-            result = $.testBreadcrumbTrailRingBufferWraparound(logger);
-        } else if (id == 23) {
-            result = $.testWatchDataAccessorsFallBackToActivityData(logger);
-        } else if (id == 24) {
-            result = $.testSessionStateMachine(logger);
-        } else if (id == 25) {
-            result = $.testFormatDuration(logger);
-        } else if (id == 26) {
-            result = $.testBreadcrumbTrailDecimation(logger);
-        } else if (id == 27) {
-            result = $.testBreadcrumbTrailRingBufferWraparound(logger);
-        } else if (id == 28) {
-            result = $.testWatchDataAccessorsFallBackToActivityData(logger);
-        } else if (id == 29) {
             result = $.testSessionStateMachine(logger);
         }
 
@@ -149,8 +74,8 @@ class RunNoEvil extends Test.Test {
 
         assertMessage(id >= 0, "Could not find '" + test + "'");
         var result = false;
-        if (id < 30) {
-            result = self.evaluate_test_entries_0_to_30(id, logger);
+        if (id < 5) {
+            result = self.evaluate_test_entries_0_to_5(id, logger);
         }
 
         if (result instanceof Boolean) {
