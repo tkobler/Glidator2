@@ -1,38 +1,38 @@
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
 import Toybox.Lang;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
 using Toybox.WatchUi;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [WatchUi,3,13,20]; @symbol_usingAlias = [Ui,3,24,26]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [WatchUi,3,13,20]; @symbol_usingAlias = [Ui,3,24,26]; ]
 using Toybox.WatchUi as :Ui;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Graphics,4,13,21]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Graphics,4,13,21]; ]
 using Toybox.Graphics;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Graphics,5,13,21]; @symbol_usingAlias = [Gfx,5,25,28]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Graphics,5,13,21]; @symbol_usingAlias = [Gfx,5,25,28]; ]
 using Toybox.Graphics as :Gfx;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 7; @symbol_moduledef = [Rez,7,7,10]; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 7; @symbol_moduledef = [Rez,7,7,10]; ]
 module Rez {
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 7; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 7; ]
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 8; @symbol_moduledef = [Drawables,8,11,20]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 8; @symbol_moduledef = [Drawables,8,11,20]; ]
     module Drawables {
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 8; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 8; ]
         <init> {
         }
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 9; @position = 27; initialized = true; @symbol_vardef = [id_monkey,9,27,36]; @symbol_type<0> = [ResourceId,9,40,50]; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 9; @position = 27; initialized = true; @symbol_vardef = [id_monkey,9,27,36]; @symbol_type<0> = [ResourceId,9,40,50]; ]
         var id_monkey as ResourceId;
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 10; @position = 27; initialized = true; @symbol_vardef = [LauncherIcon,10,27,39]; @symbol_type<0> = [ResourceId,10,43,53]; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 10; @position = 27; initialized = true; @symbol_vardef = [LauncherIcon,10,27,39]; @symbol_type<0> = [ResourceId,10,43,53]; ]
         var LauncherIcon as ResourceId;
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 13; @symbol_moduledef = [Layouts,13,11,18]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 13; @symbol_moduledef = [Layouts,13,11,18]; ]
     module Layouts {
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 13; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 13; ]
         <init> {
         }
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 14; @symbol_functiondef = [MainLayout,14,17,27]; @symbol_param<0> = [dc,14,28,30]; @symbol_param<0>_type<0> = [Graphics,14,34,42]; @symbol_param<0>_type<1> = [Dc,14,43,45]; @symbol_return<0> = [Array,14,50,55]; @symbol_return<1> = [WatchUi,14,56,63]; @symbol_return<2> = [Drawable,14,64,72]; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 14; @symbol_functiondef = [MainLayout,14,17,27]; @symbol_param<0> = [dc,14,28,30]; @symbol_param<0>_type<0> = [Graphics,14,34,42]; @symbol_param<0>_type<1> = [Dc,14,43,45]; @symbol_return<0> = [Array,14,50,55]; @symbol_return<1> = [WatchUi,14,56,63]; @symbol_return<2> = [Drawable,14,64,72]; ]
         function MainLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_23_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen" 15 12 ]
-            [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_23_8_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_23_8_stop" ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_14_74_23_8_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen" 15 12 ]
+            [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_14_74_23_8_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_14_74_23_8_stop" ]
             %rez_cmp_local_var_dc_getWidth.1 = local;
             symbol [ rez_cmp_local_var_dc_getWidth %rez_cmp_local_var_dc_getWidth.1 15 16 45 ];
             %tmp.1 = lgetv %dc;
@@ -42,8 +42,8 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_2
             %tmp.3 = invoke %tmp.1 %tmp.2();
             lputv %rez_cmp_local_var_dc_getWidth.1 %tmp.3;
             symbol [ rez_cmp_local_var_dc_getWidth %rez_cmp_local_var_dc_getWidth.1 15 16 45 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen" 17 12 ]
-            [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_23_8_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_23_8_stop" ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen" 17 12 ]
+            [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_14_74_23_8_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_14_74_23_8_stop" ]
             %rez_cmp_local_text_1193959466.2 = local;
             symbol [ rez_cmp_local_text_1193959466 %rez_cmp_local_text_1193959466.2 17 16 45 ];
             symbol [ WatchUi %tmp.6 17 52 59 ];
@@ -103,8 +103,8 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_2
             %tmp.4 = newc %tmp.7 (%tmp.46);
             lputv %rez_cmp_local_text_1193959466.2 %tmp.4;
             symbol [ rez_cmp_local_text_1193959466 %rez_cmp_local_text_1193959466.2 17 16 45 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen" 19 12 ]
-            [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_23_8_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_23_8_stop" ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen" 19 12 ]
+            [ "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_14_74_23_8_start" "_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_14_74_23_8_stop" ]
             %rez_cmp_local_bitmap_id_monkey.3 = local;
             symbol [ rez_cmp_local_bitmap_id_monkey %rez_cmp_local_bitmap_id_monkey.3 19 16 46 ];
             symbol [ WatchUi %tmp.49 19 53 60 ];
@@ -145,7 +145,7 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_2
             %tmp.47 = newc %tmp.50 (%tmp.75);
             lputv %rez_cmp_local_bitmap_id_monkey.3 %tmp.47;
             symbol [ rez_cmp_local_bitmap_id_monkey %rez_cmp_local_bitmap_id_monkey.3 19 16 46 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen" 20 12 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen" 20 12 ]
             %tmp.76 = lgetv %rez_cmp_local_bitmap_id_monkey.3;
             symbol [ rez_cmp_local_bitmap_id_monkey %tmp.76 20 12 42 ];
             symbol [ setLocation %tmp.77 20 43 54 ];
@@ -164,7 +164,7 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_2
             symbol [ locY %tmp.85 20 166 170 ];
             %tmp.85 = getv %tmp.84 :locY;
             invoke %tmp.76 %tmp.77(%tmp.83, %tmp.85);
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen" 22 12 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen" 22 12 ]
             %tmp.86 = newa 2 Array<WatchUi.Drawable>;
             symbol [ Array %tmp.86 22 86 91 ];
             symbol [ WatchUi %tmp.86 22 92 99 ];
@@ -178,33 +178,33 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_2
             %tmp.91 = dup %tmp.89;
             %tmp.92 = aputv %tmp.91 1 %tmp.90;
             ret %tmp.92;
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_14_74_23_8_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_14_74_23_8_stop:
         }
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 26; @symbol_moduledef = [Menus,26,11,16]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 26; @symbol_moduledef = [Menus,26,11,16]; ]
     module Menus {
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 26; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 26; ]
         <init> {
         }
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 27; @symbol_classdef = [MainMenu,27,14,22]; @symbol_extends<0> = [WatchUi,27,31,38]; @symbol_extends<1> = [Menu,27,39,43]; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 27; @symbol_classdef = [MainMenu,27,14,22]; @symbol_extends<0> = [WatchUi,27,31,38]; @symbol_extends<1> = [Menu,27,39,43]; ]
         class MainMenu extends WatchUi.Menu {
-            [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 27; ]
+            [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 27; ]
             <init> {
             }
-            [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 27; ]
+            [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 27; ]
             static
             <init> {
             }
-            [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 28; @symbol_functiondef = [initialize,28,21,31]; ]
+            [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 28; @symbol_functiondef = [initialize,28,21,31]; ]
             function initialize() as Void {
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_28_34_32_12_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen" 29 16 ]
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_28_34_32_12_start:
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen" 29 16 ]
                 symbol [ Menu %tmp.2 29 16 20 ];
                 %tmp.2 = getv ? :Menu;
                 symbol [ initialize %tmp.3 29 21 31 ];
                 %tmp.3 = getv function %tmp.2 :initialize;
                 invoke %tmp.2 %tmp.3();
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen" 30 16 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen" 30 16 ]
                 %tmp.4 = self;
                 symbol [ addItem %tmp.5 30 16 23 ];
                 %tmp.5 = getv function %tmp.4 :addItem;
@@ -226,7 +226,7 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_28_34_3
                 %tmp.15 = const :item_1;
                 symbol [ item_1 %tmp.15 30 87 93 const ];
                 invoke %tmp.4 %tmp.5(%tmp.13, %tmp.15);
-[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen" 31 16 ]
+[ "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen" 31 16 ]
                 %tmp.16 = self;
                 symbol [ addItem %tmp.17 31 16 23 ];
                 %tmp.17 = getv function %tmp.16 :addItem;
@@ -248,25 +248,25 @@ _Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_28_34_3
                 %tmp.27 = const :item_2;
                 symbol [ item_2 %tmp.27 31 87 93 const ];
                 invoke %tmp.16 %tmp.17(%tmp.25, %tmp.27);
-_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2604_00_source_Rez_mcgen_28_34_32_12_stop:
+_Users_tk_Desktop_Claude_Glidator2_bin_gen_006_B2697_00_source_Rez_mcgen_28_34_32_12_stop:
             }
         }
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 36; @symbol_moduledef = [Strings,36,11,18]; ]
+    [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 36; @symbol_moduledef = [Strings,36,11,18]; ]
     module Strings {
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 36; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 36; ]
         <init> {
         }
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 37; @position = 27; initialized = true; @symbol_vardef = [menu_label_1,37,27,39]; @symbol_type<0> = [ResourceId,37,43,53]; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 37; @position = 27; initialized = true; @symbol_vardef = [menu_label_1,37,27,39]; @symbol_type<0> = [ResourceId,37,43,53]; ]
         var menu_label_1 as ResourceId;
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 38; @position = 27; initialized = true; @symbol_vardef = [menu_label_2,38,27,39]; @symbol_type<0> = [ResourceId,38,43,53]; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 38; @position = 27; initialized = true; @symbol_vardef = [menu_label_2,38,27,39]; @symbol_type<0> = [ResourceId,38,43,53]; ]
         var menu_label_2 as ResourceId;
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 39; @position = 27; initialized = true; @symbol_vardef = [prompt,39,27,33]; @symbol_type<0> = [ResourceId,39,37,47]; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 39; @position = 27; initialized = true; @symbol_vardef = [prompt,39,27,33]; @symbol_type<0> = [ResourceId,39,37,47]; ]
         var prompt as ResourceId;
-        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 40; @position = 27; initialized = true; @symbol_vardef = [AppName,40,27,34]; @symbol_type<0> = [ResourceId,40,38,48]; ]
+        [ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 40; @position = 27; initialized = true; @symbol_vardef = [AppName,40,27,34]; @symbol_type<0> = [ResourceId,40,38,48]; ]
         var AppName as ResourceId;
     }
 }
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2604-00/source/Rez.mcgen"; @line = 1; ]
+[ @file = "/Users/tk/Desktop/Claude/Glidator2/bin/gen/006-B2697-00/source/Rez.mcgen"; @line = 1; ]
 <init> {
 }
