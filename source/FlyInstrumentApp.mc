@@ -146,10 +146,10 @@ function stopRecording(save)
 }
 
 // Pure rule used by onStop(): should the current session be saved when the app
-// is closed without going through the Save/Ignore menu (system, battery, handled
-// crash)? Yes whenever a session exists, recording or paused -- losing a whole
-// hike & fly is worse than an unwanted saved activity the user can delete.
-// The menu's Save/Ignore paths null the session before System.exit(), so they
+// is closed by the system without going through the Save/Discard menu? Yes
+// whenever a session exists, recording or paused -- losing a whole hike & fly
+// is worse than an unwanted saved activity the user can delete.
+// The menu's Save/Discard paths null the session before System.exit(), so they
 // reach onStop() with hasSession == false and are unaffected.
 // isRecording is kept in the signature to make the paused case explicit; it
 // never changes the answer on its own (no session -> nothing to save).
