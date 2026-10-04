@@ -27,6 +27,7 @@ You can find the app in the Garmin IQ store under Glidator2
 - **Navigation**: Use up/down keys to cycle through the pages of the current mode.
 - **Mode Switch**: Hold BACK/LAP for 1.5 seconds to switch between Hiking and Flying mode.
 - **Recording**: Press SELECT to start recording. Pressing SELECT again pauses recording and opens a Resume/Save/Discard menu.
+- **What gets recorded**: The whole outing is recorded as a single SPORT_FLYING activity (shown as Sport="Other" in TCX exports), with the hike and the flight separated by a lap at each mode switch. If the app is closed by the system (e.g. low battery) while a session is recording or paused, the session is saved rather than discarded.
 - **Exit**: Press BACK while idle (no active session) to exit the app.
 - **Preferences**: Press MENU to open preferences and enable/disable audio beeps.
 
