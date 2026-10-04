@@ -131,3 +131,66 @@ function testSessionStateMachine(logger)
 
 	return true;
 }
+
+// onStop() rule: an app closed by the system (battery, OS, handled crash) must
+// keep whatever was recorded. The user's own Save/Ignore choices null the
+// session before System.exit(), so they never reach this rule with a session.
+(:test)
+function testShouldSaveOnStop(logger)
+{
+	Test.assertMessage($.shouldSaveOnStop(true, true), "recording in progress -> save");
+	Test.assertMessage($.shouldSaveOnStop(true, false), "session paused -> save");
+	Test.assertMessage(!$.shouldSaveOnStop(false, false), "no session -> nothing to save");
+
+	// Edge cases: incoherent or missing inputs must never ask for a save.
+	Test.assertMessage(!$.shouldSaveOnStop(false, true), "isRecording without a session is incoherent -> no save");
+	Test.assertMessage(!$.shouldSaveOnStop(null, null), "null inputs -> no save");
+	Test.assertMessage(!$.shouldSaveOnStop(null, true), "null hasSession -> no save");
+	Test.assertMessage($.shouldSaveOnStop(true, null), "session exists, unknown recording state -> still save");
+
+	return true;
+}
+
+(:test)
+function testStopRecordingSaveWithoutSessionIsNoOp(logger)
+{
+	if ($.hasActiveSession())
+	{
+		$.stopRecording(false);
+	}
+	Test.assertMessage(!$.hasActiveSession(), "precondition: no session");
+
+	// Must not throw: this is what onStop() would hit if the rule were bypassed.
+	$.stopRecording(true);
+	Test.assertMessage(!$.hasActiveSession(), "still no session after stopRecording(true)");
+	Test.assertMessage(!$.isRecording(), "still not recording after stopRecording(true)");
+
+	// Calling it twice is just as harmless.
+	$.stopRecording(true);
+	Test.assertMessage(!$.hasActiveSession(), "still no session after a second stopRecording(true)");
+
+	return true;
+}
+
+// End-to-end of the path onStop() now takes for a paused session: the rule
+// says save, and saving a paused (already stopped) session must work and
+// clear the session. Note: leaves one short saved activity in the simulator.
+(:test)
+function testStopRecordingSavesPausedSession(logger)
+{
+	if ($.hasActiveSession())
+	{
+		$.stopRecording(false);
+	}
+
+	$.startRecording();
+	$.pauseRecording();
+	Test.assertMessage($.hasActiveSession() && !$.isRecording(), "precondition: paused session");
+	Test.assertMessage($.shouldSaveOnStop($.hasActiveSession(), $.isRecording()), "rule asks to save a paused session");
+
+	$.stopRecording(true);
+	Test.assertMessage(!$.hasActiveSession(), "session cleared after save");
+	Test.assertMessage(!$.isRecording(), "not recording after save");
+
+	return true;
+}
