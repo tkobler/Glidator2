@@ -36,6 +36,10 @@ class HikeHistory
 
 		if (lastTime != null)
 		{
+			// 32-bit difference: when System.getTimer() wraps past 2^31 ms
+			// (~24.8 days) the subtraction wraps too and dt stays small and
+			// positive, so no reset. A negative dt therefore means time really
+			// went backwards (timer restarted): treat it like a gap.
 			var dt = tMs - lastTime;
 			if (dt < 0 || dt > MAX_GAP_MS)
 			{
@@ -76,8 +80,17 @@ class HikeHistory
 		return count;
 	}
 
+	// True if sample i is older than the window. Compared as a difference
+	// (nowMs - t > windowMs) rather than t < nowMs - windowMs: the difference
+	// stays right across the 2^31 ms timer wrap, and nowMs - windowMs could
+	// itself overflow.
+	hidden function outOfWindow(i, nowMs, windowMs)
+	{
+		return nowMs - times[i] > windowMs;
+	}
+
 	// Vertical speed in m/h: least-squares slope of altitude against time over
-	// the samples with t >= nowMs - windowMs. Times are taken relative to nowMs
+	// the samples with nowMs - t <= windowMs. Times are taken relative to nowMs
 	// and both axes are centred on their means, because Float is 32-bit.
 	// Returns null with fewer than 3 samples or less than 20 s covered.
 	function verticalSpeedMh(nowMs, windowMs)
@@ -86,7 +99,6 @@ class HikeHistory
 		{
 			return null;
 		}
-		var startTime = nowMs - windowMs;
 		var oldest = (writeIndex - count + MAX_SAMPLES) % MAX_SAMPLES;
 
 		// First pass: means, and the time span covered.
@@ -99,7 +111,7 @@ class HikeHistory
 		for (var k = 0; k < count; k++)
 		{
 			var i = (oldest + k) % MAX_SAMPLES;
-			if (times[i] < startTime)
+			if (outOfWindow(i, nowMs, windowMs))
 			{
 				continue;
 			}
@@ -126,11 +138,12 @@ class HikeHistory
 		for (var k = 0; k < count; k++)
 		{
 			var i = (oldest + k) % MAX_SAMPLES;
-			if (times[i] < startTime)
+			if (outOfWindow(i, nowMs, windowMs))
 			{
 				continue;
 			}
-			var dt = (times[i] - nowMs) / 1000.0 - meanT;
+			// Integer difference first (wrap-safe), then to seconds.
+			var dt =(times[i] - nowMs) / 1000.0 - meanT;
 			var da = (alts[i] - altRef) - meanA;
 			sxy += dt * da;
 			sxx += dt * dt;
@@ -144,14 +157,15 @@ class HikeHistory
 
 	// Horizontal speed in m/s: (last distance - first distance) / elapsed time
 	// over the samples in the window that carry a distance. Same null rules as
-	// verticalSpeedMh(), counted on those samples only.
+	// verticalSpeedMh(), counted on those samples only. Also null if the
+	// distance went down over the window (a new session restarted
+	// elapsedDistance): better no speed than a negative one.
 	function speedMps(nowMs, windowMs)
 	{
 		if (nowMs == null || windowMs == null)
 		{
 			return null;
 		}
-		var startTime = nowMs - windowMs;
 		var oldest = (writeIndex - count + MAX_SAMPLES) % MAX_SAMPLES;
 
 		var n = 0;
@@ -162,7 +176,7 @@ class HikeHistory
 		for (var k = 0; k < count; k++)
 		{
 			var i = (oldest + k) % MAX_SAMPLES;
-			if (times[i] < startTime || dists[i] == null)
+			if (dists[i] == null || outOfWindow(i, nowMs, windowMs))
 			{
 				continue;
 			}
@@ -175,7 +189,7 @@ class HikeHistory
 			lastDist = dists[i];
 			n += 1;
 		}
-		if (n < MIN_POINTS || lastT - firstTime < MIN_COVERAGE_MS)
+		if (n < MIN_POINTS || lastT - firstTime < MIN_COVERAGE_MS || lastDist < firstDist)
 		{
 			return null;
 		}
