@@ -532,6 +532,94 @@ function testHikeHistoryMixedNullDistance(logger)
 	return true;
 }
 
+// System.getTimer() wraps past 2^31 ms (~24.8 days) to negative values;
+// Monkey C Number arithmetic wraps the same way, so t0 + s * 1000 below
+// reproduces it. Window and spacing checks must use differences.
+(:test)
+function testHikeHistoryTimerWrapAround(logger)
+{
+	// Wraps 3.6 s after the first sample: the 60 s window is entirely after
+	// the wrap, the flat samples before it must be excluded.
+	var h = new HikeHistory();
+	var t0 = 2147480000;
+	for (var s = 0; s <= 120; s += 5)
+	{
+		var alt = (s < 60) ? 1500.0 : 1500.0 + (s - 60) / 6.0;
+		h.add(t0 + s * 1000, alt, 1.0 * s);
+	}
+	var now = t0 + 120000;
+	Test.assertMessage(now < 0, "precondition: the timer has wrapped to a negative value");
+	Test.assertEqualMessage(h.getCount(), 25, "no reset when the timer wraps");
+	var v = h.verticalSpeedMh(now, 60000);
+	logger.debug("wrap at 3.6 s -> " + v);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "60 s window after the wrap: 600 +/- 1 (flat samples excluded), got " + v);
+	var sp = h.speedMps(now, 60000);
+	Test.assertMessage(sp != null && sp > 0.99 && sp < 1.01, "speed after the wrap, got " + sp);
+	var v300 = h.verticalSpeedMh(now, 300000);
+	Test.assertMessage(v300 != null && v300 > 0.0 && v300 < 590.0, "300 s window still sees the flat part, got " + v300);
+
+	// Wrap in the middle of the 60 s window (at 90 s): steady climb.
+	h = new HikeHistory();
+	t0 = 2147483647 - 90000;
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, 1.04 * s);
+	}
+	now = t0 + 120000;
+	Test.assertEqualMessage(h.getCount(), 25, "no reset across the wrap");
+	v = h.verticalSpeedMh(now, 60000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "wrap inside the window: 600 +/- 1, got " + v);
+	sp = h.speedMps(now, 60000);
+	Test.assertMessage(sp != null && sp > 1.03 && sp < 1.05, "wrap inside the window: 1.04 m/s, got " + sp);
+	return true;
+}
+
+// Series starting 1 s after the timer wrapped to -2^31: with a 300 s window,
+// nowMs - windowMs would go below -2^31 and overflow to a large positive
+// value if computed directly, excluding every sample.
+(:test)
+function testHikeHistoryWindowStartWouldOverflow(logger)
+{
+	var h = new HikeHistory();
+	var t0 = -2147482648;
+	for (var s = 0; s <= 120; s += 5)
+	{
+		var alt = (s < 60) ? 1500.0 : 1500.0 + (s - 60) / 3.0;
+		h.add(t0 + s * 1000, alt, 1.0 * s);
+	}
+	Test.assertEqualMessage(h.getCount(), 25, "precondition: 25 samples");
+
+	var v = h.verticalSpeedMh(t0 + 60000, 300000);
+	Test.assertMessage(v != null && v > -5.0 && v < 5.0, "flat first minute, 300 s window read at 60 s, got " + v);
+
+	var now = t0 + 120000;
+	v = h.verticalSpeedMh(now, 60000);
+	Test.assertMessage(v != null && v > 1195.0 && v < 1205.0, "1200 m/h second minute (no overflow case), got " + v);
+	var v300 = h.verticalSpeedMh(now, 300000);
+	Test.assertMessage(v300 != null && v300 > 0.0 && v300 < 1200.0, "300 s window sees the whole series, got " + v300);
+	var sp = h.speedMps(now, 300000);
+	Test.assertMessage(sp != null && sp > 0.99 && sp < 1.01, "300 s window speed 1 m/s, got " + sp);
+	return true;
+}
+
+// Distance going down between window start and end (a new session restarted
+// elapsedDistance): no negative speed, null instead.
+(:test)
+function testHikeHistoryDistanceDecreases(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	for (var s = 0; s <= 120; s += 5)
+	{
+		var dist = (s <= 60) ? 2000.0 + 1.04 * s : 1.04 * (s - 65);
+		h.add(t0 + s * 1000, 1500.0, dist);
+	}
+	Test.assertMessage(h.speedMps(t0 + 120000, 60000) == null, "distance restarted inside the window -> null speed");
+	var sp = h.speedMps(t0 + 120000, 55000);
+	Test.assertMessage(sp != null && sp > 1.03 && sp < 1.05, "window after the restart -> 1.04 m/s, got " + sp);
+	return true;
+}
+
 // More than 60 samples: the oldest are overwritten and must no longer count.
 // First 20 samples descend fast, the next 60 climb at 600 m/h; with a window
 // wider than the buffer, only the 60 climbing samples may be used.
