@@ -128,12 +128,13 @@ function testSessionStateMachine(logger)
 	$.stopRecording(false); // discard -- this is just a test run
 	Test.assertMessage(!$.hasActiveSession(), "session gone after stopRecording()");
 	Test.assertMessage(!$.isRecording(), "not recording after stopRecording()");
+	Test.assertMessage(!$.shouldSaveOnStop($.hasActiveSession(), $.isRecording()), "after discard, onStop() must have nothing to save");
 
 	return true;
 }
 
-// onStop() rule: an app closed by the system (battery, OS, handled crash) must
-// keep whatever was recorded. The user's own Save/Ignore choices null the
+// onStop() rule: an app closed by the system must keep whatever was
+// recorded. The user's own Save/Discard choices null the
 // session before System.exit(), so they never reach this rule with a session.
 (:test)
 function testShouldSaveOnStop(logger)
@@ -191,6 +192,28 @@ function testStopRecordingSavesPausedSession(logger)
 	$.stopRecording(true);
 	Test.assertMessage(!$.hasActiveSession(), "session cleared after save");
 	Test.assertMessage(!$.isRecording(), "not recording after save");
+
+	return true;
+}
+
+// Same path for a session still actively recording (no pause): stopRecording(true)
+// must take the isRecording branch (stop, then save) and clear the session.
+// Note: leaves one short saved activity in the simulator.
+(:test)
+function testStopRecordingSavesRecordingSession(logger)
+{
+	if ($.hasActiveSession())
+	{
+		$.stopRecording(false);
+	}
+
+	$.startRecording();
+	Test.assertMessage($.hasActiveSession() && $.isRecording(), "precondition: actively recording session");
+	Test.assertMessage($.shouldSaveOnStop($.hasActiveSession(), $.isRecording()), "rule asks to save a recording session");
+
+	$.stopRecording(true);
+	Test.assertMessage(!$.hasActiveSession(), "session cleared after stop + save");
+	Test.assertMessage(!$.isRecording(), "not recording after stop + save");
 
 	return true;
 }
