@@ -424,6 +424,12 @@ function testHikeHistorySampleSpacing(logger)
 	// Null altitude never resets nor feeds the history, even after a long gap.
 	h.add(t0 + 90000, null, 90.0);
 	Test.assertEqualMessage(h.getCount(), 1, "null altitude after a gap: ignored, no reset");
+
+	// Time going backwards (timer restarted) is treated like a gap: reset.
+	h.add(t0 + 45001, 1505.0, 45.0);
+	Test.assertEqualMessage(h.getCount(), 2, "precondition: 2 samples");
+	h.add(t0 + 1000, 1506.0, 46.0);
+	Test.assertEqualMessage(h.getCount(), 1, "timestamp going backwards -> reset, sample kept");
 	return true;
 }
 
