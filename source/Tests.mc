@@ -582,15 +582,20 @@ function testHikeHistoryWindowStartWouldOverflow(logger)
 {
 	var h = new HikeHistory();
 	var t0 = -2147482648;
-	for (var s = 0; s <= 120; s += 5)
+	// Read at 60 s while the history only holds the first (flat) minute,
+	// as in the app where no sample is newer than nowMs.
+	for (var s = 0; s <= 60; s += 5)
 	{
-		var alt = (s < 60) ? 1500.0 : 1500.0 + (s - 60) / 3.0;
-		h.add(t0 + s * 1000, alt, 1.0 * s);
+		h.add(t0 + s * 1000, 1500.0, 1.0 * s);
 	}
-	Test.assertEqualMessage(h.getCount(), 25, "precondition: 25 samples");
-
 	var v = h.verticalSpeedMh(t0 + 60000, 300000);
 	Test.assertMessage(v != null && v > -5.0 && v < 5.0, "flat first minute, 300 s window read at 60 s, got " + v);
+
+	for (var s = 65; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + (s - 60) / 3.0, 1.0 * s);
+	}
+	Test.assertEqualMessage(h.getCount(), 25, "precondition: 25 samples");
 
 	var now = t0 + 120000;
 	v = h.verticalSpeedMh(now, 60000);
