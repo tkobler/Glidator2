@@ -217,3 +217,438 @@ function testStopRecordingSavesRecordingSession(logger)
 
 	return true;
 }
+
+// ---------------------------------------------------------------------------
+// HikeHistory: hike-mode vertical speed / speed over a sliding window.
+// All series use injected timestamps (no System.getTimer()), 1 sample / 5 s
+// unless stated otherwise. Rates: 600 m/h = 1/6 m/s, 1200 m/h = 1/3 m/s.
+// ---------------------------------------------------------------------------
+
+// Steady 600 m/h climb over 120 s, timestamps near the top of the
+// System.getTimer() range to check the maths works on relative time.
+(:test)
+function testHikeHistoryConstantClimb(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 2000000000;
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, null);
+	}
+	Test.assertEqualMessage(h.getCount(), 25, "25 samples in 120 s at 1 / 5 s");
+
+	var v = h.verticalSpeedMh(t0 + 120000, 60000);
+	logger.debug("constant climb 600 m/h -> " + v);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "600 m/h climb should read 600 +/- 1, got " + v);
+	return true;
+}
+
+// Same climb, altitude quantised to 0.2 m (like the barometer) plus an
+// alternating +/-0.2 m noise.
+(:test)
+function testHikeHistoryNoisyClimb(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	for (var i = 0; i <= 24; i++)
+	{
+		var s = i * 5;
+		var quantised = (s / 6.0 / 0.2).toNumber() * 0.2;
+		var noise = (i % 2 == 0) ? 0.2 : -0.2;
+		h.add(t0 + s * 1000, 1500.0 + quantised + noise, null);
+	}
+
+	var v = h.verticalSpeedMh(t0 + 120000, 60000);
+	logger.debug("noisy climb 600 m/h -> " + v);
+	Test.assertMessage(v != null && v > 570.0 && v < 630.0, "noisy 600 m/h climb should read 600 +/- 30, got " + v);
+	return true;
+}
+
+(:test)
+function testHikeHistoryFlat(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 2250.0, null);
+	}
+
+	var v = h.verticalSpeedMh(t0 + 120000, 60000);
+	Test.assertMessage(v != null && v > -5.0 && v < 5.0, "constant altitude should read 0 +/- 5, got " + v);
+	return true;
+}
+
+(:test)
+function testHikeHistoryDescent(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 2500.0 - s / 3.0, null);
+	}
+
+	var v = h.verticalSpeedMh(t0 + 120000, 60000);
+	logger.debug("descent 1200 m/h -> " + v);
+	Test.assertMessage(v != null && v > -1205.0 && v < -1195.0, "1200 m/h descent should read -1200 +/- 5, got " + v);
+	return true;
+}
+
+// 60 s of climbing then 60 s flat: the 60 s window must only see the flat part.
+(:test)
+function testHikeHistoryClimbThenFlat(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	for (var s = 0; s <= 120; s += 5)
+	{
+		var alt = (s <= 60) ? 1500.0 + s / 6.0 : 1510.0;
+		h.add(t0 + s * 1000, alt, null);
+	}
+
+	var v = h.verticalSpeedMh(t0 + 120000, 60000);
+	Test.assertMessage(v != null && v > -30.0 && v < 30.0, "60 s window after the climb should read |v| < 30, got " + v);
+	return true;
+}
+
+(:test)
+function testHikeHistoryNotEnoughData(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+
+	Test.assertMessage(h.verticalSpeedMh(t0, 60000) == null, "empty history -> null");
+	Test.assertMessage(h.speedMps(t0, 60000) == null, "empty history -> null speed");
+
+	h.add(t0, 1500.0, 100.0);
+	Test.assertMessage(h.verticalSpeedMh(t0, 60000) == null, "a single point -> null");
+	Test.assertMessage(h.speedMps(t0, 60000) == null, "a single point -> null speed");
+
+	// 4 points spanning 15 s: enough points but not enough time.
+	for (var s = 5; s <= 15; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, 100.0 + s);
+	}
+	Test.assertEqualMessage(h.getCount(), 4, "precondition: 4 samples");
+	Test.assertMessage(h.verticalSpeedMh(t0 + 15000, 60000) == null, "15 s of data -> null");
+	Test.assertMessage(h.speedMps(t0 + 15000, 60000) == null, "15 s of data -> null speed");
+	return true;
+}
+
+// Minimum-coverage edges: exactly 20 s with 3 points is enough, 19.999 s is not.
+(:test)
+function testHikeHistoryMinimumCoverageEdges(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	h.add(t0, 1500.0, 0.0);
+	h.add(t0 + 10000, 1500.0 + 10 / 6.0, 10.0);
+	h.add(t0 + 20000, 1500.0 + 20 / 6.0, 20.0);
+	var v = h.verticalSpeedMh(t0 + 20000, 60000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "3 points over exactly 20 s -> 600, got " + v);
+	var sp = h.speedMps(t0 + 20000, 60000);
+	Test.assertMessage(sp != null && sp > 0.99 && sp < 1.01, "3 points over exactly 20 s -> 1 m/s, got " + sp);
+
+	h.reset();
+	h.add(t0, 1500.0, 0.0);
+	h.add(t0 + 9999, 1501.0, 10.0);
+	h.add(t0 + 19999, 1502.0, 20.0);
+	Test.assertEqualMessage(h.getCount(), 3, "precondition: 3 samples");
+	Test.assertMessage(h.verticalSpeedMh(t0 + 19999, 60000) == null, "19.999 s of data -> null");
+	Test.assertMessage(h.speedMps(t0 + 19999, 60000) == null, "19.999 s of data -> null speed");
+
+	// The window start is inclusive: t >= nowMs - windowMs. Samples at 0, 10, 20 s
+	// read at now = 60 s with a 60 s window keep all three; 1 ms later the 0 s
+	// sample drops out, leaving 2 points over 10 s -> null.
+	h.reset();
+	h.add(t0, 1500.0, 0.0);
+	h.add(t0 + 10000, 1500.0 + 10 / 6.0, 10.0);
+	h.add(t0 + 20000, 1500.0 + 20 / 6.0, 20.0);
+	v = h.verticalSpeedMh(t0 + 60000, 60000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "sample exactly at nowMs - windowMs is included, got " + v);
+	Test.assertMessage(h.verticalSpeedMh(t0 + 60001, 60000) == null, "one ms later the first sample leaves the window -> null");
+	return true;
+}
+
+// A gap of more than 15 s (pause, lost data) resets the history.
+(:test)
+function testHikeHistoryGapResets(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, 100.0 + s);
+	}
+	Test.assertMessage(h.verticalSpeedMh(t0 + 120000, 60000) != null, "precondition: valid speed before the gap");
+
+	h.add(t0 + 140000, 1530.0, 250.0);
+	Test.assertEqualMessage(h.getCount(), 1, "20 s gap -> history restarts from the new sample");
+	Test.assertMessage(h.verticalSpeedMh(t0 + 140000, 60000) == null, "right after a 20 s gap -> null");
+	Test.assertMessage(h.speedMps(t0 + 140000, 60000) == null, "right after a 20 s gap -> null speed");
+	return true;
+}
+
+(:test)
+function testHikeHistorySampleSpacing(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+
+	h.add(t0, 1500.0, 0.0);
+	Test.assertEqualMessage(h.getCount(), 1, "first sample stored");
+
+	h.add(t0 + 4999, 1501.0, 5.0);
+	Test.assertEqualMessage(h.getCount(), 1, "sample < 5 s after the previous one is ignored");
+
+	h.add(t0 + 5000, 1501.0, 5.0);
+	Test.assertEqualMessage(h.getCount(), 2, "sample exactly 5000 ms later is accepted");
+
+	// The ignored 4999 ms sample must not have moved the reference time:
+	// 5000 ms after the accepted one is accepted again.
+	h.add(t0 + 10000, 1502.0, 10.0);
+	Test.assertEqualMessage(h.getCount(), 3, "spacing is measured from the last accepted sample");
+
+	h.add(t0 + 13000, null, 13.0);
+	Test.assertEqualMessage(h.getCount(), 3, "null altitude is ignored (< 5 s anyway)");
+	h.add(t0 + 16000, null, 16.0);
+	Test.assertEqualMessage(h.getCount(), 3, "null altitude is ignored even when due");
+
+	h.add(t0 + 25000, 1503.0, 25.0);
+	Test.assertEqualMessage(h.getCount(), 4, "exactly 15000 ms later: accepted without reset");
+
+	h.add(t0 + 40001, 1504.0, 40.0);
+	Test.assertEqualMessage(h.getCount(), 1, "15001 ms later: reset, then the sample is kept");
+
+	// Null altitude never resets nor feeds the history, even after a long gap.
+	h.add(t0 + 90000, null, 90.0);
+	Test.assertEqualMessage(h.getCount(), 1, "null altitude after a gap: ignored, no reset");
+	return true;
+}
+
+(:test)
+function testHikeHistoryReset(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	for (var s = 0; s <= 60; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, 100.0 + s);
+	}
+	h.reset();
+	Test.assertEqualMessage(h.getCount(), 0, "reset() empties the buffer");
+	Test.assertMessage(h.verticalSpeedMh(t0 + 60000, 60000) == null, "no vertical speed after reset()");
+	Test.assertMessage(h.speedMps(t0 + 60000, 60000) == null, "no speed after reset()");
+
+	// After reset, the next sample is accepted whatever its timing.
+	h.add(t0 + 61000, 1510.0, 161.0);
+	Test.assertEqualMessage(h.getCount(), 1, "first sample after reset() accepted even 1 s later");
+	return true;
+}
+
+(:test)
+function testHikeHistorySpeed(logger)
+{
+	var t0 = 3600000;
+
+	var h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0, 2000.0 + 1.04 * s);
+	}
+	var sp = h.speedMps(t0 + 120000, 60000);
+	logger.debug("speed 1.04 m/s -> " + sp);
+	Test.assertMessage(sp != null && sp > 1.03 && sp < 1.05, "1.04 m/s should read 1.04 +/- 0.01, got " + sp);
+
+	h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, 2000.0);
+	}
+	sp = h.speedMps(t0 + 120000, 60000);
+	Test.assertMessage(sp != null && sp > -0.001 && sp < 0.001, "constant distance should read 0, got " + sp);
+
+	h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, null);
+	}
+	Test.assertMessage(h.speedMps(t0 + 120000, 60000) == null, "no distance at all (no session) -> null speed");
+	var v = h.verticalSpeedMh(t0 + 120000, 60000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "vertical speed still works without distance, got " + v);
+	return true;
+}
+
+// Samples with and without distance mixed (session started mid-way, or dist
+// momentarily missing): speed only uses the samples that carry a distance.
+(:test)
+function testHikeHistoryMixedNullDistance(logger)
+{
+	var t0 = 3600000;
+
+	// Every other sample without distance.
+	var h = new HikeHistory();
+	for (var i = 0; i <= 24; i++)
+	{
+		var s = i * 5;
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, (i % 2 == 0) ? 2000.0 + 1.04 * s : null);
+	}
+	var sp = h.speedMps(t0 + 120000, 60000);
+	Test.assertMessage(sp != null && sp > 1.03 && sp < 1.05, "alternate null distances -> 1.04 +/- 0.01, got " + sp);
+	var v = h.verticalSpeedMh(t0 + 120000, 60000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "vertical speed uses every sample, got " + v);
+
+	// Distance only on the last two samples of the window: < 3 usable points.
+	h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0, (s >= 115) ? 2000.0 + 1.04 * s : null);
+	}
+	Test.assertMessage(h.speedMps(t0 + 120000, 60000) == null, "only 2 samples with distance -> null speed");
+
+	// Distance on the last 3 samples only (10 s): enough points, not enough time.
+	h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0, (s >= 110) ? 2000.0 + 1.04 * s : null);
+	}
+	Test.assertMessage(h.speedMps(t0 + 120000, 60000) == null, "distance over 10 s only -> null speed");
+
+	// Distance appears 40 s before now (session started): speed over those 40 s.
+	h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0, (s >= 80) ? 1.04 * (s - 80) : null);
+	}
+	sp = h.speedMps(t0 + 120000, 60000);
+	Test.assertMessage(sp != null && sp > 1.03 && sp < 1.05, "distance on the last 40 s only -> 1.04, got " + sp);
+	return true;
+}
+
+// More than 60 samples: the oldest are overwritten and must no longer count.
+// First 20 samples descend fast, the next 60 climb at 600 m/h; with a window
+// wider than the buffer, only the 60 climbing samples may be used.
+(:test)
+function testHikeHistoryRingBufferOverflow(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	var alt = 2000.0;
+	var dist = 0.0;
+	for (var i = 0; i < 80; i++)
+	{
+		if (i > 0)
+		{
+			alt += (i < 20) ? -5.0 : 5.0 / 6.0;
+			dist += (i < 20) ? 50.0 : 5.0;
+		}
+		h.add(t0 + i * 5000, alt, dist);
+	}
+	Test.assertEqualMessage(h.getCount(), 60, "count caps at 60 samples");
+
+	var now = t0 + 79 * 5000;
+	var v = h.verticalSpeedMh(now, 1000000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "overwritten descent samples must be gone, got " + v);
+	var sp = h.speedMps(now, 1000000);
+	Test.assertMessage(sp != null && sp > 0.99 && sp < 1.01, "speed only from retained samples (1 m/s), got " + sp);
+
+	// And the usual 60 s window still reads right after wrapping around.
+	v = h.verticalSpeedMh(now, 60000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "60 s window after wrap-around, got " + v);
+	return true;
+}
+
+// The 5 min window (300 s) used for the averaged display.
+(:test)
+function testHikeHistoryWindow300s(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	// 4 min flat then 1 min at 1200 m/h: +20 m in the last minute.
+	for (var s = 0; s <= 300; s += 5)
+	{
+		var alt = (s <= 240) ? 1500.0 : 1500.0 + (s - 240) / 3.0;
+		h.add(t0 + s * 1000, alt, 1.0 * s);
+	}
+	var now = t0 + 300000;
+
+	var v60 = h.verticalSpeedMh(now, 60000);
+	Test.assertMessage(v60 != null && v60 > 1195.0 && v60 < 1205.0, "60 s window sees the 1200 m/h climb, got " + v60);
+
+	var v300 = h.verticalSpeedMh(now, 300000);
+	logger.debug("300 s window -> " + v300);
+	Test.assertMessage(v300 != null && v300 > 0.0 && v300 < 600.0, "300 s window smooths the late climb (0 < v < 600), got " + v300);
+
+	var sp = h.speedMps(now, 300000);
+	Test.assertMessage(sp != null && sp > 0.99 && sp < 1.01, "300 s window speed 1 m/s, got " + sp);
+
+	// Steady 600 m/h over the full 5 min.
+	h.reset();
+	for (var s = 0; s <= 300; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, null);
+	}
+	var v = h.verticalSpeedMh(now, 300000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "600 m/h over 300 s, got " + v);
+	return true;
+}
+
+// Real data: Salvan outing, 13/09/2026, lap 1 (climb), from
+// garmin_data/activity_24346302742.tcx, 11:07:11 -> 11:09:21 UTC (TCX lines
+// 16806-17832). The TCX is smart-recorded (1-4 s irregular spacing); samples
+// kept here follow add()'s own rule: first record >= 5 s after the last kept
+// one. 11:07:11 is the first record after a 37 s stop (11:06:34), which would
+// reset the history anyway. Columns: seconds since 11:07:11, AltitudeMeters,
+// DistanceMeters.
+(:test)
+function testHikeHistorySalvanRealClimb(logger)
+{
+	var secs = [0, 7, 14, 20, 25, 30, 35, 41, 46, 51, 57, 62,
+		70, 76, 81, 87, 92, 97, 102, 107, 113, 118, 124, 130];
+	var alts = [2249.0, 2249.8, 2251.0, 2251.4, 2251.8, 2253.0, 2253.4, 2254.0,
+		2255.0, 2255.4, 2255.4, 2255.4, 2256.4, 2257.6, 2258.8, 2260.4,
+		2261.4, 2262.6, 2263.8, 2265.2, 2266.0, 2266.4, 2267.6, 2268.6];
+	var dists = [2232.68, 2241.07, 2246.74, 2248.84, 2252.27, 2254.52, 2258.45, 2263.16,
+		2267.93, 2275.91, 2285.28, 2291.61, 2300.57, 2302.97, 2307.71, 2314.88,
+		2318.73, 2324.05, 2327.65, 2331.63, 2338.11, 2342.33, 2346.54, 2351.20];
+
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	var at1108_48 = 17; // index of 11:08:48 (97 s)
+	for (var i = 0; i <= at1108_48; i++)
+	{
+		h.add(t0 + secs[i] * 1000, alts[i], dists[i]);
+	}
+	Test.assertEqualMessage(h.getCount(), at1108_48 + 1, "every real sample kept (all >= 5 s apart, no gap > 15 s)");
+
+	// 60 s window 11:07:48 -> 11:08:48 (includes the short flat at 11:08:02-13).
+	// Hand-computed least squares: ~524 m/h. Speed: 60.89 m / 56 s = 1.087 m/s.
+	var v = h.verticalSpeedMh(t0 + 97000, 60000);
+	logger.debug("Salvan 60 s window at 11:08:48 -> " + v + " m/h");
+	Test.assertMessage(v != null && v >= 500.0 && v <= 700.0, "real Salvan climb at 11:08:48 should read 500-700 m/h, got " + v);
+	var sp = h.speedMps(t0 + 97000, 60000);
+	logger.debug("Salvan 60 s speed at 11:08:48 -> " + sp + " m/s");
+	Test.assertMessage(sp != null && sp > 1.077 && sp < 1.097, "real Salvan speed at 11:08:48 ~1.087 m/s, got " + sp);
+
+	for (var i = at1108_48 + 1; i < secs.size(); i++)
+	{
+		h.add(t0 + secs[i] * 1000, alts[i], dists[i]);
+	}
+	Test.assertEqualMessage(h.getCount(), secs.size(), "all 24 real samples kept");
+
+	// Whole 2 min 10 s extract (300 s window): hand-computed ~543 m/h,
+	// speed 118.52 m / 130 s = 0.912 m/s.
+	var now = t0 + 130000;
+	var v300 = h.verticalSpeedMh(now, 300000);
+	logger.debug("Salvan whole extract (300 s window) -> " + v300 + " m/h");
+	Test.assertMessage(v300 != null && v300 >= 500.0 && v300 <= 700.0, "whole real extract should read 500-700 m/h, got " + v300);
+	sp = h.speedMps(now, 300000);
+	Test.assertMessage(sp != null && sp > 0.902 && sp < 0.922, "whole real extract speed ~0.912 m/s, got " + sp);
+
+	// Last minute 11:08:21 -> 11:09:21 is steeper: hand-computed ~747 m/h.
+	var v60 = h.verticalSpeedMh(now, 60000);
+	logger.debug("Salvan 60 s window at 11:09:21 -> " + v60 + " m/h");
+	Test.assertMessage(v60 != null && v60 > 720.0 && v60 < 780.0, "real Salvan last minute should read ~747 m/h, got " + v60);
+	return true;
+}
