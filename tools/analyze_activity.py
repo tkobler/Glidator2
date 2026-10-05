@@ -183,7 +183,15 @@ def gps_distance_m(points):
 def elevation_gain_m(alts, threshold=1.0):
     """Elevation gain with hysteresis: a rise is counted once the altitude is
     at least `threshold` above the reference; a drop of more than
-    `threshold` moves the reference down. None values are skipped."""
+    `threshold` moves the reference down. None values are skipped.
+
+    Known asymmetry (kept as is for now): the test is `>=` going up but `>`
+    going down, and on a descent the reference moves down in steps (only
+    when the altitude is more than `threshold` below it) instead of
+    following the running minimum. After a descent the reference can thus
+    sit up to `threshold` above the true low point, so the next climb may
+    be undercounted by up to `threshold`. The residual rise at the end of
+    the series (below `threshold`) is not counted either."""
     values = [a for a in alts if a is not None]
     if not values:
         return None
