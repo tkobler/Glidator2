@@ -573,8 +573,9 @@ class WatchDisplay
         var centerLon = (minLon + maxLon) / 2.0;
         var cosLat = Math.cos(Math.toRadians(centerLat));
 
-        // Longitude-compressed local projection (equirectangular); the scale unit
-        // doesn't matter since it only feeds a fit-to-screen ratio below.
+        // Longitude-compressed local projection (equirectangular), in degrees of
+        // latitude on both axes: `scale` below is in pixels per degree of latitude
+        // (the scale bar converts it to m/px with metersPerPixelFromScale()).
         var maxRange = 0.0001; // floor avoids a divide-by-zero when stationary
         for (var i = 0; i < count; i++)
         {
@@ -612,6 +613,25 @@ class WatchDisplay
             }
             prevX = x;
             prevY = y;
+        }
+
+        // Scale bar at the bottom, in the border ring below the fitted trail:
+        // a round length (pickScaleBar) at most a third of the screen wide,
+        // none when no round length suits the current zoom.
+        var bar = $.pickScaleBar($.metersPerPixelFromScale(scale), dc.getWidth() / 3);
+        if (bar != null)
+        {
+            var barY = centerY + screenRadius + borderSize / 2;
+            var barLeft = centerX - bar[1] / 2;
+            var barRight = barLeft + bar[1];
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.setPenWidth(2);
+            dc.drawLine(barLeft, barY, barRight, barY);
+            dc.drawLine(barLeft, barY, barLeft, barY - 5);
+            dc.drawLine(barRight, barY, barRight, barY - 5);
+            dc.drawText(centerX, barY - 3 - dc.getFontHeight(Graphics.FONT_XTINY) / 2, Graphics.FONT_XTINY, $.formatScaleBarLabel(bar[0]), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+            dc.setPenWidth(3);
         }
 
         if (!hasCurrent)
