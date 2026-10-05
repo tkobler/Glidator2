@@ -1786,6 +1786,13 @@ class ScaleBarTestHelper
 		Test.assertEqualMessage(bar[1], pixels, msg + ": pixels, got " + bar[1]);
 		Test.assertMessage(bar[1] instanceof Toybox.Lang.Number, msg + ": pixels is a Number");
 	}
+
+	// Test.assertEqual(x, null) cannot be used: it calls x.equals(), which
+	// fails on null itself.
+	static function checkNull(value, msg)
+	{
+		Test.assertMessage(value == null, msg + ", got " + value);
+	}
 }
 
 // map()'s scale is in pixels per degree of latitude (longitudes are
@@ -1802,13 +1809,13 @@ function testMetersPerPixelFromScale(logger)
 
 	// Unusable scales: no conversion.
 	var big = 3.0e38;
-	Test.assertEqualMessage($.metersPerPixelFromScale(null), null, "null -> null");
-	Test.assertEqualMessage($.metersPerPixelFromScale(0.0), null, "0 -> null (no divide by zero)");
-	Test.assertEqualMessage($.metersPerPixelFromScale(0), null, "0 (Number) -> null");
-	Test.assertEqualMessage($.metersPerPixelFromScale(-1000.0), null, "negative -> null");
-	Test.assertEqualMessage($.metersPerPixelFromScale(MapTestHelper.nan()), null, "NaN -> null");
-	Test.assertEqualMessage($.metersPerPixelFromScale(big * 10.0), null, "+Inf -> null");
-	Test.assertEqualMessage($.metersPerPixelFromScale(-big * 10.0), null, "-Inf -> null");
+	ScaleBarTestHelper.checkNull($.metersPerPixelFromScale(null), "null -> null");
+	ScaleBarTestHelper.checkNull($.metersPerPixelFromScale(0.0), "0 -> null (no divide by zero)");
+	ScaleBarTestHelper.checkNull($.metersPerPixelFromScale(0), "0 (Number) -> null");
+	ScaleBarTestHelper.checkNull($.metersPerPixelFromScale(-1000.0), "negative -> null");
+	ScaleBarTestHelper.checkNull($.metersPerPixelFromScale(MapTestHelper.nan()), "NaN -> null");
+	ScaleBarTestHelper.checkNull($.metersPerPixelFromScale(big * 10.0), "+Inf -> null");
+	ScaleBarTestHelper.checkNull($.metersPerPixelFromScale(-big * 10.0), "-Inf -> null");
 	return true;
 }
 
@@ -1835,28 +1842,28 @@ function testPickScaleBar(logger)
 	ScaleBarTestHelper.check($.pickScaleBar(2.0d, 80), 100, 50, "Double m/px");
 
 	// Too zoomed in: even 50 m does not fit -> no bar.
-	Test.assertEqualMessage($.pickScaleBar(0.5, 80), null, "0.5 m/px: 50 m = 100 px > 80 -> null");
-	Test.assertEqualMessage($.pickScaleBar(0.001, 80), null, "tiny m/px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(0.5, 80), "0.5 m/px: 50 m = 100 px > 80 -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(0.001, 80), "tiny m/px -> null");
 
 	// Too zoomed out: 5 km is shorter than a quarter of the room -> no bar.
 	ScaleBarTestHelper.check($.pickScaleBar(250.0, 80), 5000, 20, "5 km = 20 px = 80 / 4 -> still shown");
-	Test.assertEqualMessage($.pickScaleBar(300.0, 80), null, "5 km = 16.7 px < 20 -> null");
-	Test.assertEqualMessage($.pickScaleBar(100000.0, 80), null, "huge m/px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(300.0, 80), "5 km = 16.7 px < 20 -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(100000.0, 80), "huge m/px -> null");
 
 	// Unusable inputs.
 	var big = 3.0e38;
 	var nan = MapTestHelper.nan();
-	Test.assertEqualMessage($.pickScaleBar(null, 80), null, "null m/px -> null");
-	Test.assertEqualMessage($.pickScaleBar(0.0, 80), null, "0 m/px -> null");
-	Test.assertEqualMessage($.pickScaleBar(-2.0, 80), null, "negative m/px -> null");
-	Test.assertEqualMessage($.pickScaleBar(nan, 80), null, "NaN m/px -> null");
-	Test.assertEqualMessage($.pickScaleBar(big * 10.0, 80), null, "+Inf m/px -> null");
-	Test.assertEqualMessage($.pickScaleBar(-big * 10.0, 80), null, "-Inf m/px -> null");
-	Test.assertEqualMessage($.pickScaleBar(2.0, 0), null, "0 px -> null");
-	Test.assertEqualMessage($.pickScaleBar(2.0, -80), null, "negative px -> null");
-	Test.assertEqualMessage($.pickScaleBar(2.0, null), null, "null px -> null");
-	Test.assertEqualMessage($.pickScaleBar(2.0, nan), null, "NaN px -> null");
-	Test.assertEqualMessage($.pickScaleBar(2.0, big * 10.0), null, "+Inf px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(null, 80), "null m/px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(0.0, 80), "0 m/px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(-2.0, 80), "negative m/px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(nan, 80), "NaN m/px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(big * 10.0, 80), "+Inf m/px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(-big * 10.0, 80), "-Inf m/px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(2.0, 0), "0 px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(2.0, -80), "negative px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(2.0, null), "null px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(2.0, nan), "NaN px -> null");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(2.0, big * 10.0), "+Inf px -> null");
 	return true;
 }
 
@@ -1919,7 +1926,7 @@ function testScaleBarOnSalvanExtract(logger)
 	Test.assertMessage(halfWidthMeters > 19.0 && halfWidthMeters < 22.0, "half width about 20.6 m, got " + halfWidthMeters);
 	Test.assertMessage(mpp != null && (mpp - halfWidthMeters / 92.65).abs() < 0.005, "m/px = half width / fitted radius, got " + mpp);
 
-	Test.assertEqualMessage($.pickScaleBar(mpp, 86), null, "50 m extract on fenix6pro: no round length fits -> no bar");
+	ScaleBarTestHelper.checkNull($.pickScaleBar(mpp, 86), "50 m extract on fenix6pro: no round length fits -> no bar");
 	var bar = $.pickScaleBar(mpp, 240);
 	Test.assertMessage(bar != null && bar[0] == 50 && bar[1] >= 215 && bar[1] <= 235, "240 px of room -> 50 m, about 224 px, got " + bar);
 	return true;
