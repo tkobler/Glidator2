@@ -85,8 +85,8 @@ class WatchData
 		// 3. Accelerometer
         
         // Speed is in mps
-        
-        if (info has :speed)
+        // A null speed is not stored: a "speed" => null key would win in getSpeed().
+        if (info has :speed && info.speed != null)
         {
         	data ["speed"] = info.speed;
         }
@@ -133,8 +133,8 @@ class WatchData
         	data ["heading"] = info.currentHeading;
         }
 
-        // The current speed in meters per second (mps).
-        if (info has :currentSpeed)
+        // The current speed in meters per second (mps). Not stored when null.
+        if (info has :currentSpeed && info.currentSpeed != null)
         {
         	data ["speed"] = info.currentSpeed;
         }
@@ -190,8 +190,9 @@ class WatchData
         	data ["heartRate"] = info.heartRate;
         }
         
-        // The speed in meters per second (m/s).
-        if (info has :speed)
+        // The speed in meters per second (m/s). Not stored when null, so that
+        // getSpeed() falls back to the GPS speed.
+        if (info has :speed && info.speed != null)
         {
         	data ["speed"] = info.speed;
         }
