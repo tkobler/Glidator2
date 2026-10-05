@@ -1072,6 +1072,7 @@ class FakeActivityInfo
 {
 	var altitude = null;
 	var currentSpeed = null;
+	var currentHeartRate = null;
 
 	function initialize(alt, spd)
 	{
@@ -1085,6 +1086,7 @@ class FakeSensorInfo
 {
 	var altitude = null;
 	var speed = null;
+	var heartRate = null;
 
 	function initialize(alt, spd)
 	{
@@ -1189,5 +1191,126 @@ function testWatchDataSpeedRecoversAfterNullSensorSpeed(logger)
 	// dictionary, so an earlier 2.5 must not survive a later null.
 	data.updateSensorInfo(new FakeSensorInfo(1000.0, null));
 	SpeedTestHelper.assertSpeed(data, 1.4, "no reset between calls: still no stale sensor speed");
+	return true;
+}
+
+// ---------------------------------------------------------------------------
+// Heart-rate keys written by WatchData.update*(): same rule as speed. A null
+// heart rate must not be stored, otherwise activityData["heartRate"] = null
+// wins in getHeartRate() and hides a valid Sensor.Info.heartRate.
+// ---------------------------------------------------------------------------
+
+(:test)
+class HeartRateTestHelper
+{
+	// Activity.Info stand-in with only the heart rate varying.
+	static function act(hr)
+	{
+		var info = new FakeActivityInfo(1000.0, 1.0);
+		info.currentHeartRate = hr;
+		return info;
+	}
+
+	// Sensor.Info stand-in with only the heart rate varying.
+	static function sens(hr)
+	{
+		var info = new FakeSensorInfo(1000.0, 1.0);
+		info.heartRate = hr;
+		return info;
+	}
+
+	// Handles a null expected value and fails cleanly on a null actual.
+	static function assertHr(data, expected, msg)
+	{
+		var hr = data.getHeartRate();
+		if (expected == null)
+		{
+			Test.assertMessage(hr == null, msg + " (expected null, got " + hr + ")");
+		}
+		else
+		{
+			Test.assertMessage(hr != null && hr == expected, msg + " (expected " + expected + ", got " + hr + ")");
+		}
+	}
+}
+
+// Each of the 2 blocks: null -> no key; 0 is a real value and is kept; the
+// other keys (altitude, speed) are still written as before.
+(:test)
+function testWatchDataUpdatesSkipNullHeartRateOnly(logger)
+{
+	var data = new WatchData();
+
+	data.updateActivityInfo(HeartRateTestHelper.act(null));
+	Test.assertMessage(!data.activityData.hasKey("heartRate"), "updateActivityInfo: null heart rate not stored");
+	Test.assertEqualMessage(data.activityData["altitude"], 1000.0, "updateActivityInfo: altitude still stored");
+	Test.assertEqualMessage(data.activityData["speed"], 1.0, "updateActivityInfo: speed still stored");
+	data.updateActivityInfo(HeartRateTestHelper.act(0));
+	Test.assertEqualMessage(data.activityData["heartRate"], 0, "updateActivityInfo: zero heart rate kept");
+
+	data.updateSensorInfo(HeartRateTestHelper.sens(null));
+	Test.assertMessage(!data.sensorData.hasKey("heartRate"), "updateSensorInfo: null heart rate not stored");
+	Test.assertEqualMessage(data.sensorData["altitude"], 1000.0, "updateSensorInfo: altitude still stored");
+	Test.assertEqualMessage(data.sensorData["speed"], 1.0, "updateSensorInfo: speed still stored");
+	data.updateSensorInfo(HeartRateTestHelper.sens(0));
+	Test.assertEqualMessage(data.sensorData["heartRate"], 0, "updateSensorInfo: zero heart rate kept");
+
+	// A zero activity heart rate still wins over the sensor (priority unchanged).
+	data = new WatchData();
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(0), HeartRateTestHelper.sens(118));
+	HeartRateTestHelper.assertHr(data, 0, "activity 0 bpm kept and still has priority");
+
+	// A null activity heart rate must not hide the sensor heart rate.
+	data = new WatchData();
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(null), HeartRateTestHelper.sens(118));
+	HeartRateTestHelper.assertHr(data, 118, "null activity heart rate -> sensor heart rate");
+
+	// Both null -> getHeartRate() null (the views show "--"), not a crash.
+	data = new WatchData();
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(null), HeartRateTestHelper.sens(null));
+	HeartRateTestHelper.assertHr(data, null, "all heart rates null -> getHeartRate() null");
+	return true;
+}
+
+// Sequence 120 -> null -> 125: no source keeps a stale 120 after the null;
+// the accessor falls back to the other source, or to null ("--").
+(:test)
+function testWatchDataHeartRateRecoversAfterNull(logger)
+{
+	// A: both sources lose the strap together.
+	var data = new WatchData();
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(120), HeartRateTestHelper.sens(120));
+	HeartRateTestHelper.assertHr(data, 120, "A tick 1: 120");
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(null), HeartRateTestHelper.sens(null));
+	HeartRateTestHelper.assertHr(data, null, "A tick 2: both null -> null, not stale 120");
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(125), HeartRateTestHelper.sens(125));
+	HeartRateTestHelper.assertHr(data, 125, "A tick 3: 125 taken");
+
+	// B: only the activity heart rate drops, the sensor value is shown.
+	data = new WatchData();
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(120), HeartRateTestHelper.sens(120));
+	HeartRateTestHelper.assertHr(data, 120, "B tick 1: 120");
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(null), HeartRateTestHelper.sens(119));
+	HeartRateTestHelper.assertHr(data, 119, "B tick 2: activity null -> sensor 119");
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(125), HeartRateTestHelper.sens(124));
+	HeartRateTestHelper.assertHr(data, 125, "B tick 3: activity 125 back, priority unchanged");
+
+	// C: Activity.getActivityInfo() returned null, sensor only.
+	data = new WatchData();
+	SpeedTestHelper.feedTick(data, null, null, HeartRateTestHelper.sens(120));
+	HeartRateTestHelper.assertHr(data, 120, "C tick 1: sensor 120");
+	SpeedTestHelper.feedTick(data, null, null, HeartRateTestHelper.sens(null));
+	HeartRateTestHelper.assertHr(data, null, "C tick 2: sensor null -> null, not stale 120");
+	SpeedTestHelper.feedTick(data, null, null, HeartRateTestHelper.sens(125));
+	HeartRateTestHelper.assertHr(data, 125, "C tick 3: sensor 125 taken");
+
+	// Without startMeasure() in between: each update*() rebuilds its
+	// dictionary, so an earlier value never survives a later null.
+	data = new WatchData();
+	SpeedTestHelper.feedTick(data, null, HeartRateTestHelper.act(125), HeartRateTestHelper.sens(123));
+	data.updateActivityInfo(HeartRateTestHelper.act(null));
+	HeartRateTestHelper.assertHr(data, 123, "no reset: activity null -> sensor 123");
+	data.updateSensorInfo(HeartRateTestHelper.sens(null));
+	HeartRateTestHelper.assertHr(data, null, "no reset: both null -> null");
 	return true;
 }
