@@ -845,6 +845,18 @@ function testFormatVerticalSpeed(logger)
 	var nan = Toybox.Math.sqrt(-1.0);
 	logger.debug("NaN candidate: " + nan);
 	Test.assertEqualMessage($.formatVerticalSpeed(nan), "--", "NaN -> --");
+
+	// +/-Infinity is not a speed either: "--". Built at run time by overflowing
+	// a 32-bit Float (max ~3.4e38) rather than dividing by 0.0, which may throw.
+	var big = 3.0e38;
+	var inf = big * 10.0;
+	var negInf = -big * 10.0;
+	Test.assertMessage(inf > big && inf == inf * 2.0, "test setup: +Inf expected, got " + inf);
+	Test.assertMessage(negInf < -big && negInf == negInf * 2.0, "test setup: -Inf expected, got " + negInf);
+	Test.assertEqualMessage($.formatVerticalSpeed(inf), "--", "+Inf -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(negInf), "--", "-Inf -> --");
+	// Largest finite Float still formats as a number (guard must not catch it).
+	Test.assertMessage(!$.formatVerticalSpeed(big).equals("--"), "3e38 is finite -> not --");
 	return true;
 }
 
