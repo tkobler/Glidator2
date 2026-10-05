@@ -24,7 +24,7 @@ function formatDuration(ms)
 }
 
 // Formats a vertical speed in m/h for the hike pages: "--" when there is no
-// value (or NaN), otherwise rounded to the nearest 10 m/h (halves away from
+// value (or NaN / +-Infinity), otherwise rounded to the nearest 10 m/h (halves away from
 // zero, the same way for climbs and descents) with a "+" only when the rounded
 // value is positive, so a near-zero rate reads "0", never "+0" or "-0".
 // Rounding is done on the absolute value with toLong() so that a glitch-sized
@@ -39,6 +39,10 @@ function formatVerticalSpeed(mh)
 	if (v != v)
 	{
 		return "--"; // NaN
+	}
+	if (v - v != 0.0)
+	{
+		return "--"; // +/-Infinity (Inf - Inf is NaN; any finite v - v is 0)
 	}
 
 	var negative = v < 0.0;
