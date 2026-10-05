@@ -119,7 +119,7 @@ function testSessionStateMachine(logger)
 	Test.assertMessage($.isRecording(), "actively recording after startRecording()");
 
 	$.pauseRecording();
-	Test.assertMessage($.hasActiveSession(), "session must still exist while paused -- this is exactly what the BACK quit-menu gate relies on to offer Save/Discard instead of silently exiting");
+	Test.assertMessage($.hasActiveSession(), "session must still exist while paused -- this is exactly what the BACK quit-menu gate relies on to offer Save/Ignore instead of silently exiting");
 	Test.assertMessage(!$.isRecording(), "not actively recording while paused");
 
 	$.resumeRecording();
@@ -136,7 +136,7 @@ function testSessionStateMachine(logger)
 }
 
 // onStop() rule: an app closed by the system must keep whatever was
-// recorded. The user's own Save/Discard choices null the
+// recorded. The user's own Save/Ignore choices null the
 // session before System.exit(), so they never reach this rule with a session.
 (:test)
 function testShouldSaveOnStop(logger)
