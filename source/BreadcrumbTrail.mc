@@ -1,9 +1,21 @@
 using Toybox.Math;
 
-// STUB (replaced in the next commit): accepts any non-null pair, as before.
+// True when (lat, lon) in degrees can be a real position: both non-null,
+// -90 < lat < 90 and -180 < lon < 180 (bounds excluded, which rejects the
+// 180/180 some devices report without a fix), and not exactly (0, 0) (-0.0
+// included). NaN fails every comparison and +-Infinity is out of bounds, so
+// both are rejected too. Accepts Number, Float and Double.
 function isValidLatLon(lat, lon)
 {
-	return lat != null && lon != null;
+	if (lat == null || lon == null)
+	{
+		return false;
+	}
+	if (!(lat > -90.0 && lat < 90.0 && lon > -180.0 && lon < 180.0))
+	{
+		return false;
+	}
+	return !(lat == 0.0 && lon == 0.0);
 }
 
 // Fixed-size ring buffer of lat/lon points for the live Map page.
@@ -28,7 +40,10 @@ class BreadcrumbTrail
 	// See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
 	function update(lat, lon)
 	{
-		if (lat == null || lon == null)
+		// Checked here too, so an invalid point never enters the trail (nor
+		// becomes the decimation reference) even if a caller skips the
+		// usable-fix filter.
+		if (!$.isValidLatLon(lat, lon))
 		{
 			return;
 		}
