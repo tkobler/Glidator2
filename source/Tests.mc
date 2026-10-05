@@ -1,4 +1,6 @@
 using Toybox.Test;
+using Toybox.Activity;
+using Toybox.ActivityRecording;
 
 // Unit tests for the hike-and-fly feature's pure logic, run with:
 //   monkeyc -f monkey.jungle -d fenix6 -o bin/tests.prg -y developer_key -t
@@ -214,6 +216,53 @@ function testStopRecordingSavesRecordingSession(logger)
 	$.stopRecording(true);
 	Test.assertMessage(!$.hasActiveSession(), "session cleared after stop + save");
 	Test.assertMessage(!$.isRecording(), "not recording after stop + save");
+
+	return true;
+}
+
+// ---------------------------------------------------------------------------
+// Recording sport: SPORT_FLYING where the device has it, SPORT_GENERIC
+// otherwise (fenix5 / fenix5x, CIQ 3.1.6, have no Activity.SPORT_* at all).
+// ---------------------------------------------------------------------------
+
+(:test)
+function testPickRecordingSport(logger)
+{
+	Test.assertEqualMessage($.pickRecordingSport(true), 20, "device has SPORT_FLYING -> FIT sport 20 (flying)");
+	Test.assertEqualMessage($.pickRecordingSport(false), 0, "device without SPORT_FLYING -> FIT sport 0 (generic)");
+
+	// Edge case: an unknown capability must fall back to the sport every device has.
+	Test.assertEqualMessage($.pickRecordingSport(null), 0, "null capability -> generic");
+
+	return true;
+}
+
+// The numeric codes used by pickRecordingSport() must be the API's own values
+// wherever the API exposes them. Every access is guarded by `has`, so this test
+// also proves the guarded access itself runs on a device without Activity.SPORT_*.
+(:test)
+function testRecordingSportCodesMatchApi(logger)
+{
+	var hasFlying = Activity has :SPORT_FLYING;
+	logger.debug("Activity has :SPORT_FLYING -> " + hasFlying + ", recording sport " + $.pickRecordingSport(hasFlying));
+
+	if (hasFlying)
+	{
+		Test.assertEqualMessage(Activity.SPORT_FLYING, $.RECORDING_SPORT_FLYING, "flying code must match Activity.SPORT_FLYING");
+	}
+	if (Activity has :SPORT_GENERIC)
+	{
+		Test.assertEqualMessage(Activity.SPORT_GENERIC, $.RECORDING_SPORT_GENERIC, "generic code must match Activity.SPORT_GENERIC");
+	}
+	else
+	{
+		// Pre-3.2.0 devices: the sport enum only lives in ActivityRecording.
+		Test.assertMessage(ActivityRecording has :SPORT_GENERIC, "pre-3.2.0 device should expose ActivityRecording.SPORT_GENERIC");
+		Test.assertEqualMessage(ActivityRecording.SPORT_GENERIC, $.RECORDING_SPORT_GENERIC, "generic code must match ActivityRecording.SPORT_GENERIC");
+	}
+
+	// The two codes must differ, otherwise the fallback would be invisible.
+	Test.assertMessage($.RECORDING_SPORT_FLYING != $.RECORDING_SPORT_GENERIC, "flying and generic codes differ");
 
 	return true;
 }
