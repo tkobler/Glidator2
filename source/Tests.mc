@@ -859,6 +859,126 @@ function testFormatVerticalSpeed(logger)
 	return true;
 }
 
+// ---------------------------------------------------------------------------
+// Hike pace (Marche 2b): formatPace(speedMps) -> "m:ss" min/km. The total
+// in seconds is rounded before splitting, so a 359.6 s pace reads "6:00",
+// never "5:60". "--:--" when there is no usable speed or the pace is slower
+// than 60:00 /km (60:00 itself is shown).
+// ---------------------------------------------------------------------------
+
+(:test)
+function testFormatPace(logger)
+{
+	// Spec values.
+	Test.assertEqualMessage($.formatPace(null), "--:--", "null -> --:--");
+	Test.assertEqualMessage($.formatPace(0.0), "--:--", "0.0 -> --:--");
+	Test.assertEqualMessage($.formatPace(0.25), "--:--", "0.25 m/s (66:40 /km) -> --:--");
+	Test.assertEqualMessage($.formatPace(1000.0 / 300.0), "5:00", "300 s/km -> 5:00");
+	Test.assertEqualMessage($.formatPace(1000.0 / 359.6), "6:00", "359.6 s/km -> 6:00, not 5:60");
+	Test.assertEqualMessage($.formatPace(1.04), "16:02", "1.04 m/s (961.5 s/km) -> 16:02");
+	Test.assertEqualMessage($.formatPace(1000.0 / 3600.0), "60:00", "3600 s/km -> 60:00 (bound included)");
+
+	// Around the 60:00 bound: the rounded total decides, not the raw speed.
+	Test.assertEqualMessage($.formatPace(1000.0 / 3599.6), "60:00", "3599.6 s/km rounds to 60:00");
+	Test.assertEqualMessage($.formatPace(1000.0 / 3600.4), "60:00", "3600.4 s/km rounds to 60:00 -> still shown");
+	Test.assertEqualMessage($.formatPace(1000.0 / 3600.6), "--:--", "3600.6 s/km rounds to 60:01 -> --:--");
+	Test.assertEqualMessage($.formatPace(1000.0 / 3540.0), "59:00", "3540 s/km -> 59:00");
+
+	// Seconds rounding (away from exact halves, which Float cannot pin down).
+	Test.assertEqualMessage($.formatPace(1000.0 / 300.4), "5:00", "300.4 s/km -> 5:00");
+	Test.assertEqualMessage($.formatPace(1000.0 / 300.6), "5:01", "300.6 s/km -> 5:01");
+	Test.assertEqualMessage($.formatPace(1000.0 / 59.6), "1:00", "59.6 s/km -> 1:00, not 0:60");
+	Test.assertEqualMessage($.formatPace(1000.0 / 9.0), "0:09", "9 s/km -> 0:09 (seconds padded)");
+	Test.assertEqualMessage($.formatPace(1000.0 / 605.0), "10:05", "605 s/km -> 10:05");
+
+	// Negative speeds are not a pace.
+	Test.assertEqualMessage($.formatPace(-1.0), "--:--", "negative speed -> --:--");
+	Test.assertEqualMessage($.formatPace(-0.0), "--:--", "-0.0 -> --:--");
+
+	// Integer input (Number) is accepted: 1 m/s -> 1000 s/km.
+	Test.assertEqualMessage($.formatPace(1), "16:40", "Number 1 -> 16:40");
+	Test.assertEqualMessage($.formatPace(0), "--:--", "Number 0 -> --:--");
+	Test.assertEqualMessage($.formatPace(-2), "--:--", "Number -2 -> --:--");
+
+	// Tiny positive speed: pace far beyond 60:00, no overflow on the way.
+	Test.assertEqualMessage($.formatPace(1.0e-30), "--:--", "1e-30 m/s -> --:--");
+
+	// Very large speeds (GPS glitch): a pace that rounds to 0 s is not a pace.
+	Test.assertEqualMessage($.formatPace(1000.0), "0:01", "1000 m/s -> 0:01");
+	Test.assertEqualMessage($.formatPace(2500.0), "--:--", "2500 m/s (0.4 s/km, rounds to 0) -> --:--");
+	Test.assertEqualMessage($.formatPace(1.0e30), "--:--", "1e30 m/s -> --:--");
+
+	// NaN and +/-Infinity (built as in testFormatVerticalSpeed).
+	var nan = Toybox.Math.sqrt(-1.0);
+	Test.assertEqualMessage($.formatPace(nan), "--:--", "NaN -> --:--");
+	var big = 3.0e38;
+	var inf = big * 10.0;
+	var negInf = -big * 10.0;
+	Test.assertMessage(inf > big && inf == inf * 2.0, "test setup: +Inf expected, got " + inf);
+	Test.assertMessage(negInf < -big && negInf == negInf * 2.0, "test setup: -Inf expected, got " + negInf);
+	Test.assertEqualMessage($.formatPace(inf), "--:--", "+Inf -> --:--");
+	Test.assertEqualMessage($.formatPace(negInf), "--:--", "-Inf -> --:--");
+	return true;
+}
+
+// What HikePaceView shows: formatPace(getHikeSpeedAt()) on the real Salvan
+// climb (same rows as testWatchDataHikeSalvanRealClimb, 11:07:11 -> 11:08:48),
+// and "--:--" before a session (no elapsedDistance) or while speed is still
+// unknown. Speed (2318.73 - 2258.45) m / 55 s = 1.096 m/s -> 912.4 s/km.
+(:test)
+function testHikePaceSalvanRealClimb(logger)
+{
+	var secs = [0, 7, 14, 20, 25, 30, 35, 41, 46, 51, 57, 62,
+		70, 76, 81, 87, 92, 97];
+	var alts = [2249.0, 2249.8, 2251.0, 2251.4, 2251.8, 2253.0, 2253.4, 2254.0,
+		2255.0, 2255.4, 2255.4, 2255.4, 2256.4, 2257.6, 2258.8, 2260.4,
+		2261.4, 2262.6];
+	var dists = [2232.68, 2241.07, 2246.74, 2248.84, 2252.27, 2254.52, 2258.45, 2263.16,
+		2267.93, 2275.91, 2285.28, 2291.61, 2300.57, 2302.97, 2307.71, 2314.88,
+		2318.73, 2324.05];
+
+	var data = new WatchData();
+	var t0 = 3600000;
+	Test.assertEqualMessage($.formatPace(data.getHikeSpeedAt(t0)), "--:--", "no sample yet -> --:--");
+
+	var row = 0;
+	for (var s = 0; s <= 97; s++)
+	{
+		while (row + 1 < secs.size() && secs[row + 1] <= s)
+		{
+			row += 1;
+		}
+		data.activityData = { "altitude" => alts[row], "distance" => dists[row] };
+		data.recordHikeSampleAt(t0 + s * 1000);
+		if (s == 10)
+		{
+			Test.assertEqualMessage($.formatPace(data.getHikeSpeedAt(t0 + s * 1000)), "--:--", "10 s of data -> --:--");
+		}
+	}
+	var pace = $.formatPace(data.getHikeSpeedAt(t0 + 97000));
+	logger.debug("Salvan pace at 11:08:48 -> " + pace + " /km");
+	Test.assertEqualMessage(pace, "15:12", "real Salvan climb pace: 912.4 s/km -> 15:12");
+
+	// Before a session there is no elapsedDistance: pace stays --:--.
+	data = new WatchData();
+	for (var s = 0; s <= 60; s += 5)
+	{
+		data.sensorData = { "altitude" => 1500.0 + s / 6.0 };
+		data.recordHikeSampleAt(t0 + s * 1000);
+	}
+	Test.assertEqualMessage($.formatPace(data.getHikeSpeedAt(t0 + 60000)), "--:--", "no session (no distance) -> --:--");
+
+	// Standing still for a minute: speed 0 -> --:--.
+	data = new WatchData();
+	for (var s = 0; s <= 60; s += 5)
+	{
+		data.activityData = { "altitude" => 1500.0, "distance" => 2000.0 };
+		data.recordHikeSampleAt(t0 + s * 1000);
+	}
+	Test.assertEqualMessage($.formatPace(data.getHikeSpeedAt(t0 + 60000)), "--:--", "standing still -> --:--");
+	return true;
+}
+
 // onSensor() must not feed the hike buffer while a session is paused
 // (hasSession && !isRecording); before any session and while recording it does.
 (:test)
