@@ -23,7 +23,30 @@ function formatDuration(ms)
 	return minutes.format("%02d") + ":" + seconds.format("%02d");
 }
 
+// Formats a vertical speed in m/h for the hike pages: "--" when there is no
+// value (or NaN), otherwise rounded to the nearest 10 m/h (halves away from
+// zero, the same way for climbs and descents) with a "+" only when the rounded
+// value is positive, so a near-zero rate reads "0", never "+0" or "-0".
+// Rounding is done on the absolute value with toLong() so that a glitch-sized
+// value cannot overflow a 32-bit Number.
 function formatVerticalSpeed(mh)
 {
-	return "";
+	if (mh == null)
+	{
+		return "--";
+	}
+	var v = mh.toFloat();
+	if (v != v)
+	{
+		return "--"; // NaN
+	}
+
+	var negative = v < 0.0;
+	var magnitude = negative ? -v : v;
+	var tens = (magnitude / 10.0 + 0.5).toLong();
+	if (tens == 0)
+	{
+		return "0";
+	}
+	return (negative ? "-" : "+") + (tens * 10).toString();
 }
