@@ -3,8 +3,8 @@ using Toybox.Activity;
 using Toybox.ActivityRecording;
 
 // Unit tests for the hike-and-fly feature's pure logic, run with:
-//   monkeyc -f monkey.jungle -d fenix6 -o bin/tests.prg -y developer_key -t
-//   monkeydo bin/tests.prg fenix6 -t
+//   monkeyc -f monkey.jungle -o /tmp/glidator-build/Glidator.prg -d fenix6pro -y developer_key -t
+//   monkeydo /tmp/glidator-build/Glidator.prg fenix6pro -t
 // (:test) functions are compiled out entirely of normal (non -t) builds.
 
 (:test)
@@ -843,7 +843,6 @@ function testFormatVerticalSpeed(logger)
 	// NaN is not a speed: show "--" rather than garbage. (A Float division
 	// 0.0 / 0.0 throws in Monkey C, so NaN is built from sqrt of a negative.)
 	var nan = Toybox.Math.sqrt(-1.0);
-	logger.debug("NaN candidate: " + nan);
 	Test.assertEqualMessage($.formatVerticalSpeed(nan), "--", "NaN -> --");
 
 	// +/-Infinity is not a speed either: "--". Built at run time by overflowing
