@@ -54,3 +54,37 @@ function formatVerticalSpeed(mh)
 	}
 	return (negative ? "-" : "+") + (tens * 10).toString();
 }
+
+// Formats a speed in m/s as a pace "m:ss" per km for the hike pages.
+// The total pace in seconds is rounded first and only then split into
+// minutes and seconds, so 359.6 s/km reads "6:00", never "5:60".
+// "--:--" when there is no usable speed: null, NaN, +-Infinity, zero or
+// negative, a pace slower than 60:00 /km (60:00 itself is shown: the check is
+// on the rounded total, which Float noise around 3600 s cannot flip), or a
+// pace that rounds to 0 s (speed > 2000 m/s, a glitch).
+// The 60:00 check runs on the Float pace before any toNumber(), so a tiny
+// speed (huge pace) cannot overflow a 32-bit Number.
+function formatPace(speedMps)
+{
+	if (speedMps == null)
+	{
+		return "--:--";
+	}
+	var v = speedMps.toFloat();
+	if (v != v || v <= 0.0)
+	{
+		return "--:--"; // NaN, zero, negative, -Infinity
+	}
+
+	var paceSeconds = 1000.0 / v; // +Infinity speed -> 0.0, caught below
+	if (paceSeconds >= 3600.5)
+	{
+		return "--:--"; // rounds to more than 60:00 /km
+	}
+	var total = (paceSeconds + 0.5).toNumber();
+	if (total <= 0)
+	{
+		return "--:--";
+	}
+	return (total / 60).toString() + ":" + (total % 60).format("%02d");
+}
