@@ -74,6 +74,22 @@ function mapDrawMode(count, hasCurrent)
 	return :waiting;
 }
 
+// Map scale bar (stubs, implemented in the next commit).
+function metersPerPixelFromScale(pixelsPerDegree)
+{
+	return null;
+}
+
+function pickScaleBar(metersPerPixel, maxPixels)
+{
+	return null;
+}
+
+function formatScaleBarLabel(meters)
+{
+	return "";
+}
+
 // Formats a speed in m/s as a pace "m:ss" per km for the hike pages.
 // The total pace in seconds is rounded first and only then split into
 // minutes and seconds, so 359.6 s/km reads "6:00", never "5:60".

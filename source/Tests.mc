@@ -1774,6 +1774,157 @@ function testMapDrawMode(logger)
 	return true;
 }
 
+// Checks a pickScaleBar() result: [meters, pixels], both whole Numbers.
+(:test)
+class ScaleBarTestHelper
+{
+	static function check(bar, meters, pixels, msg)
+	{
+		Test.assertMessage(bar != null, msg + ": expected a bar, got null");
+		Test.assertEqualMessage(bar.size(), 2, msg + ": [meters, pixels]");
+		Test.assertEqualMessage(bar[0], meters, msg + ": meters, got " + bar[0]);
+		Test.assertEqualMessage(bar[1], pixels, msg + ": pixels, got " + bar[1]);
+		Test.assertMessage(bar[1] instanceof Toybox.Lang.Number, msg + ": pixels is a Number");
+	}
+}
+
+// map()'s scale is in pixels per degree of latitude (longitudes are
+// compressed by cos(lat) first), so 1 degree = 111 320 m on both axes.
+(:test)
+function testMetersPerPixelFromScale(logger)
+{
+	var mpp = $.metersPerPixelFromScale(1113.2);
+	Test.assertMessage(mpp != null && (mpp - 100.0).abs() < 0.01, "1113.2 px/deg -> 100 m/px, got " + mpp);
+	mpp = $.metersPerPixelFromScale(111320);
+	Test.assertMessage(mpp != null && (mpp - 1.0).abs() < 0.0001, "111320 px/deg (Number) -> 1 m/px, got " + mpp);
+	mpp = $.metersPerPixelFromScale(500000.0);
+	Test.assertMessage(mpp != null && (mpp - 0.22264).abs() < 0.0001, "500000 px/deg -> 0.22264 m/px, got " + mpp);
+
+	// Unusable scales: no conversion.
+	var big = 3.0e38;
+	Test.assertEqualMessage($.metersPerPixelFromScale(null), null, "null -> null");
+	Test.assertEqualMessage($.metersPerPixelFromScale(0.0), null, "0 -> null (no divide by zero)");
+	Test.assertEqualMessage($.metersPerPixelFromScale(0), null, "0 (Number) -> null");
+	Test.assertEqualMessage($.metersPerPixelFromScale(-1000.0), null, "negative -> null");
+	Test.assertEqualMessage($.metersPerPixelFromScale(MapTestHelper.nan()), null, "NaN -> null");
+	Test.assertEqualMessage($.metersPerPixelFromScale(big * 10.0), null, "+Inf -> null");
+	Test.assertEqualMessage($.metersPerPixelFromScale(-big * 10.0), null, "-Inf -> null");
+	return true;
+}
+
+// Largest round length (50/100/200/500 m, 1/2/5 km) that fits in maxPixels,
+// shown only if it is at least a quarter of maxPixels long.
+(:test)
+function testPickScaleBar(logger)
+{
+	// The three reference scales.
+	ScaleBarTestHelper.check($.pickScaleBar(2.0, 80), 100, 50, "2 m/px, 80 px (spec example)");
+	ScaleBarTestHelper.check($.pickScaleBar(10.0, 86), 500, 50, "10 m/px, 86 px");
+	ScaleBarTestHelper.check($.pickScaleBar(100.0, 80), 5000, 50, "100 m/px, 80 px");
+
+	// Every round length is reachable; a length exactly equal to the room fits.
+	ScaleBarTestHelper.check($.pickScaleBar(1.0, 80), 50, 50, "1 m/px -> 50 m");
+	ScaleBarTestHelper.check($.pickScaleBar(0.625, 80), 50, 80, "50 m exactly 80 px -> fits");
+	ScaleBarTestHelper.check($.pickScaleBar(4.0, 80), 200, 50, "4 m/px -> 200 m");
+	ScaleBarTestHelper.check($.pickScaleBar(12.5, 80), 1000, 80, "1 km exactly 80 px -> fits");
+	ScaleBarTestHelper.check($.pickScaleBar(25.0, 80), 2000, 80, "2 km exactly 80 px -> fits");
+	ScaleBarTestHelper.check($.pickScaleBar(2.1, 80), 100, 48, "100 m / 2.1 = 47.6 px, rounded to 48");
+	ScaleBarTestHelper.check($.pickScaleBar(60.0, 80), 2000, 33, "5 km too long -> 2 km, 33 px");
+	ScaleBarTestHelper.check($.pickScaleBar(2, 80), 100, 50, "Number m/px");
+	ScaleBarTestHelper.check($.pickScaleBar(2.0, 80.0), 100, 50, "Float maxPixels");
+	ScaleBarTestHelper.check($.pickScaleBar(2.0d, 80), 100, 50, "Double m/px");
+
+	// Too zoomed in: even 50 m does not fit -> no bar.
+	Test.assertEqualMessage($.pickScaleBar(0.5, 80), null, "0.5 m/px: 50 m = 100 px > 80 -> null");
+	Test.assertEqualMessage($.pickScaleBar(0.001, 80), null, "tiny m/px -> null");
+
+	// Too zoomed out: 5 km is shorter than a quarter of the room -> no bar.
+	ScaleBarTestHelper.check($.pickScaleBar(250.0, 80), 5000, 20, "5 km = 20 px = 80 / 4 -> still shown");
+	Test.assertEqualMessage($.pickScaleBar(300.0, 80), null, "5 km = 16.7 px < 20 -> null");
+	Test.assertEqualMessage($.pickScaleBar(100000.0, 80), null, "huge m/px -> null");
+
+	// Unusable inputs.
+	var big = 3.0e38;
+	var nan = MapTestHelper.nan();
+	Test.assertEqualMessage($.pickScaleBar(null, 80), null, "null m/px -> null");
+	Test.assertEqualMessage($.pickScaleBar(0.0, 80), null, "0 m/px -> null");
+	Test.assertEqualMessage($.pickScaleBar(-2.0, 80), null, "negative m/px -> null");
+	Test.assertEqualMessage($.pickScaleBar(nan, 80), null, "NaN m/px -> null");
+	Test.assertEqualMessage($.pickScaleBar(big * 10.0, 80), null, "+Inf m/px -> null");
+	Test.assertEqualMessage($.pickScaleBar(-big * 10.0, 80), null, "-Inf m/px -> null");
+	Test.assertEqualMessage($.pickScaleBar(2.0, 0), null, "0 px -> null");
+	Test.assertEqualMessage($.pickScaleBar(2.0, -80), null, "negative px -> null");
+	Test.assertEqualMessage($.pickScaleBar(2.0, null), null, "null px -> null");
+	Test.assertEqualMessage($.pickScaleBar(2.0, nan), null, "NaN px -> null");
+	Test.assertEqualMessage($.pickScaleBar(2.0, big * 10.0), null, "+Inf px -> null");
+	return true;
+}
+
+(:test)
+function testFormatScaleBarLabel(logger)
+{
+	Test.assertEqualMessage($.formatScaleBarLabel(50), "50 m", "50");
+	Test.assertEqualMessage($.formatScaleBarLabel(100), "100 m", "100");
+	Test.assertEqualMessage($.formatScaleBarLabel(200), "200 m", "200");
+	Test.assertEqualMessage($.formatScaleBarLabel(500), "500 m", "500");
+	Test.assertEqualMessage($.formatScaleBarLabel(1000), "1 km", "1000");
+	Test.assertEqualMessage($.formatScaleBarLabel(2000), "2 km", "2000");
+	Test.assertEqualMessage($.formatScaleBarLabel(5000), "5 km", "5000");
+	Test.assertEqualMessage($.formatScaleBarLabel(1500), "1.5 km", "1500, not a round km");
+	Test.assertEqualMessage($.formatScaleBarLabel(100.0), "100 m", "Float 100");
+
+	Test.assertEqualMessage($.formatScaleBarLabel(null), "", "null -> empty");
+	Test.assertEqualMessage($.formatScaleBarLabel(0), "", "0 -> empty");
+	Test.assertEqualMessage($.formatScaleBarLabel(-100), "", "negative -> empty");
+	Test.assertEqualMessage($.formatScaleBarLabel(MapTestHelper.nan()), "", "NaN -> empty");
+	var big = 3.0e38;
+	Test.assertEqualMessage($.formatScaleBarLabel(big * 10.0), "", "+Inf -> empty");
+	return true;
+}
+
+// Real Salvan extract (about 50 m of trail) projected as map() does on a
+// fenix6pro (radius 109 px, trail fitted to 85 % of it, bar room 260 / 3 =
+// 86 px): about 0.22 m/px, so even 50 m (about 224 px) does not fit and no
+// bar is drawn; with 240 px of room it would be 50 m.
+(:test)
+function testScaleBarOnSalvanExtract(logger)
+{
+	var lats = MapTestHelper.salvanLats();
+	var lons = MapTestHelper.salvanLons();
+	var minLat = lats[0], maxLat = lats[0], minLon = lons[0], maxLon = lons[0];
+	for (var i = 1; i < lats.size(); i++)
+	{
+		if (lats[i] < minLat) { minLat = lats[i]; }
+		if (lats[i] > maxLat) { maxLat = lats[i]; }
+		if (lons[i] < minLon) { minLon = lons[i]; }
+		if (lons[i] > maxLon) { maxLon = lons[i]; }
+	}
+	var centerLat = (minLat + maxLat) / 2.0;
+	var centerLon = (minLon + maxLon) / 2.0;
+	var cosLat = Toybox.Math.cos(Toybox.Math.toRadians(centerLat));
+	var maxRange = 0.0001;
+	for (var i = 0; i < lats.size(); i++)
+	{
+		var dx = ((lons[i] - centerLon) * cosLat).abs();
+		var dy = (lats[i] - centerLat).abs();
+		var r = dx > dy ? dx : dy;
+		if (r > maxRange) { maxRange = r; }
+	}
+	var pixelsPerDegree = (109 * 0.85) / maxRange;
+
+	var mpp = $.metersPerPixelFromScale(pixelsPerDegree);
+	logger.debug("Salvan extract: maxRange=" + maxRange + " deg, " + pixelsPerDegree + " px/deg, " + mpp + " m/px");
+	// Independent check: half the east-west extent (about 20.6 m) over 92.65 px.
+	var halfWidthMeters = (maxLon - minLon) * cosLat * 111320.0 / 2.0;
+	Test.assertMessage(halfWidthMeters > 19.0 && halfWidthMeters < 22.0, "half width about 20.6 m, got " + halfWidthMeters);
+	Test.assertMessage(mpp != null && (mpp - halfWidthMeters / 92.65).abs() < 0.005, "m/px = half width / fitted radius, got " + mpp);
+
+	Test.assertEqualMessage($.pickScaleBar(mpp, 86), null, "50 m extract on fenix6pro: no round length fits -> no bar");
+	var bar = $.pickScaleBar(mpp, 240);
+	Test.assertMessage(bar != null && bar[0] == 50 && bar[1] >= 215 && bar[1] <= 235, "240 px of room -> 50 m, about 224 px, got " + bar);
+	return true;
+}
+
 // Diagnostic for the "180/180" cause, run inside the simulator: logs what
 // Position.getInfo() returns right now (the test runner starts the app, so
 // location events are enabled) and checks the invariant that a fix accepted
