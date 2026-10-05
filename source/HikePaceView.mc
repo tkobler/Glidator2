@@ -40,10 +40,10 @@ class HikePaceView extends WatchUi.View {
         var heartRate = data.getHeartRate();
         var hrStr = (heartRate == null) ? "--" : heartRate.toString(); // bpm
 
-        // Vertical speed: same instantaneous altitude-delta the Vario page already
-        // uses, just expressed as a climb rate (m/h) instead of m/s.
-        var vario = data.getVario();
-        var vPaceStr = (vario == null) ? "--" : (vario >= 0 ? "+" : "") + Math.round(vario * 3600).toNumber().toString(); // m/h
+        // Vertical speed (m/h): regression over the last 60 s of hike samples
+        // (WatchData.getHikeVerticalSpeed), not the 1 s flight vario, whose
+        // 0.2 m altitude steps read as +/-720 m/h jumps when walking.
+        var vPaceStr = $.formatVerticalSpeed(data.getHikeVerticalSpeed()); // m/h
 
         var speed = data.getSpeed();
         var hPaceStr = "--:--";
