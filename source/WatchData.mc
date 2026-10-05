@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Math;
+using Toybox.Position;
 using Toybox.System as Sys;
 
 class WatchData
@@ -362,17 +363,40 @@ class WatchData
 		return null;
 	}
 
-	// STUBS (replaced in the next commit).
-	const MIN_MAP_QUALITY = 3;
+	// ---------------------------------------------------------------------
+	// Map: GPS fix quality. Without a fix, Position.Info.position can be
+	// (180, 180); such points must neither feed the breadcrumb trail nor be
+	// shown as the current position.
+	// ---------------------------------------------------------------------
 
+	// Minimum Position.Info.accuracy for the map. QUALITY_USABLE is a 3D fix;
+	// QUALITY_POOR (2D) would fill the trail better under trees or cliffs, at
+	// the cost of less precise points. Single place to change that choice.
+	const MIN_MAP_QUALITY = Position.QUALITY_USABLE;
+
+	// Position.Info.accuracy (Position.QUALITY_*) from the last updateInfo(),
+	// or null when unknown.
+	(:typecheck(false))
 	function getAccuracy()
 	{
+		if (gpsData != null && gpsData.hasKey("accuracy"))
+		{
+			return gpsData ["accuracy"];
+		}
 		return null;
 	}
 
+	// True when the last GPS data is good enough for the map: accuracy at
+	// least MIN_MAP_QUALITY and a valid position (see isValidLatLon()).
+	(:typecheck(false))
 	function hasUsableFix()
 	{
-		return getLat() != null && getLon() != null;
+		var acc = getAccuracy();
+		if (acc == null || acc < MIN_MAP_QUALITY)
+		{
+			return false;
+		}
+		return $.isValidLatLon(getLat(), getLon());
 	}
 
 	// ---------------------------------------------------------------------
