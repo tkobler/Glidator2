@@ -186,10 +186,16 @@ function shouldRecordHikeSample(hasSession, isRecording)
     return !(hasSession == true && isRecording != true);
 }
 
-// STUB (replaced in a later commit): current onSensor() behaviour.
+// Called by onSensor() every tick: feeds the breadcrumb trail only when the
+// GPS has a fix usable for the map (WatchData.hasUsableFix()), so the no-fix
+// position (180, 180) seen before the first fix never lands in the trail.
+// BreadcrumbTrail.update() also checks the bounds on its own.
 function feedBreadcrumbTrail(trail, data)
 {
-    trail.update(data.getLat(), data.getLon());
+    if (data.hasUsableFix())
+    {
+        trail.update(data.getLat(), data.getLon());
+    }
 }
 
 // --------------------------------------------------------------------------------
@@ -263,7 +269,7 @@ class FlyInstrumentApp extends Application.AppBase
         {
             mainView.data.recordHikeSample();
         }
-        breadcrumbTrail.update(mainView.data.getLat(), mainView.data.getLon());
+        $.feedBreadcrumbTrail(breadcrumbTrail, mainView.data);
     }
 
     (:typecheck(false))

@@ -21,7 +21,8 @@ function isValidLatLon(lat, lon)
 // Fixed-size ring buffer of lat/lon points for the live Map page.
 // Fed once per second from FlyInstrumentApp.onSensor() regardless of which
 // page is on screen, so the trail keeps growing even while the Map page
-// isn't visible. Points are decimated by distance (not time) so the fixed
+// isn't visible; only ticks with a fix usable for the map are passed in
+// (feedBreadcrumbTrail()). Points are decimated by distance (not time) so the fixed
 // buffer spans the whole hike instead of filling up in a few minutes.
 class BreadcrumbTrail
 {
