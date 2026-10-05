@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Math;
+using Toybox.System as Sys;
 
 class WatchData
 {
@@ -359,33 +360,49 @@ class WatchData
 		return null;
 	}
 
+	// ---------------------------------------------------------------------
+	// Hike mode: windowed vertical speed and speed (HikeHistory.mc).
+	// Fed once per tick from FlyInstrumentApp.onSensor(), after updateData().
+	// Only reads getAltitude() / getDistance(): the flight vario (endMeasure,
+	// getVario, oldAlt) is left alone.
+	// The *At(ms) variants take the timestamp as a parameter for unit tests;
+	// the app uses the System.getTimer() wrappers.
+	// ---------------------------------------------------------------------
+
+	const HIKE_WINDOW_MS = 60000;
+
 	var hikeHistory = new HikeHistory();
 
 	function recordHikeSample()
 	{
+		recordHikeSampleAt(Sys.getTimer());
 	}
 
 	function recordHikeSampleAt(tMs)
 	{
+		// HikeHistory ignores a null altitude; a null distance is kept as such.
+		hikeHistory.add(tMs, getAltitude(), getDistance());
 	}
 
+	// m/h over the last 60 s, or null if not enough data.
 	function getHikeVerticalSpeed()
 	{
-		return null;
+		return getHikeVerticalSpeedAt(Sys.getTimer());
 	}
 
 	function getHikeVerticalSpeedAt(nowMs)
 	{
-		return null;
+		return hikeHistory.verticalSpeedMh(nowMs, HIKE_WINDOW_MS);
 	}
 
+	// m/s over the last 60 s, or null if not enough data / no distance.
 	function getHikeSpeed()
 	{
-		return null;
+		return getHikeSpeedAt(Sys.getTimer());
 	}
 
 	function getHikeSpeedAt(nowMs)
 	{
-		return null;
+		return hikeHistory.speedMps(nowMs, HIKE_WINDOW_MS);
 	}
 }
