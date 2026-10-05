@@ -996,3 +996,149 @@ function testWatchDataHikeSalvanRealClimb(logger)
 	Test.assertMessage(sp != null && sp > 1.086 && sp < 1.106, "real Salvan speed through WatchData ~1.096 m/s, got " + sp);
 	return true;
 }
+
+// ---------------------------------------------------------------------------
+// Speed keys written by WatchData.update*(): a null speed must not be stored,
+// otherwise sensorData["speed"] = null hides the GPS speed in getSpeed().
+// The update*() functions only use `info has :x` and `info.x`, so these
+// minimal stand-ins exercise the real code without a Position/Activity/Sensor
+// Info object. Fields missing here are simply skipped by the `has` checks.
+// ---------------------------------------------------------------------------
+
+(:test)
+class FakePositionInfo
+{
+	var altitude = null;
+	var speed = null;
+
+	function initialize(alt, spd)
+	{
+		altitude = alt;
+		speed = spd;
+	}
+}
+
+(:test)
+class FakeActivityInfo
+{
+	var altitude = null;
+	var currentSpeed = null;
+
+	function initialize(alt, spd)
+	{
+		altitude = alt;
+		currentSpeed = spd;
+	}
+}
+
+(:test)
+class FakeSensorInfo
+{
+	var altitude = null;
+	var speed = null;
+
+	function initialize(alt, spd)
+	{
+		altitude = alt;
+		speed = spd;
+	}
+}
+
+// Test helpers live in a (:test) class: a (:test) global function would be
+// run by the test runner as a test.
+(:test)
+class SpeedTestHelper
+{
+	// One updateData() tick as in FlyInstrumentView, with injected Info values.
+	// A null fake means "getInfo() returned null": that source is not updated.
+	static function feedTick(data, posInfo, actInfo, sensInfo)
+	{
+		data.startMeasure();
+		if (posInfo != null) { data.updateInfo(posInfo); }
+		if (actInfo != null) { data.updateActivityInfo(actInfo); }
+		if (sensInfo != null) { data.updateSensorInfo(sensInfo); }
+	}
+
+	// assertEqualMessage() throws on a null actual; this fails cleanly instead.
+	static function assertSpeed(data, expected, msg)
+	{
+		var s = data.getSpeed();
+		Test.assertMessage(s != null && s == expected, msg + " (expected " + expected + ", got " + s + ")");
+	}
+}
+
+// Spec case: no sensor speed + GPS speed 1.5 -> getSpeed() = 1.5.
+(:test)
+function testWatchDataSpeedFallsBackToGpsWhenSensorSpeedNull(logger)
+{
+	// Hand-built dictionaries: the key is absent from sensorData.
+	var data = new WatchData();
+	data.sensorData = {};
+	data.gpsData = { "speed" => 1.5 };
+	Test.assertEqualMessage(data.getSpeed(), 1.5, "sensorData without speed key -> GPS speed");
+
+	// Same case through the real update functions: Sensor.Info.speed is null.
+	data = new WatchData();
+	SpeedTestHelper.feedTick(data, new FakePositionInfo(1000.0, 1.5), null, new FakeSensorInfo(1000.0, null));
+	SpeedTestHelper.assertSpeed(data, 1.5, "null sensor speed must not hide the GPS speed");
+	Test.assertMessage(!data.sensorData.hasKey("speed"), "null sensor speed must not create a speed key");
+	return true;
+}
+
+// Each of the 3 blocks: null -> no key; 0.0 is a real value and is kept;
+// the altitude key is still written as before.
+(:test)
+function testWatchDataUpdatesSkipNullSpeedOnly(logger)
+{
+	var data = new WatchData();
+
+	data.updateInfo(new FakePositionInfo(1200.0, null));
+	Test.assertMessage(!data.gpsData.hasKey("speed"), "updateInfo: null speed not stored");
+	Test.assertEqualMessage(data.gpsData["altitude"], 1200.0, "updateInfo: altitude still stored");
+	data.updateInfo(new FakePositionInfo(1200.0, 0.0));
+	Test.assertEqualMessage(data.gpsData["speed"], 0.0, "updateInfo: zero speed kept");
+
+	data.updateActivityInfo(new FakeActivityInfo(1300.0, null));
+	Test.assertMessage(!data.activityData.hasKey("speed"), "updateActivityInfo: null speed not stored");
+	Test.assertEqualMessage(data.activityData["altitude"], 1300.0, "updateActivityInfo: altitude still stored");
+	data.updateActivityInfo(new FakeActivityInfo(1300.0, 0.0));
+	Test.assertEqualMessage(data.activityData["speed"], 0.0, "updateActivityInfo: zero speed kept");
+
+	data.updateSensorInfo(new FakeSensorInfo(1400.0, null));
+	Test.assertMessage(!data.sensorData.hasKey("speed"), "updateSensorInfo: null speed not stored");
+	Test.assertEqualMessage(data.sensorData["altitude"], 1400.0, "updateSensorInfo: altitude still stored");
+	data.updateSensorInfo(new FakeSensorInfo(1400.0, 0.0));
+	Test.assertEqualMessage(data.sensorData["speed"], 0.0, "updateSensorInfo: zero speed kept");
+
+	// All speeds null -> getSpeed() is null (nothing to show), not a crash.
+	data = new WatchData();
+	SpeedTestHelper.feedTick(data, new FakePositionInfo(1000.0, null), new FakeActivityInfo(1000.0, null), new FakeSensorInfo(1000.0, null));
+	Test.assertMessage(data.getSpeed() == null, "all speeds null -> getSpeed() null");
+	return true;
+}
+
+// Sensor speed present -> null -> back: getSpeed() follows the GPS while the
+// sensor speed is missing and never keeps a stale sensor value.
+(:test)
+function testWatchDataSpeedRecoversAfterNullSensorSpeed(logger)
+{
+	var data = new WatchData();
+
+	SpeedTestHelper.feedTick(data, new FakePositionInfo(1000.0, 1.2), new FakeActivityInfo(1000.0, 0.9), new FakeSensorInfo(1000.0, 2.0));
+	SpeedTestHelper.assertSpeed(data, 2.0, "tick 1: sensor speed wins (priority unchanged)");
+
+	SpeedTestHelper.feedTick(data, new FakePositionInfo(1000.0, 1.3), new FakeActivityInfo(1000.0, 0.9), new FakeSensorInfo(1000.0, null));
+	SpeedTestHelper.assertSpeed(data, 1.3, "tick 2: sensor speed null -> GPS speed, not stale 2.0");
+
+	SpeedTestHelper.feedTick(data, new FakePositionInfo(1000.0, null), new FakeActivityInfo(1000.0, 0.8), new FakeSensorInfo(1000.0, null));
+	SpeedTestHelper.assertSpeed(data, 0.8, "tick 3: sensor and GPS null -> activity speed");
+
+	SpeedTestHelper.feedTick(data, new FakePositionInfo(1000.0, 1.4), new FakeActivityInfo(1000.0, 0.9), new FakeSensorInfo(1000.0, 2.5));
+	SpeedTestHelper.assertSpeed(data, 2.5, "tick 4: sensor speed back -> used again");
+
+	// Without startMeasure() in between: updateSensorInfo() rebuilds its
+	// dictionary, so an earlier 2.5 must not survive a later null.
+	data.updateSensorInfo(new FakeSensorInfo(1000.0, null));
+	SpeedTestHelper.assertSpeed(data, 1.4, "no reset between calls: still no stale sensor speed");
+	return true;
+}
