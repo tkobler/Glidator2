@@ -791,9 +791,10 @@ function testFormatVerticalSpeed(logger)
 	Test.assertEqualMessage($.formatVerticalSpeed(-1000000.0), "-1000000", "-1e6 -> -1000000");
 	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10), "+10000000000", "1e10 -> no 32-bit overflow");
 
-	// NaN is not a speed: show "--" rather than garbage.
-	var zero = 0.0;
-	var nan = zero / zero;
+	// NaN is not a speed: show "--" rather than garbage. (A Float division
+	// 0.0 / 0.0 throws in Monkey C, so NaN is built from sqrt of a negative.)
+	var nan = Toybox.Math.sqrt(-1.0);
+	logger.debug("NaN candidate: " + nan);
 	Test.assertEqualMessage($.formatVerticalSpeed(nan), "--", "NaN -> --");
 	return true;
 }
@@ -979,11 +980,19 @@ function testWatchDataHikeSalvanRealClimb(logger)
 		data.activityData = { "altitude" => alts[row], "distance" => dists[row] };
 		data.recordHikeSampleAt(t0 + s * 1000);
 	}
+	// Kept samples are the 5 s grid t = 0, 5, ..., 95; the 60 s window holds
+	// t = 40..95 with the held TCX values (records at 35, 41, 46, 51, 57, 62,
+	// 70, 70, 76, 81, 87, 92 s). Hand-computed least squares on those 12
+	// points: sum(dt*da) = 468, sum(dt^2) = 3575 -> 468 / 3575 * 3600 =
+	// 471.3 m/h. Lower than the 524 m/h of testHikeHistorySalvanRealClimb
+	// because the window and the held values differ, same order of magnitude.
 	var v = data.getHikeVerticalSpeedAt(t0 + 97000);
 	logger.debug("WatchData Salvan 60 s at 11:08:48 -> " + v + " m/h, shown " + $.formatVerticalSpeed(v));
-	Test.assertMessage(v != null && v >= 500.0 && v <= 700.0, "real Salvan climb through WatchData should read 500-700 m/h, got " + v);
+	Test.assertMessage(v != null && v > 470.3 && v < 472.3, "real Salvan climb through WatchData: hand-computed 471.3 m/h, got " + v);
+	Test.assertEqualMessage($.formatVerticalSpeed(v), "+470", "real Salvan climb displayed as +470");
+	// Speed: (2318.73 - 2258.45) m / 55 s = 1.096 m/s.
 	var sp = data.getHikeSpeedAt(t0 + 97000);
 	logger.debug("WatchData Salvan 60 s speed -> " + sp);
-	Test.assertMessage(sp != null && sp > 0.9 && sp < 1.3, "real Salvan speed through WatchData ~1.1 m/s, got " + sp);
+	Test.assertMessage(sp != null && sp > 1.086 && sp < 1.106, "real Salvan speed through WatchData ~1.096 m/s, got " + sp);
 	return true;
 }
