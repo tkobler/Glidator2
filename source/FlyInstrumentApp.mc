@@ -45,6 +45,22 @@ function isRecording()
     return $.hasActiveSession() && $.session.isRecording();
 }
 
+// --------------------------------------------------------------------------------
+// Recording sport. Activity.SPORT_* only exist from Connect IQ 3.2.0: on fenix5 /
+// fenix5x (CIQ 3.1.6) reading Activity.SPORT_FLYING -- and even
+// Activity.SPORT_GENERIC -- throws "Symbol Not Found" at runtime. So the sport is
+// chosen at runtime with `Activity has :SPORT_FLYING`, and passed as its FIT sport
+// code (the very values of Activity.SPORT_*, pinned by testRecordingSportCodesMatchApi).
+// --------------------------------------------------------------------------------
+
+const RECORDING_SPORT_GENERIC = 0; // FIT sport "generic" == Activity.SPORT_GENERIC
+const RECORDING_SPORT_FLYING = 20; // FIT sport "flying"  == Activity.SPORT_FLYING
+
+function pickRecordingSport(hasFlying)
+{
+    return (hasFlying == true) ? RECORDING_SPORT_FLYING : RECORDING_SPORT_GENERIC;
+}
+
 function startRecording()
 {
     if ($.hasActiveSession())
@@ -56,7 +72,7 @@ function startRecording()
     {
         $.session = ActivityRecording.createSession({
             :name=>"Glide",
-            :sport=>Activity.SPORT_FLYING});
+            :sport=>$.pickRecordingSport(Activity has :SPORT_FLYING)});
         $.session.start();
         $.recordFlashStartMs = Sys.getTimer();
 
