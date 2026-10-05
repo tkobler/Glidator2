@@ -55,6 +55,12 @@ function formatVerticalSpeed(mh)
 	return (negative ? "-" : "+") + (tens * 10).toString();
 }
 
+// STUB (replaced in a later commit): current map() behaviour.
+function mapDrawMode(count, hasCurrent)
+{
+	return (hasCurrent == true) ? :trailAndMarker : :waiting;
+}
+
 // Formats a speed in m/s as a pace "m:ss" per km for the hike pages.
 // The total pace in seconds is rounded first and only then split into
 // minutes and seconds, so 359.6 s/km reads "6:00", never "5:60".

@@ -1,6 +1,7 @@
 using Toybox.Test;
 using Toybox.Activity;
 using Toybox.ActivityRecording;
+using Toybox.Position;
 
 // Unit tests for the hike-and-fly feature's pure logic, run with:
 //   monkeyc -f monkey.jungle -o /tmp/glidator-build/Glidator.prg -d fenix6pro -y developer_key -t
@@ -1443,5 +1444,367 @@ function testWatchDataHeartRateRecoversAfterNull(logger)
 	HeartRateTestHelper.assertHr(data, 123, "no reset: activity null -> sensor 123");
 	data.updateSensorInfo(HeartRateTestHelper.sens(null));
 	HeartRateTestHelper.assertHr(data, null, "no reset: both null -> null");
+	return true;
+}
+
+// ---------------------------------------------------------------------------
+// Map 3a: invalid positions are filtered out of the breadcrumb trail, and the
+// trail stays visible without a current fix. Without a fix, the forums report
+// Position.Info.position at lat/lon = 180 deg; a single (180, 180) point in the
+// trail stretches the map's bounding box from 46 to 180 deg and squeezes the
+// whole climb into less than a pixel.
+// ---------------------------------------------------------------------------
+
+// Position.Location stand-in: updateInfo() only calls toDegrees().
+(:test)
+class FakeLocation
+{
+	var lat;
+	var lon;
+
+	function initialize(la, lo)
+	{
+		lat = la;
+		lon = lo;
+	}
+
+	function toDegrees()
+	{
+		return [lat, lon];
+	}
+}
+
+// Position.Info stand-in with only a position and an accuracy.
+(:test)
+class FakeFixInfo
+{
+	var position = null;
+	var accuracy = null;
+
+	function initialize(lat, lon, acc)
+	{
+		if (lat != null || lon != null)
+		{
+			position = new FakeLocation(lat, lon);
+		}
+		accuracy = acc;
+	}
+}
+
+(:test)
+class MapTestHelper
+{
+	// gpsData as updateInfo() would leave it.
+	static function gps(lat, lon, acc)
+	{
+		return { "lat" => lat, "long" => lon, "accuracy" => acc };
+	}
+
+	// Real Salvan extract: the first 20 GPX track points of
+	// garmin_data/activity_24346302742.gpx (10:18:43 UTC onward, lines 17-197),
+	// truncated to 9 decimals. Spacing 1-7 m, about 50 m in total.
+	static function salvanLats()
+	{
+		return [46.118051251, 46.118069272, 46.118082432, 46.118100202, 46.118111601,
+			46.118133394, 46.118151750, 46.118159881, 46.118170442, 46.118207490,
+			46.118211178, 46.118204640, 46.118211262, 46.118212771, 46.118214866,
+			46.118202880, 46.118206568, 46.118214196, 46.118259961, 46.118300445];
+	}
+
+	static function salvanLons()
+	{
+		return [6.993609304, 6.993521461, 6.993425321, 6.993360445, 6.993357847,
+			6.993356757, 6.993337898, 6.993329935, 6.993322559, 6.993310321,
+			6.993313842, 6.993274782, 6.993259778, 6.993220216, 6.993210828,
+			6.993153999, 6.993151400, 6.993111586, 6.993081328, 6.993074538];
+	}
+
+	static function nan()
+	{
+		return Toybox.Math.sqrt(-1.0);
+	}
+
+	static function inf()
+	{
+		var big = 3.0e38;
+		return big * 10.0;
+	}
+}
+
+(:test)
+function testIsValidLatLon(logger)
+{
+	// Real point and spec values.
+	Test.assertMessage($.isValidLatLon(46.118, 6.993), "Salvan 46.118 / 6.993 -> valid");
+	Test.assertMessage($.isValidLatLon(46.0, 7.0), "46 / 7 -> valid");
+	Test.assertMessage(!$.isValidLatLon(180.0, 180.0), "180 / 180 (no fix) -> invalid");
+	Test.assertMessage(!$.isValidLatLon(0.0, 0.0), "0 / 0 -> invalid");
+
+	// Bounds are excluded.
+	Test.assertMessage(!$.isValidLatLon(90.0, 7.0), "lat 90 -> invalid");
+	Test.assertMessage(!$.isValidLatLon(-90.0, 7.0), "lat -90 -> invalid");
+	Test.assertMessage(!$.isValidLatLon(46.0, 180.0), "lon 180 -> invalid");
+	Test.assertMessage(!$.isValidLatLon(46.0, -180.0), "lon -180 -> invalid");
+	Test.assertMessage(!$.isValidLatLon(180.0, 7.0), "lat 180 -> invalid");
+	Test.assertMessage(!$.isValidLatLon(46.0, 360.0), "lon 360 -> invalid");
+	Test.assertMessage($.isValidLatLon(89.9999, 179.9999), "just inside the upper bounds -> valid");
+	Test.assertMessage($.isValidLatLon(-89.9999, -179.9999), "just inside the lower bounds -> valid");
+
+	// Only the exact (0, 0) pair is rejected, -0.0 included.
+	Test.assertMessage(!$.isValidLatLon(-0.0, 0.0), "-0 / 0 -> invalid");
+	Test.assertMessage(!$.isValidLatLon(0.0, -0.0), "0 / -0 -> invalid");
+	Test.assertMessage(!$.isValidLatLon(0, 0), "Number 0 / 0 -> invalid");
+	Test.assertMessage($.isValidLatLon(0.0, 7.0), "equator, lon 7 -> valid");
+	Test.assertMessage($.isValidLatLon(46.0, 0.0), "Greenwich meridian, lat 46 -> valid");
+
+	// Null, NaN, Infinity.
+	Test.assertMessage(!$.isValidLatLon(null, 7.0), "null lat -> invalid");
+	Test.assertMessage(!$.isValidLatLon(46.0, null), "null lon -> invalid");
+	Test.assertMessage(!$.isValidLatLon(null, null), "null / null -> invalid");
+	var nan = MapTestHelper.nan();
+	var inf = MapTestHelper.inf();
+	Test.assertMessage(!$.isValidLatLon(nan, 7.0), "NaN lat -> invalid");
+	Test.assertMessage(!$.isValidLatLon(46.0, nan), "NaN lon -> invalid");
+	Test.assertMessage(!$.isValidLatLon(inf, 7.0), "+Inf lat -> invalid");
+	Test.assertMessage(!$.isValidLatLon(46.0, -inf), "-Inf lon -> invalid");
+
+	// Other numeric types: Number and Double (Location.toDegrees() returns Doubles).
+	Test.assertMessage($.isValidLatLon(46, 7), "Number 46 / 7 -> valid");
+	Test.assertMessage($.isValidLatLon(46.118d, 6.993d), "Double 46.118 / 6.993 -> valid");
+	Test.assertMessage(!$.isValidLatLon(180.0d, 180.0d), "Double 180 / 180 -> invalid");
+	Test.assertMessage(!$.isValidLatLon(0.0d, 0.0d), "Double 0 / 0 -> invalid");
+	return true;
+}
+
+(:test)
+function testBreadcrumbTrailRejectsInvalidPositions(logger)
+{
+	var trail = new BreadcrumbTrail();
+
+	// Spec case.
+	trail.update(180.0, 180.0);
+	Test.assertEqualMessage(trail.getCount(), 0, "(180, 180) ignored");
+	trail.update(0.0, 0.0);
+	Test.assertEqualMessage(trail.getCount(), 0, "(0, 0) ignored");
+	trail.update(46.118, 6.993);
+	Test.assertEqualMessage(trail.getCount(), 1, "first valid point accepted");
+	Test.assertMessage((trail.getLats()[0] - 46.118).abs() < 0.00001, "stored lat is the valid one, got " + trail.getLats()[0]);
+	Test.assertMessage((trail.getLons()[0] - 6.993).abs() < 0.00001, "stored lon is the valid one, got " + trail.getLons()[0]);
+
+	// An ignored point must not become the decimation reference: ~3.3 m from
+	// the last valid point is still decimated after a (180, 180).
+	trail.update(180.0, 180.0);
+	trail.update(46.11803, 6.993);
+	Test.assertEqualMessage(trail.getCount(), 1, "invalid point does not move the 15 m reference");
+
+	// Other invalid inputs, all ignored.
+	trail.update(null, 6.993);
+	trail.update(46.2, null);
+	trail.update(MapTestHelper.nan(), 6.993);
+	trail.update(46.2, MapTestHelper.nan());
+	trail.update(90.0, 6.993);
+	trail.update(46.2, -180.0);
+	trail.update(-0.0, 0.0);
+	Test.assertEqualMessage(trail.getCount(), 1, "null, NaN, bounds and (-0, 0) ignored");
+
+	// ~22 m north of the last valid point: accepted as usual.
+	trail.update(46.1182, 6.993);
+	Test.assertEqualMessage(trail.getCount(), 2, "next valid point beyond 15 m accepted");
+	return true;
+}
+
+(:test)
+function testWatchDataUsableFixFromGpsData(logger)
+{
+	// The numeric values below rely on the Position.Quality enum.
+	Test.assertEqualMessage(Position.QUALITY_NOT_AVAILABLE, 0, "QUALITY_NOT_AVAILABLE == 0");
+	Test.assertEqualMessage(Position.QUALITY_LAST_KNOWN, 1, "QUALITY_LAST_KNOWN == 1");
+	Test.assertEqualMessage(Position.QUALITY_POOR, 2, "QUALITY_POOR == 2");
+	Test.assertEqualMessage(Position.QUALITY_USABLE, 3, "QUALITY_USABLE == 3");
+	Test.assertEqualMessage(Position.QUALITY_GOOD, 4, "QUALITY_GOOD == 4");
+
+	var data = new WatchData();
+	Test.assertEqualMessage(data.MIN_MAP_QUALITY, Position.QUALITY_USABLE, "map threshold is QUALITY_USABLE (3D fix)");
+
+	// No GPS data at all.
+	Test.assertMessage(data.getAccuracy() == null, "no gpsData -> accuracy null");
+	Test.assertMessage(!data.hasUsableFix(), "no gpsData -> no usable fix");
+
+	// Spec case: accuracy 0..4 on a valid position, true only for 3 and 4.
+	var expected = [false, false, false, true, true];
+	for (var acc = 0; acc <= 4; acc++)
+	{
+		data.gpsData = MapTestHelper.gps(46.118, 6.993, acc);
+		Test.assertEqualMessage(data.getAccuracy(), acc, "getAccuracy() returns gpsData accuracy " + acc);
+		Test.assertEqualMessage(data.hasUsableFix(), expected[acc], "accuracy " + acc + " -> usable fix " + expected[acc]);
+	}
+
+	// Accuracy missing or null.
+	data.gpsData = { "lat" => 46.118, "long" => 6.993 };
+	Test.assertMessage(data.getAccuracy() == null, "no accuracy key -> null");
+	Test.assertMessage(!data.hasUsableFix(), "no accuracy key -> no usable fix");
+	data.gpsData = MapTestHelper.gps(46.118, 6.993, null);
+	Test.assertMessage(data.getAccuracy() == null, "null accuracy -> null");
+	Test.assertMessage(!data.hasUsableFix(), "null accuracy -> no usable fix");
+
+	// Good accuracy but an unusable position.
+	data.gpsData = MapTestHelper.gps(180.0, 180.0, 4);
+	Test.assertMessage(!data.hasUsableFix(), "(180, 180) even with QUALITY_GOOD -> no usable fix");
+	data.gpsData = MapTestHelper.gps(0.0, 0.0, 4);
+	Test.assertMessage(!data.hasUsableFix(), "(0, 0) -> no usable fix");
+	data.gpsData = MapTestHelper.gps(null, 6.993, 4);
+	Test.assertMessage(!data.hasUsableFix(), "null lat -> no usable fix");
+	data.gpsData = { "accuracy" => 4 };
+	Test.assertMessage(!data.hasUsableFix(), "no position keys -> no usable fix");
+	data.gpsData = MapTestHelper.gps(46.118, MapTestHelper.nan(), 4);
+	Test.assertMessage(!data.hasUsableFix(), "NaN lon -> no usable fix");
+	return true;
+}
+
+// Same rule through the real updateInfo(), with Position.Info stand-ins.
+(:test)
+function testWatchDataUsableFixThroughUpdateInfo(logger)
+{
+	var data = new WatchData();
+
+	// What the forums describe before the first fix.
+	data.updateInfo(new FakeFixInfo(180.0d, 180.0d, Position.QUALITY_NOT_AVAILABLE));
+	Test.assertMessage(!data.hasUsableFix(), "no fix (180, 180, NOT_AVAILABLE) -> not usable");
+	Test.assertMessage(data.getLat() != null, "the raw position is still stored (compass page shows it)");
+
+	data.updateInfo(new FakeFixInfo(46.118d, 6.993d, Position.QUALITY_LAST_KNOWN));
+	Test.assertMessage(!data.hasUsableFix(), "LAST_KNOWN -> not usable");
+	data.updateInfo(new FakeFixInfo(46.118d, 6.993d, Position.QUALITY_POOR));
+	Test.assertMessage(!data.hasUsableFix(), "POOR (2D) -> not usable");
+	data.updateInfo(new FakeFixInfo(46.118d, 6.993d, Position.QUALITY_USABLE));
+	Test.assertMessage(data.hasUsableFix(), "USABLE (3D) -> usable");
+	data.updateInfo(new FakeFixInfo(46.118d, 6.993d, Position.QUALITY_GOOD));
+	Test.assertMessage(data.hasUsableFix(), "GOOD -> usable");
+
+	// Position null but accuracy good: no lat/lon key, not usable.
+	data.updateInfo(new FakeFixInfo(null, null, Position.QUALITY_GOOD));
+	Test.assertMessage(!data.gpsData.hasKey("lat"), "null position -> no lat key");
+	Test.assertMessage(!data.hasUsableFix(), "null position -> not usable");
+
+	// Accuracy null.
+	data.updateInfo(new FakeFixInfo(46.118d, 6.993d, null));
+	Test.assertMessage(!data.hasUsableFix(), "null accuracy -> not usable");
+	return true;
+}
+
+// The trail as onSensor() feeds it (feedBreadcrumbTrail), on the real Salvan
+// extract preceded by the no-fix ticks: the resulting trail must be exactly
+// the one built from the real points alone, with no (180, 180) point in it.
+(:test)
+function testFeedBreadcrumbTrailSkipsTicksWithoutFix(logger)
+{
+	var lats = MapTestHelper.salvanLats();
+	var lons = MapTestHelper.salvanLons();
+
+	// Reference: real points only.
+	var reference = new BreadcrumbTrail();
+	for (var i = 0; i < lats.size(); i++)
+	{
+		reference.update(lats[i], lons[i]);
+	}
+	Test.assertMessage(reference.getCount() >= 2, "precondition: the 50 m extract gives several points, got " + reference.getCount());
+
+	// App: no-fix ticks first, then the real points with a 3D fix, with a
+	// short loss of fix (POOR) in the middle.
+	var data = new WatchData();
+	var trail = new BreadcrumbTrail();
+	var noFix = [
+		MapTestHelper.gps(180.0, 180.0, Position.QUALITY_NOT_AVAILABLE),
+		MapTestHelper.gps(180.0, 180.0, Position.QUALITY_NOT_AVAILABLE),
+		MapTestHelper.gps(0.0, 0.0, Position.QUALITY_NOT_AVAILABLE),
+		MapTestHelper.gps(45.0, 6.0, Position.QUALITY_LAST_KNOWN),
+		MapTestHelper.gps(46.2, 7.1, Position.QUALITY_POOR)
+	];
+	for (var i = 0; i < noFix.size(); i++)
+	{
+		data.gpsData = noFix[i];
+		$.feedBreadcrumbTrail(trail, data);
+	}
+	Test.assertEqualMessage(trail.getCount(), 0, "no point stored before a 3D fix");
+
+	for (var i = 0; i < lats.size(); i++)
+	{
+		data.gpsData = MapTestHelper.gps(lats[i], lons[i], Position.QUALITY_GOOD);
+		$.feedBreadcrumbTrail(trail, data);
+		if (i == 10)
+		{
+			data.gpsData = MapTestHelper.gps(180.0, 180.0, Position.QUALITY_POOR);
+			$.feedBreadcrumbTrail(trail, data);
+			data.gpsData = null;
+			$.feedBreadcrumbTrail(trail, data);
+		}
+	}
+
+	logger.debug("Salvan extract: " + lats.size() + " GPX points -> " + trail.getCount() + " trail points");
+	Test.assertEqualMessage(trail.getCount(), reference.getCount(), "same point count as the real points alone");
+	for (var i = 0; i < trail.getCount(); i++)
+	{
+		var lat = trail.getLats()[i];
+		var lon = trail.getLons()[i];
+		Test.assertMessage(lat == reference.getLats()[i] && lon == reference.getLons()[i], "point " + i + " identical to the reference");
+		Test.assertMessage(lat > 46.118 && lat < 46.119 && lon > 6.993 && lon < 6.994, "point " + i + " inside the Salvan extract, got " + lat + " / " + lon);
+	}
+	Test.assertMessage((trail.getLats()[0] - lats[0]).abs() < 0.000001, "first trail point is the first GPX point");
+	return true;
+}
+
+// What map() draws: "Waiting for GPS" only with no trail and no current
+// position; the trail alone when the fix is lost; trail + marker otherwise.
+(:test)
+function testMapDrawMode(logger)
+{
+	Test.assertEqualMessage($.mapDrawMode(0, false), :waiting, "no trail, no fix -> waiting");
+	Test.assertEqualMessage($.mapDrawMode(0, true), :trailAndMarker, "no trail, fix -> marker (trail of 0)");
+	Test.assertEqualMessage($.mapDrawMode(1, false), :trailOnly, "1 point, no fix -> trail only");
+	Test.assertEqualMessage($.mapDrawMode(120, false), :trailOnly, "trail, fix lost -> trail only, not waiting");
+	Test.assertEqualMessage($.mapDrawMode(250, false), :trailOnly, "full buffer, no fix -> trail only");
+	Test.assertEqualMessage($.mapDrawMode(120, true), :trailAndMarker, "trail and fix -> trail and marker");
+
+	// Edge cases: unknown or incoherent inputs.
+	Test.assertEqualMessage($.mapDrawMode(null, false), :waiting, "null count, no fix -> waiting");
+	Test.assertEqualMessage($.mapDrawMode(null, true), :trailAndMarker, "null count, fix -> marker");
+	Test.assertEqualMessage($.mapDrawMode(-1, false), :waiting, "negative count -> treated as 0");
+	Test.assertEqualMessage($.mapDrawMode(5, null), :trailOnly, "null hasCurrent -> treated as no fix");
+	Test.assertEqualMessage($.mapDrawMode(0, null), :waiting, "null hasCurrent, no trail -> waiting");
+	return true;
+}
+
+// Diagnostic for the "180/180" cause, run inside the simulator: logs what
+// Position.getInfo() returns right now (the test runner starts the app, so
+// location events are enabled) and checks the invariant that a fix accepted
+// for the map always has a valid position. Its log line is what to read
+// before and after loading a GPX in the simulator.
+(:test)
+function testDiagSimulatorPositionInfo(logger)
+{
+	var info = Position.getInfo();
+	if (info == null)
+	{
+		logger.debug("Position.getInfo() -> null");
+		return true;
+	}
+
+	var lat = null;
+	var lon = null;
+	if (info.position != null)
+	{
+		var deg = info.position.toDegrees();
+		lat = deg[0];
+		lon = deg[1];
+	}
+	var data = new WatchData();
+	data.updateInfo(info);
+	logger.debug("Position.getInfo(): lat=" + lat + " lon=" + lon + " accuracy=" + info.accuracy
+		+ " isValidLatLon=" + $.isValidLatLon(lat, lon) + " hasUsableFix=" + data.hasUsableFix());
+
+	if (data.hasUsableFix())
+	{
+		Test.assertMessage($.isValidLatLon(data.getLat(), data.getLon()), "a usable fix always has a valid position");
+	}
 	return true;
 }

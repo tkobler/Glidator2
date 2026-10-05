@@ -186,6 +186,12 @@ function shouldRecordHikeSample(hasSession, isRecording)
     return !(hasSession == true && isRecording != true);
 }
 
+// STUB (replaced in a later commit): current onSensor() behaviour.
+function feedBreadcrumbTrail(trail, data)
+{
+    trail.update(data.getLat(), data.getLon());
+}
+
 // --------------------------------------------------------------------------------
 // Globals
 // --------------------------------------------------------------------------------

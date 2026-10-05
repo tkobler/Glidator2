@@ -1,5 +1,11 @@
 using Toybox.Math;
 
+// STUB (replaced in the next commit): accepts any non-null pair, as before.
+function isValidLatLon(lat, lon)
+{
+	return lat != null && lon != null;
+}
+
 // Fixed-size ring buffer of lat/lon points for the live Map page.
 // Fed once per second from FlyInstrumentApp.onSensor() regardless of which
 // page is on screen, so the trail keeps growing even while the Map page

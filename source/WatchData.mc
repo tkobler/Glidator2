@@ -362,6 +362,19 @@ class WatchData
 		return null;
 	}
 
+	// STUBS (replaced in the next commit).
+	const MIN_MAP_QUALITY = 3;
+
+	function getAccuracy()
+	{
+		return null;
+	}
+
+	function hasUsableFix()
+	{
+		return getLat() != null && getLon() != null;
+	}
+
 	// ---------------------------------------------------------------------
 	// Hike mode: windowed vertical speed and speed (HikeHistory.mc).
 	// Fed once per tick from FlyInstrumentApp.onSensor(), after updateData().
