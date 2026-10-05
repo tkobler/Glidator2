@@ -158,9 +158,16 @@ function shouldSaveOnStop(hasSession, isRecording)
     return hasSession == true;
 }
 
+// Pure rule used by onSensor(): should this tick feed the hike vertical-speed
+// buffer? Not while a session is paused (hasSession && !isRecording): a frozen
+// buffer would mix pre- and post-pause samples since System.getTimer() keeps
+// running. On resume, HikeHistory resets itself on the > 15 s gap, so the page
+// shows "--" for ~20 s rather than a wrong value. Before any session (hiking
+// without recording) samples are recorded, just without a distance.
+// An unknown recording state with a session is treated as paused (no sample).
 function shouldRecordHikeSample(hasSession, isRecording)
 {
-    return false;
+    return !(hasSession == true && isRecording != true);
 }
 
 // --------------------------------------------------------------------------------
@@ -228,6 +235,12 @@ class FlyInstrumentApp extends Application.AppBase
     function onSensor(info as $.Toybox.Sensor.Info) as Void
     {
         mainView.updateData();
+        // Hike vertical speed / speed buffer, fed here rather than from the
+        // flight vario's endMeasure() so the vario stays untouched.
+        if ($.shouldRecordHikeSample($.hasActiveSession(), $.isRecording()))
+        {
+            mainView.data.recordHikeSample();
+        }
         breadcrumbTrail.update(mainView.data.getLat(), mainView.data.getLon());
     }
 
