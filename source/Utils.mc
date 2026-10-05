@@ -74,20 +74,97 @@ function mapDrawMode(count, hasCurrent)
 	return :waiting;
 }
 
-// Map scale bar (stubs, implemented in the next commit).
+// True for a usable Float: not NaN, not +-Infinity (Inf - Inf is NaN; any
+// finite v - v is 0).
+function isFiniteFloat(v)
+{
+	return v == v && v - v == 0.0;
+}
+
+// Meters in one degree of latitude (and, once map() has multiplied
+// longitudes by cos(lat), in one projected degree of longitude too).
+const METERS_PER_DEGREE = 111320.0;
+
+// Converts map()'s scale, in pixels per degree of latitude, to meters per
+// pixel. null when the scale is null, zero, negative, NaN or infinite.
 function metersPerPixelFromScale(pixelsPerDegree)
 {
-	return null;
+	if (pixelsPerDegree == null)
+	{
+		return null;
+	}
+	var p = pixelsPerDegree.toFloat();
+	if (!isFiniteFloat(p) || p <= 0.0)
+	{
+		return null;
+	}
+	return METERS_PER_DEGREE / p;
 }
 
+// Round scale bar lengths, longest first.
+const SCALE_BAR_LENGTHS_M = [5000, 2000, 1000, 500, 200, 100, 50];
+
+// Picks the map scale bar: the longest round length (50/100/200/500 m,
+// 1/2/5 km) that fits in maxPixels at metersPerPixel, as [meters, pixels]
+// with pixels rounded to a whole Number. A length exactly as long as the
+// room fits. null (no bar) when:
+//   - even 50 m is longer than maxPixels (zoomed in, e.g. a short trail),
+//   - the chosen bar is shorter than a quarter of maxPixels (only possible
+//     with 5 km: consecutive lengths differ by 2.5x at most), too short to read,
+//   - an input is null, zero, negative, NaN or infinite.
 function pickScaleBar(metersPerPixel, maxPixels)
 {
+	if (metersPerPixel == null || maxPixels == null)
+	{
+		return null;
+	}
+	var mpp = metersPerPixel.toFloat();
+	var room = maxPixels.toFloat();
+	if (!isFiniteFloat(mpp) || mpp <= 0.0 || !isFiniteFloat(room) || room <= 0.0)
+	{
+		return null;
+	}
+
+	for (var i = 0; i < SCALE_BAR_LENGTHS_M.size(); i++)
+	{
+		var meters = SCALE_BAR_LENGTHS_M[i];
+		var pixels = meters / mpp;
+		if (pixels <= room)
+		{
+			if (pixels < room / 4.0)
+			{
+				return null;
+			}
+			return [meters, (pixels + 0.5).toNumber()];
+		}
+	}
 	return null;
 }
 
+// Scale bar label: "50 m" ... "500 m", then "1 km", "2 km", "5 km"
+// ("1.5 km" for a length that is not a whole km). Empty for null, zero,
+// negative, NaN or infinite.
 function formatScaleBarLabel(meters)
 {
-	return "";
+	if (meters == null)
+	{
+		return "";
+	}
+	var v = meters.toFloat();
+	if (!isFiniteFloat(v) || v <= 0.0)
+	{
+		return "";
+	}
+	var m = (v + 0.5).toLong();
+	if (m < 1000)
+	{
+		return m.toString() + " m";
+	}
+	if (m % 1000 == 0)
+	{
+		return (m / 1000).toString() + " km";
+	}
+	return (m / 1000.0).format("%.1f") + " km";
 }
 
 // Formats a speed in m/s as a pace "m:ss" per km for the hike pages.
