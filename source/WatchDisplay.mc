@@ -527,25 +527,37 @@ class WatchDisplay
     // Live breadcrumb map: draws the recorded trail (a ring buffer, oldest-to-newest
     // starting at writeIndex once it has wrapped) plus a heading-oriented marker at
     // the current position, scaled and centered to fit whatever's been recorded so far.
+    // curLat / curLon are null without a usable fix: the trail is then drawn alone,
+    // and "Waiting for GPS" only shows when there is no trail either (mapDrawMode()).
     (:typecheck(false))
     // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
     function map(lats, lons, count, writeIndex, curLat, curLon, heading)
     {
-        if (curLat == null || curLon == null)
+        var mode = $.mapDrawMode(count, curLat != null && curLon != null);
+        if (mode == :waiting)
         {
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
             dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 - 15, Graphics.FONT_SMALL, "Waiting for", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
             dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 15, Graphics.FONT_SMALL, "GPS", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
             return;
         }
+        var hasCurrent = (mode == :trailAndMarker);
 
         var capacity = lats.size();
         var centerX = dc.getWidth() / 2;
         var centerY = dc.getHeight() / 2;
         var screenRadius = dc.getWidth() / 2 - borderSize;
 
-        // Bounding box (in degrees) over the trail plus the current position.
-        var minLat = curLat, maxLat = curLat, minLon = curLon, maxLon = curLon;
+        // Bounding box (in degrees) over the trail plus the current position
+        // (or, without one, seeded with the oldest trail point).
+        var seedLat = curLat, seedLon = curLon;
+        if (!hasCurrent)
+        {
+            var oldest = (writeIndex - count + capacity) % capacity;
+            seedLat = lats[oldest];
+            seedLon = lons[oldest];
+        }
+        var minLat = seedLat, maxLat = seedLat, minLon = seedLon, maxLon = seedLon;
         for (var i = 0; i < count; i++)
         {
             var idx = (writeIndex - count + i + capacity) % capacity;
@@ -572,10 +584,14 @@ class WatchDisplay
             var r = (dx.abs() > dy.abs()) ? dx.abs() : dy.abs();
             if (r > maxRange) { maxRange = r; }
         }
-        var curDx = (curLon - centerLon) * cosLat;
-        var curDy = curLat - centerLat;
-        var curR = (curDx.abs() > curDy.abs()) ? curDx.abs() : curDy.abs();
-        if (curR > maxRange) { maxRange = curR; }
+        var curDx = 0.0, curDy = 0.0;
+        if (hasCurrent)
+        {
+            curDx = (curLon - centerLon) * cosLat;
+            curDy = curLat - centerLat;
+            var curR = (curDx.abs() > curDy.abs()) ? curDx.abs() : curDy.abs();
+            if (curR > maxRange) { maxRange = curR; }
+        }
 
         var scale = (screenRadius * 0.85) / maxRange;
 
@@ -596,6 +612,18 @@ class WatchDisplay
             }
             prevX = x;
             prevY = y;
+        }
+
+        if (!hasCurrent)
+        {
+            // Trail alone, no marker. A single point draws no line: show it
+            // as a small dot so the page isn't blank.
+            if (count == 1 && prevX != null)
+            {
+                dc.fillCircle(prevX, prevY, 3);
+            }
+            dc.setPenWidth(1);
+            return;
         }
 
         var curX = centerX + curDx * scale;

@@ -55,10 +55,23 @@ function formatVerticalSpeed(mh)
 	return (negative ? "-" : "+") + (tens * 10).toString();
 }
 
-// STUB (replaced in a later commit): current map() behaviour.
+// What WatchDisplay.map() draws, from the number of trail points and whether
+// a current position is known (usable fix):
+//   :trailAndMarker  current position known (the trail may be empty),
+//   :trailOnly       no current position but a trail exists (fix lost),
+//   :waiting         neither: "Waiting for GPS".
+// A null or negative count counts as 0; hasCurrent must be exactly true.
 function mapDrawMode(count, hasCurrent)
 {
-	return (hasCurrent == true) ? :trailAndMarker : :waiting;
+	if (hasCurrent == true)
+	{
+		return :trailAndMarker;
+	}
+	if (count != null && count > 0)
+	{
+		return :trailOnly;
+	}
+	return :waiting;
 }
 
 // Formats a speed in m/s as a pace "m:ss" per km for the hike pages.
