@@ -357,6 +357,17 @@ class VerticalSpeedTest(unittest.TestCase):
         self.assertAlmostEqual(vs[360], 600.0, delta=1e-6)
         self.assertAlmostEqual(vs[-1], 600.0, delta=1e-6)
 
+    def test_non_linear_window_separates_regression_from_diff(self):
+        # Hand computed: t = 0, 10, 20, 30 s, alt = 0, 0, 0, 3 m.
+        # Regression: mean t 15, mean a 0.75, sxy = 45, sxx = 500,
+        # slope 0.09 m/s = 324 m/h. Endpoints: 3 m / 30 s = 360 m/h.
+        raw = [{"t": T0 + t, "alt": a} for t, a in ((0, 0.0), (10, 0.0), (20, 0.0), (30, 3.0))]
+        pts = self._pts(raw)
+        self.assertAlmostEqual(aa.vertical_speed_series(pts, method="regression")[-1], 324.0, places=6)
+        self.assertAlmostEqual(aa.vertical_speed_series(pts, method="diff")[-1], 360.0, places=6)
+        # The watch replay keeps all 4 samples (10 s apart) and regresses too.
+        self.assertAlmostEqual(aa.watch_vertical_speed_series(pts)[-1], 324.0, places=6)
+
     def test_time_gap_longer_than_window(self):
         raw = climb_points(60)
         later = climb_points(60)
@@ -630,7 +641,8 @@ class SalvanTest(unittest.TestCase):
         self.assertEqual(self.climb["points"], 2211)
         self.assertEqual(self.climb["zero_speed"], 1748)
         self.assertEqual(self.climb["with_speed"], 2211)
-        self.assertAlmostEqual(100.0 * 1748 / 2211, 79.1, delta=0.05)
+        share = 100.0 * self.climb["zero_speed"] / self.climb["with_speed"]
+        self.assertAlmostEqual(share, 79.1, delta=0.05)
 
     def test_climb_recorded_distance(self):
         self.assertAlmostEqual(self.climb["recorded_distance_m"], 3904.6, delta=0.05)
