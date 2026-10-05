@@ -120,8 +120,9 @@ class WatchData
         	data ["altitude"] = info.altitude;
         }
         
-        // The current heart rate in beats per minute (bpm).
-		if (info has :currentHeartRate)
+        // The current heart rate in beats per minute (bpm). Not stored when null:
+        // a "heartRate" => null key would hide the sensor heart rate in getHeartRate().
+		if (info has :currentHeartRate && info.currentHeartRate != null)
         {
         	data ["heartRate"] = info.currentHeartRate;
         }
@@ -184,8 +185,8 @@ class WatchData
         // }
         
         
-       	// The heart rate in beats per minute (bpm).
-		if (info has :heartRate)
+       	// The heart rate in beats per minute (bpm). Not stored when null.
+		if (info has :heartRate && info.heartRate != null)
         {
         	data ["heartRate"] = info.heartRate;
         }
