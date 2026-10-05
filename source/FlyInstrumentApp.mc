@@ -158,6 +158,11 @@ function shouldSaveOnStop(hasSession, isRecording)
     return hasSession == true;
 }
 
+function shouldRecordHikeSample(hasSession, isRecording)
+{
+    return false;
+}
+
 // --------------------------------------------------------------------------------
 // Globals
 // --------------------------------------------------------------------------------

@@ -22,3 +22,8 @@ function formatDuration(ms)
 
 	return minutes.format("%02d") + ":" + seconds.format("%02d");
 }
+
+function formatVerticalSpeed(mh)
+{
+	return "";
+}

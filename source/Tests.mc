@@ -751,3 +751,239 @@ function testHikeHistorySalvanRealClimb(logger)
 	Test.assertMessage(v60 != null && v60 > 720.0 && v60 < 780.0, "real Salvan last minute should read ~747 m/h, got " + v60);
 	return true;
 }
+
+// ---------------------------------------------------------------------------
+// Hike vertical speed wiring (Marche 1b): display format, pause rule, and
+// WatchData feeding its HikeHistory from getAltitude() / getDistance().
+// ---------------------------------------------------------------------------
+
+// Rounded to 10 m/h, "+" only when the rounded value is positive, "--" when
+// there is no value. Halves round away from zero, symmetrically.
+(:test)
+function testFormatVerticalSpeed(logger)
+{
+	// Spec values.
+	Test.assertEqualMessage($.formatVerticalSpeed(null), "--", "null -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(636.4), "+640", "636.4 -> +640");
+	Test.assertEqualMessage($.formatVerticalSpeed(-129.0), "-130", "-129.0 -> -130");
+	Test.assertEqualMessage($.formatVerticalSpeed(0.0), "0", "0.0 -> 0");
+
+	// Rounding boundaries: exactly half a step goes away from zero, just
+	// under it goes to 0, and a value that rounds to 0 never shows "+0"/"-0".
+	Test.assertEqualMessage($.formatVerticalSpeed(5.0), "+10", "5.0 -> +10");
+	Test.assertEqualMessage($.formatVerticalSpeed(-5.0), "-10", "-5.0 -> -10");
+	Test.assertEqualMessage($.formatVerticalSpeed(4.9), "0", "4.9 -> 0");
+	Test.assertEqualMessage($.formatVerticalSpeed(-4.9), "0", "-4.9 -> 0 (no -0)");
+	Test.assertEqualMessage($.formatVerticalSpeed(-0.0), "0", "-0.0 -> 0");
+	Test.assertEqualMessage($.formatVerticalSpeed(14.9), "+10", "14.9 -> +10");
+	Test.assertEqualMessage($.formatVerticalSpeed(15.0), "+20", "15.0 -> +20");
+	Test.assertEqualMessage($.formatVerticalSpeed(-15.0), "-20", "-15.0 -> -20");
+	Test.assertEqualMessage($.formatVerticalSpeed(645.0), "+650", "645.0 -> +650");
+	Test.assertEqualMessage($.formatVerticalSpeed(-1195.0), "-1200", "-1195.0 -> -1200");
+
+	// Integer input (Number) is accepted too.
+	Test.assertEqualMessage($.formatVerticalSpeed(600), "+600", "Number 600 -> +600");
+	Test.assertEqualMessage($.formatVerticalSpeed(-7), "-10", "Number -7 -> -10");
+	Test.assertEqualMessage($.formatVerticalSpeed(0), "0", "Number 0 -> 0");
+
+	// Very large values (altitude glitch) must not overflow a 32-bit Number.
+	Test.assertEqualMessage($.formatVerticalSpeed(1000000.0), "+1000000", "1e6 -> +1000000");
+	Test.assertEqualMessage($.formatVerticalSpeed(-1000000.0), "-1000000", "-1e6 -> -1000000");
+	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10), "+10000000000", "1e10 -> no 32-bit overflow");
+
+	// NaN is not a speed: show "--" rather than garbage.
+	var zero = 0.0;
+	var nan = zero / zero;
+	Test.assertEqualMessage($.formatVerticalSpeed(nan), "--", "NaN -> --");
+	return true;
+}
+
+// onSensor() must not feed the hike buffer while a session is paused
+// (hasSession && !isRecording); before any session and while recording it does.
+(:test)
+function testShouldRecordHikeSample(logger)
+{
+	Test.assertMessage($.shouldRecordHikeSample(false, false), "no session yet -> record");
+	Test.assertMessage($.shouldRecordHikeSample(true, true), "recording -> record");
+	Test.assertMessage(!$.shouldRecordHikeSample(true, false), "paused -> do not record");
+
+	// Edge cases.
+	Test.assertMessage($.shouldRecordHikeSample(false, true), "isRecording without a session is incoherent -> treated as no session -> record");
+	Test.assertMessage($.shouldRecordHikeSample(null, null), "null inputs -> treated as no session -> record");
+	Test.assertMessage($.shouldRecordHikeSample(null, false), "null hasSession -> record");
+	Test.assertMessage(!$.shouldRecordHikeSample(true, null), "session with unknown recording state -> treated as paused -> do not record");
+	return true;
+}
+
+// recordHikeSampleAt() reads getAltitude() / getDistance() (activityData
+// simulated, as in testWatchDataAccessorsFallBackToActivityData) and the
+// getters use a 60 s window.
+(:test)
+function testWatchDataRecordHikeSample(logger)
+{
+	var data = new WatchData();
+	var t0 = 1000000;
+
+	// No data at all: nothing recorded, no speeds.
+	data.recordHikeSampleAt(t0);
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 0, "no altitude -> no sample");
+	Test.assertMessage(data.getHikeVerticalSpeedAt(t0) == null, "empty -> vertical speed null");
+	Test.assertMessage(data.getHikeSpeedAt(t0) == null, "empty -> speed null");
+
+	// Altitude key present but null (Activity.Info.altitude can be null).
+	data.activityData = { "altitude" => null, "distance" => 10.0 };
+	data.recordHikeSampleAt(t0);
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 0, "null altitude -> no sample");
+
+	// 600 m/h climb at 1 m/s, one call per second (like onSensor) for 120 s:
+	// the buffer keeps one sample every 5 s.
+	for (var s = 0; s <= 120; s++)
+	{
+		data.activityData = { "altitude" => 1500.0 + s / 6.0, "distance" => 100.0 + s };
+		data.recordHikeSampleAt(t0 + s * 1000);
+	}
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 25, "1 Hz calls -> 1 sample / 5 s over 120 s");
+
+	var now = t0 + 120000;
+	var v = data.getHikeVerticalSpeedAt(now);
+	logger.debug("WatchData 600 m/h -> " + v);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "600 m/h through WatchData, got " + v);
+	var sp = data.getHikeSpeedAt(now);
+	Test.assertMessage(sp != null && sp > 0.99 && sp < 1.01, "1 m/s through WatchData, got " + sp);
+
+	// The getters use a 60 s window: last minute flat -> ~0, not the 120 s mix.
+	for (var s = 125; s <= 180; s += 5)
+	{
+		data.activityData = { "altitude" => 1520.0, "distance" => 220.0 };
+		data.recordHikeSampleAt(t0 + s * 1000);
+	}
+	var vFlat = data.getHikeVerticalSpeedAt(t0 + 180000);
+	Test.assertMessage(vFlat != null && vFlat > -5.0 && vFlat < 5.0, "60 s window: flat last minute -> ~0, got " + vFlat);
+	var spFlat = data.getHikeSpeedAt(t0 + 180000);
+	Test.assertMessage(spFlat != null && spFlat < 0.01, "60 s window: no distance gained in last minute -> ~0, got " + spFlat);
+
+	// The vario of flight is untouched by hike sampling.
+	Test.assertMessage(data.oldAlt == null, "recordHikeSampleAt() must not touch oldAlt");
+	Test.assertMessage(data.getVario() == null, "recordHikeSampleAt() must not touch the vario");
+	return true;
+}
+
+// Before a session starts there is no elapsedDistance: vertical speed still
+// works, speed stays null. Altitude falls back to sensorData like getAltitude().
+(:test)
+function testWatchDataRecordHikeSampleWithoutDistance(logger)
+{
+	var data = new WatchData();
+	var t0 = 50000;
+	for (var s = 0; s <= 60; s += 5)
+	{
+		data.sensorData = { "altitude" => 800.0 - s / 3.0 }; // -1200 m/h
+		data.recordHikeSampleAt(t0 + s * 1000);
+	}
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 13, "13 samples from sensorData altitude");
+	var v = data.getHikeVerticalSpeedAt(t0 + 60000);
+	Test.assertMessage(v != null && v > -1205.0 && v < -1195.0, "-1200 m/h from sensorData, got " + v);
+	Test.assertMessage(data.getHikeSpeedAt(t0 + 60000) == null, "no distance -> speed null");
+
+	// activityData altitude wins over sensorData, as in getAltitude().
+	data.activityData = { "altitude" => 2000.0 };
+	data.recordHikeSampleAt(t0 + 65000);
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 14, "activityData sample is the 14th sample");
+	Test.assertEqualMessage(data.hikeHistory.alts[13], 2000.0, "altitude taken from activityData, not sensorData");
+	return true;
+}
+
+// Same rule as onSensor(): pause stops sampling; on resume the >15 s gap
+// resets the buffer, so the display shows "--" for ~20 s and never mixes
+// before/after-pause samples (spec, point to decide n. 2).
+(:test)
+function testWatchDataHikeSamplingAcrossPause(logger)
+{
+	var data = new WatchData();
+	var t0 = 200000;
+	var hasSession = true;
+	var recording = true;
+
+	for (var s = 0; s <= 180; s++)
+	{
+		recording = !(s > 60 && s < 120); // paused from 61 s to 119 s
+		data.activityData = { "altitude" => 1000.0 + s / 6.0, "distance" => s * 1.0 };
+		if ($.shouldRecordHikeSample(hasSession, recording))
+		{
+			data.recordHikeSampleAt(t0 + s * 1000);
+		}
+
+		if (s == 60)
+		{
+			Test.assertMessage(data.getHikeVerticalSpeedAt(t0 + s * 1000) != null, "before the pause: value shown");
+		}
+		if (s == 119)
+		{
+			// Nothing recorded during the pause: the window has emptied.
+			Test.assertMessage(data.getHikeVerticalSpeedAt(t0 + s * 1000) == null, "after a 60 s pause: -- (window empty)");
+			Test.assertMessage($.formatVerticalSpeed(data.getHikeVerticalSpeedAt(t0 + s * 1000)).equals("--"), "pause -> displays --");
+		}
+		if (s == 120)
+		{
+			Test.assertEqualMessage(data.hikeHistory.getCount(), 1, "resume after > 15 s gap -> buffer reset to the first new sample");
+			Test.assertMessage(data.getHikeVerticalSpeedAt(t0 + s * 1000) == null, "just after resume -> null");
+		}
+	}
+	var v = data.getHikeVerticalSpeedAt(t0 + 180000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "60 s after resume: 600 m/h again, got " + v);
+	return true;
+}
+
+// recordHikeSample() / getters with the real System.getTimer() clock: one
+// sample only, so the speeds stay null; values must still be read through.
+(:test)
+function testWatchDataRecordHikeSampleUsesTimer(logger)
+{
+	var data = new WatchData();
+	data.recordHikeSample();
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 0, "no altitude -> no sample with the real clock either");
+
+	data.activityData = { "altitude" => 1234.5, "distance" => 42.0 };
+	data.recordHikeSample();
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 1, "one sample recorded with System.getTimer()");
+	Test.assertMessage(data.getHikeVerticalSpeed() == null, "one sample -> vertical speed null");
+	Test.assertMessage(data.getHikeSpeed() == null, "one sample -> speed null");
+	return true;
+}
+
+// Real Salvan extract (same rows as testHikeHistorySalvanRealClimb) fed
+// through WatchData at 1 Hz, as onSensor() would: 11:07:11 -> 11:08:48.
+(:test)
+function testWatchDataHikeSalvanRealClimb(logger)
+{
+	var secs = [0, 7, 14, 20, 25, 30, 35, 41, 46, 51, 57, 62,
+		70, 76, 81, 87, 92, 97];
+	var alts = [2249.0, 2249.8, 2251.0, 2251.4, 2251.8, 2253.0, 2253.4, 2254.0,
+		2255.0, 2255.4, 2255.4, 2255.4, 2256.4, 2257.6, 2258.8, 2260.4,
+		2261.4, 2262.6];
+	var dists = [2232.68, 2241.07, 2246.74, 2248.84, 2252.27, 2254.52, 2258.45, 2263.16,
+		2267.93, 2275.91, 2285.28, 2291.61, 2300.57, 2302.97, 2307.71, 2314.88,
+		2318.73, 2324.05];
+
+	var data = new WatchData();
+	var t0 = 3600000;
+	var row = 0;
+	// 1 Hz ticks; activityData holds the last TCX record, like the watch
+	// between two recorded points.
+	for (var s = 0; s <= 97; s++)
+	{
+		while (row + 1 < secs.size() && secs[row + 1] <= s)
+		{
+			row += 1;
+		}
+		data.activityData = { "altitude" => alts[row], "distance" => dists[row] };
+		data.recordHikeSampleAt(t0 + s * 1000);
+	}
+	var v = data.getHikeVerticalSpeedAt(t0 + 97000);
+	logger.debug("WatchData Salvan 60 s at 11:08:48 -> " + v + " m/h, shown " + $.formatVerticalSpeed(v));
+	Test.assertMessage(v != null && v >= 500.0 && v <= 700.0, "real Salvan climb through WatchData should read 500-700 m/h, got " + v);
+	var sp = data.getHikeSpeedAt(t0 + 97000);
+	logger.debug("WatchData Salvan 60 s speed -> " + sp);
+	Test.assertMessage(sp != null && sp > 0.9 && sp < 1.3, "real Salvan speed through WatchData ~1.1 m/s, got " + sp);
+	return true;
+}

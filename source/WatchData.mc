@@ -359,4 +359,33 @@ class WatchData
 		return null;
 	}
 
+	var hikeHistory = new HikeHistory();
+
+	function recordHikeSample()
+	{
+	}
+
+	function recordHikeSampleAt(tMs)
+	{
+	}
+
+	function getHikeVerticalSpeed()
+	{
+		return null;
+	}
+
+	function getHikeVerticalSpeedAt(nowMs)
+	{
+		return null;
+	}
+
+	function getHikeSpeed()
+	{
+		return null;
+	}
+
+	function getHikeSpeedAt(nowMs)
+	{
+		return null;
+	}
 }
