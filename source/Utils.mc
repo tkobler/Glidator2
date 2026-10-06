@@ -153,12 +153,22 @@ function formatDistanceKm(meters)
 	return (v / 1000.0).format("%.1f");
 }
 
+// Largest vertical speed formatted by formatVerticalSpeed(), in m/h (bound
+// included). Anything faster is physically absurd (free fall peaks around
+// 200 000 m/h) and reads "--". The cap keeps the Long rounding below
+// overflow: toLong() and the "* 10" overflow a 64-bit Long past about
+// 9.2e18 m/h, which a finite 32-bit Float (up to about 3.4e38) can exceed.
+// 1e10 is exact in a Float and keeps every value displayed before the cap.
+const VERTICAL_SPEED_MAX_MH = 1.0e10;
+
 // Formats a vertical speed in m/h for the hike pages: "--" when there is no
-// value (or NaN / +-Infinity), otherwise rounded to the nearest 10 m/h (halves away from
-// zero, the same way for climbs and descents) with a "+" only when the rounded
-// value is positive, so a near-zero rate reads "0", never "+0" or "-0".
-// Rounding is done on the absolute value with toLong() so that a glitch-sized
-// value cannot overflow a 32-bit Number.
+// value (or NaN / +-Infinity, or beyond +-VERTICAL_SPEED_MAX_MH), otherwise
+// rounded to the nearest 10 m/h (halves away from zero, the same way for
+// climbs and descents) with a "+" only when the rounded value is positive, so
+// a near-zero rate reads "0", never "+0" or "-0".
+// Rounding is done on the absolute value with toLong(), so a value past the
+// 32-bit Number range (2.1e9) still prints; the cap above keeps it within the
+// Long range.
 function formatVerticalSpeed(mh)
 {
 	if (mh == null)
@@ -177,6 +187,10 @@ function formatVerticalSpeed(mh)
 
 	var negative = v < 0.0;
 	var magnitude = negative ? -v : v;
+	if (magnitude > VERTICAL_SPEED_MAX_MH)
+	{
+		return "--"; // physically absurd, and would overflow the Long rounding
+	}
 	var tens = (magnitude / 10.0 + 0.5).toLong();
 	if (tens == 0)
 	{

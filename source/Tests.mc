@@ -1185,8 +1185,46 @@ function testFormatVerticalSpeed(logger)
 	Test.assertMessage(negInf < -big && negInf == negInf * 2.0, "test setup: -Inf expected, got " + negInf);
 	Test.assertEqualMessage($.formatVerticalSpeed(inf), "--", "+Inf -> --");
 	Test.assertEqualMessage($.formatVerticalSpeed(negInf), "--", "-Inf -> --");
-	// Largest finite Float still formats as a number (guard must not catch it).
-	Test.assertMessage(!$.formatVerticalSpeed(big).equals("--"), "3e38 is finite -> not --");
+	// Beyond VERTICAL_SPEED_MAX_MH (1e10 m/h, physically absurd) the value
+	// reads "--": a finite but huge Float such as 3e38 would overflow the
+	// Long rounding (toLong() past about 9.2e18) and print garbage.
+	Test.assertEqualMessage($.formatVerticalSpeed(big), "--", "3e38 -> -- (beyond the cap, no Long overflow)");
+	Test.assertEqualMessage($.formatVerticalSpeed(-big), "--", "-3e38 -> -- (beyond the cap, no Long overflow)");
+	return true;
+}
+
+// Cap of formatVerticalSpeed(): |v| <= VERTICAL_SPEED_MAX_MH (1e10 m/h,
+// bound included) is formatted, anything larger reads "--". The bound and
+// the test values are exact in a 32-bit Float.
+(:test)
+function testFormatVerticalSpeedCap(logger)
+{
+	Test.assertEqualMessage($.VERTICAL_SPEED_MAX_MH, 1.0e10, "documented cap is 1e10 m/h");
+
+	// Just under and exactly at the cap: formatted.
+	Test.assertEqualMessage($.formatVerticalSpeed(8.0e9), "+8000000000", "8e9 (under the cap) -> +8000000000");
+	Test.assertEqualMessage($.formatVerticalSpeed(-8.0e9), "-8000000000", "-8e9 (under the cap) -> -8000000000");
+	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10), "+10000000000", "1e10 (the cap, included) -> +10000000000");
+	Test.assertEqualMessage($.formatVerticalSpeed(-1.0e10), "-10000000000", "-1e10 (the cap, included) -> -10000000000");
+
+	// Just above the cap (next Floats are 1024 apart there) and far above it.
+	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10 + 2048.0), "--", "1e10 + 2048 (just above) -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(-1.0e10 - 2048.0), "--", "-1e10 - 2048 (just above) -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(1.6e10), "--", "1.6e10 -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(1.0e19), "--", "1e19 (Long overflow zone) -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(1.0e20), "--", "1e20 -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(-1.0e20), "--", "-1e20 -> --");
+
+	// Double input is converted to Float first, then capped the same way.
+	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10d), "+10000000000", "Double 1e10 -> formatted");
+	Test.assertEqualMessage($.formatVerticalSpeed(1.0e300d), "--", "Double 1e300 -> --");
+
+	// Large Long input stays under the cap and is formatted.
+	Test.assertEqualMessage($.formatVerticalSpeed(5000000000l), "+5000000000", "Long 5e9 -> +5000000000");
+
+	// Ordinary values are unchanged by the cap.
+	Test.assertEqualMessage($.formatVerticalSpeed(636.4), "+640", "636.4 still +640");
+	Test.assertEqualMessage($.formatVerticalSpeed(-129.0), "-130", "-129.0 still -130");
 	return true;
 }
 
