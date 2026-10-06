@@ -71,6 +71,49 @@ function formatHeartRate(bpm)
 	return Toybox.Math.round(v).toNumber().toString();
 }
 
+// Formats a latitude (isLat true) or longitude in degrees as D°MM'S.S" plus
+// N/S or E/W; the letter alone gives the hemisphere (no minus sign).
+// The absolute value is rounded once to the nearest 0.1" (in Double, then a
+// Long count of tenths) and only then split into degrees, minutes and
+// seconds, so 59.96" carries into the minutes and the degrees instead of
+// reading 60.0". A value that rounds to 0.0" reads N / E.
+// "--" when null, NaN, +-Infinity, or beyond 90 (latitude) / 180 (longitude).
+function formatLatLon(value, isLat)
+{
+	if (value == null)
+	{
+		return "--";
+	}
+	var v = value.toDouble();
+	if (!isFiniteFloat(v))
+	{
+		return "--";
+	}
+	var negative = v < 0.0d;
+	var a = negative ? -v : v;
+	if (a > (isLat ? 90.0d : 180.0d))
+	{
+		return "--";
+	}
+
+	var tenths = (a * 36000.0d + 0.5d).toLong(); // 0.1" per unit
+	var deg = (tenths / 36000).toNumber();
+	var rest = (tenths % 36000).toNumber();
+	var min = rest / 600;
+	var sec = rest % 600;
+
+	var letter;
+	if (isLat)
+	{
+		letter = (negative && tenths > 0) ? "S" : "N";
+	}
+	else
+	{
+		letter = (negative && tenths > 0) ? "W" : "E";
+	}
+	return deg.toString() + "°" + min.format("%02d") + "'" + (sec / 10).toString() + "." + (sec % 10).toString() + "\"" + letter;
+}
+
 // Formats a distance in meters as km with one decimal for the Position page.
 // "--" when null, NaN, +-Infinity or negative (an elapsed distance never is).
 // Zero, -0.0 included, reads "0.0" (format() would print "-0.0").

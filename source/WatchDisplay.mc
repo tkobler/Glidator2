@@ -311,16 +311,9 @@ class WatchDisplay
 
         // Draw latitude and longitude if available
         if (lat != null && lon != null) {
-            // Convert latitude and longitude to degrees, minutes, seconds format
-            var latDeg = lat.toNumber();
-            var latMin = ((lat - latDeg) * 60).abs();
-            var latSec = ((latMin - latMin.toNumber()) * 60).abs();
-            var latStr = latDeg + "°" + latMin.format("%02d") + "'" + latSec.format("%.1f") + "\"" + (lat >= 0 ? "N" : "S");
-
-            var lonDeg = lon.toNumber();
-            var lonMin = ((lon - lonDeg) * 60).abs();
-            var lonSec = ((lonMin - lonMin.toNumber()) * 60).abs();
-            var lonStr = lonDeg + "°" + lonMin.format("%02d") + "'" + lonSec.format("%.1f") + "\"" + (lon >= 0 ? "E" : "W");
+            // Degrees, minutes, seconds with the hemisphere letter (Utils.mc)
+            var latStr = $.formatLatLon(lat, true);
+            var lonStr = $.formatLatLon(lon, false);
 
             // Draw coordinates
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);

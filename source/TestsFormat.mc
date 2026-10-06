@@ -107,3 +107,45 @@ function testFormatHeartRate(logger)
 	Test.assertEqualMessage(formatHeartRate(139), "139", "Salvan 10:51:28");
 	return true;
 }
+
+// D7, D8: a coordinate in degrees as D°MM'S.S" plus the hemisphere letter,
+// without a minus sign (D7); the seconds are rounded to 0.1" once, on the
+// whole value, so 59.96" carries into the minutes and the degrees (D8).
+(:test)
+function testFormatLatLon(logger)
+{
+	// Real point (TCX 10:51:28), as Location.toDegrees() gives it, and as Float.
+	Test.assertEqualMessage(formatLatLon(46.12446558661759d, true), "46°07'28.1\"N", "Salvan lat");
+	Test.assertEqualMessage(formatLatLon(6.985453460365534d, false), "6°59'7.6\"E", "Salvan lon");
+	Test.assertEqualMessage(formatLatLon(46.124466, true), "46°07'28.1\"N", "Salvan lat, Float");
+	Test.assertEqualMessage(formatLatLon(6.9854535, false), "6°59'7.6\"E", "Salvan lon, Float");
+	// D7: south and west.
+	Test.assertEqualMessage(formatLatLon(-22.9519d, true), "22°57'6.8\"S", "Rio lat (was -22°...)");
+	Test.assertEqualMessage(formatLatLon(-43.2105d, false), "43°12'37.8\"W", "Rio lon (was -43°...)");
+	Test.assertEqualMessage(formatLatLon(-0.5d, true), "0°30'0.0\"S", "just south of 0");
+	Test.assertEqualMessage(formatLatLon(-0.5d, false), "0°30'0.0\"W", "just west of 0");
+	Test.assertEqualMessage(formatLatLon(-0.00002d, true), "0°00'0.1\"S", "0.072\" south rounds to 0.1\"S");
+	Test.assertEqualMessage(formatLatLon(-0.00001d, true), "0°00'0.0\"N", "rounds to zero: no hemisphere sign, N");
+	Test.assertEqualMessage(formatLatLon(-0.00001d, false), "0°00'0.0\"E", "rounds to zero: E");
+	Test.assertEqualMessage(formatLatLon(0.0, true), "0°00'0.0\"N", "equator");
+	Test.assertEqualMessage(formatLatLon(-0.0, false), "0°00'0.0\"E", "-0.0 meridian");
+	// D8: carries.
+	Test.assertEqualMessage(formatLatLon(45.99999d, true), "46°00'0.0\"N", "seconds carry into minutes and degrees (was 45°59'60.0\")");
+	Test.assertEqualMessage(formatLatLon(6.99999d, false), "7°00'0.0\"E", "same on a longitude (was 6°59'60.0\")");
+	Test.assertEqualMessage(formatLatLon(46.4999999d, true), "46°30'0.0\"N", "seconds carry into minutes (was 46°29'60.0\")");
+	Test.assertEqualMessage(formatLatLon(46.13331667d, true), "46°07'59.9\"N", "59.94\" stays 59.9\"");
+	Test.assertEqualMessage(formatLatLon(46.13332222d, true), "46°08'0.0\"N", "59.96\" carries");
+	Test.assertEqualMessage(formatLatLon(-45.99999d, true), "46°00'0.0\"S", "carry in the south");
+	Test.assertEqualMessage(formatLatLon(179.99999d, false), "180°00'0.0\"E", "carry up to 180");
+	// Bounds and invalid values.
+	Test.assertEqualMessage(formatLatLon(90.0d, true), "90°00'0.0\"N", "north pole (bound)");
+	Test.assertEqualMessage(formatLatLon(-90.0d, true), "90°00'0.0\"S", "south pole (bound)");
+	Test.assertEqualMessage(formatLatLon(180.0d, false), "180°00'0.0\"E", "lon 180 (bound)");
+	Test.assertEqualMessage(formatLatLon(-180.0d, false), "180°00'0.0\"W", "lon -180 (bound)");
+	Test.assertEqualMessage(formatLatLon(90.001d, true), "--", "lat beyond 90");
+	Test.assertEqualMessage(formatLatLon(180.001d, false), "--", "lon beyond 180");
+	Test.assertEqualMessage(formatLatLon(null, true), "--", "null");
+	Test.assertEqualMessage(formatLatLon(MapTestHelper.nan(), true), "--", "NaN");
+	Test.assertEqualMessage(formatLatLon(MapTestHelper.inf(), false), "--", "+Inf");
+	return true;
+}
