@@ -13,8 +13,10 @@ using Toybox.Sensor;
 //
 // Naming:
 //   testChain*       expected to pass (current behaviour is the right one);
-//   testDefect*      check the RIGHT value and fail until the defect is fixed
-//                    (D2 hike page, D3, D5, D6, D7, D8, D9; next task);
+//   testDefect*      check the RIGHT value for a defect found by this plan
+//                    (D2 hike page, D3, D5, D6, D7, D8, D9), red until fixed;
+//                    all fixed since (formatters in Utils.mc, unit tested
+//                    in TestsFormat.mc); the "Today" notes give the old output;
 //   testKnownDefect* pin a defect the user chose NOT to fix (D1, D4, decision
 //                    of 2026-10-06): they pass today and fail if that
 //                    behaviour changes (D1: the source of the flight vario).
