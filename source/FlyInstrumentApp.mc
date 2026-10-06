@@ -95,15 +95,8 @@ function pauseRecording()
     if ($.isRecording())
     {
         $.session.stop();
-
-        if (Attention has :vibrate)
-        {
-            var vibeData =
-            [
-                new Attention.VibeProfile(50, 300)
-            ];
-            Attention.vibrate(vibeData);
-        }
+        $.applySensorsForState(true);
+        $.vibrateFor(:pause);
     }
 }
 
@@ -111,16 +104,9 @@ function resumeRecording()
 {
     if ($.hasActiveSession() && !$.isRecording())
     {
+        $.applySensorsForState(false);
         $.session.start();
-
-        if (Attention has :vibrate)
-        {
-            var vibeData =
-            [
-                new Attention.VibeProfile(100, 300)
-            ];
-            Attention.vibrate(vibeData);
-        }
+        $.vibrateFor(:resume);
     }
 }
 
@@ -157,6 +143,12 @@ function stopRecording(save)
         }
 
         $.session = null;
+
+        // A session ended while paused must not leave the sensors off.
+        if ($.sensorsOffForPause)
+        {
+            $.applySensorsForState(false);
+        }
     }
 }
 
@@ -233,18 +225,120 @@ function menuBackAction()
 }
 
 // --------------------------------------------------------------------------------
-// Pause 4b -- STUBS, implemented in the next commit.
+// "Paused" screen (PausedView.mc), opened by the menu's Pause item: shows the
+// frozen timer; SELECT resumes and goes back to the activity page. No automatic
+// resume there, and BACK does nothing (popping the last view would quit the app).
 // --------------------------------------------------------------------------------
 
-var sensorsOffForPause = null;
+// SELECT on the Paused screen. `closed` is true once the screen has already
+// been handled (popped): a second press must not pop another view.
+// Returns :none, :resume (resume + close) or :close (close only, e.g. the
+// session is already recording or gone). A session in an unknown recording
+// state is treated as paused, as in selectAction().
+function pausedSelectAction(closed, hasSession, recording)
+{
+    if (closed != false)
+    {
+        return :none;
+    }
+    if (hasSession == true && recording != true)
+    {
+        return :resume;
+    }
+    return :close;
+}
 
-function pausedSelectAction(closed, hasSession, recording) { return :none; }
-function pausedBackAction() { return null; }
-function pausedScreenTimerText(hasSession, timerMs) { return ""; }
-function activeSensorList() { return []; }
-function sensorsForState(paused, activeSensors) { return []; }
-function vibePattern(kind) { return []; }
-function vibeProfiles(pattern) { return []; }
+// BACK on the Paused screen: nothing (unlike the menu, where BACK = Resume).
+function pausedBackAction()
+{
+    return :none;
+}
+
+// Timer text of the Paused screen; "--:--" without a session or timer value.
+function pausedScreenTimerText(hasSession, timerMs)
+{
+    return (hasSession == true) ? $.formatDuration(timerMs) : "--:--";
+}
+
+// --------------------------------------------------------------------------------
+// Sensors while paused. onStart() enables activeSensorList() through
+// Sensor.setEnabledSensors(); while a session is paused they are all turned off
+// (setEnabledSensors([])) and the same list is enabled again on resume. The GPS
+// is not a Sensor: Position.enableLocationEvents() is left alone, and so is
+// Sensor.enableSensorEvents(), which drives the 1 Hz onSensor() tick.
+// --------------------------------------------------------------------------------
+
+// The list enabled by onStart(), or null before onStart().
+var activeSensors = null;
+// True while the sensors have been turned off for a pause.
+var sensorsOffForPause = false;
+
+function activeSensorList()
+{
+    return [Sensor.SENSOR_HEARTRATE, Sensor.SENSOR_TEMPERATURE];
+}
+
+// Sensors wanted for a state: none while paused, otherwise exactly
+// `active` ([] if unknown). An unknown pause state keeps them on.
+function sensorsForState(paused, active)
+{
+    if (paused == true || active == null)
+    {
+        return [];
+    }
+    return active;
+}
+
+function applySensorsForState(paused)
+{
+    Sensor.setEnabledSensors($.sensorsForState(paused, $.activeSensors));
+    $.sensorsOffForPause = (paused == true);
+}
+
+// --------------------------------------------------------------------------------
+// Pause / resume vibrations, told apart by their shape rather than intensity:
+// pause = two short pulses, resume = one long pulse. Each segment is
+// [duty cycle %, duration ms]; a 0 % segment is a gap.
+// --------------------------------------------------------------------------------
+
+function vibePattern(kind)
+{
+    if (kind == :pause)
+    {
+        return [[100, 150], [0, 150], [100, 150]];
+    }
+    if (kind == :resume)
+    {
+        return [[100, 600]];
+    }
+    return [];
+}
+
+function vibeProfiles(pattern)
+{
+    var profiles = [];
+    if (pattern == null)
+    {
+        return profiles;
+    }
+    for (var i = 0; i < pattern.size(); i++)
+    {
+        profiles.add(new Attention.VibeProfile(pattern[i][0], pattern[i][1]));
+    }
+    return profiles;
+}
+
+function vibrateFor(kind)
+{
+    if (Attention has :vibrate)
+    {
+        var profiles = $.vibeProfiles($.vibePattern(kind));
+        if (profiles.size() > 0)
+        {
+            Attention.vibrate(profiles);
+        }
+    }
+}
 
 // Pure rule used by onStop(): should the current session be saved when the app
 // is closed by the system without going through the Save/Ignore menu? Yes
@@ -318,7 +412,9 @@ class FlyInstrumentApp extends Application.AppBase
     function onStart(state)
     {
         Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
-        Sensor.setEnabledSensors([Sensor.SENSOR_HEARTRATE, Sensor.SENSOR_TEMPERATURE]);
+        $.activeSensors = $.activeSensorList();
+        $.sensorsOffForPause = false;
+        Sensor.setEnabledSensors($.activeSensors);
         Sensor.enableSensorEvents(method(:onSensor));
         Sys.println("App started, sensors enabled");
     }
