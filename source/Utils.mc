@@ -47,6 +47,30 @@ function formatHikeAltitude(alt)
 	return Toybox.Math.round(v).toNumber().toString();
 }
 
+// Heart rate range shown by the hike pages (decision of 2026-10-06).
+const HEART_RATE_MIN_BPM = 25.0;
+const HEART_RATE_MAX_BPM = 250.0;
+
+// Formats a heart rate for the hike Pace page: "--" when null, NaN,
+// +-Infinity or outside HEART_RATE_MIN_BPM..HEART_RATE_MAX_BPM (bounds
+// included, checked on the raw value); otherwise the whole bpm (a Float is
+// rounded). Only a display bound: WatchData.getHeartRate() keeps its source
+// priority, so an out of range Activity value reads "--" even with a valid
+// sensor value.
+function formatHeartRate(bpm)
+{
+	if (bpm == null)
+	{
+		return "--";
+	}
+	var v = bpm.toFloat();
+	if (!isFiniteFloat(v) || v < HEART_RATE_MIN_BPM || v > HEART_RATE_MAX_BPM)
+	{
+		return "--";
+	}
+	return Toybox.Math.round(v).toNumber().toString();
+}
+
 // Formats a distance in meters as km with one decimal for the Position page.
 // "--" when null, NaN, +-Infinity or negative (an elapsed distance never is).
 // Zero, -0.0 included, reads "0.0" (format() would print "-0.0").

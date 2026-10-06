@@ -82,3 +82,28 @@ function testFormatHikeAltitude(logger)
 	Test.assertEqualMessage(formatHikeAltitude(1732.2), "1732", "Salvan 13:01:47");
 	return true;
 }
+
+// D5: heart rate of the hike Pace page, "--" for null or outside
+// 25..250 bpm (bounds included). A Float is rounded to the nearest bpm, but
+// the range is checked on the raw value, as for the altitude.
+(:test)
+function testFormatHeartRate(logger)
+{
+	Test.assertEqualMessage(formatHeartRate(null), "--", "null");
+	Test.assertEqualMessage(formatHeartRate(25), "25", "lower bound 25 is valid");
+	Test.assertEqualMessage(formatHeartRate(250), "250", "upper bound 250 is valid");
+	Test.assertEqualMessage(formatHeartRate(24), "--", "just below 25");
+	Test.assertEqualMessage(formatHeartRate(251), "--", "just above 250");
+	Test.assertEqualMessage(formatHeartRate(0), "--", "0 (no contact)");
+	Test.assertEqualMessage(formatHeartRate(-1), "--", "negative");
+	Test.assertEqualMessage(formatHeartRate(255), "--", "255 (invalid byte)");
+	Test.assertEqualMessage(formatHeartRate(24.9), "--", "Float just below 25");
+	Test.assertEqualMessage(formatHeartRate(250.4), "--", "Float just above 250, rounds to 250");
+	Test.assertEqualMessage(formatHeartRate(139.6), "140", "Float rounded");
+	Test.assertEqualMessage(formatHeartRate(MapTestHelper.nan()), "--", "NaN");
+	Test.assertEqualMessage(formatHeartRate(MapTestHelper.inf()), "--", "+Inf");
+	// Real value (garmin_data/activity_24346302742.tcx, HeartRateBpm at
+	// 10:51:28 UTC).
+	Test.assertEqualMessage(formatHeartRate(139), "139", "Salvan 10:51:28");
+	return true;
+}

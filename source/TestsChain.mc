@@ -788,6 +788,26 @@ function testDefectHeartRateOutOfBounds(logger)
 	return ChainHelper.finish(errs, logger);
 }
 
+// D5, choice of 2026-10-06: the source priority of getHeartRate() is not
+// changed (Activity first, even out of range); the bound is applied at
+// display time only, so an invalid Activity HR hides a valid Sensor HR and
+// the page reads "--" rather than mixing sources.
+(:test, :chaintest, :typecheck(false))
+function testChainHeartRateInvalidActivityHidesSensor(logger)
+{
+	ChainHelper.reset();
+	var errs = [];
+	var data = new WatchData();
+	var cases = [[0, 141], [24, 141], [251, 141]];
+	for (var i = 0; i < cases.size(); i++)
+	{
+		SpeedTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, cases[i][0], null, null), ChainHelper.sensor(null, null, cases[i][1]));
+		ChainHelper.expectEq(errs, "getHeartRate() keeps Activity " + cases[i][0], data.getHeartRate(), cases[i][0]);
+		ChainHelper.expect(errs, "Activity " + cases[i][0] + " / Sensor " + cases[i][1], ChainHelper.pace(data), "--|--|--:--|--:--");
+	}
+	return ChainHelper.finish(errs, logger);
+}
+
 // F18: TIMER on the Position and Pace pages and on the Paused screen.
 (:test, :chaintest, :typecheck(false))
 function testChainTimerDisplay(logger)

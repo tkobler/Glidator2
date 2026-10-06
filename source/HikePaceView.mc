@@ -37,7 +37,7 @@ class HikePaceView extends WatchUi.View {
         var data = app.mainView.data;
 
         var heartRate = data.getHeartRate();
-        var hrStr = (heartRate == null) ? "--" : heartRate.toString(); // bpm
+        var hrStr = $.formatHeartRate(heartRate); // bpm, "--" outside 25..250
 
         // Vertical speed (m/h): regression over the last 1, 3 or 5 min of hike
         // samples (MENU -> "VS window", default 1 min;
