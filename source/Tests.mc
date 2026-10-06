@@ -2,6 +2,8 @@ using Toybox.Test;
 using Toybox.Activity;
 using Toybox.ActivityRecording;
 using Toybox.Position;
+using Toybox.Sensor;
+using Toybox.Attention;
 
 // Unit tests for the hike-and-fly feature's pure logic, run with:
 //   monkeyc -f monkey.jungle -o /tmp/glidator-build/Glidator.prg -d fenix6pro -y developer_key -t
@@ -341,6 +343,211 @@ function testIsPausedAndSelectFlow(logger)
 	Test.assertMessage(!$.isPaused(), "after discard -> not paused");
 	Test.assertEqualMessage($.selectAction($.hasActiveSession(), $.isRecording()), :start, "SELECT after discard -> start");
 
+	return true;
+}
+
+// ---------------------------------------------------------------------------
+// Pause 4b: "Paused" screen (opened by the menu's Pause item), sensors off
+// except GPS while paused, distinct pause / resume vibrations.
+// ---------------------------------------------------------------------------
+
+// SELECT on the Paused screen: resume when paused, otherwise just close the
+// screen; never act twice (a second press before the screen is gone would
+// pop one view too many and quit the app).
+(:test)
+function testPausedSelectAction(logger)
+{
+	Test.assertEqualMessage($.pausedSelectAction(false, true, false), :resume, "paused session -> resume");
+	Test.assertEqualMessage($.pausedSelectAction(false, true, true), :close, "session already recording -> close only (no second start)");
+	Test.assertEqualMessage($.pausedSelectAction(false, false, false), :close, "no session any more -> close only");
+
+	// Already handled once: nothing more, whatever the session state.
+	Test.assertEqualMessage($.pausedSelectAction(true, true, false), :none, "already closed, paused -> none");
+	Test.assertEqualMessage($.pausedSelectAction(true, true, true), :none, "already closed, recording -> none");
+	Test.assertEqualMessage($.pausedSelectAction(true, false, false), :none, "already closed, no session -> none");
+
+	// Edge cases.
+	Test.assertEqualMessage($.pausedSelectAction(null, true, false), :none, "unknown closed state -> none (never pop on doubt)");
+	Test.assertEqualMessage($.pausedSelectAction(false, true, null), :resume, "session with unknown recording state -> treated as paused (resumeRecording() is a no-op if recording)");
+	Test.assertEqualMessage($.pausedSelectAction(false, null, null), :close, "unknown session -> close only");
+	Test.assertEqualMessage($.pausedSelectAction(false, false, true), :close, "recording without a session is incoherent -> close only");
+	return true;
+}
+
+// BACK on the Paused screen does nothing: it must neither resume nor pop the
+// screen (popping the last view would quit the app).
+(:test)
+function testPausedBackAction(logger)
+{
+	Test.assertEqualMessage($.pausedBackAction(), :none, "BACK on the Paused screen -> none");
+	Test.assertMessage($.pausedBackAction() != $.menuBackAction(), "unlike the pause menu, BACK does not resume here");
+	return true;
+}
+
+// Frozen timer shown on the Paused screen.
+(:test)
+function testPausedScreenTimerText(logger)
+{
+	Test.assertEqualMessage($.pausedScreenTimerText(true, 0), "00:00", "session, 0 ms");
+	Test.assertEqualMessage($.pausedScreenTimerText(true, 65000), "01:05", "session, 65 s");
+	Test.assertEqualMessage($.pausedScreenTimerText(true, 3661000), "1:01:01", "session, over an hour");
+	Test.assertEqualMessage($.pausedScreenTimerText(true, 65999), "01:05", "milliseconds are truncated, like the hike pages");
+
+	// Edge cases.
+	Test.assertEqualMessage($.pausedScreenTimerText(true, null), "--:--", "session, unknown timer -> placeholder");
+	Test.assertEqualMessage($.pausedScreenTimerText(false, 65000), "--:--", "no session -> placeholder (stale timer not shown)");
+	Test.assertEqualMessage($.pausedScreenTimerText(null, 65000), "--:--", "unknown session -> placeholder");
+	return true;
+}
+
+// Sensors wanted for a state: none while paused (GPS is not a Sensor and is
+// driven separately by Position.enableLocationEvents), the exact list that
+// was enabled at start otherwise.
+(:test)
+function testSensorsForState(logger)
+{
+	var active = [Sensor.SENSOR_HEARTRATE, Sensor.SENSOR_TEMPERATURE];
+
+	var running = $.sensorsForState(false, active);
+	Test.assertEqualMessage(running.size(), 2, "running -> the 2 active sensors");
+	Test.assertEqualMessage(running[0], Sensor.SENSOR_HEARTRATE, "running -> heart rate first, as given");
+	Test.assertEqualMessage(running[1], Sensor.SENSOR_TEMPERATURE, "running -> temperature second, as given");
+
+	Test.assertEqualMessage($.sensorsForState(true, active).size(), 0, "paused -> no sensor");
+	Test.assertEqualMessage(active.size(), 2, "the active list itself is not emptied by a pause");
+
+	// Exactly what was on comes back, whatever it was.
+	var hrOnly = $.sensorsForState(false, [Sensor.SENSOR_HEARTRATE]);
+	Test.assertEqualMessage(hrOnly.size(), 1, "running, HR only -> 1 sensor");
+	Test.assertEqualMessage(hrOnly[0], Sensor.SENSOR_HEARTRATE, "running, HR only -> HR");
+	Test.assertEqualMessage($.sensorsForState(false, []).size(), 0, "running, nothing active -> nothing");
+
+	// Edge cases.
+	Test.assertEqualMessage($.sensorsForState(false, null).size(), 0, "running, unknown active list -> nothing");
+	Test.assertEqualMessage($.sensorsForState(true, null).size(), 0, "paused, unknown active list -> nothing");
+	Test.assertEqualMessage($.sensorsForState(null, active).size(), 2, "unknown pause state -> keep sensors on (only costs battery)");
+	return true;
+}
+
+// The list enabled by onStart() (and restored on resume): heart rate and
+// temperature, as before 4b.
+(:test)
+function testActiveSensorList(logger)
+{
+	var list = $.activeSensorList();
+	Test.assertEqualMessage(list.size(), 2, "2 sensors");
+	Test.assertEqualMessage(list[0], Sensor.SENSOR_HEARTRATE, "heart rate");
+	Test.assertEqualMessage(list[1], Sensor.SENSOR_TEMPERATURE, "temperature");
+	return true;
+}
+
+// Through the real session API: pausing turns the sensors off, resuming
+// (from the Paused screen or the menu) turns them back on, and ending a paused
+// session never leaves them off.
+(:test)
+function testSensorsFollowPauseAndResume(logger)
+{
+	if ($.hasActiveSession())
+	{
+		$.stopRecording(false);
+	}
+	Test.assertMessage($.sensorsOffForPause != true, "precondition: sensors on without a session");
+
+	$.startRecording();
+	Test.assertMessage($.sensorsOffForPause != true, "recording -> sensors on");
+
+	$.pauseRecording();
+	Test.assertMessage($.sensorsOffForPause == true, "paused -> sensors off");
+	Test.assertEqualMessage($.pausedSelectAction(false, $.hasActiveSession(), $.isRecording()), :resume, "SELECT on the Paused screen -> resume");
+
+	$.resumeRecording();
+	Test.assertMessage($.sensorsOffForPause != true, "resumed -> sensors on again");
+	Test.assertMessage($.isRecording(), "resumed -> recording");
+
+	// A second pause / resume cycle behaves the same.
+	$.pauseRecording();
+	Test.assertMessage($.sensorsOffForPause == true, "paused again -> sensors off");
+	$.resumeRecording();
+	Test.assertMessage($.sensorsOffForPause != true, "resumed again -> sensors on");
+
+	// Ending a paused session (Save / Ignore, onStop) restores the sensors.
+	$.pauseRecording();
+	Test.assertMessage($.sensorsOffForPause == true, "precondition: paused, sensors off");
+	$.stopRecording(false); // discard -- this is just a test run
+	Test.assertMessage($.sensorsOffForPause != true, "session ended while paused -> sensors on");
+
+	// Pause / resume without a session are no-ops: the sensors are not touched.
+	$.pauseRecording();
+	Test.assertMessage($.sensorsOffForPause != true, "pause without a session -> sensors untouched");
+	$.resumeRecording();
+	Test.assertMessage($.sensorsOffForPause != true, "resume without a session -> sensors untouched");
+	return true;
+}
+
+// Vibration motifs as [duty cycle %, duration ms] segments.
+// Pause: two short pulses; resume: one long pulse (spec 4b).
+(:test)
+function testVibePattern(logger)
+{
+	var pause = $.vibePattern(:pause);
+	Test.assertEqualMessage(pause.size(), 3, "pause: pulse, gap, pulse");
+	Test.assertEqualMessage(pause[0][0], 100, "pause pulse 1: 100 %");
+	Test.assertEqualMessage(pause[0][1], 150, "pause pulse 1: 150 ms");
+	Test.assertEqualMessage(pause[1][0], 0, "pause gap: 0 % (motor off)");
+	Test.assertEqualMessage(pause[1][1], 150, "pause gap: 150 ms");
+	Test.assertEqualMessage(pause[2][0], 100, "pause pulse 2: 100 %");
+	Test.assertEqualMessage(pause[2][1], 150, "pause pulse 2: 150 ms");
+
+	var resume = $.vibePattern(:resume);
+	Test.assertEqualMessage(resume.size(), 1, "resume: a single pulse");
+	Test.assertEqualMessage(resume[0][0], 100, "resume pulse: 100 %");
+	Test.assertEqualMessage(resume[0][1], 600, "resume pulse: 600 ms");
+
+	// Distinct by shape, not just intensity: pulse count and longest pulse differ.
+	var pausePulses = 0;
+	var pauseLongest = 0;
+	for (var i = 0; i < pause.size(); i++)
+	{
+		if (pause[i][0] > 0) { pausePulses++; }
+		if (pause[i][0] > 0 && pause[i][1] > pauseLongest) { pauseLongest = pause[i][1]; }
+	}
+	Test.assertEqualMessage(pausePulses, 2, "pause has 2 pulses");
+	Test.assertMessage(resume[0][1] >= 4 * pauseLongest, "the resume pulse is at least 4x longer than a pause pulse");
+
+	// Every segment is valid for Attention.VibeProfile: duty 0..100, duration > 0.
+	var all = [pause, resume];
+	for (var p = 0; p < all.size(); p++)
+	{
+		for (var i = 0; i < all[p].size(); i++)
+		{
+			var seg = all[p][i];
+			Test.assertMessage(seg[0] >= 0 && seg[0] <= 100, "duty cycle within 0..100");
+			Test.assertMessage(seg[1] > 0, "duration > 0");
+		}
+	}
+
+	// Edge cases: unknown kinds vibrate nothing.
+	Test.assertEqualMessage($.vibePattern(:unknown).size(), 0, "unknown kind -> no vibration");
+	Test.assertEqualMessage($.vibePattern(null).size(), 0, "null kind -> no vibration");
+	Test.assertEqualMessage($.vibePattern("pause").size(), 0, "string instead of symbol -> no vibration");
+	return true;
+}
+
+// Pattern -> Attention.VibeProfile array, one profile per segment.
+(:test)
+function testVibeProfilesFromPattern(logger)
+{
+	var profiles = $.vibeProfiles($.vibePattern(:pause));
+	Test.assertEqualMessage(profiles.size(), 3, "pause -> 3 profiles");
+	for (var i = 0; i < profiles.size(); i++)
+	{
+		Test.assertMessage(profiles[i] instanceof Attention.VibeProfile, "profile " + i + " is a VibeProfile");
+	}
+	Test.assertEqualMessage($.vibeProfiles($.vibePattern(:resume)).size(), 1, "resume -> 1 profile");
+
+	// Edge cases.
+	Test.assertEqualMessage($.vibeProfiles([]).size(), 0, "empty pattern -> no profile");
+	Test.assertEqualMessage($.vibeProfiles(null).size(), 0, "null pattern -> no profile");
 	return true;
 }
 

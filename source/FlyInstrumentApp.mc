@@ -232,6 +232,20 @@ function menuBackAction()
     return :resume;
 }
 
+// --------------------------------------------------------------------------------
+// Pause 4b -- STUBS, implemented in the next commit.
+// --------------------------------------------------------------------------------
+
+var sensorsOffForPause = null;
+
+function pausedSelectAction(closed, hasSession, recording) { return :none; }
+function pausedBackAction() { return null; }
+function pausedScreenTimerText(hasSession, timerMs) { return ""; }
+function activeSensorList() { return []; }
+function sensorsForState(paused, activeSensors) { return []; }
+function vibePattern(kind) { return []; }
+function vibeProfiles(pattern) { return []; }
+
 // Pure rule used by onStop(): should the current session be saved when the app
 // is closed by the system without going through the Save/Ignore menu? Yes
 // whenever a session exists, recording or paused -- losing a whole hike & fly
