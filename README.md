@@ -25,10 +25,16 @@ You can find the app in the Garmin IQ store under Glidator2
 ## Usage
 - **Launch**: Start the app on your Garmin device to enter Hiking mode's Position View.
 - **Navigation**: Use up/down keys to cycle through the pages of the current mode.
-- **Mode Switch**: Hold BACK/LAP for 1.5 seconds to switch between Hiking and Flying mode.
-- **Recording**: Press SELECT to start recording. Pressing SELECT again pauses recording and opens a Resume/Save/Ignore menu.
+- **Mode Switch**: Hold BACK/LAP for 1.5 seconds to switch between Hiking and Flying mode (on the activity pages only: in the Paused menu any BACK press means Resume, and on the Paused screen BACK does nothing).
+- **Recording** (SELECT / START button):
+  - No session: SELECT starts recording.
+  - Recording: SELECT pauses (the timer stops) and opens the **Paused** menu: Resume, Pause, Save, Ignore. BACK in this menu means Resume, and the activity also resumes on its own after 30 seconds without a choice.
+  - **Pause** opens the Paused screen (the frozen timer). The activity stays paused there, with no automatic resume, until you press SELECT, which resumes and returns to the activity pages. BACK does nothing on this screen.
+  - **Save** / **Ignore** end the activity (saved or discarded) and close the app.
+  - Feedback: pausing vibrates two short pulses, resuming one long pulse.
+  - While paused, the heart rate and temperature sensors are turned off (GPS stays on) and turned back on when you resume. The hike vertical speed and pace show "--" for about 20 seconds after resuming, until enough new data is collected.
 - **What gets recorded**: The whole outing is recorded as a single SPORT_FLYING activity (shown as Sport="Other" in TCX exports; on watches whose firmware has no SPORT_FLYING, i.e. Connect IQ below 3.2 such as the fenix 5 and fenix 5X, it falls back to a SPORT_GENERIC activity), with the hike and the flight separated by a lap at each mode switch made while recording (a switch made while paused is not marked). If the app is closed by the system while a session is recording or paused, the session is saved rather than discarded.
-- **Exit**: Press BACK while idle (no active session) to exit the app.
+- **Exit**: Press BACK while idle (no active session) to exit the app. While a session exists (recording or paused), a short BACK press on the activity pages does nothing; end the activity with SELECT, then Save or Ignore.
 - **Preferences**: Press MENU to open preferences and enable/disable audio beeps.
 
 ## Technical Details
@@ -44,6 +50,7 @@ You can find the app in the Garmin IQ store under Glidator2
   - `HikeMapView.mc`: Hiking mode's live breadcrumb map.
   - `BreadcrumbTrail.mc`: Ring buffer that records the live GPS trail for the Map view.
   - `TimeView.mc`: Time and battery display, shared by both modes.
+  - `PausedView.mc`: Paused screen (frozen timer, SELECT to resume).
   - `WatchData.mc`: Manages GPS, activity, and sensor data.
   - `WatchDisplay.mc`: Handles rendering of metrics, compass, and the adaptive hiking grid layout.
   - `Preferences.mc`: Manages user settings.
