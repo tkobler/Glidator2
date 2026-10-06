@@ -9,12 +9,11 @@ using Toybox.System as Sys;
 // --------------------------------------------------------------------------------
 // Session recording
 //
-// SELECT is a real start -> pause -> resume toggle, like stock Garmin activity
-// apps: hasActiveSession() is true for the whole time a session exists (whether
-// actively recording or paused), while isRecording() is only true while it's
-// actively ticking. The quit/save-discard menu (FlyInstrumentDelegate.mc) must
-// gate on hasActiveSession(), not isRecording() -- otherwise pausing and then
-// hitting BACK would exit without ever offering to save the paused session.
+// SELECT drives recording like stock Garmin activity apps (see selectAction()
+// below): hasActiveSession() is true for the whole time a session exists
+// (whether actively recording or paused), while isRecording() is only true while
+// it's actively ticking. Anything that must not lose a paused session (BACK
+// exiting the app, onStop() saving) gates on hasActiveSession(), not isRecording().
 // --------------------------------------------------------------------------------
 
 var session;
@@ -162,40 +161,75 @@ function stopRecording(save)
 }
 
 // --------------------------------------------------------------------------------
-// START (SELECT) button and the Resume / Pause / Save / Ignore menu -- STUBS,
-// real implementation in the next commit.
+// START (SELECT) button and the Resume / Pause / Save / Ignore menu, modelled on
+// the stock Garmin Hike app (pure rules, used by FlyInstrumentDelegate.mc):
+// - no session        -> SELECT starts recording;
+// - recording         -> SELECT pauses (timer frozen) and opens the menu;
+// - paused            -> SELECT resumes (reached after picking "Pause").
+// In the menu, BACK means Resume, and MENU_AUTO_RESUME_MS without any choice
+// resumes too, so a stray press can't leave the activity paused for hours.
 // --------------------------------------------------------------------------------
 
-const MENU_AUTO_RESUME_MS = 0;
+const MENU_AUTO_RESUME_MS = 30000;
 
+// A session exists but is not ticking (paused by the user).
 function isPaused()
 {
-    return false;
+    return $.hasActiveSession() && !$.isRecording();
 }
 
+// Returns :start, :pauseMenu or :resume. A session in an unknown recording state
+// is treated as paused: resumeRecording() is a no-op on a running session.
 function selectAction(hasSession, recording)
 {
-    return :none;
+    if (hasSession != true)
+    {
+        return :start;
+    }
+    return (recording == true) ? :pauseMenu : :resume;
 }
 
+// Returns :resume once the menu has been open for MENU_AUTO_RESUME_MS or more,
+// :none otherwise (including an unknown or negative elapsed time).
 function menuTimeoutAction(elapsedMs)
 {
-    return :none;
+    if (elapsedMs == null || elapsedMs < 0)
+    {
+        return :none;
+    }
+    return (elapsedMs >= MENU_AUTO_RESUME_MS) ? :resume : :none;
 }
 
+// Periodic check run by the menu's timer: nothing once the menu has been
+// closed (or if that state is unknown), so a choice like Pause, Save or
+// Ignore is never followed by a late automatic resume.
 function quitMenuTickAction(menuClosed, elapsedMs)
 {
-    return :none;
+    if (menuClosed != false)
+    {
+        return :none;
+    }
+    return $.menuTimeoutAction(elapsedMs);
 }
 
+// Menu item id -> :resume, :pause, :save, :ignore, or :none if unknown.
 function menuItemAction(id)
 {
+    if (!(id instanceof Toybox.Lang.String))
+    {
+        return :none;
+    }
+    if (id.equals("resume")) { return :resume; }
+    if (id.equals("pause"))  { return :pause; }
+    if (id.equals("save"))   { return :save; }
+    if (id.equals("ignore")) { return :ignore; }
     return :none;
 }
 
+// BACK in the menu is the same as picking Resume (stock Garmin behaviour).
 function menuBackAction()
 {
-    return :none;
+    return :resume;
 }
 
 // Pure rule used by onStop(): should the current session be saved when the app
