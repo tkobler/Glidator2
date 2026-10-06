@@ -235,7 +235,8 @@ class WatchDisplay
 
         // Flip heading to match watch orientation. 
         // This is necessary because We want the cadrant to turn CCW if we turn the watch CW
-       heading = -heading; 
+        // A null heading (no GPS course yet) draws the dial without rotation.
+        heading = $.compassRotation(heading);
 
 
         var width = dc.getWidth();

@@ -71,6 +71,24 @@ function formatHeartRate(bpm)
 	return Toybox.Math.round(v).toNumber().toString();
 }
 
+// Rotation, in radians, of the compass dial (WatchDisplay.compass()) for a
+// heading in radians: the heading negated, so that the dial turns
+// counter-clockwise when the watch turns clockwise. 0.0 (no rotation) when
+// the heading is null (Position.Info.heading can be), NaN or +-Infinity.
+function compassRotation(heading)
+{
+	if (heading == null)
+	{
+		return 0.0;
+	}
+	var v = heading.toFloat();
+	if (!isFiniteFloat(v) || v == 0.0)
+	{
+		return 0.0;
+	}
+	return -v;
+}
+
 // Formats a latitude (isLat true) or longitude in degrees as D°MM'S.S" plus
 // N/S or E/W; the letter alone gives the hemisphere (no minus sign).
 // The absolute value is rounded once to the nearest 0.1" (in Double, then a

@@ -108,6 +108,23 @@ function testFormatHeartRate(logger)
 	return true;
 }
 
+// D9: rotation of the compass dial from the heading (radians): the heading
+// negated (the dial turns the other way), 0 (no rotation) when the heading
+// is null (Position.Info.heading can be), NaN or +-Infinity.
+(:test)
+function testCompassRotation(logger)
+{
+	Test.assertEqualMessage(compassRotation(null), 0.0, "null -> no rotation (was a crash)");
+	Test.assertEqualMessage(compassRotation(MapTestHelper.nan()), 0.0, "NaN -> no rotation");
+	Test.assertEqualMessage(compassRotation(MapTestHelper.inf()), 0.0, "+Inf -> no rotation");
+	Test.assertEqualMessage(compassRotation(-MapTestHelper.inf()), 0.0, "-Inf -> no rotation");
+	Test.assertEqualMessage(compassRotation(0.0), 0.0, "0 -> 0");
+	Test.assertEqualMessage(compassRotation(0.785), -0.785, "heading negated");
+	Test.assertEqualMessage(compassRotation(-1.5), 1.5, "negative heading negated");
+	Test.assertEqualMessage(compassRotation(1), -1.0, "Number heading");
+	return true;
+}
+
 // D7, D8: a coordinate in degrees as D°MM'S.S" plus the hemisphere letter,
 // without a minus sign (D7); the seconds are rounded to 0.1" once, on the
 // whole value, so 59.96" carries into the minutes and the degrees (D8).
