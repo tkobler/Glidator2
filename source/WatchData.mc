@@ -408,9 +408,25 @@ class WatchData
 	// the app uses the System.getTimer() wrappers.
 	// ---------------------------------------------------------------------
 
+	// Pace window (fixed). The vertical-speed window is the user's choice.
 	const HIKE_WINDOW_MS = 60000;
 
 	var hikeHistory = new HikeHistory();
+
+	// Vertical-speed window in ms, one of vsWindowChoicesMs() (Preferences.mc).
+	// Set by the app from the stored preference at start and by the MENU
+	// "VS window" choice; changing it never resets hikeHistory.
+	var hikeVsWindowMs = $.VS_WINDOW_DEFAULT_MS;
+
+	function setHikeVsWindowMs(ms)
+	{
+		hikeVsWindowMs = $.sanitizeVsWindowMs(ms);
+	}
+
+	function getHikeVsWindowMs()
+	{
+		return hikeVsWindowMs;
+	}
 
 	function recordHikeSample()
 	{
@@ -423,7 +439,9 @@ class WatchData
 		hikeHistory.add(tMs, getAltitude(), getDistance());
 	}
 
-	// m/h over the last 60 s, or null if not enough data.
+	// m/h over the chosen window (1, 3 or 5 min, default 1 min), or null if
+	// the window holds fewer than 3 samples or less than 20 s. A window longer
+	// than the data held gives the regression over what is there.
 	function getHikeVerticalSpeed()
 	{
 		return getHikeVerticalSpeedAt(Sys.getTimer());
@@ -431,7 +449,7 @@ class WatchData
 
 	function getHikeVerticalSpeedAt(nowMs)
 	{
-		return hikeHistory.verticalSpeedMh(nowMs, HIKE_WINDOW_MS);
+		return hikeHistory.verticalSpeedMh(nowMs, hikeVsWindowMs);
 	}
 
 	// m/s over the last 60 s, or null if not enough data / no distance.
