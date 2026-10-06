@@ -1,40 +1,84 @@
 using Toybox.WatchUi;
 using Toybox.ActivityRecording;
+using Toybox.Timer;
 
 using Toybox.System as Sys;
 
 // --------------------------------------------------------------------------------
 
+// Resume / Pause / Save / Ignore menu, shown by SELECT while recording (the
+// session is already paused when it opens). The rules live in
+// FlyInstrumentApp.mc (menuItemAction, menuBackAction, quitMenuTickAction):
+// - Resume, BACK, or MENU_AUTO_RESUME_MS without a choice -> resume + close;
+// - Pause -> close and stay paused (SELECT will resume later);
+// - Save / Ignore -> end the session and exit the app.
+// A repeating 1 s timer checks the elapsed time; it is stopped as soon as the
+// menu is closed, and `closed` makes sure only the first action ever runs.
 class MyMenu2QuitDelegate extends WatchUi.Menu2InputDelegate
 {
+    const TICK_MS = 1000;
+
+    var openedMs;
+    var closed;
+    var timer;
+
     function initialize()
     {
         Menu2InputDelegate.initialize();
+        openedMs = Sys.getTimer();
+        closed = false;
+        timer = new Timer.Timer();
+        timer.start(method(:onTick), TICK_MS, true);
     }
 
     function onSelect(item)
     {
-        if( item.getId().equals("resume") )
+        apply($.menuItemAction(item.getId()));
+    }
+
+    function onBack()
+    {
+        apply($.menuBackAction());
+    }
+
+    function onTick() as Void
+    {
+        apply($.quitMenuTickAction(closed, Sys.getTimer() - openedMs));
+    }
+
+    function apply(action)
+    {
+        if (closed || action == :none)
         {
-            $.resumeRecording(); // no-op if it wasn't paused (e.g. reached here via a stray BACK while still recording)
+            return;
+        }
+        closed = true;
+        if (timer != null)
+        {
+            timer.stop();
+            timer = null; // also breaks the delegate <-> timer callback reference cycle
+        }
+
+        if (action == :resume)
+        {
+            $.resumeRecording(); // no-op if not paused
             WatchUi.popView(WatchUi.SLIDE_DOWN);
         }
-        else if( item.getId().equals("save") )
+        else if (action == :pause)
+        {
+            WatchUi.popView(WatchUi.SLIDE_DOWN); // stays paused
+        }
+        else if (action == :save)
         {
             $.stopRecording(true);
             System.exit();
         }
-        else if( item.getId().equals("ignore") )
+        else if (action == :ignore)
         {
             $.stopRecording(false);
             System.exit();
         }
-    }
-    
-    function onBack()
-    {
-        $.resumeRecording(); // backing out of the menu is equivalent to picking Resume
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        WatchUi.requestUpdate();
     }
 }
 
@@ -101,23 +145,30 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
         }
     }
 
-    // SELECT (START) is the only button that drives recording now: not recording
-    // -> start; recording -> pause AND immediately show the Resume/Save/Ignore
-    // menu (matching stock Garmin activity apps, where pausing and offering to
-    // stop are the same moment). BACK/LAP is reserved entirely for the 1.5s-hold
-    // Hiking/Flying mode switch -- see onKeyPressed/onKeyReleased below.
+    // SELECT (START) is the only button that drives recording (see
+    // selectAction() in FlyInstrumentApp.mc), like the stock Garmin Hike app:
+    // no session -> start; recording -> pause (timer frozen) AND show the
+    // Resume/Pause/Save/Ignore menu; paused (after picking Pause) -> resume.
+    // BACK/LAP is reserved for the 1.5s-hold Hiking/Flying mode switch -- see
+    // onKeyPressed/onKeyReleased below.
     function onSelect()
     {
-        if (!$.hasActiveSession())
+        var action = $.selectAction($.hasActiveSession(), $.isRecording());
+        if (action == :start)
         {
             $.startRecording();
             Sys.println("Select pressed, starting recording");
         }
-        else
+        else if (action == :pauseMenu)
         {
             $.pauseRecording();
-            Sys.println("Select pressed, pausing recording, showing quit menu");
+            Sys.println("Select pressed, pausing recording, showing pause menu");
             showQuitMenu();
+        }
+        else if (action == :resume)
+        {
+            $.resumeRecording();
+            Sys.println("Select pressed, resuming recording");
         }
         WatchUi.requestUpdate();
         return true;
@@ -125,8 +176,9 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
 
     function showQuitMenu()
     {
-        var menu = new WatchUi.Menu2({:title=>"Quit ?"});
+        var menu = new WatchUi.Menu2({:title=>"Paused"});
         menu.addItem(new WatchUi.MenuItem("Resume", null, "resume", null));
+        menu.addItem(new WatchUi.MenuItem("Pause", null, "pause", null));
         menu.addItem(new WatchUi.MenuItem("Save", null, "save", null));
         menu.addItem(new WatchUi.MenuItem("Ignore", null, "ignore", null));
         var delegate = new MyMenu2QuitDelegate();
