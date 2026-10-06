@@ -10,7 +10,8 @@ using Toybox.System as Sys;
 // session is already paused when it opens). The rules live in
 // FlyInstrumentApp.mc (menuItemAction, menuBackAction, quitMenuTickAction):
 // - Resume, BACK, or MENU_AUTO_RESUME_MS without a choice -> resume + close;
-// - Pause -> close and stay paused (SELECT will resume later);
+// - Pause -> the menu is replaced by the "Paused" screen (PausedView.mc), which
+//   stays paused until SELECT, with no automatic resume;
 // - Save / Ignore -> end the session and exit the app.
 // A repeating 1 s timer checks the elapsed time; it is stopped as soon as the
 // menu is closed, and `closed` makes sure only the first action ever runs.
@@ -18,13 +19,15 @@ class MyMenu2QuitDelegate extends WatchUi.Menu2InputDelegate
 {
     const TICK_MS = 1000;
 
+    var app;
     var openedMs;
     var closed;
     var timer;
 
-    function initialize()
+    function initialize(appInstance)
     {
         Menu2InputDelegate.initialize();
+        app = appInstance;
         openedMs = Sys.getTimer();
         closed = false;
         timer = new Timer.Timer();
@@ -66,7 +69,10 @@ class MyMenu2QuitDelegate extends WatchUi.Menu2InputDelegate
         }
         else if (action == :pause)
         {
-            WatchUi.popView(WatchUi.SLIDE_DOWN); // stays paused
+            // Replaces the menu (no pop + push): the stack stays activity
+            // page + one view, so the Paused screen's single pop goes back
+            // to the activity page.
+            WatchUi.switchToView(new PausedView(app), new PausedDelegate(), WatchUi.SLIDE_IMMEDIATE);
         }
         else if (action == :save)
         {
@@ -148,7 +154,8 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
     // SELECT (START) is the only button that drives recording (see
     // selectAction() in FlyInstrumentApp.mc), like the stock Garmin Hike app:
     // no session -> start; recording -> pause (timer frozen) AND show the
-    // Resume/Pause/Save/Ignore menu; paused (after picking Pause) -> resume.
+    // Resume/Pause/Save/Ignore menu; paused -> resume (normally the Paused
+    // screen handles SELECT itself, see PausedView.mc; kept as a fallback).
     // BACK/LAP is reserved for the 1.5s-hold Hiking/Flying mode switch -- see
     // onKeyPressed/onKeyReleased below.
     function onSelect()
@@ -181,7 +188,7 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
         menu.addItem(new WatchUi.MenuItem("Pause", null, "pause", null));
         menu.addItem(new WatchUi.MenuItem("Save", null, "save", null));
         menu.addItem(new WatchUi.MenuItem("Ignore", null, "ignore", null));
-        var delegate = new MyMenu2QuitDelegate();
+        var delegate = new MyMenu2QuitDelegate(app);
 
         WatchUi.pushView(menu, delegate, WatchUi.SLIDE_IMMEDIATE);
     }

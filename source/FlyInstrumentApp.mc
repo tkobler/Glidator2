@@ -157,7 +157,8 @@ function stopRecording(save)
 // the stock Garmin Hike app (pure rules, used by FlyInstrumentDelegate.mc):
 // - no session        -> SELECT starts recording;
 // - recording         -> SELECT pauses (timer frozen) and opens the menu;
-// - paused            -> SELECT resumes (reached after picking "Pause").
+// - paused            -> SELECT resumes (picking "Pause" opens the Paused
+//                        screen, whose own SELECT resumes; see below).
 // In the menu, BACK means Resume, and MENU_AUTO_RESUME_MS without any choice
 // resumes too, so a stray press can't leave the activity paused for hours.
 // --------------------------------------------------------------------------------
