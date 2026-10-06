@@ -24,6 +24,27 @@ function formatDuration(ms)
 	return minutes.format("%02d") + ":" + seconds.format("%02d");
 }
 
+// Formats a distance in meters as km with one decimal for the Position page.
+// "--" when null, NaN, +-Infinity or negative (an elapsed distance never is).
+// Zero, -0.0 included, reads "0.0" (format() would print "-0.0").
+function formatDistanceKm(meters)
+{
+	if (meters == null)
+	{
+		return "--";
+	}
+	var v = meters.toFloat();
+	if (!isFiniteFloat(v) || v < 0.0)
+	{
+		return "--";
+	}
+	if (v == 0.0)
+	{
+		return "0.0";
+	}
+	return (v / 1000.0).format("%.1f");
+}
+
 // Formats a vertical speed in m/h for the hike pages: "--" when there is no
 // value (or NaN / +-Infinity), otherwise rounded to the nearest 10 m/h (halves away from
 // zero, the same way for climbs and descents) with a "+" only when the rounded

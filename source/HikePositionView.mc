@@ -50,7 +50,7 @@ class HikePositionView extends WatchUi.View {
         var ascentStr = (!hasSession || ascent == null) ? "--" : Math.round(ascent).toNumber().toString(); // m
 
         var distance = data.getDistance();
-        var distStr = (!hasSession || distance == null) ? "--" : (distance / 1000.0).format("%.1f"); // km
+        var distStr = hasSession ? $.formatDistanceKm(distance) : "--"; // km
 
         var timerStr = hasSession ? formatDuration(data.getTimerTime()) : "--:--";
 
