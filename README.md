@@ -16,7 +16,7 @@ You can find the app in the Garmin IQ store under Glidator2
   - **Pace View**: Heart rate, vertical speed, pace (min/km), and elapsed timer.
   - **Map View**: Live breadcrumb trail of the current track with a heading-oriented position marker.
   - **Time & Battery View**: Shared with Flying mode.
-- **Activity Recording**: Start, pause/resume, and save-or-discard flight or hike sessions using Garmin's ActivityRecording API, with audio/vibration feedback and a start-recording confirmation icon.
+- **Activity Recording**: Start, pause/resume, and save/ignore flight or hike sessions using Garmin's ActivityRecording API, with audio/vibration feedback and a start-recording confirmation icon.
 - **Preferences**: Toggle audio beeps for climbing, stored via Application Storage.
 - **Adaptive Layout**: The Hiking grid views scale their fonts and spacing to the device's screen size, tuned against the fenix6pro as a reference, so the layout stays clean from the smallest Instinct to the largest AMOLED Fenix/Forerunner screens.
 - **Broad Device Support**: Fenix, Forerunner, and Instinct series watches.
