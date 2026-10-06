@@ -338,6 +338,25 @@ class ChainHelper
 	{
 		return Toybox.System.getTimer() + 500;
 	}
+
+	// Same, for a test that does a lot of work (61 ticks) between this call
+	// and the render: 30 s ahead. A sample in the future is still in the
+	// window (nowMs - t <= windowMs), so only a render more than 30 s later
+	// could drop the oldest sample; the results do not depend on the shift.
+	static function slowViewEndMs()
+	{
+		return Toybox.System.getTimer() + 30000;
+	}
+
+	// Number / Boolean check that records the mismatch instead of throwing,
+	// so that finish() (and its reset()) always runs.
+	static function expectEq(errs, label, actual, expected)
+	{
+		if (actual != expected)
+		{
+			errs.add(label + ": expected " + expected + ", got " + actual);
+		}
+	}
 }
 
 // ---------------------------------------------------------------------------
@@ -585,7 +604,7 @@ function testChainTickSalvanClimb1Hz(logger)
 	var data = new WatchData();
 	var trail = new BreadcrumbTrail();
 	$.session = new FakeSession(true);
-	var end = ChainHelper.viewEndMs();
+	var end = ChainHelper.slowViewEndMs();
 	var row = 0;
 	for (var k = 0; k <= 60; k++)
 	{
@@ -605,7 +624,7 @@ function testChainTickSalvanClimb1Hz(logger)
 		$.feedBreadcrumbTrail(trail, data);
 	}
 
-	Test.assertEqualMessage(data.hikeHistory.getCount(), 13, "13 samples (one every 5 s)");
+	ChainHelper.expectEq(errs, "13 samples (one every 5 s)", data.hikeHistory.getCount(), 13);
 	var v = data.getHikeVerticalSpeedAt(end);
 	var sp = data.getHikeSpeedAt(end);
 	logger.debug("extract T: " + v + " m/h, " + sp + " m/s, trail " + trail.getCount());
@@ -760,8 +779,12 @@ function testDefectHeartRateOutOfBounds(logger)
 		SpeedTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, hrs[i], null, null), ChainHelper.sensor(null, null, null));
 		ChainHelper.expect(errs, "Activity HR " + hrs[i], ChainHelper.pace(data), "--|--|--:--|--:--");
 	}
-	SpeedTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, null, null, null), ChainHelper.sensor(null, null, 300));
-	ChainHelper.expect(errs, "Sensor HR 300", ChainHelper.pace(data), "--|--|--:--|--:--");
+	var sensorHrs = [24, 251, 300];
+	for (var i = 0; i < sensorHrs.size(); i++)
+	{
+		SpeedTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, null, null, null), ChainHelper.sensor(null, null, sensorHrs[i]));
+		ChainHelper.expect(errs, "Sensor HR " + sensorHrs[i], ChainHelper.pace(data), "--|--|--:--|--:--");
+	}
 	return ChainHelper.finish(errs, logger);
 }
 
@@ -838,11 +861,12 @@ function testChainMapWaitingAndTrailOnly(logger)
 		reference.update(lats[i], lons[i]);
 	}
 	var count = trail.getCount();
-	Test.assertMessage(count == reference.getCount() && count == 3, "20 GPX points -> 3 trail points, got " + count);
+	ChainHelper.expectEq(errs, "20 GPX points -> 3 trail points", count, 3);
+	ChainHelper.expectEq(errs, "same as BreadcrumbTrail.update()", count, reference.getCount());
 
 	data.gpsData = MapTestHelper.gps(lats[19], lons[19], Position.QUALITY_NOT_AVAILABLE);
 	$.feedBreadcrumbTrail(trail, data);
-	Test.assertEqualMessage(trail.getCount(), count, "a tick without fix adds nothing");
+	ChainHelper.expectEq(errs, "a tick without fix adds nothing", trail.getCount(), count);
 	ChainHelper.expect(errs, "trail, fix lost", ChainHelper.map(data, trail), "");
 
 	data.gpsData = MapTestHelper.gps(lats[19], lons[19], Position.QUALITY_GOOD);
@@ -970,7 +994,7 @@ function testChainPauseSensorsOffKeepsGps(logger)
 			errs.add("paused tick " + i + ": trail expected " + (i + 1) + ", got " + trail.getCount());
 		}
 	}
-	Test.assertEqualMessage(data.hikeHistory.getCount(), 0, "no hike sample while paused");
+	ChainHelper.expectEq(errs, "no hike sample while paused", data.hikeHistory.getCount(), 0);
 	ChainHelper.expect(errs, "paused, pace page", ChainHelper.pace(data), "--|--|--:--|32:45");
 
 	$.session.start();
@@ -980,7 +1004,7 @@ function testChainPauseSensorsOffKeepsGps(logger)
 	{
 		data.recordHikeSampleAt(110000);
 	}
-	Test.assertEqualMessage(data.hikeHistory.getCount(), 1, "resumed -> sampling again");
+	ChainHelper.expectEq(errs, "resumed -> sampling again", data.hikeHistory.getCount(), 1);
 	ChainHelper.expect(errs, "resumed, pace page", ChainHelper.pace(data), "139|--|--:--|32:46");
 	return ChainHelper.finish(errs, logger);
 }
