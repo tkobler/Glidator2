@@ -1509,6 +1509,401 @@ function testWatchDataHikeSalvanRealClimb(logger)
 }
 
 // ---------------------------------------------------------------------------
+// Marche 1c: vertical-speed window preference, 1 / 3 / 5 min (MENU ->
+// "VS window"). Stored like the beep preference; anything missing or not one
+// of the three choices reads as the 60 s default. Only the hike vertical
+// speed uses it: pace keeps its 60 s window, the flight vario is untouched.
+// ---------------------------------------------------------------------------
+
+(:test)
+function testVsWindowChoices(logger)
+{
+	Test.assertEqualMessage($.VS_WINDOW_DEFAULT_MS, 60000, "default window is 60 s");
+	var c = $.vsWindowChoicesMs();
+	Test.assertEqualMessage(c.size(), 3, "3 choices");
+	Test.assertEqualMessage(c[0], 60000, "1 min");
+	Test.assertEqualMessage(c[1], 180000, "3 min");
+	Test.assertEqualMessage(c[2], 300000, "5 min");
+	// 5 min is the buffer's whole history: 60 samples at most 5 s apart.
+	var h = new HikeHistory();
+	Test.assertMessage(c[2] >= (h.MAX_SAMPLES - 1) * h.MIN_SPACING_MS, "5 min window covers the full buffer");
+	return true;
+}
+
+// Stored value -> window. Only the three exact Number values are accepted.
+(:test)
+function testSanitizeVsWindowMs(logger)
+{
+	Test.assertEqualMessage($.sanitizeVsWindowMs(60000), 60000, "60000 kept");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(180000), 180000, "180000 kept");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(300000), 300000, "300000 kept");
+
+	// Nothing stored, unknown or corrupted values -> default.
+	Test.assertEqualMessage($.sanitizeVsWindowMs(null), 60000, "null (nothing stored) -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(0), 60000, "0 -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(-60000), 60000, "negative -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(120000), 60000, "2 min (not a choice) -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(299999), 60000, "just under 5 min -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(300001), 60000, "just over 5 min -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(600000), 60000, "10 min (beyond the buffer) -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(2147483647), 60000, "max Number -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(3), 60000, "minutes instead of ms -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs("180000"), 60000, "String -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(180000.0), 60000, "Float -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(180000l), 60000, "Long -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(true), 60000, "Boolean -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs([180000]), 60000, "Array -> 60000");
+	Test.assertEqualMessage($.sanitizeVsWindowMs(:vs3), 60000, "Symbol -> 60000");
+	return true;
+}
+
+// Menu logic: item ids <-> windows, labels, initial focus, and what the
+// Preferences menu does with each item.
+(:test)
+function testVsWindowMenuLogic(logger)
+{
+	Test.assertEqualMessage($.vsWindowMenuId(60000), "vs1", "60000 -> id vs1");
+	Test.assertEqualMessage($.vsWindowMenuId(180000), "vs3", "180000 -> id vs3");
+	Test.assertEqualMessage($.vsWindowMenuId(300000), "vs5", "300000 -> id vs5");
+	Test.assertEqualMessage($.vsWindowMenuId(120000), "vs1", "unknown window -> id of the default");
+	Test.assertEqualMessage($.vsWindowMenuId(null), "vs1", "null window -> id of the default");
+
+	Test.assertEqualMessage($.vsWindowFromMenuId("vs1"), 60000, "vs1 -> 60000");
+	Test.assertEqualMessage($.vsWindowFromMenuId("vs3"), 180000, "vs3 -> 180000");
+	Test.assertEqualMessage($.vsWindowFromMenuId("vs5"), 300000, "vs5 -> 300000");
+	Test.assertMessage($.vsWindowFromMenuId(null) == null, "null id -> null (no change)");
+	Test.assertMessage($.vsWindowFromMenuId("") == null, "empty id -> null");
+	Test.assertMessage($.vsWindowFromMenuId("vs2") == null, "unknown id -> null");
+	Test.assertMessage($.vsWindowFromMenuId("VS3") == null, "ids are case sensitive -> null");
+	Test.assertMessage($.vsWindowFromMenuId(180000) == null, "Number instead of string id -> null");
+	Test.assertMessage($.vsWindowFromMenuId("beep") == null, "beep id -> null");
+
+	// Every choice goes round-trip through its menu id.
+	var c = $.vsWindowChoicesMs();
+	for (var i = 0; i < c.size(); i++)
+	{
+		Test.assertEqualMessage($.vsWindowFromMenuId($.vsWindowMenuId(c[i])), c[i], "round trip for " + c[i]);
+	}
+
+	Test.assertEqualMessage($.vsWindowLabel(60000), "1 min", "label 1 min");
+	Test.assertEqualMessage($.vsWindowLabel(180000), "3 min", "label 3 min");
+	Test.assertEqualMessage($.vsWindowLabel(300000), "5 min", "label 5 min");
+	Test.assertEqualMessage($.vsWindowLabel(null), "1 min", "null -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel(120000), "1 min", "unknown -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel("x"), "1 min", "corrupted -> label of the default");
+
+	Test.assertEqualMessage($.vsWindowFocusIndex(60000), 0, "focus on 1 min");
+	Test.assertEqualMessage($.vsWindowFocusIndex(180000), 1, "focus on 3 min");
+	Test.assertEqualMessage($.vsWindowFocusIndex(300000), 2, "focus on 5 min");
+	Test.assertEqualMessage($.vsWindowFocusIndex(null), 0, "null -> focus on the default");
+	Test.assertEqualMessage($.vsWindowFocusIndex(42), 0, "unknown -> focus on the default");
+
+	Test.assertEqualMessage($.preferencesMenuAction("vsWindow"), :openVsWindow, "VS window item -> open the 3-choice menu");
+	Test.assertEqualMessage($.preferencesMenuAction("beep"), :none, "Beep toggle -> none (saved on BACK, as before)");
+	Test.assertEqualMessage($.preferencesMenuAction(null), :none, "null id -> none");
+	Test.assertEqualMessage($.preferencesMenuAction("vs3"), :none, "a choice id is not a Preferences item -> none");
+	Test.assertEqualMessage($.preferencesMenuAction(:vsWindow), :none, "symbol instead of string id -> none");
+
+	// The pause menu (4a/4b) ignores the new ids.
+	Test.assertEqualMessage($.menuItemAction("vsWindow"), :none, "pause menu: vsWindow -> none");
+	Test.assertEqualMessage($.menuItemAction("vs5"), :none, "pause menu: vs5 -> none");
+	return true;
+}
+
+// Preferences against the real object store (the beep's store). The original
+// value is put back at the end, whatever happens.
+(:test)
+function testPreferencesVsWindowStore(logger)
+{
+	var p = new Preferences();
+	var original = p.app.getProperty(p.VS_WINDOW_KEY);
+	try
+	{
+		p.app.deleteProperty(p.VS_WINDOW_KEY);
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "nothing stored -> 60000");
+
+		p.setVsWindowMs(300000);
+		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "5 min stored -> 300000");
+		Test.assertEqualMessage(new Preferences().getVsWindowMs(), 300000, "read back by a new Preferences (store, not a cache)");
+		p.setVsWindowMs(180000);
+		Test.assertEqualMessage(p.getVsWindowMs(), 180000, "3 min stored -> 180000");
+		p.setVsWindowMs(60000);
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "1 min stored -> 60000");
+
+		// Corrupted values in the store.
+		p.app.setProperty(p.VS_WINDOW_KEY, "abc");
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "String in the store -> 60000");
+		p.app.setProperty(p.VS_WINDOW_KEY, 120000);
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "unknown Number in the store -> 60000");
+		p.app.setProperty(p.VS_WINDOW_KEY, 180000.0);
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "Float in the store -> 60000");
+
+		// set() never writes an invalid value.
+		p.setVsWindowMs(300000);
+		p.setVsWindowMs(42);
+		Test.assertEqualMessage(p.app.getProperty(p.VS_WINDOW_KEY), 60000, "invalid set -> the default is stored");
+		p.setVsWindowMs(null);
+		Test.assertEqualMessage(p.app.getProperty(p.VS_WINDOW_KEY), 60000, "null set -> the default is stored");
+
+		// The beep preference is a separate key.
+		var beep = p.getBeep();
+		p.setVsWindowMs(300000);
+		Test.assertEqualMessage(p.getBeep(), beep, "VS window does not change the beep");
+	}
+	finally
+	{
+		if (original == null)
+		{
+			p.app.deleteProperty(p.VS_WINDOW_KEY);
+		}
+		else
+		{
+			p.app.setProperty(p.VS_WINDOW_KEY, original);
+		}
+	}
+	return true;
+}
+
+// HikeHistory with each of the three windows. Synthetic: alt = 1500 + s^2 / 3600
+// (s in seconds), one sample / 5 s from 0 to 300 s. On evenly spaced samples
+// the least-squares slope of a parabola is its derivative at the window's
+// centre, 2 * centre / 3600 m/s = 2 * centre m/h:
+// - 60 s: samples 240..300, centre 270 -> 540 m/h;
+// - 180 s: samples 120..300, centre 210 -> 420 m/h;
+// - 300 s: 61 samples, but the buffer holds 60: 5..300, centre 152.5 -> 305 m/h.
+(:test)
+function testHikeHistoryWindows60180300(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	for (var s = 0; s <= 300; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s * s / 3600.0, null);
+	}
+	Test.assertEqualMessage(h.getCount(), 60, "61 samples offered, 60 kept (buffer capacity)");
+	var now = t0 + 300000;
+
+	var v60 = h.verticalSpeedMh(now, 60000);
+	logger.debug("parabola, 60 s -> " + v60);
+	Test.assertMessage(v60 != null && v60 > 539.0 && v60 < 541.0, "60 s window -> 540 +/- 1, got " + v60);
+	var v180 = h.verticalSpeedMh(now, 180000);
+	logger.debug("parabola, 180 s -> " + v180);
+	Test.assertMessage(v180 != null && v180 > 419.0 && v180 < 421.0, "180 s window -> 420 +/- 1, got " + v180);
+	var v300 = h.verticalSpeedMh(now, 300000);
+	logger.debug("parabola, 300 s -> " + v300);
+	Test.assertMessage(v300 != null && v300 > 304.0 && v300 < 306.0, "300 s window -> 305 +/- 1 (oldest sample overwritten), got " + v300);
+	return true;
+}
+
+// Real Salvan climb (same rows as testHikeHistorySalvanRealClimb, 11:07:11 ->
+// 11:09:21, 130 s) with the three windows. Hand-computed least squares:
+// - at 11:08:48 (97 s, 18 samples): 180 and 300 s both see the whole 97 s,
+//   Sxy = 1976.7, Sxx = 15460.5 -> 460.3 m/h (the 60 s window reads ~524);
+// - at 11:09:21 (130 s, 24 samples): 60 s (70..130 s) Sxy = 850.5,
+//   Sxx = 4100.25 -> 746.7 m/h; 180 and 300 s see the whole 130 s,
+//   Sxy = 5390.1, Sxx = 35711.0 -> 543.4 m/h.
+// For reference the plan's "+9.6 m in 67 s = +516 m/h" (2253.0 -> 2262.6 m,
+// 11:07:41 -> 11:08:48) is an end-point difference, not one of these windows.
+(:test)
+function testHikeHistorySalvanWindows(logger)
+{
+	var secs = [0, 7, 14, 20, 25, 30, 35, 41, 46, 51, 57, 62,
+		70, 76, 81, 87, 92, 97, 102, 107, 113, 118, 124, 130];
+	var alts = [2249.0, 2249.8, 2251.0, 2251.4, 2251.8, 2253.0, 2253.4, 2254.0,
+		2255.0, 2255.4, 2255.4, 2255.4, 2256.4, 2257.6, 2258.8, 2260.4,
+		2261.4, 2262.6, 2263.8, 2265.2, 2266.0, 2266.4, 2267.6, 2268.6];
+
+	var h = new HikeHistory();
+	var t0 = 3600000;
+	for (var i = 0; i <= 17; i++)
+	{
+		h.add(t0 + secs[i] * 1000, alts[i], null);
+	}
+	var v180 = h.verticalSpeedMh(t0 + 97000, 180000);
+	var v300 = h.verticalSpeedMh(t0 + 97000, 300000);
+	logger.debug("Salvan at 11:08:48: 180 s -> " + v180 + ", 300 s -> " + v300);
+	Test.assertMessage(v180 != null && v180 > 459.3 && v180 < 461.3, "Salvan 11:08:48, 180 s: 460.3 m/h, got " + v180);
+	Test.assertMessage(v300 != null && v300 > 459.3 && v300 < 461.3, "Salvan 11:08:48, 300 s: 460.3 m/h, got " + v300);
+	Test.assertEqualMessage($.formatVerticalSpeed(v300), "+460", "displayed +460");
+
+	for (var i = 18; i < secs.size(); i++)
+	{
+		h.add(t0 + secs[i] * 1000, alts[i], null);
+	}
+	var now = t0 + 130000;
+	var v60 = h.verticalSpeedMh(now, 60000);
+	v180 = h.verticalSpeedMh(now, 180000);
+	v300 = h.verticalSpeedMh(now, 300000);
+	logger.debug("Salvan at 11:09:21: 60 s -> " + v60 + ", 180 s -> " + v180 + ", 300 s -> " + v300);
+	Test.assertMessage(v60 != null && v60 > 745.7 && v60 < 747.7, "Salvan 11:09:21, 60 s: 746.7 m/h, got " + v60);
+	Test.assertMessage(v180 != null && v180 > 542.4 && v180 < 544.4, "Salvan 11:09:21, 180 s: 543.4 m/h, got " + v180);
+	Test.assertMessage(v300 != null && v300 > 542.4 && v300 < 544.4, "Salvan 11:09:21, 300 s: 543.4 m/h, got " + v300);
+	Test.assertEqualMessage($.formatVerticalSpeed(v60), "+750", "60 s displayed +750");
+	Test.assertEqualMessage($.formatVerticalSpeed(v300), "+540", "300 s displayed +540");
+	return true;
+}
+
+// Window longer than the data held. Documented behaviour: the regression runs
+// on whatever samples the window contains, so it gives a partial value as
+// soon as there are 3 samples over 20 s, and null ("--") before that. A 5 min
+// window therefore shows a value after 20 s, not after 5 min.
+(:test)
+function testHikeHistoryWindowLongerThanData(logger)
+{
+	var h = new HikeHistory();
+	var t0 = 3600000;
+
+	// 15 s of data (4 samples): "--" whatever the window.
+	for (var s = 0; s <= 15; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, null);
+	}
+	var wins = $.vsWindowChoicesMs();
+	for (var i = 0; i < wins.size(); i++)
+	{
+		var v = h.verticalSpeedMh(t0 + 15000, wins[i]);
+		Test.assertMessage(v == null, "15 s of data, window " + wins[i] + " -> null");
+		Test.assertEqualMessage($.formatVerticalSpeed(v), "--", "15 s of data, window " + wins[i] + " -> --");
+	}
+
+	// 20 s of data: the minimum, value in every window.
+	h.add(t0 + 20000, 1500.0 + 20 / 6.0, null);
+	for (var i = 0; i < wins.size(); i++)
+	{
+		var v = h.verticalSpeedMh(t0 + 20000, wins[i]);
+		Test.assertMessage(v != null && v > 599.0 && v < 601.0, "20 s of data, window " + wins[i] + " -> 600, got " + v);
+	}
+
+	// 90 s of steady 600 m/h: 180 and 300 s windows give the partial value
+	// over the 90 s held, the same as a 90 s window.
+	for (var s = 25; s <= 90; s += 5)
+	{
+		h.add(t0 + s * 1000, 1500.0 + s / 6.0, null);
+	}
+	var v90 = h.verticalSpeedMh(t0 + 90000, 90000);
+	var v180 = h.verticalSpeedMh(t0 + 90000, 180000);
+	var v300 = h.verticalSpeedMh(t0 + 90000, 300000);
+	Test.assertMessage(v180 != null && v180 > 599.0 && v180 < 601.0, "90 s of data, 180 s window -> 600, got " + v180);
+	Test.assertMessage(v300 != null && v300 > 599.0 && v300 < 601.0, "90 s of data, 300 s window -> 600, got " + v300);
+	Test.assertEqualMessage(v180, v90, "180 s window over 90 s of data = the 90 s regression");
+	Test.assertEqualMessage(v300, v90, "300 s window over 90 s of data = the 90 s regression");
+
+	// Read long after the last sample (no new sample, e.g. altitude lost):
+	// every window empties in turn.
+	Test.assertMessage(h.verticalSpeedMh(t0 + 400000, 300000) == null, "nothing in the last 5 min -> null");
+	return true;
+}
+
+// WatchData: default window, setter, and switching window during an outing
+// without resetting the buffer. Same parabola as testHikeHistoryWindows60180300,
+// fed at 1 Hz like onSensor().
+(:test)
+function testWatchDataHikeVsWindowSwitch(logger)
+{
+	var data = new WatchData();
+	Test.assertEqualMessage(data.getHikeVsWindowMs(), 60000, "new WatchData -> 60 s window");
+
+	data.setHikeVsWindowMs(180000);
+	Test.assertEqualMessage(data.getHikeVsWindowMs(), 180000, "set 3 min");
+	data.setHikeVsWindowMs(120000);
+	Test.assertEqualMessage(data.getHikeVsWindowMs(), 60000, "invalid window -> 60 s");
+	data.setHikeVsWindowMs(300000);
+	data.setHikeVsWindowMs(null);
+	Test.assertEqualMessage(data.getHikeVsWindowMs(), 60000, "null window -> 60 s");
+	data.setHikeVsWindowMs("300000");
+	Test.assertEqualMessage(data.getHikeVsWindowMs(), 60000, "corrupted window -> 60 s");
+
+	var t0 = 3600000;
+	for (var s = 0; s <= 300; s++)
+	{
+		data.activityData = { "altitude" => 1500.0 + s * s / 3600.0, "distance" => 1.0 * s };
+		data.recordHikeSampleAt(t0 + s * 1000);
+	}
+	var now = t0 + 300000;
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 60, "precondition: full buffer");
+
+	var v = data.getHikeVerticalSpeedAt(now);
+	Test.assertMessage(v != null && v > 539.0 && v < 541.0, "default 60 s -> 540, got " + v);
+
+	data.setHikeVsWindowMs(300000);
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 60, "switching window keeps the buffer");
+	v = data.getHikeVerticalSpeedAt(now);
+	Test.assertMessage(v != null && v > 304.0 && v < 306.0, "switched to 5 min -> 305 at once, got " + v);
+
+	data.setHikeVsWindowMs(180000);
+	v = data.getHikeVerticalSpeedAt(now);
+	Test.assertMessage(v != null && v > 419.0 && v < 421.0, "switched to 3 min -> 420, got " + v);
+
+	// Pace keeps its own 60 s window whatever the VS window (out of scope).
+	var sp = data.getHikeSpeedAt(now);
+	Test.assertMessage(sp != null && sp > 0.99 && sp < 1.01, "speed unchanged by the VS window, got " + sp);
+
+	// Recording goes on after the switch: the new samples land in the same
+	// buffer and the 3 min window follows them.
+	for (var s = 301; s <= 360; s++)
+	{
+		data.activityData = { "altitude" => 1500.0 + s * s / 3600.0, "distance" => 1.0 * s };
+		data.recordHikeSampleAt(t0 + s * 1000);
+	}
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 60, "still a full buffer, no reset");
+	v = data.getHikeVerticalSpeedAt(t0 + 360000);
+	Test.assertMessage(v != null && v > 539.0 && v < 541.0, "3 min window 180..360 s -> centre 270 -> 540, got " + v);
+
+	data.setHikeVsWindowMs(60000);
+	v = data.getHikeVerticalSpeedAt(t0 + 360000);
+	Test.assertMessage(v != null && v > 659.0 && v < 661.0, "back to 1 min, 300..360 s -> centre 330 -> 660, got " + v);
+
+	// The flight vario is not involved.
+	Test.assertMessage(data.oldAlt == null, "window switch must not touch oldAlt");
+	Test.assertMessage(data.getVario() == null, "window switch must not touch the vario");
+	return true;
+}
+
+// The choice made in the menu goes to both the store and the WatchData read
+// by HikePaceView (applyVsWindowChoice), and an invalid one changes nothing
+// unexpected. Store restored at the end.
+(:test)
+function testApplyVsWindowChoice(logger)
+{
+	var p = new Preferences();
+	var original = p.app.getProperty(p.VS_WINDOW_KEY);
+	try
+	{
+		var data = new WatchData();
+		Test.assertEqualMessage($.applyVsWindowChoice(p, data, 300000), 300000, "5 min applied");
+		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "5 min stored");
+		Test.assertEqualMessage(data.getHikeVsWindowMs(), 300000, "5 min in WatchData");
+
+		Test.assertEqualMessage($.applyVsWindowChoice(p, data, 180000), 180000, "3 min applied");
+		Test.assertEqualMessage(p.getVsWindowMs(), 180000, "3 min stored");
+		Test.assertEqualMessage(data.getHikeVsWindowMs(), 180000, "3 min in WatchData");
+
+		Test.assertEqualMessage($.applyVsWindowChoice(p, data, 7), 60000, "invalid -> default applied");
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "invalid -> default stored");
+		Test.assertEqualMessage(data.getHikeVsWindowMs(), 60000, "invalid -> default in WatchData");
+
+		// No WatchData yet (menu before the views exist): store only, no crash.
+		Test.assertEqualMessage($.applyVsWindowChoice(p, null, 300000), 300000, "no WatchData -> still stored");
+		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "stored without WatchData");
+		// No Preferences: WatchData only.
+		Test.assertEqualMessage($.applyVsWindowChoice(null, data, 300000), 300000, "no Preferences -> WatchData only");
+		Test.assertEqualMessage(data.getHikeVsWindowMs(), 300000, "WatchData set without Preferences");
+	}
+	finally
+	{
+		if (original == null)
+		{
+			p.app.deleteProperty(p.VS_WINDOW_KEY);
+		}
+		else
+		{
+			p.app.setProperty(p.VS_WINDOW_KEY, original);
+		}
+	}
+	return true;
+}
+
+// ---------------------------------------------------------------------------
 // Speed keys written by WatchData.update*(): a null speed must not be stored,
 // otherwise sensorData["speed"] = null hides the GPS speed in getSpeed().
 // The update*() functions only use `info has :x` and `info.x`, so these
