@@ -35,7 +35,7 @@ You can find the app in the Garmin IQ store under Glidator2
   - While paused, the heart rate and temperature sensors are turned off (GPS stays on) and turned back on when you resume. The hike vertical speed and pace show "--" for about 20 seconds after resuming, until enough new data is collected.
 - **What gets recorded**: The whole outing is recorded as a single SPORT_FLYING activity (shown as Sport="Other" in TCX exports; on watches whose firmware has no SPORT_FLYING, i.e. Connect IQ below 3.2 such as the fenix 5 and fenix 5X, it falls back to a SPORT_GENERIC activity), with the hike and the flight separated by a lap at each mode switch made while recording (a switch made while paused is not marked). If the app is closed by the system while a session is recording or paused, the session is saved rather than discarded.
 - **Exit**: Press BACK while idle (no active session) to exit the app. While a session exists (recording or paused), a short BACK press on the activity pages does nothing; end the activity with SELECT, then Save or Ignore.
-- **Preferences**: Press MENU to open preferences and enable/disable audio beeps.
+- **Preferences**: Press MENU to open preferences and enable/disable audio beeps, or pick the **VS window** (1, 3 or 5 min, default 1 min): the time over which the hike vertical speed (Pace View) is averaged. The choice applies at once, without losing the data already collected, and is kept when the app restarts. Until the window is filled, the value is computed over the data available (shown after about 20 seconds); pace always uses 1 minute.
 
 ## Technical Details
 - **Language**: Monkey C
