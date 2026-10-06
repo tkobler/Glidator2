@@ -42,7 +42,7 @@ class HikePositionView extends WatchUi.View {
         var data = app.mainView.data;
 
         var altitude = data.getAltitude();
-        var altStr = (altitude == null) ? "--" : Math.round(altitude).toNumber().toString(); // m
+        var altStr = $.formatHikeAltitude(altitude); // m, "--" outside -100..6000
 
         var hasSession = $.hasActiveSession();
 

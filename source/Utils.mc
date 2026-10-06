@@ -24,6 +24,29 @@ function formatDuration(ms)
 	return minutes.format("%02d") + ":" + seconds.format("%02d");
 }
 
+// Altitude range shown by the hike pages (decision of 2026-10-06). The
+// flight page (FlyInstrumentView) does not use it.
+const HIKE_ALTITUDE_MIN_M = -100.0;
+const HIKE_ALTITUDE_MAX_M = 6000.0;
+
+// Formats an altitude in meters for the hike Position page, rounded to the
+// meter as before (Math.round). "--" when null, NaN, +-Infinity or outside
+// HIKE_ALTITUDE_MIN_M..HIKE_ALTITUDE_MAX_M (bounds included). The range is
+// checked on the raw value, before rounding: 6000.4 reads "--", not "6000".
+function formatHikeAltitude(alt)
+{
+	if (alt == null)
+	{
+		return "--";
+	}
+	var v = alt.toFloat();
+	if (!isFiniteFloat(v) || v < HIKE_ALTITUDE_MIN_M || v > HIKE_ALTITUDE_MAX_M)
+	{
+		return "--";
+	}
+	return Toybox.Math.round(v).toNumber().toString();
+}
+
 // Formats a distance in meters as km with one decimal for the Position page.
 // "--" when null, NaN, +-Infinity or negative (an elapsed distance never is).
 // Zero, -0.0 included, reads "0.0" (format() would print "-0.0").
