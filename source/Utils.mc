@@ -3,9 +3,10 @@
 // --------------------------------------------------------------------------------
 
 // Formats a duration in milliseconds as "mm:ss", or "h:mm:ss" once it reaches an hour.
+// "--:--" when null or negative (a timer never runs backwards; -0.0 is zero).
 function formatDuration(ms)
 {
-	if (ms == null)
+	if (ms == null || ms < 0)
 	{
 		return "--:--";
 	}
