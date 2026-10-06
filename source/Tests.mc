@@ -2614,39 +2614,133 @@ function testFormatScaleBarLabel(logger)
 	return true;
 }
 
-// Real Salvan extract (about 50 m of trail) projected as map() does on a
-// fenix6pro (radius 109 px, trail fitted to 85 % of it, bar room 260 / 3 =
-// 86 px): about 0.22 m/px, so even 50 m (about 224 px) does not fit and no
-// bar is drawn; with 240 px of room it would be 50 m.
+(:test)
+class MapProjectionTestHelper
+{
+	// Fails unless actual is within tol of expected (and not null).
+	static function near(actual, expected, tol, msg)
+	{
+		Test.assertMessage(actual != null && (actual - expected).abs() <= tol, msg + " (expected " + expected + " +- " + tol + ", got " + actual + ")");
+	}
+}
+
+// Center of map()'s projection: middle of the bounding box of the trail
+// (ring buffer read oldest to newest) plus the current position, and the
+// cosine of its latitude.
+(:test)
+function testMapProjectionCenter(logger)
+{
+	// Trail alone (no fix): bounding box of the trail only.
+	var c = $.mapProjectionCenter([46.0, 46.01], [7.0, 7.02], 2, 0, null, null);
+	Test.assertMessage(c != null && c.size() == 3, "trail alone -> [centerLat, centerLon, cosLat]");
+	MapProjectionTestHelper.near(c[0], 46.005, 0.00001, "trail alone: center lat");
+	MapProjectionTestHelper.near(c[1], 7.01, 0.00001, "trail alone: center lon");
+	MapProjectionTestHelper.near(c[2], Toybox.Math.cos(Toybox.Math.toRadians(46.005)), 0.000001, "trail alone: cos(center lat)");
+
+	// The current position widens the box.
+	c = $.mapProjectionCenter([46.0, 46.0], [7.0, 7.0], 2, 0, 46.02, 7.04);
+	MapProjectionTestHelper.near(c[0], 46.01, 0.00001, "with fix: center lat includes the fix");
+	MapProjectionTestHelper.near(c[1], 7.02, 0.00001, "with fix: center lon includes the fix");
+
+	// Current position only (empty trail): centered on it.
+	c = $.mapProjectionCenter([0.0, 0.0], [0.0, 0.0], 0, 0, 46.5, 7.5);
+	MapProjectionTestHelper.near(c[0], 46.5, 0.00001, "fix only: center lat = fix");
+	MapProjectionTestHelper.near(c[1], 7.5, 0.00001, "fix only: center lon = fix");
+	MapProjectionTestHelper.near(c[2], 0.6883546, 0.00001, "fix only: cos(46.5 deg)");
+
+	// Half a fix (lat without lon) counts as no fix.
+	c = $.mapProjectionCenter([46.0, 46.01], [7.0, 7.0], 2, 0, 50.0, null);
+	MapProjectionTestHelper.near(c[0], 46.005, 0.00001, "lat without lon -> ignored");
+
+	// Wrapped ring buffer: capacity 4, 3 points, writeIndex 1 -> slots 2, 3, 0.
+	// Slot 1 holds a stale far away point that must be ignored.
+	c = $.mapProjectionCenter([46.01, 60.0, 46.0, 46.005], [7.0, 20.0, 7.0, 7.0], 3, 1, null, null);
+	MapProjectionTestHelper.near(c[0], 46.005, 0.00001, "wrapped buffer: stale slot ignored (lat)");
+	MapProjectionTestHelper.near(c[1], 7.0, 0.00001, "wrapped buffer: stale slot ignored (lon)");
+
+	// Partly filled buffer: capacity 4, 2 points at slots 0 and 1.
+	c = $.mapProjectionCenter([46.0, 46.01, 0.0, 0.0], [7.0, 7.0, 0.0, 0.0], 2, 2, null, null);
+	MapProjectionTestHelper.near(c[0], 46.005, 0.00001, "partly filled buffer: empty slots ignored");
+
+	// Nothing to project: null (assertEqualMessage() throws on a null actual).
+	Test.assertMessage($.mapProjectionCenter([0.0], [0.0], 0, 0, null, null) == null, "no trail, no fix -> null");
+	Test.assertMessage($.mapProjectionCenter([0.0], [0.0], null, 0, null, null) == null, "null count, no fix -> null");
+	Test.assertMessage($.mapProjectionCenter([0.0], [0.0], -1, 0, null, null) == null, "negative count, no fix -> null");
+	return true;
+}
+
+// Scale of map()'s projection, in pixels per degree of latitude: 85 % of the
+// screen radius over the largest projected offset from the center (trail and
+// current position, longitudes times cos(lat)), floored at 0.0001 degree.
+(:test)
+function testMapPixelsPerDegree(logger)
+{
+	// North-south 0.01 deg trail: offset 0.005 deg -> 85 / 0.005 = 17000.
+	var lats = [46.0, 46.01];
+	var lons = [7.0, 7.0];
+	var c = $.mapProjectionCenter(lats, lons, 2, 0, null, null);
+	MapProjectionTestHelper.near($.mapPixelsPerDegree(lats, lons, 2, 0, null, null, c, 100), 17000.0, 20.0, "N-S 0.01 deg, radius 100");
+
+	// East-west at 60 deg: 0.02 deg of longitude * cos 60 = 0.01 -> 17000.
+	lats = [60.0, 60.0];
+	lons = [7.0, 7.02];
+	c = $.mapProjectionCenter(lats, lons, 2, 0, null, null);
+	MapProjectionTestHelper.near($.mapPixelsPerDegree(lats, lons, 2, 0, null, null, c, 100), 17000.0, 20.0, "E-W at 60 deg uses cos(lat)");
+
+	// The current position sets the range when it is the farthest point.
+	lats = [46.0, 46.0];
+	lons = [7.0, 7.0];
+	c = $.mapProjectionCenter(lats, lons, 2, 0, 46.01, 7.0);
+	MapProjectionTestHelper.near($.mapPixelsPerDegree(lats, lons, 2, 0, 46.01, 7.0, c, 100), 17000.0, 20.0, "fix 0.01 deg away sets the range");
+
+	// Stationary: one point, or a fix alone, uses the 0.0001 deg floor.
+	c = $.mapProjectionCenter([46.0], [7.0], 1, 0, null, null);
+	MapProjectionTestHelper.near($.mapPixelsPerDegree([46.0], [7.0], 1, 0, null, null, c, 100), 850000.0, 1000.0, "single point -> floor");
+	c = $.mapProjectionCenter([0.0], [0.0], 0, 0, 46.0, 7.0);
+	MapProjectionTestHelper.near($.mapPixelsPerDegree([0.0], [0.0], 0, 0, 46.0, 7.0, c, 100), 850000.0, 1000.0, "fix alone -> floor");
+
+	// Wrapped ring buffer: the stale slot 1 (far away) must not shrink the scale.
+	lats = [46.01, 60.0, 46.0, 46.005];
+	lons = [7.0, 20.0, 7.0, 7.0];
+	c = $.mapProjectionCenter(lats, lons, 3, 1, null, null);
+	MapProjectionTestHelper.near($.mapPixelsPerDegree(lats, lons, 3, 1, null, null, c, 100), 17000.0, 20.0, "wrapped buffer: stale slot ignored");
+
+	// Screen radius scales linearly (fenix6pro map radius 109 px).
+	lats = [46.0, 46.01];
+	lons = [7.0, 7.0];
+	c = $.mapProjectionCenter(lats, lons, 2, 0, null, null);
+	MapProjectionTestHelper.near($.mapPixelsPerDegree(lats, lons, 2, 0, null, null, c, 109), 18530.0, 25.0, "radius 109 -> 92.65 / 0.005");
+
+	// No projection center (nothing to draw): null.
+	Test.assertMessage($.mapPixelsPerDegree([0.0], [0.0], 0, 0, null, null, null, 100) == null, "null center -> null");
+	return true;
+}
+
+// Real Salvan extract (about 50 m of trail) projected with map()'s own
+// projection (mapProjectionCenter() / mapPixelsPerDegree()) on a fenix6pro
+// (radius 109 px, trail fitted to 85 % of it, bar room 260 / 3 = 86 px):
+// about 0.22 m/px, so even 50 m (about 224 px) does not fit and no bar is
+// drawn; with 240 px of room it would be 50 m.
 (:test)
 function testScaleBarOnSalvanExtract(logger)
 {
 	var lats = MapTestHelper.salvanLats();
 	var lons = MapTestHelper.salvanLons();
-	var minLat = lats[0], maxLat = lats[0], minLon = lons[0], maxLon = lons[0];
-	for (var i = 1; i < lats.size(); i++)
+	var n = lats.size();
+	// Full ring buffer, oldest point in slot 0 (writeIndex wrapped to 0), no fix.
+	var center = $.mapProjectionCenter(lats, lons, n, 0, null, null);
+	var pixelsPerDegree = $.mapPixelsPerDegree(lats, lons, n, 0, null, null, center, 109);
+
+	var mpp = $.metersPerPixelFromScale(pixelsPerDegree);
+	logger.debug("Salvan extract: " + pixelsPerDegree + " px/deg, " + mpp + " m/px");
+	// Independent check: half the east-west extent (about 20.6 m) over 92.65 px.
+	var minLon = lons[0], maxLon = lons[0];
+	for (var i = 1; i < n; i++)
 	{
-		if (lats[i] < minLat) { minLat = lats[i]; }
-		if (lats[i] > maxLat) { maxLat = lats[i]; }
 		if (lons[i] < minLon) { minLon = lons[i]; }
 		if (lons[i] > maxLon) { maxLon = lons[i]; }
 	}
-	var centerLat = (minLat + maxLat) / 2.0;
-	var centerLon = (minLon + maxLon) / 2.0;
-	var cosLat = Toybox.Math.cos(Toybox.Math.toRadians(centerLat));
-	var maxRange = 0.0001;
-	for (var i = 0; i < lats.size(); i++)
-	{
-		var dx = ((lons[i] - centerLon) * cosLat).abs();
-		var dy = (lats[i] - centerLat).abs();
-		var r = dx > dy ? dx : dy;
-		if (r > maxRange) { maxRange = r; }
-	}
-	var pixelsPerDegree = (109 * 0.85) / maxRange;
-
-	var mpp = $.metersPerPixelFromScale(pixelsPerDegree);
-	logger.debug("Salvan extract: maxRange=" + maxRange + " deg, " + pixelsPerDegree + " px/deg, " + mpp + " m/px");
-	// Independent check: half the east-west extent (about 20.6 m) over 92.65 px.
+	var cosLat = Toybox.Math.cos(Toybox.Math.toRadians(46.118175848));
 	var halfWidthMeters = (maxLon - minLon) * cosLat * 111320.0 / 2.0;
 	Test.assertMessage(halfWidthMeters > 19.0 && halfWidthMeters < 22.0, "half width about 20.6 m, got " + halfWidthMeters);
 	Test.assertMessage(mpp != null && (mpp - halfWidthMeters / 92.65).abs() < 0.005, "m/px = half width / fitted radius, got " + mpp);

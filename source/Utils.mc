@@ -204,6 +204,89 @@ function mapDrawMode(count, hasCurrent)
 	return :waiting;
 }
 
+// Projection of WatchDisplay.map(), part 1: the center of the bounding box (in
+// degrees) of the trail plus the current position, as
+// [centerLat, centerLon, cosLat]. The trail is the ring buffer lats / lons
+// (capacity lats.size()), its count points read oldest to newest from
+// writeIndex - count; the other slots are ignored. The current position
+// counts only when curLat and curLon are both set; without it the box is
+// seeded with the oldest trail point. null when there is neither (a null or
+// negative count counts as 0).
+function mapProjectionCenter(lats, lons, count, writeIndex, curLat, curLon)
+{
+	var n = (count == null || count < 0) ? 0 : count;
+	var hasCurrent = (curLat != null && curLon != null);
+	if (!hasCurrent && n == 0)
+	{
+		return null;
+	}
+
+	var capacity = lats.size();
+	var seedLat = curLat, seedLon = curLon;
+	if (!hasCurrent)
+	{
+		var oldest = (writeIndex - n + capacity) % capacity;
+		seedLat = lats[oldest];
+		seedLon = lons[oldest];
+	}
+	var minLat = seedLat, maxLat = seedLat, minLon = seedLon, maxLon = seedLon;
+	for (var i = 0; i < n; i++)
+	{
+		var idx = (writeIndex - n + i + capacity) % capacity;
+		var lat = lats[idx];
+		var lon = lons[idx];
+		if (lat < minLat) { minLat = lat; }
+		if (lat > maxLat) { maxLat = lat; }
+		if (lon < minLon) { minLon = lon; }
+		if (lon > maxLon) { maxLon = lon; }
+	}
+
+	var centerLat = (minLat + maxLat) / 2.0;
+	var centerLon = (minLon + maxLon) / 2.0;
+	return [centerLat, centerLon, Toybox.Math.cos(Toybox.Math.toRadians(centerLat))];
+}
+
+// Projection of WatchDisplay.map(), part 2: its scale in pixels per degree of
+// latitude. The projection is a longitude-compressed local one
+// (equirectangular): offsets from center ([centerLat, centerLon, cosLat] from
+// mapProjectionCenter()) are (lon - centerLon) * cosLat and lat - centerLat,
+// in degrees of latitude on both axes. The largest offset over the trail
+// (same ring buffer reading as mapProjectionCenter()) and the current
+// position (when curLat and curLon are both set) is fitted to 85 % of
+// screenRadius, with a 0.0001 degree floor so a stationary trail does not
+// divide by zero. null when center is null.
+function mapPixelsPerDegree(lats, lons, count, writeIndex, curLat, curLon, center, screenRadius)
+{
+	if (center == null)
+	{
+		return null;
+	}
+	var n = (count == null || count < 0) ? 0 : count;
+	var capacity = lats.size();
+	var centerLat = center[0];
+	var centerLon = center[1];
+	var cosLat = center[2];
+
+	var maxRange = 0.0001; // floor avoids a divide-by-zero when stationary
+	for (var i = 0; i < n; i++)
+	{
+		var idx = (writeIndex - n + i + capacity) % capacity;
+		var dx = (lons[idx] - centerLon) * cosLat;
+		var dy = lats[idx] - centerLat;
+		var r = (dx.abs() > dy.abs()) ? dx.abs() : dy.abs();
+		if (r > maxRange) { maxRange = r; }
+	}
+	if (curLat != null && curLon != null)
+	{
+		var curDx = (curLon - centerLon) * cosLat;
+		var curDy = curLat - centerLat;
+		var curR = (curDx.abs() > curDy.abs()) ? curDx.abs() : curDy.abs();
+		if (curR > maxRange) { maxRange = curR; }
+	}
+
+	return (screenRadius * 0.85) / maxRange;
+}
+
 // True for a usable Float: not NaN, not +-Infinity (Inf - Inf is NaN; any
 // finite v - v is 0).
 function isFiniteFloat(v)

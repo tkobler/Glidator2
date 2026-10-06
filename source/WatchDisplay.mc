@@ -542,53 +542,23 @@ class WatchDisplay
         var centerY = dc.getHeight() / 2;
         var screenRadius = dc.getWidth() / 2 - borderSize;
 
-        // Bounding box (in degrees) over the trail plus the current position
-        // (or, without one, seeded with the oldest trail point).
-        var seedLat = curLat, seedLon = curLon;
-        if (!hasCurrent)
-        {
-            var oldest = (writeIndex - count + capacity) % capacity;
-            seedLat = lats[oldest];
-            seedLon = lons[oldest];
-        }
-        var minLat = seedLat, maxLat = seedLat, minLon = seedLon, maxLon = seedLon;
-        for (var i = 0; i < count; i++)
-        {
-            var idx = (writeIndex - count + i + capacity) % capacity;
-            var lat = lats[idx];
-            var lon = lons[idx];
-            if (lat < minLat) { minLat = lat; }
-            if (lat > maxLat) { maxLat = lat; }
-            if (lon < minLon) { minLon = lon; }
-            if (lon > maxLon) { maxLon = lon; }
-        }
-
-        var centerLat = (minLat + maxLat) / 2.0;
-        var centerLon = (minLon + maxLon) / 2.0;
-        var cosLat = Math.cos(Math.toRadians(centerLat));
-
         // Longitude-compressed local projection (equirectangular), in degrees of
-        // latitude on both axes: `scale` below is in pixels per degree of latitude
-        // (the scale bar converts it to m/px with metersPerPixelFromScale()).
-        var maxRange = 0.0001; // floor avoids a divide-by-zero when stationary
-        for (var i = 0; i < count; i++)
-        {
-            var idx = (writeIndex - count + i + capacity) % capacity;
-            var dx = (lons[idx] - centerLon) * cosLat;
-            var dy = lats[idx] - centerLat;
-            var r = (dx.abs() > dy.abs()) ? dx.abs() : dy.abs();
-            if (r > maxRange) { maxRange = r; }
-        }
+        // latitude on both axes, centered on the bounding box of the trail plus
+        // the current position (mapProjectionCenter()): `scale` below is in
+        // pixels per degree of latitude (mapPixelsPerDegree(); the scale bar
+        // converts it to m/px with metersPerPixelFromScale()).
+        var center = $.mapProjectionCenter(lats, lons, count, writeIndex, curLat, curLon);
+        var centerLat = center[0];
+        var centerLon = center[1];
+        var cosLat = center[2];
         var curDx = 0.0, curDy = 0.0;
         if (hasCurrent)
         {
             curDx = (curLon - centerLon) * cosLat;
             curDy = curLat - centerLat;
-            var curR = (curDx.abs() > curDy.abs()) ? curDx.abs() : curDy.abs();
-            if (curR > maxRange) { maxRange = curR; }
         }
 
-        var scale = (screenRadius * 0.85) / maxRange;
+        var scale = $.mapPixelsPerDegree(lats, lons, count, writeIndex, curLat, curLon, center, screenRadius);
 
         // Trail line, oldest to newest, connected through to the current position.
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
