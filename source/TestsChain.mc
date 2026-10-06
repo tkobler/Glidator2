@@ -267,7 +267,7 @@ class ChainHelper
 	// One tick with only an Activity.Info (altitude, distance, HR, timer).
 	static function actTick(data, alt, dist, hr, timer)
 	{
-		SpeedTestHelper.feedTick(data, null, act(alt, dist, hr, null, timer), null);
+		WatchDataTestHelper.feedTick(data, null, act(alt, dist, hr, null, timer), null);
 	}
 
 	// Collects mismatches so that one run lists every wrong value.
@@ -373,17 +373,17 @@ function testChainAltitudeSourcePriority(logger)
 	var errs = [];
 	var data = new WatchData();
 
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, 2155.0, null),
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, 2155.0, null),
 		ChainHelper.act(2149.4, null, null, null, null), ChainHelper.sensor(2150.0, null, null));
 	ChainHelper.near(errs, "all 3 sources -> Activity", data.getAltitude(), 2149.4, 0.001);
 	ChainHelper.expect(errs, "all 3 sources, page", ChainHelper.position(data), "2149|--|--|--:--");
 
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, 2155.0, null),
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, 2155.0, null),
 		new FakeActivityNoAltitude(), ChainHelper.sensor(2150.0, null, null));
 	ChainHelper.near(errs, "no Activity altitude field -> Sensor", data.getAltitude(), 2150.0, 0.001);
 	ChainHelper.expect(errs, "Sensor, page", ChainHelper.position(data), "2150|--|--|--:--");
 
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, 2155.0, null), null, null);
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, 2155.0, null), null, null);
 	ChainHelper.near(errs, "GPS only", data.getAltitude(), 2155.0, 0.001);
 	ChainHelper.expect(errs, "GPS only, page", ChainHelper.position(data), "2155|--|--|--:--");
 	return ChainHelper.finish(errs, logger);
@@ -400,7 +400,7 @@ function testKnownDefectD1NullActivityAltitudeHidesSensor(logger)
 	ChainHelper.reset();
 	var errs = [];
 	var data = new WatchData();
-	SpeedTestHelper.feedTick(data, null, ChainHelper.act(null, null, null, null, null), ChainHelper.sensor(1500.0, null, null));
+	WatchDataTestHelper.feedTick(data, null, ChainHelper.act(null, null, null, null, null), ChainHelper.sensor(1500.0, null, null));
 	data.endMeasure();
 
 	Test.assertMessage(data.activityData.hasKey("altitude") && data.activityData["altitude"] == null, "setup: null Activity altitude stored as a key");
@@ -423,14 +423,14 @@ function testChainAltitudeAbsent(logger)
 	var errs = [];
 	var data = new WatchData();
 
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, null), new FakeActivityNoAltitude(), ChainHelper.sensor(null, null, null));
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, null), new FakeActivityNoAltitude(), ChainHelper.sensor(null, null, null));
 	data.endMeasure();
 	Test.assertMessage(data.getAltitude() == null, "no altitude -> null");
 	ChainHelper.expect(errs, "hike page", ChainHelper.position(data), "--|--|--|--:--");
 	ChainHelper.expect(errs, "flight page", ChainHelper.fly(data), "starting ...");
 
 	// All three getInfo() returned null.
-	SpeedTestHelper.feedTick(data, null, null, null);
+	WatchDataTestHelper.feedTick(data, null, null, null);
 	data.endMeasure();
 	Test.assertMessage(data.getAltitude() == null, "no Info at all -> null");
 	ChainHelper.expect(errs, "no Info, hike page", ChainHelper.position(data), "--|--|--|--:--");
@@ -614,7 +614,7 @@ function testChainTickSalvanClimb1Hz(logger)
 		{
 			row += 1;
 		}
-		SpeedTestHelper.feedTick(data,
+		WatchDataTestHelper.feedTick(data,
 			ChainHelper.gps(lats[row], lons[row], Position.QUALITY_GOOD, alts[row], null),
 			ChainHelper.act(alts[row], dists[row], 139, 0.0, 1905000 + k * 1000),
 			ChainHelper.sensor(alts[row], null, null));
@@ -651,7 +651,7 @@ function testChainPaceWhenInstantSpeedZero(logger)
 	var data = new WatchData();
 	var end = ChainHelper.viewEndMs();
 	ChainHelper.feedExtract(data, ChainHelper.extractM(), end);
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, null),
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, null),
 		ChainHelper.act(2149.4, 1692.49, null, 0.0, null), ChainHelper.sensor(null, null, null));
 
 	Test.assertMessage(data.getSpeed() == 0.0, "getSpeed() = 0.0, got " + data.getSpeed());
@@ -673,7 +673,7 @@ function testChainPositionPageFields(logger)
 	var data = new WatchData();
 	var info = ChainHelper.act(2149.4, 1692.49, null, null, 1965000);
 	info.totalAscent = 335.0;
-	SpeedTestHelper.feedTick(data, null, info, null);
+	WatchDataTestHelper.feedTick(data, null, info, null);
 
 	$.session = new FakeSession(true);
 	ChainHelper.expect(errs, "session", ChainHelper.position(data), "2149|335|1.7|32:45");
@@ -682,17 +682,17 @@ function testChainPositionPageFields(logger)
 
 	$.session = new FakeSession(true);
 	info.elapsedDistance = 0.0;
-	SpeedTestHelper.feedTick(data, null, info, null);
+	WatchDataTestHelper.feedTick(data, null, info, null);
 	ChainHelper.expect(errs, "distance 0", ChainHelper.position(data), "2149|335|0.0|32:45");
 	info.elapsedDistance = 999900.0;
-	SpeedTestHelper.feedTick(data, null, info, null);
+	WatchDataTestHelper.feedTick(data, null, info, null);
 	ChainHelper.expect(errs, "distance 999.9 km", ChainHelper.position(data), "2149|335|999.9|32:45");
 	info.totalAscent = null;
 	info.elapsedDistance = null;
-	SpeedTestHelper.feedTick(data, null, info, null);
+	WatchDataTestHelper.feedTick(data, null, info, null);
 	ChainHelper.expect(errs, "ascent and distance null", ChainHelper.position(data), "2149|--|--|32:45");
 	info.totalAscent = 0.0;
-	SpeedTestHelper.feedTick(data, null, info, null);
+	WatchDataTestHelper.feedTick(data, null, info, null);
 	ChainHelper.expect(errs, "ascent 0", ChainHelper.position(data), "2149|0|--|32:45");
 	return ChainHelper.finish(errs, logger);
 }
@@ -722,15 +722,15 @@ function testChainFlightSpeedKmh(logger)
 	var errs = [];
 	var data = new WatchData();
 
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 9.844), ChainHelper.act(1732.2, null, null, null, null), ChainHelper.sensor(null, null, null));
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 9.844), ChainHelper.act(1732.2, null, null, null, null), ChainHelper.sensor(null, null, null));
 	ChainHelper.expect(errs, "sensor null, GPS 9.844", ChainHelper.fly(data), "1732| m|35| km/h");
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 9.844), ChainHelper.act(1732.2, null, null, null, null), ChainHelper.sensor(null, 2.0, null));
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 9.844), ChainHelper.act(1732.2, null, null, null, null), ChainHelper.sensor(null, 2.0, null));
 	ChainHelper.expect(errs, "sensor 2.0 wins", ChainHelper.fly(data), "1732| m|7| km/h");
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, null), ChainHelper.act(1732.2, null, null, 0.0, null), ChainHelper.sensor(null, null, null));
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, null), ChainHelper.act(1732.2, null, null, 0.0, null), ChainHelper.sensor(null, null, null));
 	ChainHelper.expect(errs, "Activity 0.0 only", ChainHelper.fly(data), "1732| m|0| km/h");
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, null), ChainHelper.act(1732.2, null, null, null, null), ChainHelper.sensor(null, null, null));
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, null), ChainHelper.act(1732.2, null, null, null, null), ChainHelper.sensor(null, null, null));
 	ChainHelper.expect(errs, "no speed -> no km/h text", ChainHelper.fly(data), "1732| m");
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 1000.0), ChainHelper.act(1732.2, null, null, null, null), null);
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 1000.0), ChainHelper.act(1732.2, null, null, null, null), null);
 	ChainHelper.expect(errs, "GPS 1000 m/s", ChainHelper.fly(data), "1732| m|3600| km/h");
 	return ChainHelper.finish(errs, logger);
 }
@@ -743,7 +743,7 @@ function testKnownDefectD4NegativeFlightSpeedShown(logger)
 	ChainHelper.reset();
 	var errs = [];
 	var data = new WatchData();
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, -1.0), ChainHelper.act(1732.2, null, null, null, null), null);
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, -1.0), ChainHelper.act(1732.2, null, null, null, null), null);
 	ChainHelper.expect(errs, "D4 pinned: -1 m/s", ChainHelper.fly(data), "1732| m|-4| km/h");
 	return ChainHelper.finish(errs, logger);
 }
@@ -762,7 +762,7 @@ function testChainHeartRateSources(logger)
 	var cases = [[139, 141, "139"], [null, 141, "141"], [null, null, "--"], [25, null, "25"], [250, null, "250"], [null, 25, "25"], [null, 250, "250"]];
 	for (var i = 0; i < cases.size(); i++)
 	{
-		SpeedTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, cases[i][0], null, null), ChainHelper.sensor(null, null, cases[i][1]));
+		WatchDataTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, cases[i][0], null, null), ChainHelper.sensor(null, null, cases[i][1]));
 		ChainHelper.expect(errs, "Activity " + cases[i][0] + " / Sensor " + cases[i][1], ChainHelper.pace(data), cases[i][2] + "|--|--:--|--:--");
 	}
 	return ChainHelper.finish(errs, logger);
@@ -778,13 +778,13 @@ function testDefectHeartRateOutOfBounds(logger)
 	var hrs = [24, 251, 0, 255, -1];
 	for (var i = 0; i < hrs.size(); i++)
 	{
-		SpeedTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, hrs[i], null, null), ChainHelper.sensor(null, null, null));
+		WatchDataTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, hrs[i], null, null), ChainHelper.sensor(null, null, null));
 		ChainHelper.expect(errs, "Activity HR " + hrs[i], ChainHelper.pace(data), "--|--|--:--|--:--");
 	}
 	var sensorHrs = [24, 251, 300];
 	for (var i = 0; i < sensorHrs.size(); i++)
 	{
-		SpeedTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, null, null, null), ChainHelper.sensor(null, null, sensorHrs[i]));
+		WatchDataTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, null, null, null), ChainHelper.sensor(null, null, sensorHrs[i]));
 		ChainHelper.expect(errs, "Sensor HR " + sensorHrs[i], ChainHelper.pace(data), "--|--|--:--|--:--");
 	}
 	return ChainHelper.finish(errs, logger);
@@ -803,7 +803,7 @@ function testChainHeartRateInvalidActivityHidesSensor(logger)
 	var cases = [[0, 141], [24, 141], [251, 141]];
 	for (var i = 0; i < cases.size(); i++)
 	{
-		SpeedTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, cases[i][0], null, null), ChainHelper.sensor(null, null, cases[i][1]));
+		WatchDataTestHelper.feedTick(data, null, ChainHelper.act(2149.4, null, cases[i][0], null, null), ChainHelper.sensor(null, null, cases[i][1]));
 		ChainHelper.expectEq(errs, "getHeartRate() keeps Activity " + cases[i][0], data.getHeartRate(), cases[i][0]);
 		ChainHelper.expect(errs, "Activity " + cases[i][0] + " / Sensor " + cases[i][1], ChainHelper.pace(data), "--|--|--:--|--:--");
 	}
@@ -1004,7 +1004,7 @@ function testChainPauseSensorsOffKeepsGps(logger)
 	var lat = 46.1244656;
 	for (var i = 0; i < 2; i++)
 	{
-		SpeedTestHelper.feedTick(data, ChainHelper.gps(lat + i * 0.00018, 6.9854535, Position.QUALITY_GOOD, 2149.4, null),
+		WatchDataTestHelper.feedTick(data, ChainHelper.gps(lat + i * 0.00018, 6.9854535, Position.QUALITY_GOOD, 2149.4, null),
 			ChainHelper.act(2149.4, 1692.49, null, null, 1965000), ChainHelper.sensor(2149.4, null, null));
 		if ($.shouldRecordHikeSample($.hasActiveSession(), $.isRecording()))
 		{
@@ -1020,7 +1020,7 @@ function testChainPauseSensorsOffKeepsGps(logger)
 	ChainHelper.expect(errs, "paused, pace page", ChainHelper.pace(data), "--|--|--:--|32:45");
 
 	$.session.start();
-	SpeedTestHelper.feedTick(data, ChainHelper.gps(lat, 6.9854535, Position.QUALITY_GOOD, 2149.4, null),
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(lat, 6.9854535, Position.QUALITY_GOOD, 2149.4, null),
 		ChainHelper.act(2149.4, 1692.49, 139, null, 1966000), ChainHelper.sensor(2149.4, null, 139));
 	if ($.shouldRecordHikeSample($.hasActiveSession(), $.isRecording()))
 	{
@@ -1052,7 +1052,7 @@ function testVarioEndMeasureSequence(logger)
 		}
 		else
 		{
-			SpeedTestHelper.feedTick(data, null, null, null);
+			WatchDataTestHelper.feedTick(data, null, null, null);
 		}
 		data.endMeasure();
 		if (varios[i] == null)
