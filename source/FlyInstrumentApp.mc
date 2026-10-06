@@ -460,6 +460,8 @@ class FlyInstrumentApp extends Application.AppBase
     function getInitialView()
     {
         mainView = new FlyInstrumentView();
+        // Hike vertical-speed window chosen in MENU -> "VS window" (default 60 s).
+        mainView.data.setHikeVsWindowMs($.preferences.getVsWindowMs());
         var timeView = new TimeView();
         var positionView = new PositionView();
         flyingViews = [mainView, timeView, positionView];

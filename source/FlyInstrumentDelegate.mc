@@ -90,14 +90,21 @@ class MyMenu2QuitDelegate extends WatchUi.Menu2InputDelegate
 
 // --------------------------------------------------------------------------------
 
+// Preferences menu (MENU): Beep toggle, saved on BACK, and "VS window", which
+// opens the 1 / 3 / 5 min choice (MyMenu2VsWindowDelegate). The rules live in
+// Preferences.mc (preferencesMenuAction, vsWindow*, applyVsWindowChoice).
 class MyMenu2PreferencesDelegate extends WatchUi.Menu2InputDelegate
 {
     var beepToggleMenu;
+    var app;
+    var prefsMenu;
 
-    function initialize(beepTM)
+    function initialize(beepTM, appInstance, menu)
     {
         Menu2InputDelegate.initialize();
         beepToggleMenu = beepTM;
+        app = appInstance;
+        prefsMenu = menu;
     }
 
     function onSelect(item)
@@ -106,11 +113,79 @@ class MyMenu2PreferencesDelegate extends WatchUi.Menu2InputDelegate
         {
             Sys.println("On MyMenu2PreferencesDelegate:audio");
         }
+        if ($.preferencesMenuAction(item.getId()) == :openVsWindow)
+        {
+            showVsWindowMenu(item);
+        }
     }
-    
+
+    function showVsWindowMenu(parentItem)
+    {
+        var current = $.preferences.getVsWindowMs();
+        var menu = new WatchUi.Menu2({:title=>"VS window", :focus=>$.vsWindowFocusIndex(current)});
+        var choices = $.vsWindowChoicesMs();
+        for (var i = 0; i < choices.size(); i++)
+        {
+            menu.addItem(new WatchUi.MenuItem($.vsWindowLabel(choices[i]), null, $.vsWindowMenuId(choices[i]), null));
+        }
+        WatchUi.pushView(menu, new MyMenu2VsWindowDelegate(app, prefsMenu, parentItem), WatchUi.SLIDE_IMMEDIATE);
+    }
+
     function onBack()
     {
         $.preferences.setBeep(beepToggleMenu.isEnabled());
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
+    }
+}
+
+// --------------------------------------------------------------------------------
+
+// The 1 / 3 / 5 min choice: stores the window, applies it at once to the
+// WatchData read by HikePaceView (no buffer reset), updates the "VS window"
+// sub-label in the Preferences menu and goes back to it. BACK: no change.
+class MyMenu2VsWindowDelegate extends WatchUi.Menu2InputDelegate
+{
+    var app;
+    var prefsMenu;
+    var parentItem;
+
+    function initialize(appInstance, menu, item)
+    {
+        Menu2InputDelegate.initialize();
+        app = appInstance;
+        prefsMenu = menu;
+        parentItem = item;
+    }
+
+    function onSelect(item)
+    {
+        var ms = $.vsWindowFromMenuId(item.getId());
+        if (ms == null)
+        {
+            return;
+        }
+        var data = (app != null && app.mainView != null) ? app.mainView.data : null;
+        var applied = $.applyVsWindowChoice($.preferences, data, ms);
+        Sys.println("VS window set to " + applied + " ms");
+
+        if (parentItem != null)
+        {
+            parentItem.setSubLabel($.vsWindowLabel(applied));
+            if (prefsMenu != null)
+            {
+                var idx = prefsMenu.findItemById("vsWindow");
+                if (idx >= 0)
+                {
+                    prefsMenu.updateItem(parentItem, idx);
+                }
+            }
+        }
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        WatchUi.requestUpdate();
+    }
+
+    function onBack()
+    {
         WatchUi.popView(WatchUi.SLIDE_DOWN);
     }
 }
@@ -276,8 +351,11 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
         var beep = $.preferences.getBeep();
         var beepTM = new WatchUi.ToggleMenuItem("Beep", "Set audio on/off", "beep", beep, null);
         menu.addItem(beepTM);
-          
-        var delegate = new MyMenu2PreferencesDelegate(beepTM);
+
+        var vsWindow = $.preferences.getVsWindowMs();
+        menu.addItem(new WatchUi.MenuItem("VS window", $.vsWindowLabel(vsWindow), "vsWindow", null));
+
+        var delegate = new MyMenu2PreferencesDelegate(beepTM, app, menu);
             
         WatchUi.pushView(menu, delegate, WatchUi.SLIDE_IMMEDIATE);
         Sys.println("Menu pressed, showing preferences");
