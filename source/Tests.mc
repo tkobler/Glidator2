@@ -222,6 +222,129 @@ function testStopRecordingSavesRecordingSession(logger)
 }
 
 // ---------------------------------------------------------------------------
+// START (SELECT) button and the Resume / Pause / Save / Ignore menu, modelled
+// on the stock Garmin Hike app: SELECT while recording freezes the timer and
+// opens the menu; SELECT while paused resumes; SELECT without a session starts.
+// In the menu, BACK means Resume, and 30 s without a choice resumes too.
+// ---------------------------------------------------------------------------
+
+// Full table of the three session states, plus incoherent / missing inputs.
+(:test)
+function testSelectAction(logger)
+{
+	Test.assertEqualMessage($.selectAction(false, false), :start, "no session -> start");
+	Test.assertEqualMessage($.selectAction(true, true), :pauseMenu, "recording -> pause and open the menu");
+	Test.assertEqualMessage($.selectAction(true, false), :resume, "paused -> resume");
+
+	// Edge cases.
+	Test.assertEqualMessage($.selectAction(false, true), :start, "recording without a session is incoherent -> start (startRecording() is a no-op if a session exists)");
+	Test.assertEqualMessage($.selectAction(null, null), :start, "null inputs -> start");
+	Test.assertEqualMessage($.selectAction(null, true), :start, "null hasSession -> start");
+	Test.assertEqualMessage($.selectAction(true, null), :resume, "session with unknown recording state -> treated as paused (resumeRecording() is a no-op if recording)");
+
+	return true;
+}
+
+// Auto-resume after 30 s without any choice in the menu. Bounds pinned at
+// 29 999 / 30 000 ms; unknown or negative elapsed time never resumes.
+(:test)
+function testMenuTimeoutAction(logger)
+{
+	Test.assertEqualMessage($.MENU_AUTO_RESUME_MS, 30000, "auto-resume delay is 30 s");
+
+	Test.assertEqualMessage($.menuTimeoutAction(0), :none, "just opened -> none");
+	Test.assertEqualMessage($.menuTimeoutAction(1000), :none, "1 s -> none");
+	Test.assertEqualMessage($.menuTimeoutAction(29999), :none, "29 999 ms -> none (just below the bound)");
+	Test.assertEqualMessage($.menuTimeoutAction(30000), :resume, "30 000 ms -> resume (bound included)");
+	Test.assertEqualMessage($.menuTimeoutAction(30001), :resume, "30 001 ms -> resume");
+	Test.assertEqualMessage($.menuTimeoutAction(3600000), :resume, "an hour later -> resume");
+	Test.assertEqualMessage($.menuTimeoutAction(2147483647), :resume, "max Number -> resume");
+
+	// Edge cases: missing or nonsensical elapsed times never resume on their own.
+	Test.assertEqualMessage($.menuTimeoutAction(null), :none, "null -> none");
+	Test.assertEqualMessage($.menuTimeoutAction(-1), :none, "negative -> none");
+	Test.assertEqualMessage($.menuTimeoutAction(-30000), :none, "large negative -> none");
+
+	// Floats (e.g. a computed elapsed time) follow the same bound.
+	Test.assertEqualMessage($.menuTimeoutAction(29999.5), :none, "29 999.5 ms -> none");
+	Test.assertEqualMessage($.menuTimeoutAction(30000.0), :resume, "30 000.0 ms -> resume");
+
+	return true;
+}
+
+// The periodic check the menu runs: once the menu is closed (a choice was
+// made, or BACK), the timer must never resume anything afterwards -- e.g.
+// after Pause the session stays paused, whatever the elapsed time.
+(:test)
+function testQuitMenuTickAction(logger)
+{
+	Test.assertEqualMessage($.quitMenuTickAction(false, 29999), :none, "menu open, 29 999 ms -> none");
+	Test.assertEqualMessage($.quitMenuTickAction(false, 30000), :resume, "menu open, 30 000 ms -> resume");
+	Test.assertEqualMessage($.quitMenuTickAction(true, 30000), :none, "menu already closed, 30 000 ms -> none");
+	Test.assertEqualMessage($.quitMenuTickAction(true, 3600000), :none, "menu already closed, long after -> none");
+	Test.assertEqualMessage($.quitMenuTickAction(true, 0), :none, "menu already closed, 0 ms -> none");
+	Test.assertEqualMessage($.quitMenuTickAction(false, null), :none, "menu open, unknown elapsed -> none");
+	Test.assertEqualMessage($.quitMenuTickAction(false, -5), :none, "menu open, negative elapsed -> none");
+	Test.assertEqualMessage($.quitMenuTickAction(null, 30000), :none, "unknown closed state -> none (never resume on doubt)");
+
+	return true;
+}
+
+// Menu item ids -> actions, and BACK -> Resume.
+(:test)
+function testMenuItemAction(logger)
+{
+	Test.assertEqualMessage($.menuItemAction("resume"), :resume, "Resume item");
+	Test.assertEqualMessage($.menuItemAction("pause"), :pause, "Pause item");
+	Test.assertEqualMessage($.menuItemAction("save"), :save, "Save item");
+	Test.assertEqualMessage($.menuItemAction("ignore"), :ignore, "Ignore item");
+
+	// Edge cases.
+	Test.assertEqualMessage($.menuItemAction(null), :none, "null id -> none");
+	Test.assertEqualMessage($.menuItemAction(""), :none, "empty id -> none");
+	Test.assertEqualMessage($.menuItemAction("discard"), :none, "unknown id -> none");
+	Test.assertEqualMessage($.menuItemAction("Resume"), :none, "ids are case sensitive -> none");
+	Test.assertEqualMessage($.menuItemAction(:resume), :none, "symbol instead of string id -> none");
+
+	Test.assertEqualMessage($.menuBackAction(), :resume, "BACK in the menu -> resume");
+
+	return true;
+}
+
+// isPaused(): a session exists but is not ticking. Driven through the real
+// session API, then checked against selectAction() at each step, i.e. the
+// exact sequence of SELECT presses the user goes through.
+(:test)
+function testIsPausedAndSelectFlow(logger)
+{
+	if ($.hasActiveSession())
+	{
+		$.stopRecording(false);
+	}
+
+	Test.assertMessage(!$.isPaused(), "no session -> not paused");
+	Test.assertEqualMessage($.selectAction($.hasActiveSession(), $.isRecording()), :start, "SELECT without a session -> start");
+
+	$.startRecording();
+	Test.assertMessage(!$.isPaused(), "recording -> not paused");
+	Test.assertEqualMessage($.selectAction($.hasActiveSession(), $.isRecording()), :pauseMenu, "SELECT while recording -> pause + menu");
+
+	$.pauseRecording();
+	Test.assertMessage($.isPaused(), "after pauseRecording() -> paused");
+	Test.assertEqualMessage($.selectAction($.hasActiveSession(), $.isRecording()), :resume, "SELECT while paused -> resume");
+
+	$.resumeRecording();
+	Test.assertMessage(!$.isPaused(), "after resumeRecording() -> not paused");
+	Test.assertEqualMessage($.selectAction($.hasActiveSession(), $.isRecording()), :pauseMenu, "SELECT after resume -> pause + menu again");
+
+	$.stopRecording(false); // discard -- this is just a test run
+	Test.assertMessage(!$.isPaused(), "after discard -> not paused");
+	Test.assertEqualMessage($.selectAction($.hasActiveSession(), $.isRecording()), :start, "SELECT after discard -> start");
+
+	return true;
+}
+
+// ---------------------------------------------------------------------------
 // Recording sport: SPORT_FLYING where the device has it, SPORT_GENERIC
 // otherwise (fenix5 / fenix5x, CIQ 3.1.6, have no Activity.SPORT_* at all).
 // ---------------------------------------------------------------------------

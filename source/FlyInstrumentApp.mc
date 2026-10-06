@@ -161,6 +161,43 @@ function stopRecording(save)
     }
 }
 
+// --------------------------------------------------------------------------------
+// START (SELECT) button and the Resume / Pause / Save / Ignore menu -- STUBS,
+// real implementation in the next commit.
+// --------------------------------------------------------------------------------
+
+const MENU_AUTO_RESUME_MS = 0;
+
+function isPaused()
+{
+    return false;
+}
+
+function selectAction(hasSession, recording)
+{
+    return :none;
+}
+
+function menuTimeoutAction(elapsedMs)
+{
+    return :none;
+}
+
+function quitMenuTickAction(menuClosed, elapsedMs)
+{
+    return :none;
+}
+
+function menuItemAction(id)
+{
+    return :none;
+}
+
+function menuBackAction()
+{
+    return :none;
+}
+
 // Pure rule used by onStop(): should the current session be saved when the app
 // is closed by the system without going through the Save/Ignore menu? Yes
 // whenever a session exists, recording or paused -- losing a whole hike & fly
