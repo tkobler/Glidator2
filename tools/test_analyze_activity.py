@@ -153,6 +153,27 @@ class ParseTest(unittest.TestCase):
         laps = aa.parse_tcx_string(text)
         self.assertEqual(len(laps[0].points), 1)
 
+    def _with_time(self, value):
+        text = make_tcx([{"points": [{"t": T0, "alt": 1.0}, {"t": T0 + 1, "alt": 2.0}]}])
+        return text.replace(_iso(T0 + 1), value, 1)
+
+    def test_invalid_time_raises_readable_error(self):
+        with self.assertRaises(aa.TcxError) as cm:
+            aa.parse_tcx_string(self._with_time("13/09/2026 10:18"), source="x.tcx")
+        msg = str(cm.exception)
+        self.assertIn("x.tcx", msg)
+        self.assertIn("lap 1", msg)
+        self.assertIn("point 2", msg)
+        self.assertIn("13/09/2026 10:18", msg)
+
+    def test_impossible_date_raises_readable_error(self):
+        with self.assertRaises(aa.TcxError) as cm:
+            aa.parse_tcx_string(self._with_time("2026-13-45T10:00:00.000Z"))
+        self.assertIn("2026-13-45T10:00:00.000Z", str(cm.exception))
+
+    def test_tcx_error_is_a_value_error(self):
+        self.assertTrue(issubclass(aa.TcxError, ValueError))
+
     def test_parse_file(self):
         with tempfile.NamedTemporaryFile("w", suffix=".tcx", delete=False) as f:
             f.write(make_tcx([{"points": climb_points(10)}]))
@@ -689,6 +710,78 @@ class MainTest(unittest.TestCase):
         with redirect_stderr(err):
             code = aa.main([bad])
         self.assertNotEqual(code, 0)
+        self.assertIn("bad.tcx", err.getvalue())
+
+    def _write(self, name, text):
+        path = os.path.join(self.tmp.name, name)
+        with open(path, "w") as f:
+            f.write(text)
+        return path
+
+    def _run(self, argv):
+        out, err = io.StringIO(), io.StringIO()
+        with redirect_stdout(out), redirect_stderr(err):
+            code = aa.main(argv)
+        return code, out.getvalue(), err.getvalue()
+
+    def test_invalid_time_is_a_clean_error(self):
+        text = make_tcx([{"points": climb_points(10)}]).replace(_iso(T0 + 1), "yesterday", 1)
+        path = self._write("badtime.tcx", text)
+        code, out, err = self._run([path])
+        self.assertEqual(code, 2)
+        self.assertIn("badtime.tcx", err)
+        self.assertIn("point 2", err)
+        self.assertIn("'yesterday'", err)
+        self.assertNotIn("Traceback", err)
+        self.assertEqual(out, "")
+
+    def test_no_lap_warns_with_expected_namespace(self):
+        path = self._write("empty.tcx", make_tcx([]))
+        code, out, err = self._run([path])
+        self.assertEqual(code, 1)
+        self.assertIn("no <Lap>", err)
+        self.assertIn("empty.tcx", err)
+        self.assertIn(aa.NS["tcx"], err)
+        self.assertEqual(out, "")
+
+    def test_no_lap_reports_the_namespace_found(self):
+        v1 = "http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v1"
+        text = make_tcx([{"points": climb_points(10)}]).replace(aa.NS["tcx"], v1)
+        code, _, err = self._run([self._write("v1.tcx", text)])
+        self.assertEqual(code, 1)
+        self.assertIn(aa.NS["tcx"], err)  # expected
+        self.assertIn(v1, err)            # found
+
+    def test_negative_threshold_option_is_rejected(self):
+        err = io.StringIO()
+        with redirect_stderr(err), self.assertRaises(SystemExit) as cm:
+            aa.main([self.path, "--gain-threshold", "-1"])
+        self.assertEqual(cm.exception.code, 2)
+        self.assertIn("gain-threshold", err.getvalue())
+
+
+class MissingLapMessageTest(unittest.TestCase):
+    """describe_missing_laps(root): text explaining why no lap was found."""
+
+    def _msg(self, text):
+        import xml.etree.ElementTree as ET
+        return aa.describe_missing_laps(ET.fromstring(text))
+
+    def test_expected_namespace_without_lap(self):
+        msg = self._msg(make_tcx([]))
+        self.assertIn("expected namespace %s" % aa.NS["tcx"], msg)
+        self.assertIn("root namespace %s" % aa.NS["tcx"], msg)
+
+    def test_laps_in_another_namespace(self):
+        other = "urn:example:tcx"
+        msg = self._msg('<T xmlns="%s"><Lap/><Lap/></T>' % other)
+        self.assertIn("root namespace %s" % other, msg)
+        self.assertIn("<Lap> found in namespace %s" % other, msg)
+
+    def test_no_namespace_at_all(self):
+        msg = self._msg("<TrainingCenterDatabase><Lap/></TrainingCenterDatabase>")
+        self.assertIn("root namespace (none)", msg)
+        self.assertIn("<Lap> found in namespace (none)", msg)
 
 
 @unittest.skipUnless(os.path.exists(SALVAN_TCX), "Salvan TCX not present")
