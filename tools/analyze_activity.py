@@ -9,9 +9,12 @@ distance, GPS distance (haversine), elevation gain (hysteresis threshold),
 share of zero speed, position jumps, vertical speed over 60 s (three methods,
 see below), pace over 60 s and heart rate min/max.
 
+Elevation gain uses a symmetric hysteresis (see elevation_gain_m).
+
 Vertical speed over a trailing 60 s window, evaluated at every trackpoint
 (window = points with t_i - t <= 60 s, needs >= 3 points and >= 20 s covered):
-  - "regression": least-squares slope of altitude against time;
+  - "regression": least-squares slope of altitude against time; this is the
+    reference method (labelled so in the report);
   - "diff": (last altitude - first altitude) / (last time - first time),
     the method behind the figures of the corrections plan;
   - "watch": replay of HikeHistory.mc on the trackpoints (one sample at most
@@ -465,41 +468,50 @@ def _fmt_vs(st):
         st["median"], st["p5"], st["p95"], st["n"])
 
 
+LABEL_WIDTH = 31
+
+
+def _row(label, text):
+    return "  %-*s: %s" % (LABEL_WIDTH, label, text)
+
+
 def format_report(summaries):
     lines = []
     for k, s in enumerate(summaries, 1):
         lines.append("Lap %d - debut %s" % (k, s["start"] or "?"))
-        lines.append("  Duree                  : %s s (%s), etendue des points %.1f s"
-                     % (_fmt(s["duration_s"]), _hms(s["duration_s"] or 0.0), s["span_s"]))
-        lines.append("  Points                 : %d, intervalle moyen %s, max %s"
-                     % (s["points"], _fmt(s["mean_interval_s"], "%.2f", " s"),
-                        _fmt(s["max_interval_s"], "%.0f", " s")))
-        lines.append("  Distance enregistree   : %s" % _fmt(s["recorded_distance_m"], unit=" m"))
+        lines.append(_row("Duree", "%s s (%s), etendue des points %.1f s"
+                          % (_fmt(s["duration_s"]), _hms(s["duration_s"] or 0.0), s["span_s"])))
+        lines.append(_row("Points", "%d, intervalle moyen %s, max %s"
+                          % (s["points"], _fmt(s["mean_interval_s"], "%.2f", " s"),
+                             _fmt(s["max_interval_s"], "%.0f", " s"))))
+        lines.append(_row("Distance enregistree", _fmt(s["recorded_distance_m"], unit=" m")))
         gps = s["gps_distance_m"]
         rec = s["recorded_distance_m"]
         rel = ""
         if gps is not None and rec:
             rel = " (%+.1f %% vs enregistree)" % (100.0 * (gps - rec) / rec)
-        lines.append("  Distance GPS           : %s%s" % (_fmt(gps, unit=" m"), rel))
-        lines.append("  D+ (seuil %.1f m)       : %s"
-                     % (s["gain_threshold_m"], _fmt(s["elevation_gain_m"], unit=" m")))
+        lines.append(_row("Distance GPS", _fmt(gps, unit=" m") + rel))
+        lines.append(_row("D+ (seuil %.1f m)" % s["gain_threshold_m"],
+                          _fmt(s["elevation_gain_m"], unit=" m")))
         zs = s["with_speed"]
         pct = " (%.1f %%)" % (100.0 * s["zero_speed"] / zs) if zs else ""
-        lines.append("  Vitesse a 0            : %d / %d%s" % (s["zero_speed"], zs, pct))
-        lines.append("  Sauts de position      : %d (regle > %.0f m + %.0f m/s x dt)"
-                     % (len(s["jumps"]), JUMP_BASE_M, JUMP_SPEED_MPS))
+        lines.append(_row("Vitesse a 0", "%d / %d%s" % (s["zero_speed"], zs, pct)))
+        lines.append(_row("Sauts de position", "%d (regle > %.0f m + %.0f m/s x dt)"
+                          % (len(s["jumps"]), JUMP_BASE_M, JUMP_SPEED_MPS)))
         for j in s["jumps"][:10]:
             lines.append("    point %d : %.0f m en %.0f s" % (j.index, j.distance_m, j.dt_s))
         if len(s["jumps"]) > 10:
             lines.append("    ... %d autres" % (len(s["jumps"]) - 10))
-        lines.append("  VS 60 s regression     : %s" % _fmt_vs(s["vs_regression"]))
-        lines.append("  VS 60 s dalt/dt        : %s" % _fmt_vs(s["vs_diff"]))
-        lines.append("  VS montre (HikeHistory): %s" % _fmt_vs(s["vs_watch"]))
+        # The 60 s regression is the reference vertical speed (user
+        # decision); the two other methods are kept for comparison.
+        lines.append(_row("VS 60 s (regression, reference)", _fmt_vs(s["vs_regression"])))
+        lines.append(_row("VS 60 s dalt/dt", _fmt_vs(s["vs_diff"])))
+        lines.append(_row("VS montre (HikeHistory)", _fmt_vs(s["vs_watch"])))
         sp = s["speed60_median_mps"]
-        lines.append("  Pace 60 s              : mediane %s min/km (vitesse %s)"
-                     % (format_pace(sp), _fmt(sp, "%.2f", " m/s")))
-        lines.append("  FC                     : min %s, max %s"
-                     % (_fmt(s["hr_min"], "%d", " bpm"), _fmt(s["hr_max"], "%d", " bpm")))
+        lines.append(_row("Pace 60 s", "mediane %s min/km (vitesse %s)"
+                          % (format_pace(sp), _fmt(sp, "%.2f", " m/s"))))
+        lines.append(_row("FC", "min %s, max %s"
+                          % (_fmt(s["hr_min"], "%d", " bpm"), _fmt(s["hr_max"], "%d", " bpm"))))
         lines.append("")
     return "\n".join(lines)
 
