@@ -520,7 +520,8 @@ function testChainVerticalSpeedSalvanSteepClimb(logger)
 	return ChainHelper.finish(errs, logger);
 }
 
-// F07: real spiral (extract S): -14 419.8 m/h -> "-14420"; 510.69 m / 57 s
+// F07: real spiral (extract S): -14 419.8 m/h, beyond the hike cap of
+// 3000 m/h (decision D3, 07/10) -> "--" on the Pace page; 510.69 m / 57 s
 // = 8.9595 m/s -> 1:52 /km; position page with a session: 1732 m, 22.0 km.
 (:test, :chaintest, :typecheck(false))
 function testChainVerticalSpeedSalvanSpiralDescent(logger)
@@ -536,13 +537,14 @@ function testChainVerticalSpeedSalvanSpiralDescent(logger)
 	ChainHelper.near(errs, "vertical speed", v, -14419.8, 2.0);
 	ChainHelper.near(errs, "speed", data.getHikeSpeedAt(end), 8.9595, 0.001);
 	$.session = new FakeSession(true);
-	ChainHelper.expect(errs, "pace page", ChainHelper.pace(data), "--|-14420|1:52|--:--");
+	ChainHelper.expect(errs, "pace page", ChainHelper.pace(data), "--|--|1:52|--:--");
 	ChainHelper.expect(errs, "position page", ChainHelper.position(data), "1732|--|22.0|--:--");
 	return ChainHelper.finish(errs, logger);
 }
 
 // F08: a +1000 m jump on the last of 13 samples (5 s apart) is not filtered:
-// sxy 30 000, sxx 4550 -> 23 736.3 m/h, "+23740" (current behaviour pinned).
+// sxy 30 000, sxx 4550 -> 23 736.3 m/h (no jump filter, current behaviour
+// pinned), beyond the hike cap of 3000 m/h (decision D3, 07/10) -> "--".
 (:test, :chaintest, :typecheck(false))
 function testChainVerticalSpeedAltitudeJump(logger)
 {
@@ -555,7 +557,7 @@ function testChainVerticalSpeedAltitudeJump(logger)
 	}
 	var v = data.getHikeVerticalSpeedAt(t0 + 60000);
 	Test.assertMessage(v != null && (v - 23736.3).abs() < 1.0, "jump -> 23 736.3 m/h, got " + v);
-	Test.assertEqualMessage($.formatVerticalSpeed(v), "+23740", "jump displayed +23740");
+	Test.assertEqualMessage($.formatVerticalSpeed(v), "--", "jump beyond the 3000 m/h cap displayed --");
 	return true;
 }
 

@@ -1167,10 +1167,11 @@ function testFormatVerticalSpeed(logger)
 	Test.assertEqualMessage($.formatVerticalSpeed(-7), "-10", "Number -7 -> -10");
 	Test.assertEqualMessage($.formatVerticalSpeed(0), "0", "Number 0 -> 0");
 
-	// Very large values (altitude glitch) must not overflow a 32-bit Number.
-	Test.assertEqualMessage($.formatVerticalSpeed(1000000.0), "+1000000", "1e6 -> +1000000");
-	Test.assertEqualMessage($.formatVerticalSpeed(-1000000.0), "-1000000", "-1e6 -> -1000000");
-	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10), "+10000000000", "1e10 -> no 32-bit overflow");
+	// Very large values (altitude glitch) are beyond the +-3000 m/h cap
+	// (decision D3, 07/10): "--", never an overflowed Number.
+	Test.assertEqualMessage($.formatVerticalSpeed(1000000.0), "--", "1e6 -> -- (beyond the 3000 m/h cap)");
+	Test.assertEqualMessage($.formatVerticalSpeed(-1000000.0), "--", "-1e6 -> -- (beyond the 3000 m/h cap)");
+	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10), "--", "1e10 -> -- (beyond the 3000 m/h cap)");
 
 	// NaN is not a speed: show "--" rather than garbage. (A Float division
 	// 0.0 / 0.0 throws in Monkey C, so NaN is built from sqrt of a negative.)
@@ -1186,46 +1187,76 @@ function testFormatVerticalSpeed(logger)
 	Test.assertMessage(negInf < -big && negInf == negInf * 2.0, "test setup: -Inf expected, got " + negInf);
 	Test.assertEqualMessage($.formatVerticalSpeed(inf), "--", "+Inf -> --");
 	Test.assertEqualMessage($.formatVerticalSpeed(negInf), "--", "-Inf -> --");
-	// Beyond VERTICAL_SPEED_MAX_MH (1e10 m/h, physically absurd) the value
-	// reads "--": a finite but huge Float such as 3e38 would overflow the
-	// Long rounding (toLong() past about 9.2e18) and print garbage.
+	// Beyond VERTICAL_SPEED_MAX_MH (3000 m/h) the value reads "--"; a finite
+	// but huge Float such as 3e38 would also overflow the Long rounding
+	// (toLong() past about 9.2e18) if it were not capped.
 	Test.assertEqualMessage($.formatVerticalSpeed(big), "--", "3e38 -> -- (beyond the cap, no Long overflow)");
 	Test.assertEqualMessage($.formatVerticalSpeed(-big), "--", "-3e38 -> -- (beyond the cap, no Long overflow)");
 	return true;
 }
 
-// Cap of formatVerticalSpeed(): |v| <= VERTICAL_SPEED_MAX_MH (1e10 m/h,
-// bound included) is formatted, anything larger reads "--". The bound and
-// the test values are exact in a 32-bit Float.
+// Cap of formatVerticalSpeed() (decision D3, 07/10): |v| <= 3000 m/h (bound
+// included) is formatted, anything larger reads "--", in climb and descent.
+// The rule is on the value BEFORE rounding: 3000.4 would round to "+3000"
+// but is above the cap, so it reads "--".
+// 32-bit Floats are about 0.00024 apart near 3000, so 2999.9, 3000.1 and
+// 3000.4 each stay on their side of 3000; 3000.0 is exact.
 (:test)
 function testFormatVerticalSpeedCap(logger)
 {
-	Test.assertEqualMessage($.VERTICAL_SPEED_MAX_MH, 1.0e10, "documented cap is 1e10 m/h");
+	Test.assertEqualMessage($.VERTICAL_SPEED_MAX_MH, 3000.0, "documented cap is 3000 m/h");
 
 	// Just under and exactly at the cap: formatted.
-	Test.assertEqualMessage($.formatVerticalSpeed(8.0e9), "+8000000000", "8e9 (under the cap) -> +8000000000");
-	Test.assertEqualMessage($.formatVerticalSpeed(-8.0e9), "-8000000000", "-8e9 (under the cap) -> -8000000000");
-	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10), "+10000000000", "1e10 (the cap, included) -> +10000000000");
-	Test.assertEqualMessage($.formatVerticalSpeed(-1.0e10), "-10000000000", "-1e10 (the cap, included) -> -10000000000");
+	Test.assertEqualMessage($.formatVerticalSpeed(2999.9), "+3000", "2999.9 (under the cap) -> +3000");
+	Test.assertEqualMessage($.formatVerticalSpeed(-2999.9), "-3000", "-2999.9 (under the cap) -> -3000");
+	Test.assertEqualMessage($.formatVerticalSpeed(3000.0), "+3000", "3000.0 (the cap, included) -> +3000");
+	Test.assertEqualMessage($.formatVerticalSpeed(-3000.0), "-3000", "-3000.0 (the cap, included) -> -3000");
+	Test.assertEqualMessage($.formatVerticalSpeed(2994.9), "+2990", "2994.9 -> +2990");
+	Test.assertEqualMessage($.formatVerticalSpeed(-2995.0), "-3000", "-2995.0 -> -3000");
 
-	// Just above the cap (next Floats are 1024 apart there) and far above it.
-	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10 + 2048.0), "--", "1e10 + 2048 (just above) -> --");
-	Test.assertEqualMessage($.formatVerticalSpeed(-1.0e10 - 2048.0), "--", "-1e10 - 2048 (just above) -> --");
-	Test.assertEqualMessage($.formatVerticalSpeed(1.6e10), "--", "1.6e10 -> --");
+	// Just above the cap: "--", even when the rounded value would be 3000.
+	Test.assertEqualMessage($.formatVerticalSpeed(3000.1), "--", "3000.1 (just above) -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(-3000.1), "--", "-3000.1 (just above) -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(3000.4), "--", "3000.4 (would round to +3000) -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(-3000.4), "--", "-3000.4 (would round to -3000) -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(3004.9), "--", "3004.9 -> --");
+
+	// Far above the cap, including the former Long overflow zone.
+	Test.assertEqualMessage($.formatVerticalSpeed(23736.3), "--", "23736.3 (altitude jump) -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(-14419.8), "--", "-14419.8 (spiral dive) -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10), "--", "1e10 -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(-1.0e10), "--", "-1e10 -> --");
 	Test.assertEqualMessage($.formatVerticalSpeed(1.0e19), "--", "1e19 (Long overflow zone) -> --");
-	Test.assertEqualMessage($.formatVerticalSpeed(1.0e20), "--", "1e20 -> --");
 	Test.assertEqualMessage($.formatVerticalSpeed(-1.0e20), "--", "-1e20 -> --");
 
-	// Double input is converted to Float first, then capped the same way.
-	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10d), "+10000000000", "Double 1e10 -> formatted");
+	// Not a value, NaN, +-Infinity: "--" (unchanged by the cap).
+	Test.assertEqualMessage($.formatVerticalSpeed(null), "--", "null -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(MapTestHelper.nan()), "--", "NaN -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(MapTestHelper.inf()), "--", "+Inf -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(-MapTestHelper.inf()), "--", "-Inf -> --");
+
+	// Zero and minus zero are inside the cap.
+	Test.assertEqualMessage($.formatVerticalSpeed(-0.0), "0", "-0.0 -> 0");
+	Test.assertEqualMessage($.formatVerticalSpeed(0), "0", "Number 0 -> 0");
+
+	// Number, Long and Double inputs are capped the same way.
+	Test.assertEqualMessage($.formatVerticalSpeed(3000), "+3000", "Number 3000 -> +3000");
+	Test.assertEqualMessage($.formatVerticalSpeed(-3000), "-3000", "Number -3000 -> -3000");
+	Test.assertEqualMessage($.formatVerticalSpeed(3001), "--", "Number 3001 -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(-3001), "--", "Number -3001 -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(3000l), "+3000", "Long 3000 -> +3000");
+	Test.assertEqualMessage($.formatVerticalSpeed(5000000000l), "--", "Long 5e9 -> --");
+	Test.assertEqualMessage($.formatVerticalSpeed(3000.0d), "+3000", "Double 3000 -> +3000");
+	Test.assertEqualMessage($.formatVerticalSpeed(3000.1d), "--", "Double 3000.1 -> --");
 	Test.assertEqualMessage($.formatVerticalSpeed(1.0e300d), "--", "Double 1e300 -> --");
 
-	// Large Long input stays under the cap and is formatted.
-	Test.assertEqualMessage($.formatVerticalSpeed(5000000000l), "+5000000000", "Long 5e9 -> +5000000000");
-
-	// Ordinary values are unchanged by the cap.
-	Test.assertEqualMessage($.formatVerticalSpeed(636.4), "+640", "636.4 still +640");
-	Test.assertEqualMessage($.formatVerticalSpeed(-129.0), "-130", "-129.0 still -130");
+	// Real Salvan climb (garmin_data/activity_24346302742.tcx, lap 1, 60 s
+	// trailing window, endpoint difference; pinned by
+	// tools/test_analyze_activity.py test_climb_vertical_speed_diff_reproduces_plan):
+	// median +636 m/h, p95 +891 m/h, p5 -129 m/h. All stay displayed.
+	Test.assertEqualMessage($.formatVerticalSpeed(636.4), "+640", "Salvan median 636.4 still +640");
+	Test.assertEqualMessage($.formatVerticalSpeed(891.0), "+890", "Salvan p95 891 still +890");
+	Test.assertEqualMessage($.formatVerticalSpeed(-129.0), "-130", "Salvan p5 -129 still -130");
 	return true;
 }
 
