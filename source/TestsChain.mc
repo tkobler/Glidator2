@@ -699,6 +699,44 @@ function testChainPositionPageFields(logger)
 	return ChainHelper.finish(errs, logger);
 }
 
+// ELEV. GAIN guard on the Position page (decision of 07/10, Position ascent
+// guard): Activity totalAscent that is negative, above 20 000 m or not finite
+// reads "--"; the bounds 0 and 20 000 and -0.0 read as numbers. Before the
+// guard: "-1", "20001", "2147483647", "-2147483648", "0" (NaN).
+(:test, :chaintest, :typecheck(false))
+function testChainPositionAscentGuard(logger)
+{
+	ChainHelper.reset();
+	var errs = [];
+	var data = new WatchData();
+	var info = ChainHelper.act(2149.4, 1692.49, null, null, 1965000);
+	$.session = new FakeSession(true);
+
+	var ascents = [-0.1, -1.0, 20000.1, 20000.4, 20001.0, 1.0e10,
+		MapTestHelper.nan(), MapTestHelper.inf(), -MapTestHelper.inf()];
+	for (var i = 0; i < ascents.size(); i++)
+	{
+		info.totalAscent = ascents[i];
+		WatchDataTestHelper.feedTick(data, null, info, null);
+		ChainHelper.expect(errs, "ascent " + ascents[i], ChainHelper.position(data), "2149|--|1.7|32:45");
+	}
+
+	info.totalAscent = 20000.0;
+	WatchDataTestHelper.feedTick(data, null, info, null);
+	ChainHelper.expect(errs, "ascent 20000 (bound)", ChainHelper.position(data), "2149|20000|1.7|32:45");
+	info.totalAscent = -0.0;
+	WatchDataTestHelper.feedTick(data, null, info, null);
+	ChainHelper.expect(errs, "ascent -0.0", ChainHelper.position(data), "2149|0|1.7|32:45");
+	// Real value: D+ of the Salvan climb (lap 1 of the TCX), 908 m.
+	info.totalAscent = 908.0;
+	WatchDataTestHelper.feedTick(data, null, info, null);
+	ChainHelper.expect(errs, "ascent Salvan 908", ChainHelper.position(data), "2149|908|1.7|32:45");
+	// A valid ascent still reads "--" without a session.
+	$.session = null;
+	ChainHelper.expect(errs, "no session", ChainHelper.position(data), "2149|--|--|--:--");
+	return ChainHelper.finish(errs, logger);
+}
+
 // D3 (to fix): a negative distance reads "--". Today "-0.0" and "-1.0".
 (:test, :chaintest, :typecheck(false))
 function testDefectNegativeDistance(logger)

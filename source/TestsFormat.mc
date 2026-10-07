@@ -83,6 +83,51 @@ function testFormatHikeAltitude(logger)
 	return true;
 }
 
+// ELEV. GAIN of the Position page (decision of 07/10, Position ascent guard):
+// rounded to the meter like the altitude, "--" for null, NaN, +-Infinity,
+// negative or above 20 000 m (bound included). The bound applies to the raw
+// value: 20000.4 rounds to 20000 but is out of range, so "--". -0.0 is a zero
+// and reads "0", not "-0" or "--".
+(:test)
+function testFormatHikeAscent(logger)
+{
+	Test.assertEqualMessage(formatHikeAscent(null), "--", "null");
+	Test.assertEqualMessage(formatHikeAscent(0.0), "0", "0 (lower bound)");
+	Test.assertEqualMessage(formatHikeAscent(-0.0), "0", "-0.0 is zero, no minus sign");
+	Test.assertEqualMessage(formatHikeAscent(0), "0", "Number 0");
+	Test.assertEqualMessage(formatHikeAscent(20000.0), "20000", "upper bound 20000 is valid");
+	Test.assertEqualMessage(formatHikeAscent(20000), "20000", "Number 20000");
+	Test.assertEqualMessage(formatHikeAscent(20000.1), "--", "just above 20000");
+	Test.assertEqualMessage(formatHikeAscent(20000.4), "--", "rounds to 20000 but the raw value is out of range");
+	Test.assertEqualMessage(formatHikeAscent(20001), "--", "Number 20001");
+	Test.assertEqualMessage(formatHikeAscent(19999.6), "20000", "in range, rounds up to 20000");
+	Test.assertEqualMessage(formatHikeAscent(-0.1), "--", "just below 0");
+	Test.assertEqualMessage(formatHikeAscent(-0.4), "--", "rounds to 0 but the raw value is negative");
+	Test.assertEqualMessage(formatHikeAscent(-1), "--", "Number -1");
+	Test.assertEqualMessage(formatHikeAscent(0.4), "0", "rounds down to 0");
+	Test.assertEqualMessage(formatHikeAscent(0.5), "1", "half rounds up");
+	Test.assertEqualMessage(formatHikeAscent(335.4), "335", "rounds down");
+	Test.assertEqualMessage(formatHikeAscent(1.0e10), "--", "huge (would overflow a Number)");
+	Test.assertEqualMessage(formatHikeAscent(MapTestHelper.nan()), "--", "NaN");
+	Test.assertEqualMessage(formatHikeAscent(MapTestHelper.inf()), "--", "+Inf");
+	Test.assertEqualMessage(formatHikeAscent(-MapTestHelper.inf()), "--", "-Inf");
+	// Long and Double.
+	Test.assertEqualMessage(formatHikeAscent(20000l), "20000", "Long 20000");
+	Test.assertEqualMessage(formatHikeAscent(20001l), "--", "Long 20001");
+	Test.assertEqualMessage(formatHikeAscent(5000000000l), "--", "Long 5e9");
+	Test.assertEqualMessage(formatHikeAscent(-1l), "--", "Long -1");
+	Test.assertEqualMessage(formatHikeAscent(907.6d), "908", "Double");
+	Test.assertEqualMessage(formatHikeAscent(20000.0d), "20000", "Double 20000");
+	Test.assertEqualMessage(formatHikeAscent(20000.001d), "--", "Double just above 20000");
+	Test.assertEqualMessage(formatHikeAscent(-0.001d), "--", "Double just below 0");
+	Test.assertEqualMessage(formatHikeAscent(-0.0d), "0", "Double -0.0");
+	Test.assertEqualMessage(formatHikeAscent(1.0e300d), "--", "Double 1e300");
+	// Real value (garmin_data/activity_24346302742.tcx): D+ of lap 1, the
+	// Salvan climb, 908 m.
+	Test.assertEqualMessage(formatHikeAscent(908.0), "908", "Salvan climb D+");
+	return true;
+}
+
 // D5: heart rate of the hike Pace page, "--" for null or outside
 // 25..250 bpm (bounds included). A Float is rounded to the nearest bpm, but
 // the range is checked on the raw value, as for the altitude.
