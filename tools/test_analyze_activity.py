@@ -743,6 +743,21 @@ class SalvanTest(unittest.TestCase):
         self.assertLessEqual(gain, all_rises)
         self.assertLessEqual(aa.elevation_gain_m(alts, threshold=3.0), gain)
 
+    def test_climb_elevation_gain_value(self):
+        # Regression value of the symmetric hysteresis (1 m). The asymmetric
+        # version gave 908.2 m; the difference comes from the 11 climbs that
+        # follow a descent or end on a sub-threshold rise (< 1 m each).
+        self.assertAlmostEqual(self.climb["elevation_gain_m"], 917.2, delta=0.05)
+
+    def test_gain_minus_loss_matches_net_climb(self):
+        # With the reference on the true extremes, D+ - D- equals the net
+        # altitude change up to one threshold (unconfirmed final swing).
+        for lap in self.laps:
+            alts = [p.alt for p in lap.points if p.alt is not None]
+            gain = aa.elevation_gain_m(alts)
+            loss = aa.elevation_gain_m([-a for a in alts])
+            self.assertLessEqual(abs((gain - loss) - (alts[-1] - alts[0])), 1.0)
+
     def test_climb_no_jump(self):
         self.assertEqual(self.climb["jumps"], [])
 

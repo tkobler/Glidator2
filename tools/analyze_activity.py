@@ -181,28 +181,43 @@ def gps_distance_m(points):
 
 
 def elevation_gain_m(alts, threshold=1.0):
-    """Elevation gain with hysteresis: a rise is counted once the altitude is
-    at least `threshold` above the reference; a drop of more than
-    `threshold` moves the reference down. None values are skipped.
+    """Elevation gain with a symmetric hysteresis. None values are skipped.
 
-    Known asymmetry (kept as is for now): the test is `>=` going up but `>`
-    going down, and on a descent the reference moves down in steps (only
-    when the altitude is more than `threshold` below it) instead of
-    following the running minimum. After a descent the reference can thus
-    sit up to `threshold` above the true low point, so the next climb may
-    be undercounted by up to `threshold`. The residual rise at the end of
-    the series (below `threshold`) is not counted either."""
+    The reference is the running extreme of the current direction: the
+    running maximum while climbing, the running minimum while descending
+    (the series starts as "descending" from its first value).
+      - descending: a new minimum moves the reference down; an altitude
+        strictly more than `threshold` above it counts `alt - ref` (the
+        whole rise from the low point) and switches to climbing;
+      - climbing: a new maximum counts `alt - ref` and moves the reference
+        up; an altitude strictly more than `threshold` below it switches to
+        descending with the reference at that altitude.
+    The result is the sum of the rises between the low and high points of
+    the swings larger than `threshold`. A final rise of at most `threshold`
+    after a descent is not counted (it is noise until confirmed)."""
+    if threshold < 0:
+        raise ValueError("threshold must be >= 0, got %r" % threshold)
     values = [a for a in alts if a is not None]
     if not values:
         return None
     gain = 0.0
+    climbing = False
     ref = values[0]
     for a in values[1:]:
-        if a - ref >= threshold:
-            gain += a - ref
-            ref = a
-        elif ref - a > threshold:
-            ref = a
+        if climbing:
+            if a > ref:
+                gain += a - ref
+                ref = a
+            elif ref - a > threshold:
+                climbing = False
+                ref = a
+        else:
+            if a < ref:
+                ref = a
+            elif a - ref > threshold:
+                gain += a - ref
+                climbing = True
+                ref = a
     return gain
 
 
