@@ -2,7 +2,8 @@ using Toybox.Application;
 using Toybox.Lang;
 
 // --------------------------------------------------------------------------------
-// Hike vertical-speed window (MENU -> "VS window"): 1, 3 or 5 min. 5 min is the
+// Hike vertical-speed window (MENU -> "VS window", each press goes to the next
+// one): 1, 3 or 5 min. 5 min is the
 // whole HikeHistory buffer (60 samples at most 5 s apart). Pace keeps its own
 // 60 s window; the flight vario does not use any of this.
 // --------------------------------------------------------------------------------
@@ -33,8 +34,7 @@ function sanitizeVsWindowMs(raw)
 	return VS_WINDOW_DEFAULT_MS;
 }
 
-// Index of the window in vsWindowChoicesMs() (0 for anything invalid): also
-// the item to focus in the 3-choice menu.
+// Index of the window in vsWindowChoicesMs() (0 for anything invalid).
 function vsWindowFocusIndex(ms)
 {
 	var w = sanitizeVsWindowMs(ms);
@@ -49,52 +49,62 @@ function vsWindowFocusIndex(ms)
 	return 0;
 }
 
-// Menu item ids of the 3-choice menu, in vsWindowChoicesMs() order.
-function vsWindowMenuIds()
-{
-	return ["vs1", "vs3", "vs5"];
-}
-
-function vsWindowMenuId(ms)
-{
-	return vsWindowMenuIds()[vsWindowFocusIndex(ms)];
-}
-
-// Menu item id -> window in ms, or null for an unknown id (nothing changes).
-function vsWindowFromMenuId(id)
-{
-	if (!(id instanceof Lang.String))
-	{
-		return null;
-	}
-	var ids = vsWindowMenuIds();
-	for (var i = 0; i < ids.size(); i++)
-	{
-		if (id.equals(ids[i]))
-		{
-			return vsWindowChoicesMs()[i];
-		}
-	}
-	return null;
-}
-
+// Sub-label of the "VS window" item.
 function vsWindowLabel(ms)
 {
 	return ["1 min", "3 min", "5 min"][vsWindowFocusIndex(ms)];
 }
 
-// Preferences menu (MENU) item id -> :openVsWindow for "VS window", :none
+// Decision R6 (07/10): each press on "VS window" goes to the next window,
+// 1 -> 3 -> 5 -> 1 min. Anything that is not one of the three windows (null,
+// another Number, a Float, a String...) restarts the cycle at 1 min.
+function nextVsWindowMs(ms)
+{
+	if (!(ms instanceof Lang.Number))
+	{
+		return VS_WINDOW_DEFAULT_MS;
+	}
+	var choices = vsWindowChoicesMs();
+	for (var i = 0; i < choices.size(); i++)
+	{
+		if (ms == choices[i])
+		{
+			return choices[(i + 1) % choices.size()];
+		}
+	}
+	return VS_WINDOW_DEFAULT_MS;
+}
+
+// Preferences menu (MENU) item id -> :cycleVsWindow for "VS window", :none
 // otherwise (the Beep toggle is saved on BACK, as before).
 function preferencesMenuAction(id)
 {
 	if (id instanceof Lang.String && id.equals("vsWindow"))
 	{
-		return :openVsWindow;
+		return :cycleVsWindow;
 	}
 	return :none;
 }
 
-// A choice from the menu: stored in the preferences and pushed to the
+// One press on "VS window": the current window (from the store, else from the
+// WatchData, else the default) goes to the next one, which is stored at once
+// and pushed to the WatchData. Either may be null. Returns the new window,
+// to show as the item's sub-label.
+function cycleVsWindow(prefs, data)
+{
+	var current = VS_WINDOW_DEFAULT_MS;
+	if (prefs != null)
+	{
+		current = prefs.getVsWindowMs();
+	}
+	else if (data != null)
+	{
+		current = data.getHikeVsWindowMs();
+	}
+	return applyVsWindowChoice(prefs, data, nextVsWindowMs(current));
+}
+
+// A window chosen from the menu: stored in the preferences and pushed to the
 // WatchData that HikePaceView reads. Either may be null. Returns the window
 // actually applied (the default for an invalid choice).
 function applyVsWindowChoice(prefs, data, ms)

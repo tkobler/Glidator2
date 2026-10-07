@@ -1596,34 +1596,11 @@ function testSanitizeVsWindowMs(logger)
 	return true;
 }
 
-// Menu logic: item ids <-> windows, labels, initial focus, and what the
-// Preferences menu does with each item.
+// Menu logic (decision R6, 07/10: no sub-menu any more): labels, index of a
+// window, and what the Preferences menu does with each item.
 (:test)
 function testVsWindowMenuLogic(logger)
 {
-	Test.assertEqualMessage($.vsWindowMenuId(60000), "vs1", "60000 -> id vs1");
-	Test.assertEqualMessage($.vsWindowMenuId(180000), "vs3", "180000 -> id vs3");
-	Test.assertEqualMessage($.vsWindowMenuId(300000), "vs5", "300000 -> id vs5");
-	Test.assertEqualMessage($.vsWindowMenuId(120000), "vs1", "unknown window -> id of the default");
-	Test.assertEqualMessage($.vsWindowMenuId(null), "vs1", "null window -> id of the default");
-
-	Test.assertEqualMessage($.vsWindowFromMenuId("vs1"), 60000, "vs1 -> 60000");
-	Test.assertEqualMessage($.vsWindowFromMenuId("vs3"), 180000, "vs3 -> 180000");
-	Test.assertEqualMessage($.vsWindowFromMenuId("vs5"), 300000, "vs5 -> 300000");
-	Test.assertMessage($.vsWindowFromMenuId(null) == null, "null id -> null (no change)");
-	Test.assertMessage($.vsWindowFromMenuId("") == null, "empty id -> null");
-	Test.assertMessage($.vsWindowFromMenuId("vs2") == null, "unknown id -> null");
-	Test.assertMessage($.vsWindowFromMenuId("VS3") == null, "ids are case sensitive -> null");
-	Test.assertMessage($.vsWindowFromMenuId(180000) == null, "Number instead of string id -> null");
-	Test.assertMessage($.vsWindowFromMenuId("beep") == null, "beep id -> null");
-
-	// Every choice goes round-trip through its menu id.
-	var c = $.vsWindowChoicesMs();
-	for (var i = 0; i < c.size(); i++)
-	{
-		Test.assertEqualMessage($.vsWindowFromMenuId($.vsWindowMenuId(c[i])), c[i], "round trip for " + c[i]);
-	}
-
 	Test.assertEqualMessage($.vsWindowLabel(60000), "1 min", "label 1 min");
 	Test.assertEqualMessage($.vsWindowLabel(180000), "3 min", "label 3 min");
 	Test.assertEqualMessage($.vsWindowLabel(300000), "5 min", "label 5 min");
@@ -1631,21 +1608,160 @@ function testVsWindowMenuLogic(logger)
 	Test.assertEqualMessage($.vsWindowLabel(120000), "1 min", "unknown -> label of the default");
 	Test.assertEqualMessage($.vsWindowLabel("x"), "1 min", "corrupted -> label of the default");
 
-	Test.assertEqualMessage($.vsWindowFocusIndex(60000), 0, "focus on 1 min");
-	Test.assertEqualMessage($.vsWindowFocusIndex(180000), 1, "focus on 3 min");
-	Test.assertEqualMessage($.vsWindowFocusIndex(300000), 2, "focus on 5 min");
-	Test.assertEqualMessage($.vsWindowFocusIndex(null), 0, "null -> focus on the default");
-	Test.assertEqualMessage($.vsWindowFocusIndex(42), 0, "unknown -> focus on the default");
+	Test.assertEqualMessage($.vsWindowFocusIndex(60000), 0, "index of 1 min");
+	Test.assertEqualMessage($.vsWindowFocusIndex(180000), 1, "index of 3 min");
+	Test.assertEqualMessage($.vsWindowFocusIndex(300000), 2, "index of 5 min");
+	Test.assertEqualMessage($.vsWindowFocusIndex(null), 0, "null -> index of the default");
+	Test.assertEqualMessage($.vsWindowFocusIndex(42), 0, "unknown -> index of the default");
 
-	Test.assertEqualMessage($.preferencesMenuAction("vsWindow"), :openVsWindow, "VS window item -> open the 3-choice menu");
+	Test.assertEqualMessage($.preferencesMenuAction("vsWindow"), :cycleVsWindow, "VS window item -> next window, no sub-menu");
 	Test.assertEqualMessage($.preferencesMenuAction("beep"), :none, "Beep toggle -> none (saved on BACK, as before)");
 	Test.assertEqualMessage($.preferencesMenuAction(null), :none, "null id -> none");
-	Test.assertEqualMessage($.preferencesMenuAction("vs3"), :none, "a choice id is not a Preferences item -> none");
+	Test.assertEqualMessage($.preferencesMenuAction(""), :none, "empty id -> none");
+	Test.assertEqualMessage($.preferencesMenuAction("VSWINDOW"), :none, "ids are case sensitive -> none");
 	Test.assertEqualMessage($.preferencesMenuAction(:vsWindow), :none, "symbol instead of string id -> none");
+	Test.assertEqualMessage($.preferencesMenuAction(180000), :none, "Number instead of string id -> none");
+	// Ids of the removed 1 / 3 / 5 min sub-menu: nothing.
+	Test.assertEqualMessage($.preferencesMenuAction("vs1"), :none, "old sub-menu id vs1 -> none");
+	Test.assertEqualMessage($.preferencesMenuAction("vs3"), :none, "old sub-menu id vs3 -> none");
+	Test.assertEqualMessage($.preferencesMenuAction("vs5"), :none, "old sub-menu id vs5 -> none");
 
-	// The pause menu (4a/4b) ignores the new ids.
+	// The pause menu (4a/4b) ignores the Preferences ids.
 	Test.assertEqualMessage($.menuItemAction("vsWindow"), :none, "pause menu: vsWindow -> none");
 	Test.assertEqualMessage($.menuItemAction("vs5"), :none, "pause menu: vs5 -> none");
+	return true;
+}
+
+// Decision R6 (07/10): each press on "VS window" goes to the next window,
+// 1 -> 3 -> 5 -> 1 min. Pure rotation; anything that is not one of the three
+// windows (absent, corrupted) restarts the cycle at 1 min.
+(:test)
+function testNextVsWindowMs(logger)
+{
+	Test.assertEqualMessage($.nextVsWindowMs(60000), 180000, "1 min -> 3 min");
+	Test.assertEqualMessage($.nextVsWindowMs(180000), 300000, "3 min -> 5 min");
+	Test.assertEqualMessage($.nextVsWindowMs(300000), 60000, "5 min -> back to 1 min");
+
+	// Invalid values -> 60000.
+	Test.assertEqualMessage($.nextVsWindowMs(null), 60000, "null (absent) -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(0), 60000, "0 -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(-60000), 60000, "negative -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(120000), 60000, "2 min (not a choice) -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(179999), 60000, "just under 3 min -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(300001), 60000, "just over 5 min -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(2147483647), 60000, "max Number -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(3), 60000, "minutes instead of ms -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs("60000"), 60000, "String -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs("180000"), 60000, "String of a choice -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(60000.0), 60000, "Float 1 min -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(180000.0), 60000, "Float 3 min -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(180000l), 60000, "Long -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(true), 60000, "Boolean -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs([180000]), 60000, "Array -> 60000");
+	Test.assertEqualMessage($.nextVsWindowMs(:vs3), 60000, "Symbol -> 60000");
+
+	// Always one of the three windows; three presses come back to the start.
+	var c = $.vsWindowChoicesMs();
+	for (var i = 0; i < c.size(); i++)
+	{
+		Test.assertEqualMessage($.sanitizeVsWindowMs($.nextVsWindowMs(c[i])), $.nextVsWindowMs(c[i]), "next of " + c[i] + " is a valid window");
+		Test.assertEqualMessage($.nextVsWindowMs($.nextVsWindowMs($.nextVsWindowMs(c[i]))), c[i], "three presses from " + c[i] + " -> back to it");
+	}
+	return true;
+}
+
+// Sub-label shown under "VS window" after each press: the window just chosen.
+(:test)
+function testVsWindowSubLabelAfterPress(logger)
+{
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(60000)), "3 min", "1 min pressed -> 3 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(180000)), "5 min", "3 min pressed -> 5 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(300000)), "1 min", "5 min pressed -> 1 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(null)), "1 min", "absent -> 1 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs("abc")), "1 min", "String -> 1 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(180000.0)), "1 min", "Float -> 1 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(120000)), "1 min", "outside the list -> 1 min shown");
+
+	// Sub-label of the window itself (menu opening) for odd values.
+	Test.assertEqualMessage($.vsWindowLabel(180000.0), "1 min", "Float -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel("180000"), "1 min", "String -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel(180000l), "1 min", "Long -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel(0), "1 min", "zero -> label of the default");
+
+	// A full cycle shows the three labels in order.
+	var w = 60000;
+	var shown = ["3 min", "5 min", "1 min", "3 min"];
+	for (var i = 0; i < shown.size(); i++)
+	{
+		w = $.nextVsWindowMs(w);
+		Test.assertEqualMessage($.vsWindowLabel(w), shown[i], "press " + (i + 1) + " shows " + shown[i]);
+	}
+	return true;
+}
+
+// One press on "VS window" (cycleVsWindow): the next window is read from the
+// store, written back at once and pushed to the WatchData read by
+// HikePaceView. Both stores are saved and restored (new Preferences() runs the
+// migration on the old object store).
+(:test)
+function testCycleVsWindow(logger)
+{
+	var stored = new StoredPrefsSnapshot();
+	var legacy = new LegacyPrefsSnapshot(Application.getApp());
+	try
+	{
+		stored.clear();
+		legacy.clear();
+		var p = new Preferences();
+		var data = new WatchData();
+
+		// Nothing stored (1 min by default): 3, 5, then back to 1 min.
+		Test.assertEqualMessage($.cycleVsWindow(p, data), 180000, "first press -> 3 min");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 180000, "3 min written at once");
+		Test.assertEqualMessage(data.getHikeVsWindowMs(), 180000, "3 min in WatchData");
+		Test.assertEqualMessage($.cycleVsWindow(p, data), 300000, "second press -> 5 min");
+		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "5 min stored");
+		Test.assertEqualMessage(data.getHikeVsWindowMs(), 300000, "5 min in WatchData");
+		Test.assertEqualMessage($.cycleVsWindow(p, data), 60000, "third press -> back to 1 min");
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "1 min stored");
+		Test.assertEqualMessage(data.getHikeVsWindowMs(), 60000, "1 min in WatchData");
+
+		// Kept after a relaunch (a new Preferences reads the store).
+		$.cycleVsWindow(p, data);
+		Test.assertEqualMessage(new Preferences().getVsWindowMs(), 180000, "3 min read back after a relaunch");
+
+		// Corrupted store: read as 1 min, so the press gives 3 min.
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, "abc");
+		Test.assertEqualMessage($.cycleVsWindow(p, data), 180000, "String in the store -> 3 min");
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, 180000.0);
+		Test.assertEqualMessage($.cycleVsWindow(p, data), 180000, "Float in the store -> 3 min");
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, 120000);
+		Test.assertEqualMessage($.cycleVsWindow(p, data), 180000, "value outside the list -> 3 min");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 180000, "a valid window replaces the corrupted one");
+
+		// No WatchData yet (menu before the views exist): stored only, no crash.
+		Test.assertEqualMessage($.cycleVsWindow(p, null), 300000, "no WatchData -> still cycles");
+		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "stored without WatchData");
+
+		// No Preferences: the WatchData window is the current one.
+		data.setHikeVsWindowMs(300000);
+		Test.assertEqualMessage($.cycleVsWindow(null, data), 60000, "no Preferences -> from the WatchData window");
+		Test.assertEqualMessage(data.getHikeVsWindowMs(), 60000, "WatchData set without Preferences");
+		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "store untouched without Preferences");
+
+		// Neither: default 1 min -> 3 min, no crash.
+		Test.assertEqualMessage($.cycleVsWindow(null, null), 180000, "nothing at all -> 3 min, no crash");
+
+		// The beep preference is a separate key.
+		p.setBeep(true);
+		$.cycleVsWindow(p, data);
+		Test.assertEqualMessage(p.getBeep(), true, "VS window press does not change the beep");
+	}
+	finally
+	{
+		stored.restore();
+		legacy.restore();
+	}
 	return true;
 }
 

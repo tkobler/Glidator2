@@ -90,9 +90,11 @@ class MyMenu2QuitDelegate extends WatchUi.Menu2InputDelegate
 
 // --------------------------------------------------------------------------------
 
-// Preferences menu (MENU): Beep toggle, saved on BACK, and "VS window", which
-// opens the 1 / 3 / 5 min choice (MyMenu2VsWindowDelegate). The rules live in
-// Preferences.mc (preferencesMenuAction, vsWindow*, applyVsWindowChoice).
+// Preferences menu (MENU): Beep toggle, saved on BACK, and "VS window": each
+// press goes to the next window, 1 -> 3 -> 5 -> 1 min (decision R6, 07/10, no
+// sub-menu). The new window is stored at once, applied to the WatchData read by
+// HikePaceView (no buffer reset) and shown as the item's sub-label. The rules
+// live in Preferences.mc (preferencesMenuAction, cycleVsWindow, vsWindowLabel).
 class MyMenu2PreferencesDelegate extends WatchUi.Menu2InputDelegate
 {
     var beepToggleMenu;
@@ -113,79 +115,34 @@ class MyMenu2PreferencesDelegate extends WatchUi.Menu2InputDelegate
         {
             Sys.println("On MyMenu2PreferencesDelegate:audio");
         }
-        if ($.preferencesMenuAction(item.getId()) == :openVsWindow)
+        if ($.preferencesMenuAction(item.getId()) == :cycleVsWindow)
         {
-            showVsWindowMenu(item);
+            onVsWindowPressed(item);
         }
     }
 
-    function showVsWindowMenu(parentItem)
+    // The menu stays open: only the item's sub-label changes.
+    function onVsWindowPressed(item)
     {
-        var current = $.preferences.getVsWindowMs();
-        var menu = new WatchUi.Menu2({:title=>"VS window", :focus=>$.vsWindowFocusIndex(current)});
-        var choices = $.vsWindowChoicesMs();
-        for (var i = 0; i < choices.size(); i++)
-        {
-            menu.addItem(new WatchUi.MenuItem($.vsWindowLabel(choices[i]), null, $.vsWindowMenuId(choices[i]), null));
-        }
-        WatchUi.pushView(menu, new MyMenu2VsWindowDelegate(app, prefsMenu, parentItem), WatchUi.SLIDE_IMMEDIATE);
-    }
-
-    function onBack()
-    {
-        $.preferences.setBeep(beepToggleMenu.isEnabled());
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
-    }
-}
-
-// --------------------------------------------------------------------------------
-
-// The 1 / 3 / 5 min choice: stores the window, applies it at once to the
-// WatchData read by HikePaceView (no buffer reset), updates the "VS window"
-// sub-label in the Preferences menu and goes back to it. BACK: no change.
-class MyMenu2VsWindowDelegate extends WatchUi.Menu2InputDelegate
-{
-    var app;
-    var prefsMenu;
-    var parentItem;
-
-    function initialize(appInstance, menu, item)
-    {
-        Menu2InputDelegate.initialize();
-        app = appInstance;
-        prefsMenu = menu;
-        parentItem = item;
-    }
-
-    function onSelect(item)
-    {
-        var ms = $.vsWindowFromMenuId(item.getId());
-        if (ms == null)
-        {
-            return;
-        }
         var data = (app != null && app.mainView != null) ? app.mainView.data : null;
-        var applied = $.applyVsWindowChoice($.preferences, data, ms);
+        var applied = $.cycleVsWindow($.preferences, data);
         Sys.println("VS window set to " + applied + " ms");
 
-        if (parentItem != null)
+        item.setSubLabel($.vsWindowLabel(applied));
+        if (prefsMenu != null)
         {
-            parentItem.setSubLabel($.vsWindowLabel(applied));
-            if (prefsMenu != null)
+            var idx = prefsMenu.findItemById("vsWindow");
+            if (idx >= 0)
             {
-                var idx = prefsMenu.findItemById("vsWindow");
-                if (idx >= 0)
-                {
-                    prefsMenu.updateItem(parentItem, idx);
-                }
+                prefsMenu.updateItem(item, idx);
             }
         }
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
         WatchUi.requestUpdate();
     }
 
     function onBack()
     {
+        $.preferences.setBeep(beepToggleMenu.isEnabled());
         WatchUi.popView(WatchUi.SLIDE_DOWN);
     }
 }
