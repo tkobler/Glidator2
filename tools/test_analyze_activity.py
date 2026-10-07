@@ -615,6 +615,17 @@ class SummaryTest(unittest.TestCase):
         self.assertIsNone(s["hr_max"])
         self.assertIn("FC", aa.format_report([s]))
 
+    def test_regression_is_labelled_reference_and_other_methods_stay(self):
+        # User decision: the 60 s regression is the reference vertical speed.
+        lap = aa.parse_tcx_string(make_tcx([{"points": climb_points(120)}]))[0]
+        lines = aa.format_report([aa.summarize_lap(lap)]).splitlines()
+        vs_lines = [l.strip() for l in lines if l.strip().startswith("VS ")]
+        self.assertEqual(len(vs_lines), 3)
+        self.assertTrue(vs_lines[0].startswith("VS 60 s (regression, reference)"), vs_lines[0])
+        self.assertTrue(vs_lines[1].startswith("VS 60 s dalt/dt"), vs_lines[1])
+        self.assertTrue(vs_lines[2].startswith("VS montre (HikeHistory)"), vs_lines[2])
+        self.assertEqual(sum("reference" in l for l in vs_lines), 1)
+
     def test_recorded_distance_fallback_to_points(self):
         lap = aa.parse_tcx_string(make_tcx([{"points": climb_points(100, horizontal_mps=1.0)}]))[0]
         self.assertAlmostEqual(aa.summarize_lap(lap)["recorded_distance_m"], 100.0)
