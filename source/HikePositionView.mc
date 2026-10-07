@@ -47,7 +47,7 @@ class HikePositionView extends WatchUi.View {
         var hasSession = $.hasActiveSession();
 
         var ascent = data.getTotalAscent();
-        var ascentStr = (!hasSession || ascent == null) ? "--" : Math.round(ascent).toNumber().toString(); // m
+        var ascentStr = hasSession ? $.formatHikeAscent(ascent) : "--"; // m, "--" outside 0..20000
 
         var distance = data.getDistance();
         var distStr = hasSession ? $.formatDistanceKm(distance) : "--"; // km
