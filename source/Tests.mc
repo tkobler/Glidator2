@@ -1934,11 +1934,13 @@ function testPreferenceToKeep(logger)
 	return true;
 }
 
-// Migration rules against a stand-in for the old store.
+// Migration rules against a stand-in for the old store. The real old store is
+// saved and restored too: the `new Preferences()` below migrates it.
 (:test)
 function testMigrateLegacyPreferencesRules(logger)
 {
 	var snap = new StoredPrefsSnapshot();
+	var legacy = new LegacyPrefsSnapshot(Application.getApp());
 	try
 	{
 		// Value taken from the old store, old key removed.
@@ -2017,6 +2019,7 @@ function testMigrateLegacyPreferencesRules(logger)
 	finally
 	{
 		snap.restore();
+		legacy.restore();
 	}
 	return true;
 }
@@ -2075,11 +2078,13 @@ function testMigrateLegacyPreferencesRealStoreAfterUpdate(logger)
 	return true;
 }
 
-// Beep against Storage.
+// Beep against Storage. Old store saved and restored (new Preferences()
+// migrates it).
 (:test)
 function testPreferencesBeepStore(logger)
 {
 	var snap = new StoredPrefsSnapshot();
+	var legacy = new LegacyPrefsSnapshot(Application.getApp());
 	try
 	{
 		snap.clear();
@@ -2115,15 +2120,18 @@ function testPreferencesBeepStore(logger)
 	finally
 	{
 		snap.restore();
+		legacy.restore();
 	}
 	return true;
 }
 
-// VS window against Storage.
+// VS window against Storage. Old store saved and restored (new Preferences()
+// migrates it).
 (:test)
 function testPreferencesVsWindowStore(logger)
 {
 	var snap = new StoredPrefsSnapshot();
+	var legacy = new LegacyPrefsSnapshot(Application.getApp());
 	try
 	{
 		snap.clear();
@@ -2163,6 +2171,7 @@ function testPreferencesVsWindowStore(logger)
 	finally
 	{
 		snap.restore();
+		legacy.restore();
 	}
 	return true;
 }
@@ -2364,14 +2373,16 @@ function testWatchDataHikeVsWindowSwitch(logger)
 
 // The choice made in the menu goes to both the store and the WatchData read
 // by HikePaceView (applyVsWindowChoice), and an invalid one changes nothing
-// unexpected. Store restored at the end.
+// unexpected. Both stores restored at the end (new Preferences() runs the
+// migration on the old object store).
 (:test)
 function testApplyVsWindowChoice(logger)
 {
 	var snap = new StoredPrefsSnapshot();
-	var p = new Preferences();
+	var legacy = new LegacyPrefsSnapshot(Application.getApp());
 	try
 	{
+		var p = new Preferences();
 		var data = new WatchData();
 		Test.assertEqualMessage($.applyVsWindowChoice(p, data, 300000), 300000, "5 min applied");
 		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "5 min stored");
@@ -2396,6 +2407,7 @@ function testApplyVsWindowChoice(logger)
 	finally
 	{
 		snap.restore();
+		legacy.restore();
 	}
 	return true;
 }
