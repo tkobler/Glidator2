@@ -47,6 +47,31 @@ function formatHikeAltitude(alt)
 	return Toybox.Math.round(v).toNumber().toString();
 }
 
+// Largest elevation gain shown by the hike Position page, in meters, bound
+// included (decision of 07/10, Position ascent guard). Far above any real
+// day out (Salvan climb: 908 m); a larger Activity totalAscent is a glitch.
+const HIKE_ASCENT_MAX_M = 20000.0d;
+
+// Formats the elevation gain (Activity totalAscent) in meters for the hike
+// Position page, rounded to the meter (halves up) like the altitude. "--"
+// when null, NaN, +-Infinity, negative or above HIKE_ASCENT_MAX_M. The range
+// is checked on the raw value, in Double so that a Double or Long input is
+// not rounded first: 20000.4 reads "--", not "20000", and -0.1 reads "--".
+// -0.0 is a zero and reads "0".
+function formatHikeAscent(ascent)
+{
+	if (ascent == null)
+	{
+		return "--";
+	}
+	var v = ascent.toDouble();
+	if (!isFiniteFloat(v) || v < 0.0d || v > HIKE_ASCENT_MAX_M)
+	{
+		return "--";
+	}
+	return (v + 0.5d).toNumber().toString(); // v in 0..20000: no overflow, -0.0 -> 0
+}
+
 // Heart rate range shown by the hike pages (decision of 2026-10-06).
 const HEART_RATE_MIN_BPM = 25.0;
 const HEART_RATE_MAX_BPM = 250.0;
