@@ -359,12 +359,38 @@ Bilan de l'axe 1 (exécuté le 06/10 sur fenix6pro et fenix5, résultats identiq
 
 Volume : 39 tests × 62 montres = 2418 résultats. Le rapport final les présente sous forme de matrice montre × test, avec la liste des défauts par groupe d'écran.
 
+#### Échecs attendus du banc (relevés les 07 et 08/10, app inchangée)
+Les rounds suivants **comparent la liste des noms**, pas leur nombre. Un nom en plus ou en moins signale un changement d'affichage, ou du banc. Tous les tests sont dans le module `LayoutBenchTests.` ; B01 à B04 passent partout.
+
+**fenix6pro (260×260, rond)** : 166 tests, 164 PASS, 2 FAIL
+- `testLayout_HikePosition_Extreme` : OFFSCREEN `"99:59:59"`
+- `testLayout_HikePace_Extreme` : OFFSCREEN `"99:59:59"`
+
+**instinct2 (176×176, semi-octogone, sous-fenêtre (113, 0, 62, 62))** : 166 tests, 143 PASS, 23 FAIL. *disk* = au moins un `SUBSCREEN disk` (le texte atteint la fenêtre ronde) ; *corner* = seulement des `SUBSCREEN corner` (coins du carré englobant).
+- `testLayout_HikePosition_Empty`, `_Normal`, `_Extreme`, `_Paused`, `_Recording` (5) : *disk*. Aussi OVERLAP `"ALTITUDE"` × valeur du haut, `"ELEV. GAIN"` × `"DISTANCE"`, `"TIMER"` × chrono ; SUBSCREEN `"ALTITUDE"`, `"DISTANCE"`.
+- `testLayout_HikePace_Empty`, `_Normal`, `_Extreme`, `_Paused`, `_Recording` (5) : *disk*. Aussi OVERLAP `"TIMER"` × chrono ; SUBSCREEN `"PACE"`, plus la FC hors état vide.
+- `testLayout_Fly_Normal`, `_Extreme`, `_Paused`, `_Recording` (4) : *disk*, SUBSCREEN `" km/h"`. Zone sensible : signalé, non corrigé.
+- `testLayout_Compass_Normal`, `_Extreme`, `_Paused`, `_Recording` (4) : *disk*, SUBSCREEN `"E"` (cap 0.785 rad).
+- `testLayout_Paused_Empty`, `_Normal`, `_Extreme`, `_Paused`, `_Recording` (5) : *corner*, SUBSCREEN `"Paused"`.
+
+**fenix5 (240×240, rond)** : 166 tests, **166 PASS**, aucun échec.
+
+**fenix843mm (416×416, rond, AMOLED)** : 166 tests, 153 PASS, 13 FAIL. Relevé lors de la première passe (07/10), **avant** la distinction disk/corner (`hitsDisk`). Cette montre n'a pas de sous-fenêtre, donc la liste ne devrait pas changer ; elle n'a pas été relancée depuis.
+- `testLayout_HikePosition_Extreme` : OVERLAP `"20000"` × `"999.9"` ; OFFSCREEN `"99:59:59"`
+- `testLayout_HikePace_Extreme` : OFFSCREEN `"99:59:59"`
+- `testLayout_HikeMap_Empty` : OVERLAP `"Waiting for"` × `"GPS"`
+- `testLayout_Time_Empty`, `_Normal`, `_Extreme`, `_Paused`, `_Recording` (5) : OVERLAP heure × batterie
+- `testLayout_Compass_Empty` : OVERLAP `"Waiting for"` × `"GPS"` ; OFFSCREEN `"N"`, `"S"`, `"W"`
+- `testLayout_Compass_Normal`, `_Extreme`, `_Paused`, `_Recording` (4) : OVERLAP latitude × longitude ; OFFSCREEN `"N"`, `"S"`, `"E"`, `"W"`
+
+**fenix7** (pour information, première passe) : 164 PASS, 2 FAIL, les mêmes que fenix6pro.
+
 ### 3.3 Totaux
 
 | Axe | Tests à écrire | Attendu |
 |---|---|---|
 | 1. Fonctionnel (tâche a) | 30 (F01–F29, F05 en deux), **écrits** | 22 PASS (dont D1 et D4 verrouillés), 8 échecs attendus (D2 marche, D3, D5–D9) jusqu'à la tâche de correction |
-| 2. Affichage (tâche b) | 39 (B01–B04, 35 `testLayout_*`) | tous PASS, sauf les défauts réels que le banc trouvera (risques listés au § 2.4) |
+| 2. Affichage (tâche b) | 39 (B01–B04, 35 `testLayout_*`), **écrits** (`source/TestsLayout.mc`, 07/10) | B01–B04 PASS ; échecs attendus = liste nominative du § 3.2 (fenix6pro 2, instinct2 23, fenix5 0, fenix843mm 13) jusqu'à une tâche de correction de l'affichage |
 | 2. Fonctions (tâche c) | 9 vérifications C01–C09 sur 62 montres (procédure, pas de nouveau code) | voir § 2.3 |
 | Manuel | 12 étapes M01–M12 (§ 5) | voir § 5 |
 | **Total de tests Monkey C nouveaux** | **69** | suite finale : 76 + 69 = **145** tests par montre (76 = 67 du plan + 9 de la préférence de fenêtre VS) |
@@ -392,15 +418,38 @@ Ordre conseillé : d'abord les 15 représentatives (§ 2.2), en commençant par 
 ### 4.3 Si le .prg de test ne tient pas en mémoire (G11 à G13, G1, G3)
 Ne pas modifier `monkey.jungle`. Écrire un jungle temporaire dans `/tmp/glidator-build/`, qui pointe vers le manifest et `source/` en chemins absolus, avec `base.excludeAnnotations = <annotation>`. Pour cela, la tâche b doit annoter le banc `(:test, :layoutbench)` ; la tâche a l'a fait : `(:test, :chaintest)` sur tout `TestsChain.mc` (les tests de chaîne s'appuient sur `WatchDataTestHelper` (ex-`SpeedTestHelper`), `FakeSensorInfo`, `FakeLocation` et `MapTestHelper` de `Tests.mc`, qui doit donc rester inclus). Le 06/10, fenix5 fait tourner les 106 tests sans exclusion. Compiler alors deux .prg de test par montre (sans le banc, puis sans les tests de chaîne), et le noter dans le rapport.
 
-**Banc écrit (07/10, `source/TestsLayout.mc`)** : annotation `(:test, :layouttest)` (et non `:layoutbench`), tout le banc dans le module `LayoutBenchTests`, car le module `globals` est limité à 253 membres et les 39 tests n'y tenaient pas (274). Le lanceur trouve les tests du module (`LayoutBenchTests.testLayout_…`). Le banc ne dépend que de `Tests.mc` (`MapTestHelper`), pas de `TestsChain.mc`. Jungles temporaires (hors dépôt, chemins absolus vers `manifest.xml`, `source/` et `resources/`) :
+**Banc écrit (07/10, `source/TestsLayout.mc`)** : annotation `(:test, :layouttest)` (et non `:layoutbench`), tout le banc dans le module `LayoutBenchTests`, car le module `globals` est limité à 253 membres et les 39 tests n'y tenaient pas (274). Le lanceur trouve les tests du module (`LayoutBenchTests.testLayout_…`). Le banc ne dépend que de `Tests.mc` (`MapTestHelper`), pas de `TestsChain.mc`.
+
+Deux jungles temporaires, **à créer dans `/tmp/glidator-build/` et à ne jamais versionner** (surtout pas à la racine, à côté de `monkey.jungle`). Chemins absolus du worktree ; les adapter si le dépôt est ailleurs.
+
+`/tmp/glidator-build/no-layout.jungle` : la suite fonctionnelle seule (`Tests.mc`, `TestsFormat.mc`, `TestsChain.mc`), sans le banc :
 ```
-# /tmp/glidator-build/no-layout.jungle   : suite fonctionnelle seule
+project.manifest = /Users/sam/claude-hq/worktrees/glidator2/manifest.xml
+base.sourcePath = /Users/sam/claude-hq/worktrees/glidator2/source
+base.resourcePath = /Users/sam/claude-hq/worktrees/glidator2/resources
 base.excludeAnnotations = layouttest
-# /tmp/glidator-build/layout-only.jungle : banc + Tests.mc, sans les tests de chaîne
-base.excludeAnnotations = chaintest
-monkeyc -f /tmp/glidator-build/no-layout.jungle -o /tmp/glidator-build/<id>-nolayout.prg -d <id> -y developer_key -t
 ```
-Marge d'encre calibrée sur fenix6pro : `k = 0,16` (0,15 laissait 1 px de recouvrement entre « TIMER » et le chrono, en état normal).
+
+`/tmp/glidator-build/layout-only.jungle` : malgré son nom, ce n'est **pas** le banc seul. Il exclut seulement les tests de chaîne, et garde donc le banc **et** tous les tests de `Tests.mc` et `TestsFormat.mc` (non annotés). En toute rigueur, c'est un jungle « no-chain » :
+```
+project.manifest = /Users/sam/claude-hq/worktrees/glidator2/manifest.xml
+base.sourcePath = /Users/sam/claude-hq/worktrees/glidator2/source
+base.resourcePath = /Users/sam/claude-hq/worktrees/glidator2/resources
+base.excludeAnnotations = chaintest
+```
+
+Commandes (une à la fois) :
+```
+monkeyc -f /tmp/glidator-build/no-layout.jungle   -o /tmp/glidator-build/<id>-nolayout.prg   -d <id> -y developer_key -t
+monkeyc -f /tmp/glidator-build/layout-only.jungle -o /tmp/glidator-build/<id>-layoutonly.prg -d <id> -y developer_key -t
+monkeydo /tmp/glidator-build/<id>-nolayout.prg <id> -t
+```
+Les deux jungles compilent sur fenix6pro (07/10). Le 07/10, le .prg complet (166 tests) tient en mémoire sur instinct2 et fenix5 : aucune exclusion n'a été nécessaire.
+
+**Marge d'encre `k = 0,16`** (constante `LAYOUT_INK_K` de `TestsLayout.mc`). C'est la plus petite valeur, au centième, qui fait passer `testLayout_HikePosition_Normal` et `testLayout_HikePace_Normal` sur fenix6pro. Avec 0,15, ces deux tests trouvaient 1 px de recouvrement entre « TIMER » (`FONT_XTINY`, 19 px, marge floor(0,15 × 19) = 2) et le chrono (`FONT_NUMBER_MEDIUM`, 74 px, marge 11). À 0,16, la marge de XTINY passe à 3 et les deux boîtes ne font que se toucher ; le seuil exact est 3/19 ≈ 0,158.
+- Portée : une seule valeur pour **toutes les polices et toutes les montres**.
+- Par rapport à 0,15, elle retire 1 px de plus, en haut et en bas, pour les hauteurs où floor(0,16 × h) dépasse floor(0,15 × h) (sur fenix6pro : XTINY 19 px, NUMBER_HOT 100 px…). Elle ne change rien pour les autres hauteurs.
+- Limite : sur fenix5, les polices numériques ont une hauteur égale à leur ascent (descent 0). La marge y rogne donc de l'encre réelle et peut masquer un défaut de 1 à 2 px.
 
 ### 4.4 Lire la sortie de `monkeydo -t`
 - **`monkeydo` renvoie le code 1 même quand tout passe** (constaté le 05/10). Ne jamais se fier au code de retour.
