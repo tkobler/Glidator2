@@ -13,7 +13,7 @@ You can find the app in the Garmin IQ store under Glidator2
   - **Time & Battery View**: Shows current time and battery percentage with a graphical icon.
 - **Hiking Mode**:
   - **Position View**: Altitude, elevation gain, distance, and elapsed timer in a 4-field grid.
-  - **Pace View**: Heart rate, vertical speed, pace (min/km), and elapsed timer.
+  - **Pace View**: Heart rate, vertical speed, pace (min/km), and elapsed timer. The vertical speed reads "--" beyond ±3000 m/h (altitude glitch or flight phase); the flight vario is not capped.
   - **Map View**: Live breadcrumb trail of the current track with a heading-oriented position marker.
   - **Time & Battery View**: Shared with Flying mode.
 - **Activity Recording**: Start, pause/resume, and save/ignore flight or hike sessions using Garmin's ActivityRecording API, with audio/vibration feedback and a start-recording confirmation icon.

@@ -207,7 +207,7 @@ Les fonctions d'aide (boîtes, contrôles, états) vont dans une **classe `(:tes
 |---|---|---|---|
 | **vide** | `$.session = null` | non | `new WatchData()` sans donnée, trace vide, pas de fix. Vario null. TimeView `"00:00"`, batterie 0. Boussole (0.0, null, null) : **cap 0.0** (le cap null relève de D9, testé en F25) |
 | **normal** | enregistrement (fausse session, `isRecording() = true`) | non | Tick réel 10:51:28 (§ 3.1, F10) : altitude 2149.4, distance 1692.49, FC 139, D+ 335.0 (synthétique), chrono 1 965 000 ms, vitesse 0.0, cap 0.785 rad, fix (46.12446558661759, 6.985453460365534, accuracy 4), HikeHistory → `+950` / `26:00`, trace = 20 points Salvan (`MapTestHelper`), vario +0.4. TimeView `"10:51"`, 76 %. Boussole : mêmes coordonnées |
-| **extrême** | enregistrement | non | altitude 8849 en vol, **6000** sur la page Position de marche (borne haute décidée le 06/10 ; 8849 y donnera `--` une fois D2 corrigé), D+ 12 345, distance 999 900 m (`999.9`), chrono 359 999 000 ms (`99:59:59`), FC 220, vitesse verticale = spirale réelle (`-14420`), pace `60:00` (0.2778 m/s). Vol : 33.3 m/s (`120` km/h), vario −10.0. TimeView `"23:59"`, 100 %. Boussole (−89.99999, −179.99999). Paused : 360 000 000 ms (`100:00:00`) |
+| **extrême** | enregistrement | non | altitude 8849 en vol, **6000** sur la page Position de marche (borne haute décidée le 06/10 ; 8849 y donnera `--` une fois D2 corrigé), D+ 12 345, distance 999 900 m (`999.9`), chrono 359 999 000 ms (`99:59:59`), FC 220, vitesse verticale = −3000 m/h (`-3000`, borne du plafond marche, décision D3 du 07/10 ; la spirale réelle −14 420 m/h lit `--`), pace `60:00` (0.2778 m/s). Vol : 33.3 m/s (`120` km/h), vario −10.0. TimeView `"23:59"`, 100 %. Boussole (−89.99999, −179.99999). Paused : 360 000 000 ms (`100:00:00`) |
 | **pause** | fausse session, `isRecording() = false` | non | données « normal » ; pour PausedView : chrono `32:45` |
 | **enregistrement** | enregistrement | oui (`$.recordFlashStartMs = System.getTimer()`) | données « normal ». En vol, `record = true` élargit l'unité de l'altitude (×1,5) |
 
@@ -219,7 +219,7 @@ Avant et après chaque test, remettre à zéro : `$.session = null`, `$.recordFl
 - **TimeView** : la batterie est à `h/2 + 50` px fixes sous l'heure en `FONT_NUMBER_HOT`. Chevauchement probable sur les grands écrans.
 - **FlyInstrumentView** vide : « starting ... » en `FONT_LARGE` sur 176 px ou moins (G11 à G13) risque de sortir de l'écran.
 - **PausedView** : « Paused » (`FONT_MEDIUM`, y = 35 % de h) sur G11 à G13 frôle la sous-fenêtre (x ≥ 113, y ≤ 62).
-- **hikeGrid** : le champ du haut sur G11 à G13 (libellé vers y ≈ 27, valeur vers y ≈ 48 sur 176 px) frôle la sous-fenêtre. `-14420` en `FONT_NUMBER_MILD` dans une demi-colonne risque de déborder sur G1/G2/G11 à G13.
+- **hikeGrid** : le champ du haut sur G11 à G13 (libellé vers y ≈ 27, valeur vers y ≈ 48 sur 176 px) frôle la sous-fenêtre. `-14420` en `FONT_NUMBER_MILD` dans une demi-colonne risquait de déborder sur G1/G2/G11 à G13 ; depuis D3 (07/10) la valeur la plus large est `-3000`.
 
 ---
 
@@ -304,8 +304,8 @@ HikeHistory accepte 13 échantillons, aux ticks 10:50:28 + 5k s. Altitudes reten
 | F05a | `testDefectAltitudeOutOfBounds` (**D2 marche**) | −100.1, 6000.1, −432.4, 8848.6, −1000, 1e10, −1e10 | **correct** `--` partout. **Actuel** `-100`, `6000`, `-432`, `8849`, `-1000`, `2147483647`, `-2147483648`. FAIL |
 | F05b | `testDefectAltitudeNonFinite` (**D2 marche**) | +Inf, −Inf, NaN | **correct** `--`. **Actuel** `2147483647`, `-2147483648`, `0`. FAIL |
 | F06 | `testChainVerticalSpeedSalvanSteepClimb` | extrait M (11 échantillons) | `getHikeVerticalSpeedAt(T_fin)` = 944,6 ± 0,3 m/h ; `formatVerticalSpeed` → `+940` ; HikePaceView VERT. SPD. `+940` |
-| F07 | `testChainVerticalSpeedSalvanSpiralDescent` | extrait S (12 échantillons) | −14 419,8 ± 1 m/h → `-14420` ; vitesse 8,9595 ± 0,001 m/s → PACE `1:52` ; HikePositionView DISTANCE `22.0` (avec session), ALTITUDE `1732` |
-| F08 | `testChainVerticalSpeedAltitudeJump` | 13 échantillons toutes les 5 s à 2000.0, sauf le dernier à 3000.0 (+1000 m d'un coup) ; `now` = dernier | 23 736,3 ± 1 m/h (sxy = 30 000, sxx = 4550) → `+23740`. Comportement actuel épinglé : pas de filtre de saut (amélioration possible, non exigée) |
+| F07 | `testChainVerticalSpeedSalvanSpiralDescent` | extrait S (12 échantillons) | −14 419,8 ± 1 m/h → `--` (au-delà du plafond marche de ±3000 m/h, décision D3 du 07/10) ; vitesse 8,9595 ± 0,001 m/s → PACE `1:52` ; HikePositionView DISTANCE `22.0` (avec session), ALTITUDE `1732` |
+| F08 | `testChainVerticalSpeedAltitudeJump` | 13 échantillons toutes les 5 s à 2000.0, sauf le dernier à 3000.0 (+1000 m d'un coup) ; `now` = dernier | 23 736,3 ± 1 m/h (sxy = 30 000, sxx = 4550) → `--` (au-delà du plafond de ±3000 m/h, D3). Comportement actuel épinglé : pas de filtre de saut (amélioration possible, non exigée) |
 | F09 | `testChainVerticalSpeedNaNAltitudeRecovers` | montée de 600 m/h (alt = 2000 + s/6), échantillon toutes les 5 s de 0 à 125 s ; NaN à s = 30 | `--` pour `now` ≤ t0 + 90 s (le NaN est dans la fenêtre) ; `+600` à t0 + 95 s puis à t0 + 125 s (599,9 à 600,1 m/h) |
 | F10 | `testChainTickSalvanClimb1Hz` | extrait T, 61 ticks : `feedTick(FakeGpsInfo, FakeFullActivityInfo(alt, dist, FC 139, speed 0.0, timer), FakeSensorInfo)`, puis `endMeasure()`, puis `recordHikeSampleAt` si `shouldRecordHikeSample(true, true)`, puis `feedBreadcrumbTrail` | `hikeHistory.getCount()` = 13 ; vitesse verticale 953,4 ± 0,5 → `+950` ; vitesse 0,6412 ± 0,001 → `26:00` ; HikePaceView : `139` / `+950` / `26:00` |
 | F11 | `testChainPaceWhenInstantSpeedZero` | extrait M avec, pour le dernier tick, Activity `currentSpeed` 0.0, Sensor et GPS sans vitesse | `getSpeed()` = 0.0 ; FlyInstrumentView vitesse `0` km/h ; HikePaceView PACE `26:48` (et non `--:--`) |
@@ -346,7 +346,7 @@ Bilan de l'axe 1 (exécuté le 06/10 sur fenix6pro et fenix5, résultats identiq
 | Vue \ État | Empty | Normal | Extreme | Paused | Recording |
 |---|---|---|---|---|---|
 | HikePosition | `--` `--` `--` `--:--` | `2149` `335` `1.7` `32:45` | `6000` `12345` `999.9` `99:59:59` | comme Normal, session en pause | Normal + icône |
-| HikePace | `--` `--` `--:--` `--:--` | `139` `+950` `26:00` `32:45` | `220` `-14420` `60:00` `99:59:59` | Normal en pause | Normal + icône |
+| HikePace | `--` `--` `--:--` `--:--` | `139` `+950` `26:00` `32:45` | `220` `-3000` `60:00` `99:59:59` | Normal en pause | Normal + icône |
 | HikeMap | `Waiting for` `GPS` | trace 20 points + marqueur, aucun texte | trace F21 → `500 m` | Normal en pause | Normal + icône |
 | Time | `00:00` `0%` | `10:51` `76%` | `23:59` `100%` | idem Normal | Normal + icône |
 | Fly | `starting ...` | `2149` ` m` `0` ` km/h` `+0.4` ` m/s` | `8849` ` m` `120` ` km/h` `-10.0` ` m/s` | Normal, `record = false` | Normal, `record = true` + icône |
@@ -414,7 +414,7 @@ Ne pas modifier `monkey.jungle`. Écrire un jungle temporaire dans `/tmp/glidato
 Préparation : compiler fenix6pro hors de `bin/`, lancer `monkeydo /tmp/glidator-build/fenix6pro.prg fenix6pro`, puis charger `garmin_data/activity_24346302742.gpx` dans *Simulation > Activity Data* (ou *Data Playback*). Le simulateur calcule la distance à partir des positions GPX : prévoir environ +2,7 % par rapport au TCX, donc un pace un peu plus rapide.
 
 - [ ] **M01 Montée raide** : sur la page Pace, au passage de 10:51:28 dans la trace, VERT. SPD. lit entre **+900 et +1000** (attendu dans le code : +950), PACE entre **25:00 et 27:00**, et la vitesse instantanée en vol (BACK maintenu) vaut `0` à ce moment. Sur la page Position : ALTITUDE environ **2149**, DISTANCE environ **1.7** km.
-- [ ] **M02 Spirale** : en mode Marche, au passage de 13:01:47, VERT. SPD. lit entre **−13 000 et −14 500** ; vérifier que `-14420` tient dans la demi-case sur fenix6pro, fr55, instinct2 et instinct2s.
+- [ ] **M02 Spirale** : en mode Marche, au passage de 13:01:47, VERT. SPD. lit **`--`** (−14 420 m/h, au-delà du plafond marche de ±3000 m/h, décision D3 du 07/10) ; la valeur la plus large affichable est désormais `-3000`, à vérifier dans la demi-case sur fenix6pro, fr55, instinct2 et instinct2s.
 - [ ] **M03 Menu de pause** : SELECT pendant l'enregistrement → menu « Paused » (Resume / Pause / Save / Ignore), 2 vibrations courtes. Choisir Pause → écran « Paused », chrono figé, « START: resume » ; BACK ne fait rien ; SELECT → retour à la page, 1 vibration longue (600 ms), le chrono repart.
 - [ ] **M04 Reprise automatique** : menu ouvert sans rien toucher pendant **30 s** → reprise toute seule. Choisir Pause puis attendre 60 s → aucune reprise automatique depuis l'écran Paused.
 - [ ] **M05 Capteurs en pause** : simuler une FC (Simulation > Sensors, 120 bpm). En pause, Heart Rate affiche `--`. Après la reprise, `120` revient en moins de 3 s. La trace de la carte continue de s'allonger pendant la pause.
