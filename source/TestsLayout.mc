@@ -618,6 +618,29 @@ class LayoutBench
 		return [t, Graphics.FONT_XTINY, x, y, j, tw, th];
 	}
 
+	// Checks that the defects starting with `prefix` are exactly one per
+	// name in `names` (each name found in its line), in that order.
+	static function expectDefects(errs, label, defs, prefix, names)
+	{
+		var found = [];
+		for (var i = 0; i < defs.size(); i++)
+		{
+			if (defs[i].find(prefix) == 0)
+			{
+				found.add(defs[i]);
+			}
+		}
+		var ok = found.size() == names.size();
+		for (var i = 0; ok && i < names.size(); i++)
+		{
+			ok = found[i].find(names[i]) != null;
+		}
+		if (!ok)
+		{
+			errs.add(label + ": expected " + names.size() + " \"" + prefix + "\" defect(s) " + names + ", got " + defs);
+		}
+	}
+
 	static function sameBox(errs, label, actual, x0, y0, x1, y1)
 	{
 		var want = [x0, y0, x1, y1];
@@ -746,6 +769,19 @@ function testBenchSelfScreenShapeRule(logger)
 	// The round rule tolerates 1 px: a corner exactly on radius w/2 + 1 is in.
 	if (!LayoutBench.onScreen([w / 2.0, -1, w / 2.0, -1], w, w, true)) { errs.add("round: (w/2, -1) is on the w/2 + 1 circle, must be inside"); }
 	if (LayoutBench.onScreen([w / 2.0, -2, w / 2.0, -2], w, w, true)) { errs.add("round: (w/2, -2) must be outside"); }
+
+	// The OFFSCREEN line of findDefects() itself (k = 0: ink = box less 1 px
+	// on each side only). Rectangle 176 x 176, round 200 x 200.
+	var L = Graphics.TEXT_JUSTIFY_LEFT;
+	var left = LayoutBench.entry("left", -2, 50, L, 20, 10);       // ink x -1..17
+	var edge = LayoutBench.entry("edge", -1, 50, L, 20, 10);       // ink x 0..18: on the edge, in
+	var bottom = LayoutBench.entry("bottom", 50, 170, L, 20, 10);  // ink y 170..180 > 176
+	var corner = LayoutBench.entry("corner", 0, 0, L, 20, 10);     // round: corner (1, 0) out
+	var middle = LayoutBench.entry("middle", 90, 95, L, 20, 10);   // round: centred, in
+	var defs = LayoutBench.findDefects([left, edge, bottom, middle], 176, 176, false, null, 0.0);
+	LayoutBench.expectDefects(errs, "rectangle", defs, "OFFSCREEN ", ["\"left\"", "\"bottom\""]);
+	defs = LayoutBench.findDefects([corner, middle], 200, 200, true, null, 0.0);
+	LayoutBench.expectDefects(errs, "round", defs, "OFFSCREEN ", ["\"corner\""]);
 	return LayoutBench.finish(errs, logger);
 }
 
@@ -786,6 +822,27 @@ function testBenchSelfSubscreenSource(logger)
 	{
 		errs.add("unexpected sub-window " + api + " on a " + w + "x" + h + " screen");
 	}
+
+	// The SUBSCREEN line of findDefects(), on the instinct2 sub-window given
+	// as [x, y, width, height] = [113, 0, 62, 62]: a disk of centre (144, 31),
+	// radius 31, in the square (113, 0)-(175, 62). k = 0: ink = box less 1 px
+	// on each side. A [x, y, w, h] box read as [x0, y0, x1, y1] would be empty
+	// (x1 = 62 < x0 = 113) and miss "in disk": that mistake makes this red.
+	var sub = [113, 0, 62, 62];
+	var L = Graphics.TEXT_JUSTIFY_LEFT;
+	var inDisk = LayoutBench.entry("in disk", 139, 20, L, 12, 10);      // ink (140,20)-(150,30)
+	var touchX = LayoutBench.entry("touch x1", 100, 20, L, 14, 10);     // ink x1 = 113
+	var touchY = LayoutBench.entry("touch y0", 139, 62, L, 12, 10);     // ink y0 = 62
+	var inCorner = LayoutBench.entry("in corner", 113, 56, L, 6, 5);    // ink (114,56)-(118,61): square, not disk
+	var defs = LayoutBench.findDefects([inDisk], 176, 176, false, sub, 0.0);
+	LayoutBench.expectDefects(errs, "inside the disk", defs, "SUBSCREEN disk ", ["\"in disk\""]);
+	defs = LayoutBench.findDefects([touchX, touchY], 176, 176, false, sub, 0.0);
+	LayoutBench.expectDefects(errs, "touching the edges", defs, "SUBSCREEN", []);
+	defs = LayoutBench.findDefects([inCorner], 176, 176, false, sub, 0.0);
+	LayoutBench.expectDefects(errs, "corner of the square only", defs, "SUBSCREEN corner ", ["\"in corner\""]);
+	LayoutBench.expectDefects(errs, "corner is not disk", defs, "SUBSCREEN disk ", []);
+	defs = LayoutBench.findDefects([inDisk, inCorner], 176, 176, false, null, 0.0);
+	LayoutBench.expectDefects(errs, "no sub-window", defs, "SUBSCREEN", []);
 	return LayoutBench.finish(errs, logger);
 }
 
