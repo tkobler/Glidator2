@@ -392,6 +392,16 @@ Ordre conseillé : d'abord les 15 représentatives (§ 2.2), en commençant par 
 ### 4.3 Si le .prg de test ne tient pas en mémoire (G11 à G13, G1, G3)
 Ne pas modifier `monkey.jungle`. Écrire un jungle temporaire dans `/tmp/glidator-build/`, qui pointe vers le manifest et `source/` en chemins absolus, avec `base.excludeAnnotations = <annotation>`. Pour cela, la tâche b doit annoter le banc `(:test, :layoutbench)` ; la tâche a l'a fait : `(:test, :chaintest)` sur tout `TestsChain.mc` (les tests de chaîne s'appuient sur `WatchDataTestHelper` (ex-`SpeedTestHelper`), `FakeSensorInfo`, `FakeLocation` et `MapTestHelper` de `Tests.mc`, qui doit donc rester inclus). Le 06/10, fenix5 fait tourner les 106 tests sans exclusion. Compiler alors deux .prg de test par montre (sans le banc, puis sans les tests de chaîne), et le noter dans le rapport.
 
+**Banc écrit (07/10, `source/TestsLayout.mc`)** : annotation `(:test, :layouttest)` (et non `:layoutbench`), tout le banc dans le module `LayoutBenchTests`, car le module `globals` est limité à 253 membres et les 39 tests n'y tenaient pas (274). Le lanceur trouve les tests du module (`LayoutBenchTests.testLayout_…`). Le banc ne dépend que de `Tests.mc` (`MapTestHelper`), pas de `TestsChain.mc`. Jungles temporaires (hors dépôt, chemins absolus vers `manifest.xml`, `source/` et `resources/`) :
+```
+# /tmp/glidator-build/no-layout.jungle   : suite fonctionnelle seule
+base.excludeAnnotations = layouttest
+# /tmp/glidator-build/layout-only.jungle : banc + Tests.mc, sans les tests de chaîne
+base.excludeAnnotations = chaintest
+monkeyc -f /tmp/glidator-build/no-layout.jungle -o /tmp/glidator-build/<id>-nolayout.prg -d <id> -y developer_key -t
+```
+Marge d'encre calibrée sur fenix6pro : `k = 0,16` (0,15 laissait 1 px de recouvrement entre « TIMER » et le chrono, en état normal).
+
 ### 4.4 Lire la sortie de `monkeydo -t`
 - **`monkeydo` renvoie le code 1 même quand tout passe** (constaté le 05/10). Ne jamais se fier au code de retour.
 - Lire le bloc de fin `RESULTS` : `Ran N tests`, puis `PASSED (passed=N, failed=0, errors=0)` ou `FAILED (passed=…, failed=…, errors=…)`.
