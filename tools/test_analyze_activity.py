@@ -196,6 +196,12 @@ class HaversineAndDistanceTest(unittest.TestCase):
 
 
 class ElevationGainTest(unittest.TestCase):
+    """Symmetric hysteresis: the reference follows the running maximum while
+    climbing and the running minimum while descending; the direction flips
+    when the altitude moves strictly more than `threshold` away from the
+    reference. Expected values below are computed by hand (threshold 1 m
+    unless stated)."""
+
     def test_steady_climb(self):
         alts = [1500.0 + 0.2 * i for i in range(51)]  # +10 m
         self.assertAlmostEqual(aa.elevation_gain_m(alts), 10.0, delta=1.0)
@@ -209,8 +215,71 @@ class ElevationGainTest(unittest.TestCase):
         self.assertAlmostEqual(aa.elevation_gain_m(alts, threshold=0.5), 1.2, places=6)
         self.assertEqual(aa.elevation_gain_m(alts, threshold=1.0), 0.0)
 
-    def test_exactly_threshold_counts(self):
-        self.assertAlmostEqual(aa.elevation_gain_m([1500.0, 1501.0]), 1.0)
+    def test_exactly_threshold_does_not_count(self):
+        # Strict comparison on both sides (was `>=` going up before the
+        # symmetric version): a rise of exactly the threshold is noise.
+        self.assertEqual(aa.elevation_gain_m([1500.0, 1501.0]), 0.0)
+
+    def test_just_above_threshold_counts(self):
+        self.assertAlmostEqual(aa.elevation_gain_m([1500.0, 1501.5]), 1.5)
+
+    def test_rising_ramp_0_to_100(self):
+        # 0 -> 1: not > 1, 2: +2 (now climbing), then +1 per step -> 100.
+        self.assertAlmostEqual(aa.elevation_gain_m([float(i) for i in range(101)]), 100.0)
+
+    def test_falling_ramp_100_to_0(self):
+        self.assertEqual(aa.elevation_gain_m([float(i) for i in range(100, -1, -1)]), 0.0)
+
+    def test_sawtooth_amplitude_below_threshold(self):
+        self.assertEqual(aa.elevation_gain_m([0.0, 0.5] * 50), 0.0)
+
+    def test_sawtooth_amplitude_equal_to_threshold(self):
+        self.assertEqual(aa.elevation_gain_m([0.0, 1.0] * 50), 0.0)
+
+    def test_sawtooth_amplitude_above_threshold(self):
+        # Three rises of 3 m.
+        self.assertAlmostEqual(aa.elevation_gain_m([0.0, 3.0, 0.0, 3.0, 0.0, 3.0, 0.0]), 9.0)
+
+    def test_reference_follows_minimum_on_descent(self):
+        # Descent in 0.6 m steps down to 97.0, then back up to 100.0: the
+        # climb is counted from the true low point, 3.0 m (the asymmetric
+        # version left the reference at 97.6 and counted 2.4 m).
+        alts = [100.0, 99.4, 98.8, 98.2, 97.6, 97.0, 100.0]
+        self.assertAlmostEqual(aa.elevation_gain_m(alts), 3.0)
+
+    def test_reference_follows_maximum_on_climb(self):
+        # +2 confirms the climb, then the extra 0.5 m is counted (the
+        # asymmetric version needed another full threshold: 2.0 m).
+        self.assertAlmostEqual(aa.elevation_gain_m([0.0, 2.0, 2.5]), 2.5)
+
+    def test_noisy_climb(self):
+        # 1.2 confirms the climb (+1.2); dips of 0.2 m do not flip it; new
+        # maxima 1.8, 2.4, 3.0 add 0.6 each -> 3.0 = max - min.
+        alts = [0.0, 0.6, 1.2, 1.0, 1.8, 2.4, 2.2, 3.0]
+        self.assertAlmostEqual(aa.elevation_gain_m(alts), 3.0)
+
+    def test_noisy_plateau_after_climb(self):
+        # +10, then noise of +-0.4 m: only the new maximum 10.4 adds 0.4.
+        alts = [0.0, 10.0, 9.6, 10.4, 9.8, 10.2, 9.7]
+        self.assertAlmostEqual(aa.elevation_gain_m(alts), 10.4)
+
+    def test_descent_then_climb(self):
+        # 50 -> 30 (descent), +1.5 (climb), -2 (descent to 29.5), +15.5.
+        alts = [50.0, 40.0, 30.0, 31.5, 29.5, 45.0]
+        self.assertAlmostEqual(aa.elevation_gain_m(alts), 17.0)
+
+    def test_threshold_is_a_parameter(self):
+        alts = [0.0, 3.0, 0.0, 3.0, 0.0]
+        self.assertEqual(aa.elevation_gain_m(alts, threshold=5.0), 0.0)
+        self.assertAlmostEqual(aa.elevation_gain_m(alts, threshold=2.0), 6.0)
+        self.assertEqual(aa.elevation_gain_m(alts, threshold=3.0), 0.0)
+
+    def test_zero_threshold_sums_every_rise(self):
+        self.assertAlmostEqual(aa.elevation_gain_m([0.0, 1.0, 0.5, 2.0], threshold=0.0), 2.5)
+
+    def test_negative_threshold_rejected(self):
+        with self.assertRaises(ValueError):
+            aa.elevation_gain_m([0.0, 1.0], threshold=-1.0)
 
     def test_climb_descent_climb(self):
         alts = [100.0, 110.0, 105.0, 120.0]
@@ -661,6 +730,18 @@ class SalvanTest(unittest.TestCase):
         self.assertAlmostEqual(vs["median"], 636.0, delta=1.0)
         self.assertAlmostEqual(vs["p5"], -129.0, delta=1.0)
         self.assertAlmostEqual(vs["p95"], 891.0, delta=1.0)
+
+    def test_climb_elevation_gain_bounds(self):
+        # Real series: the hysteresis D+ lies between the net climb (last -
+        # first altitude) and the sum of every rise (threshold 0), and a
+        # larger threshold never gives more.
+        alts = [p.alt for p in self.laps[0].points]
+        net = alts[-1] - alts[0]
+        all_rises = aa.elevation_gain_m(alts, threshold=0.0)
+        gain = self.climb["elevation_gain_m"]
+        self.assertGreaterEqual(gain, net)
+        self.assertLessEqual(gain, all_rises)
+        self.assertLessEqual(aa.elevation_gain_m(alts, threshold=3.0), gain)
 
     def test_climb_no_jump(self):
         self.assertEqual(self.climb["jumps"], [])
