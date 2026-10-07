@@ -41,7 +41,7 @@ onSensor() 1 Hz (FlyInstrumentApp.mc:445)
   ├─ si shouldRecordHikeSample(session, recording) : data.recordHikeSample()  → HikeHistory (1 échantillon / 5 s, fenêtre 60 s)
   └─ feedBreadcrumbTrail(trail, data)  → seulement si hasUsableFix() (accuracy ≥ QUALITY_USABLE et position valide)
 Vues (onUpdate(dc)) : lisent app.mainView.data et app.breadcrumbTrail, puis formatent :
-  ALTITUDE = Math.round(getAltitude())          ELEV. GAIN = Math.round(totalAscent)   (si session)
+  ALTITUDE = Math.round(getAltitude())          ELEV. GAIN = formatHikeAscent(totalAscent)   (si session)
   DISTANCE = distance/1000 "%.1f"  (si session) TIMER = formatDuration(timerTime)        (si session)
   Heart Rate = getHeartRate().toString()         VERT. SPD. = formatVerticalSpeed(HikeHistory 60 s)
   PACE = formatPace(HikeHistory 60 s, distance)  Vol : vitesse = getSpeed()*3.6 "%.0f", vario = alt - oldAlt "%.1f"
@@ -73,6 +73,7 @@ Priorités des sources (WatchData) :
 - **Défauts connus, non corrigés** (aucun test rouge) : **D1**, **D2 côté FlyInstrumentView**, **D4**. FlyInstrumentView.mc et le vario restent intacts. D1 et D4 sont verrouillés par des tests qui passent (`testKnownDefectD1…`, `testKnownDefectD4…`) : s'ils échouent, le comportement a changé (pour D1, c'est la source du vario qui aurait changé). D2 côté vol n'a pas de test (l'affichage de 1e10 ou NaN n'est pas un comportement à figer).
 - **À corriger par la tâche suivante** (tests rouges `testDefect*`) : D2 côté HikePositionView, D3, D5, D6, D7, D8, D9.
 - **Bornes d'affichage décidées** : altitude valide de **−100 à 6000 m** (HikePositionView), FC valide de **25 à 250 bpm** (HikePaceView) ; hors bornes ou non finie → `--`. La borne porte sur la valeur brute : −100,1 et 6000,1 donnent `--`, −99,6 donne `-100`.
+- **Garde du D+ de la page Position (décision du 07/10)** : ELEV. GAIN valide de **0 à 20 000 m** (bornes incluses), sinon (négatif, au-delà de 20 000 m, NaN, ±Inf, null) → `--`, par `formatHikeAscent()` (Utils.mc). La borne porte sur la valeur brute : −0,1 et 20 000,1 donnent `--` ; −0,0 donne `0`. Le D+ n'est affiché que par HikePositionView.
 
 Valeurs « actuelles » ci-dessous : celles relevées à l'exécution des tests le 06/10 (fenix6pro et fenix5, identiques).
 
@@ -310,6 +311,7 @@ HikeHistory accepte 13 échantillons, aux ticks 10:50:28 + 5k s. Altitudes reten
 | F10 | `testChainTickSalvanClimb1Hz` | extrait T, 61 ticks : `feedTick(FakeGpsInfo, FakeFullActivityInfo(alt, dist, FC 139, speed 0.0, timer), FakeSensorInfo)`, puis `endMeasure()`, puis `recordHikeSampleAt` si `shouldRecordHikeSample(true, true)`, puis `feedBreadcrumbTrail` | `hikeHistory.getCount()` = 13 ; vitesse verticale 953,4 ± 0,5 → `+950` ; vitesse 0,6412 ± 0,001 → `26:00` ; HikePaceView : `139` / `+950` / `26:00` |
 | F11 | `testChainPaceWhenInstantSpeedZero` | extrait M avec, pour le dernier tick, Activity `currentSpeed` 0.0, Sensor et GPS sans vitesse | `getSpeed()` = 0.0 ; FlyInstrumentView vitesse `0` km/h ; HikePaceView PACE `26:48` (et non `--:--`) |
 | F12 | `testChainPositionPageFields` | session en cours ; altitude 2149.4, `totalAscent` 335.0, distance 1692.49, chrono 1 965 000 ; puis sans session ; puis distance 0.0 ; puis 999 900.0 ; puis `totalAscent` null | `2149` / `335` / `1.7` / `32:45` ; sans session : `2149` / `--` / `--` / `--:--` ; `0.0` ; `999.9` ; D+ `--` |
+| F12b | `testChainPositionAscentGuard` (garde du D+, décision du 07/10) | session ; altitude 2149.4, distance 1692.49, chrono 1 965 000 ; `totalAscent` −0.1, −1.0, 20 000.1, 20 000.4, 20 001.0, 1e10, NaN, +Inf, −Inf ; puis 20 000.0, −0.0, 908.0 (D+ de la montée de Salvan) ; puis sans session | ELEV. GAIN `--` pour les 9 premières valeurs (avant la garde, mesuré le 07/10 sur fenix6pro : `0`, `-1`, `20000`, `20000`, `20001`, `2147483647`, `0`, `2147483647`, `-2147483648`) ; `20000`, `0`, `908` ; sans session `--`. Fonction pure : `testFormatHikeAscent` (TestsFormat.mc) |
 | F13 | `testDefectNegativeDistance` (**D3**) | session, distance −5.0 puis −1000.0 | **correct** `--` ; **actuel** `-0.0`, `-1.0`. FAIL |
 | F14 | `testChainFlightSpeedKmh` | FlyInstrumentView, altitude 1732.2 : (a) Sensor null + GPS 9.844 ; (b) Sensor 2.0 ; (c) Activity 0.0 seule ; (d) aucune vitesse ; (e) GPS 1000.0 | (a) `35` ; (b) `7` ; (c) `0` ; (d) aucun texte ` km/h` ; (e) `3600` |
 | F15 | `testKnownDefectD4NegativeFlightSpeedShown` (**D4, défaut connu**) | GPS −1.0 | **verrouille l'actuel** : `1732| m|-4| km/h`. PASS. FlyInstrumentView reste intact (décision 06/10) |
