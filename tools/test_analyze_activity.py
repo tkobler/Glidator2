@@ -244,6 +244,15 @@ class ElevationGainTest(unittest.TestCase):
     def test_just_above_threshold_counts(self):
         self.assertAlmostEqual(aa.elevation_gain_m([1500.0, 1501.5]), 1.5)
 
+    def test_drop_of_exactly_threshold_keeps_climbing(self):
+        # +5, then -1 (not > 1: still climbing, ref stays 5), then 6: +1.
+        # With `>=` on the descent side it would flip at 4 and count +2 (7.0).
+        self.assertAlmostEqual(aa.elevation_gain_m([0.0, 5.0, 4.0, 6.0]), 6.0)
+
+    def test_drop_above_threshold_flips_to_descent(self):
+        # +5, then -1.1 (> 1: descending, ref 3.9), then 6: +2.1 -> 7.1.
+        self.assertAlmostEqual(aa.elevation_gain_m([0.0, 5.0, 3.9, 6.0]), 7.1)
+
     def test_rising_ramp_0_to_100(self):
         # 0 -> 1: not > 1, 2: +2 (now climbing), then +1 per step -> 100.
         self.assertAlmostEqual(aa.elevation_gain_m([float(i) for i in range(101)]), 100.0)
@@ -764,11 +773,12 @@ class MainTest(unittest.TestCase):
         self.assertIn(v1, err)            # found
 
     def test_negative_threshold_option_is_rejected(self):
-        err = io.StringIO()
-        with redirect_stderr(err), self.assertRaises(SystemExit) as cm:
-            aa.main([self.path, "--gain-threshold", "-1"])
-        self.assertEqual(cm.exception.code, 2)
-        self.assertIn("gain-threshold", err.getvalue())
+        for value in ("-1", "nan", "abc"):
+            err = io.StringIO()
+            with redirect_stderr(err), self.assertRaises(SystemExit) as cm:
+                aa.main([self.path, "--gain-threshold", value])
+            self.assertEqual(cm.exception.code, 2, value)
+            self.assertIn("gain-threshold", err.getvalue(), value)
 
 
 class MissingLapMessageTest(unittest.TestCase):
@@ -836,9 +846,10 @@ class SalvanTest(unittest.TestCase):
         self.assertAlmostEqual(vs["p95"], 891.0, delta=1.0)
 
     def test_climb_elevation_gain_bounds(self):
-        # Real series: the hysteresis D+ lies between the net climb (last -
+        # Checked on this real series only (not general properties of the
+        # algorithm): the hysteresis D+ lies between the net climb (last -
         # first altitude) and the sum of every rise (threshold 0), and a
-        # larger threshold never gives more.
+        # 3 m threshold does not give more than 1 m.
         alts = [p.alt for p in self.laps[0].points]
         net = alts[-1] - alts[0]
         all_rises = aa.elevation_gain_m(alts, threshold=0.0)
@@ -849,18 +860,25 @@ class SalvanTest(unittest.TestCase):
 
     def test_climb_elevation_gain_value(self):
         # Regression value of the symmetric hysteresis (1 m). The asymmetric
-        # version gave 908.2 m; the difference comes from the 11 climbs that
-        # follow a descent or end on a sub-threshold rise (< 1 m each).
+        # version gave 908.2 m. Lap 1 has 11 confirmed climbs (the first
+        # starts from the first point, 10 follow a confirmed descent); the
+        # old version could lose up to 1 m at the foot (reference above the
+        # low point) and at the top (residual rise) of each of them.
         self.assertAlmostEqual(self.climb["elevation_gain_m"], 917.2, delta=0.05)
 
     def test_gain_minus_loss_matches_net_climb(self):
         # With the reference on the true extremes, D+ - D- equals the net
-        # altitude change up to one threshold (unconfirmed final swing).
+        # altitude change up to two thresholds: one unconfirmed swing can be
+        # left out at the start (D- pass) and one at the end (D+ pass), e.g.
+        # [0, -0.9, 5, 4.1]: D+ 5.9, D- 0, net 4.1.
+        threshold = 1.0
+        self.assertAlmostEqual(aa.elevation_gain_m([0.0, -0.9, 5.0, 4.1]), 5.9)
+        self.assertEqual(aa.elevation_gain_m([0.0, 0.9, -5.0, -4.1]), 0.0)
         for lap in self.laps:
             alts = [p.alt for p in lap.points if p.alt is not None]
-            gain = aa.elevation_gain_m(alts)
-            loss = aa.elevation_gain_m([-a for a in alts])
-            self.assertLessEqual(abs((gain - loss) - (alts[-1] - alts[0])), 1.0)
+            gain = aa.elevation_gain_m(alts, threshold)
+            loss = aa.elevation_gain_m([-a for a in alts], threshold)
+            self.assertLessEqual(abs((gain - loss) - (alts[-1] - alts[0])), 2 * threshold)
 
     def test_climb_no_jump(self):
         self.assertEqual(self.climb["jumps"], [])
