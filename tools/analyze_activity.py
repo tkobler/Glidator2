@@ -103,6 +103,10 @@ def _float(elem):
         return None
 
 
+class TcxError(ValueError):
+    """Unusable content in a TCX file; the message is meant for the user."""
+
+
 def _parse_time(text):
     text = text.strip()
     if text.endswith("Z"):
@@ -113,25 +117,52 @@ def _parse_time(text):
     return d.timestamp()
 
 
-def _parse_root(root):
+def _namespace(tag):
+    """'{ns}local' -> 'ns'; '' when the tag has no namespace."""
+    return tag[1:].split("}", 1)[0] if tag.startswith("{") else ""
+
+
+def describe_missing_laps(root):
+    """Explains, for a root without any lap in the TCX namespace, which
+    namespace was expected and which ones were found."""
+    def show(ns):
+        return ns if ns else "(none)"
+
+    parts = ["expected namespace %s" % NS["tcx"],
+             "root namespace %s" % show(_namespace(root.tag))]
+    found = sorted({_namespace(el.tag) for el in root.iter()
+                    if isinstance(el.tag, str) and el.tag.rsplit("}", 1)[-1] == "Lap"})
+    if found:
+        parts.append("<Lap> found in namespace %s" % ", ".join(show(ns) for ns in found))
+    else:
+        parts.append("no <Lap> element in any namespace")
+    return "; ".join(parts)
+
+
+def _parse_root(root, source="<string>"):
     laps = []
-    for lap_el in root.iter("{%s}Lap" % NS["tcx"]):
+    for lap_no, lap_el in enumerate(root.iter("{%s}Lap" % NS["tcx"]), 1):
         lap = Lap(
             start=lap_el.get("StartTime"),
             total_time_s=_float(lap_el.find("tcx:TotalTimeSeconds", NS)),
             distance_m=_float(lap_el.find("tcx:DistanceMeters", NS)),
         )
-        for tp in lap_el.iterfind("tcx:Track/tcx:Trackpoint", NS):
+        for point_no, tp in enumerate(lap_el.iterfind("tcx:Track/tcx:Trackpoint", NS), 1):
             time_el = tp.find("tcx:Time", NS)
             if time_el is None or not (time_el.text or "").strip():
                 continue
+            try:
+                t = _parse_time(time_el.text)
+            except ValueError:
+                raise TcxError("%s: lap %d, point %d: invalid <Time> value %r"
+                               % (source, lap_no, point_no, time_el.text.strip())) from None
             lat = _float(tp.find("tcx:Position/tcx:LatitudeDegrees", NS))
             lon = _float(tp.find("tcx:Position/tcx:LongitudeDegrees", NS))
             if lat is None or lon is None:
                 lat = lon = None
             hr = _float(tp.find("tcx:HeartRateBpm/tcx:Value", NS))
             lap.points.append(Point(
-                t=_parse_time(time_el.text),
+                t=t,
                 lat=lat,
                 lon=lon,
                 alt=_float(tp.find("tcx:AltitudeMeters", NS)),
@@ -143,12 +174,12 @@ def _parse_root(root):
     return laps
 
 
-def parse_tcx_string(text):
-    return _parse_root(ET.fromstring(text))
+def parse_tcx_string(text, source="<string>"):
+    return _parse_root(ET.fromstring(text), source)
 
 
 def parse_tcx(path):
-    return _parse_root(ET.parse(path).getroot())
+    return _parse_root(ET.parse(path).getroot(), path)
 
 
 # --------------------------------------------------------------------------
@@ -508,22 +539,43 @@ def write_csv(laps, summaries, out):
             ])
 
 
+def _non_negative_float(text):
+    try:
+        v = float(text)
+    except ValueError:
+        raise argparse.ArgumentTypeError("not a number: %r" % text) from None
+    if not v >= 0.0:  # also rejects NaN
+        raise argparse.ArgumentTypeError("must be >= 0, got %r" % text)
+    return v
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Per-lap analysis of a TCX activity.")
     parser.add_argument("tcx", help="TCX file")
     parser.add_argument("--csv", help="export the 60 s series (one row per trackpoint)")
-    parser.add_argument("--gain-threshold", type=float, default=1.0,
+    parser.add_argument("--gain-threshold", type=_non_negative_float, default=1.0,
                         help="hysteresis threshold for D+ in m (default 1.0)")
     args = parser.parse_args(argv)
 
     try:
-        laps = parse_tcx(args.tcx)
+        root = ET.parse(args.tcx).getroot()
+        laps = _parse_root(root, args.tcx)
     except OSError as e:
         print("error: cannot read %s: %s" % (args.tcx, e), file=sys.stderr)
         return 2
     except ET.ParseError as e:
         print("error: invalid XML in %s: %s" % (args.tcx, e), file=sys.stderr)
         return 2
+    except TcxError as e:
+        print("error: %s" % e, file=sys.stderr)
+        return 2
+
+    if not laps:
+        # Exit 1: the file is readable but nothing was analysed; a calling
+        # script must not take the empty output for a valid analysis.
+        print("warning: no <Lap> found in %s (%s)" % (args.tcx, describe_missing_laps(root)),
+              file=sys.stderr)
+        return 1
 
     summaries = [summarize_lap(lap, args.gain_threshold) for lap in laps]
     print("%s : %d lap(s), %d points" % (args.tcx, len(laps), sum(len(l.points) for l in laps)))
