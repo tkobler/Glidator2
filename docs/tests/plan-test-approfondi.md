@@ -207,8 +207,8 @@ Les fonctions d'aide (boîtes, contrôles, états) vont dans une **classe `(:tes
 | État | Session | Icône | Données |
 |---|---|---|---|
 | **vide** | `$.session = null` | non | `new WatchData()` sans donnée, trace vide, pas de fix. Vario null. TimeView `"00:00"`, batterie 0. Boussole (0.0, null, null) : **cap 0.0** (le cap null relève de D9, testé en F25) |
-| **normal** | enregistrement (fausse session, `isRecording() = true`) | non | Tick réel 10:51:28 (§ 3.1, F10) : altitude 2149.4, distance 1692.49, FC 139, D+ 335.0 (synthétique), chrono 1 965 000 ms, vitesse 0.0, cap 0.785 rad, fix (46.12446558661759, 6.985453460365534, accuracy 4), HikeHistory → `+950` / `26:00`, trace = 20 points Salvan (`MapTestHelper`), vario +0.4. TimeView `"10:51"`, 76 %. Boussole : mêmes coordonnées |
-| **extrême** | enregistrement | non | altitude 8849 en vol, **6000** sur la page Position de marche (borne haute décidée le 06/10 ; 8849 y donnera `--` une fois D2 corrigé), D+ 12 345, distance 999 900 m (`999.9`), chrono 359 999 000 ms (`99:59:59`), FC 220, vitesse verticale = −3000 m/h (`-3000`, borne du plafond marche, décision D3 du 07/10 ; la spirale réelle −14 420 m/h lit `--`), pace `60:00` (0.2778 m/s). Vol : 33.3 m/s (`120` km/h), vario −10.0. TimeView `"23:59"`, 100 %. Boussole (−89.99999, −179.99999). Paused : 360 000 000 ms (`100:00:00`) |
+| **normal** | enregistrement (fausse session, `isRecording() = true`) | non | Tick réel 10:51:28 (§ 3.1, F10) : altitude 2149.4, distance 1692.49, FC 139, D+ 335.0 (synthétique), chrono 1 965 000 ms, vitesse 0.0, cap 0.785 rad, fix (46.12446558661759, 6.985453460365534, accuracy 4), HikeHistory = extrait réel M (§ 3.1, F06) → `+940` / `26:48` (banc écrit le 07/10 ; le plan prévoyait l'extrait T, `+950` / `26:00`, de même largeur), trace = 20 points Salvan (`MapTestHelper`) avec le fix sur le dernier point, vario +0.4. TimeView `"10:51"`, 76 %. Boussole : mêmes coordonnées |
+| **extrême** | enregistrement | non | altitude 8849 en vol, **6000** sur la page Position de marche (borne haute décidée le 06/10 ; 8849 y donnera `--` une fois D2 corrigé), D+ **20 000** (`20000`, borne haute de la garde du 07/10), distance 999 900 m (`999.9`), chrono 359 999 000 ms (`99:59:59`), FC **250** (`250`, borne haute), vitesse verticale −2998 m/h (12 échantillons sur 55 s → `-3000`, borne du plafond marche, décision D3 du 07/10 ; la spirale réelle −14 420 m/h lit `--`), pace `60:00` (0.2778 m/s). Vol : 33.3 m/s (`120` km/h), vario −10.0. TimeView `"23:59"`, 100 %. Boussole cap 0.785, (−89.999972, −179.999972) → `89°59'59.9"S` / `179°59'59.9"W` (chaînes les plus longues depuis la correction de D7/D8 : plus de signe moins ni de `60.0"`). Paused : 360 000 000 ms (`100:00:00`) |
 | **pause** | fausse session, `isRecording() = false` | non | données « normal » ; pour PausedView : chrono `32:45` |
 | **enregistrement** | enregistrement | oui (`$.recordFlashStartMs = System.getTimer()`) | données « normal ». En vol, `record = true` élargit l'unité de l'altitude (×1,5) |
 
@@ -347,12 +347,12 @@ Bilan de l'axe 1 (exécuté le 06/10 sur fenix6pro et fenix5, résultats identiq
 
 | Vue \ État | Empty | Normal | Extreme | Paused | Recording |
 |---|---|---|---|---|---|
-| HikePosition | `--` `--` `--` `--:--` | `2149` `335` `1.7` `32:45` | `6000` `12345` `999.9` `99:59:59` | comme Normal, session en pause | Normal + icône |
-| HikePace | `--` `--` `--:--` `--:--` | `139` `+950` `26:00` `32:45` | `220` `-3000` `60:00` `99:59:59` | Normal en pause | Normal + icône |
+| HikePosition | `--` `--` `--` `--:--` | `2149` `335` `1.7` `32:45` | `6000` `20000` `999.9` `99:59:59` | comme Normal, session en pause | Normal + icône |
+| HikePace | `--` `--` `--:--` `--:--` | `139` `+940` `26:48` `32:45` | `250` `-3000` `60:00` `99:59:59` | Normal en pause | Normal + icône |
 | HikeMap | `Waiting for` `GPS` | trace 20 points + marqueur, aucun texte | trace F21 → `500 m` | Normal en pause | Normal + icône |
 | Time | `00:00` `0%` | `10:51` `76%` | `23:59` `100%` | idem Normal | Normal + icône |
 | Fly | `starting ...` | `2149` ` m` `0` ` km/h` `+0.4` ` m/s` | `8849` ` m` `120` ` km/h` `-10.0` ` m/s` | Normal, `record = false` | Normal, `record = true` + icône |
-| Compass | `N S E W` `Waiting for` `GPS` (cap 0.0) | `46°07'28.1"N` `6°59'7.6"E` | `-89°59'60.0"S` `-179°59'60.0"W` (chaînes actuelles, les plus longues) | idem Normal | Normal + icône |
+| Compass | `N S E W` `Waiting for` `GPS` (cap 0.0) | `46°07'28.1"N` `6°59'7.6"E` (cap 0.785) | `89°59'59.9"S` `179°59'59.9"W` (cap 0.785 ; les plus longues depuis D7/D8) | idem Normal | Normal + icône |
 | Paused | `Paused` `--:--` `START: resume` | `Paused` `32:45` `START: resume` | `Paused` `100:00:00` `START: resume` | idem Normal | session en cours : `Paused` `32:45` (`pausedScreenTimerText` ne dépend pas de l'enregistrement) |
 
 **Résultat attendu de chaque test de mise en page** : 0 chevauchement, 0 texte hors de l'écran, 0 texte dans la sous-fenêtre, sur chacune des 62 montres. Un défaut fait échouer le test avec le message normalisé (vue, état, textes en cause, boîtes). Sur fenix6pro, `testLayout_HikePosition_Normal` et `testLayout_HikePace_Normal` servent à calibrer la marge `k`. Ils **doivent** passer, sinon `k` est mal réglé.
