@@ -1,4 +1,5 @@
 using Toybox.Test;
+using Toybox.Application;
 using Toybox.Activity;
 using Toybox.ActivityRecording;
 using Toybox.Position;
@@ -1648,16 +1649,369 @@ function testVsWindowMenuLogic(logger)
 	return true;
 }
 
-// Preferences against the real object store (the beep's store). The original
-// value is put back at the end, whatever happens.
+// ---------------------------------------------------------------------------
+// Preferences in Application.Storage (decision D6, 07/10). The tests below
+// that touch the real stores save them first and put them back at the end,
+// whatever happens (StoredPrefsSnapshot, LegacyPrefsSnapshot).
+
+// Storage values of the two preference keys (beep, VS window).
+(:test, :typecheck(false))
+class StoredPrefsSnapshot
+{
+	var beep;
+	var vsWindow;
+
+	function initialize()
+	{
+		beep = Application.Storage.getValue($.PREF_BEEP_KEY);
+		vsWindow = Application.Storage.getValue($.PREF_VS_WINDOW_KEY);
+	}
+
+	function clear()
+	{
+		Application.Storage.deleteValue($.PREF_BEEP_KEY);
+		Application.Storage.deleteValue($.PREF_VS_WINDOW_KEY);
+	}
+
+	function restore()
+	{
+		put($.PREF_BEEP_KEY, beep);
+		put($.PREF_VS_WINDOW_KEY, vsWindow);
+	}
+
+	function put(key, value)
+	{
+		if (value == null)
+		{
+			Application.Storage.deleteValue(key);
+		}
+		else
+		{
+			Application.Storage.setValue(key, value);
+		}
+	}
+}
+
+// MIGRATION TESTS ONLY: the deprecated AppBase object store (getProperty /
+// setProperty / deleteProperty), where versions before D6 kept the two keys.
+(:test, :typecheck(false))
+class LegacyPrefsSnapshot
+{
+	var app;
+	var beep;
+	var vsWindow;
+
+	function initialize(appInstance)
+	{
+		app = appInstance;
+		beep = app.getProperty($.PREF_BEEP_KEY);
+		vsWindow = app.getProperty($.PREF_VS_WINDOW_KEY);
+	}
+
+	function clear()
+	{
+		app.deleteProperty($.PREF_BEEP_KEY);
+		app.deleteProperty($.PREF_VS_WINDOW_KEY);
+	}
+
+	// What a version before D6 did on a preference change.
+	function writeAsOldVersion(key, value)
+	{
+		app.setProperty(key, value);
+	}
+
+	function read(key)
+	{
+		return app.getProperty(key);
+	}
+
+	function restore()
+	{
+		if (beep == null) { app.deleteProperty($.PREF_BEEP_KEY); } else { app.setProperty($.PREF_BEEP_KEY, beep); }
+		if (vsWindow == null) { app.deleteProperty($.PREF_VS_WINDOW_KEY); } else { app.setProperty($.PREF_VS_WINDOW_KEY, vsWindow); }
+	}
+}
+
+// Stand-in for the old object store, so the migration rules can be checked
+// without the real AppBase: same getProperty / deleteProperty as AppBase.
+(:test)
+class FakeLegacyStore
+{
+	var values;
+	var deleteCalls;
+
+	function initialize(dict)
+	{
+		values = dict;
+		deleteCalls = 0;
+	}
+
+	function getProperty(key)
+	{
+		return values.get(key);
+	}
+
+	function deleteProperty(key)
+	{
+		deleteCalls += 1;
+		values.remove(key);
+	}
+}
+
+// A firmware where AppBase.getProperty has been removed ("may be removed
+// after System 4"): no getProperty, nothing to migrate.
+(:test)
+class NoLegacyStore
+{
+	function initialize() {}
+}
+
+(:test)
+function testSanitizeBeep(logger)
+{
+	Test.assertEqualMessage($.sanitizeBeep(true), true, "true -> true");
+	Test.assertEqualMessage($.sanitizeBeep(false), false, "false -> false");
+	Test.assertEqualMessage($.sanitizeBeep(null), false, "absent -> default false");
+	Test.assertEqualMessage($.sanitizeBeep(1), false, "Number 1 (corrupted) -> false");
+	Test.assertEqualMessage($.sanitizeBeep(0), false, "Number 0 (corrupted) -> false");
+	Test.assertEqualMessage($.sanitizeBeep(1.0), false, "Float (corrupted) -> false");
+	Test.assertEqualMessage($.sanitizeBeep("true"), false, "String \"true\" (corrupted) -> false");
+	Test.assertEqualMessage($.sanitizeBeep([true]), false, "Array (corrupted) -> false");
+	return true;
+}
+
+(:test)
+function testSanitizePreference(logger)
+{
+	Test.assertEqualMessage($.sanitizePreference($.PREF_BEEP_KEY, true), true, "beep true kept");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_BEEP_KEY, false), false, "beep false kept");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_BEEP_KEY, 5), false, "beep corrupted -> false");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_BEEP_KEY, null), false, "beep absent -> false");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_VS_WINDOW_KEY, 300000), 300000, "VS 5 min kept");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_VS_WINDOW_KEY, 180000), 180000, "VS 3 min kept");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_VS_WINDOW_KEY, "abc"), 60000, "VS String -> 60000");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_VS_WINDOW_KEY, 120000), 60000, "VS unknown Number -> 60000");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_VS_WINDOW_KEY, 180000.0), 60000, "VS Float -> 60000");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_VS_WINDOW_KEY, null), 60000, "VS absent -> 60000");
+	Test.assertEqualMessage($.sanitizePreference($.PREF_VS_WINDOW_KEY, true), 60000, "VS Boolean -> 60000");
+	// Not one of the two migrated keys: nothing to write.
+	Test.assertMessage($.sanitizePreference("other", 5) == null, "unknown key -> null");
+	Test.assertMessage($.sanitizePreference(null, true) == null, "null key -> null");
+	return true;
+}
+
+// Pure decision: (value already in Storage, value in the old store) -> value
+// kept. Storage wins as soon as it holds something (false included): it was
+// written by this version, after the migration or by the user.
+(:test)
+function testPreferenceToKeep(logger)
+{
+	Test.assertMessage($.preferenceToKeep(null, null) == null, "nothing anywhere -> null (default on read)");
+	Test.assertEqualMessage($.preferenceToKeep(null, true), true, "first launch: old beep taken");
+	Test.assertEqualMessage($.preferenceToKeep(null, false), false, "first launch: old beep false taken");
+	Test.assertEqualMessage($.preferenceToKeep(null, 300000), 300000, "first launch: old VS window taken");
+	Test.assertEqualMessage($.preferenceToKeep(null, "abc"), "abc", "old corrupted value passed on (sanitized by the caller)");
+	Test.assertEqualMessage($.preferenceToKeep(180000, 300000), 180000, "Storage wins over a stale old value");
+	Test.assertEqualMessage($.preferenceToKeep(false, true), false, "Storage false is a value: wins over old true");
+	Test.assertEqualMessage($.preferenceToKeep(0, 300000), 0, "Storage zero is a value: wins (sanitized later)");
+	Test.assertEqualMessage($.preferenceToKeep(180000, null), 180000, "after the update: Storage kept");
+	return true;
+}
+
+// Migration rules against a stand-in for the old store.
+(:test)
+function testMigrateLegacyPreferencesRules(logger)
+{
+	var snap = new StoredPrefsSnapshot();
+	try
+	{
+		// Value taken from the old store, old key removed.
+		snap.clear();
+		var old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true, $.PREF_VS_WINDOW_KEY => 300000 });
+		Test.assertEqualMessage($.migrateLegacyPreferences(old), 2, "two keys migrated");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), true, "beep true now in Storage");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 300000, "5 min now in Storage");
+		Test.assertMessage(old.getProperty($.PREF_BEEP_KEY) == null, "old beep key removed");
+		Test.assertMessage(old.getProperty($.PREF_VS_WINDOW_KEY) == null, "old VS key removed");
+
+		// Second launch: nothing left to migrate, Storage untouched.
+		Test.assertEqualMessage($.migrateLegacyPreferences(old), 0, "second run -> nothing migrated");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 300000, "second run keeps 5 min");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), true, "second run keeps beep");
+
+		// Old beep false is a value: written as false, not left absent.
+		snap.clear();
+		old = new FakeLegacyStore({ $.PREF_BEEP_KEY => false });
+		Test.assertEqualMessage($.migrateLegacyPreferences(old), 1, "beep false migrated");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), false, "beep false in Storage");
+		Test.assertMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY) == null, "absent VS window not written");
+
+		// Nothing anywhere: nothing written, defaults on read.
+		snap.clear();
+		old = new FakeLegacyStore({});
+		Test.assertEqualMessage($.migrateLegacyPreferences(old), 0, "empty old store -> nothing migrated");
+		Test.assertEqualMessage(old.deleteCalls, 0, "empty old store -> no delete");
+		Test.assertMessage(Application.Storage.getValue($.PREF_BEEP_KEY) == null, "beep not written");
+		Test.assertMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY) == null, "VS window not written");
+		var p = new Preferences();
+		Test.assertEqualMessage(p.getBeep(), false, "absent -> beep default false");
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "absent -> VS default 60000");
+
+		// Corrupted old values: the defaults are written, old keys removed.
+		snap.clear();
+		old = new FakeLegacyStore({ $.PREF_BEEP_KEY => 5, $.PREF_VS_WINDOW_KEY => "abc" });
+		Test.assertEqualMessage($.migrateLegacyPreferences(old), 2, "corrupted keys migrated");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), false, "corrupted beep -> false stored");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 60000, "corrupted VS -> 60000 stored");
+		Test.assertMessage(old.getProperty($.PREF_BEEP_KEY) == null, "corrupted old beep removed");
+		Test.assertMessage(old.getProperty($.PREF_VS_WINDOW_KEY) == null, "corrupted old VS removed");
+		snap.clear();
+		old = new FakeLegacyStore({ $.PREF_VS_WINDOW_KEY => 120000 });
+		$.migrateLegacyPreferences(old);
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 60000, "unknown old Number -> 60000");
+		snap.clear();
+		old = new FakeLegacyStore({ $.PREF_VS_WINDOW_KEY => 180000.0 });
+		$.migrateLegacyPreferences(old);
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 60000, "old Float -> 60000");
+
+		// Storage already set (by this version) and a stale old key: Storage
+		// wins, the old key is removed.
+		snap.clear();
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, 180000);
+		Application.Storage.setValue($.PREF_BEEP_KEY, false);
+		old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true, $.PREF_VS_WINDOW_KEY => 300000 });
+		Test.assertEqualMessage($.migrateLegacyPreferences(old), 2, "stale old keys handled");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 180000, "Storage 3 min kept");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), false, "Storage beep false kept");
+		Test.assertMessage(old.getProperty($.PREF_VS_WINDOW_KEY) == null, "stale old VS removed");
+		Test.assertMessage(old.getProperty($.PREF_BEEP_KEY) == null, "stale old beep removed");
+
+		// Other keys of the old store are not touched (out of scope).
+		snap.clear();
+		old = new FakeLegacyStore({ "other" => 7 });
+		Test.assertEqualMessage($.migrateLegacyPreferences(old), 0, "unrelated key -> nothing migrated");
+		Test.assertEqualMessage(old.getProperty("other"), 7, "unrelated key left in place");
+
+		// No old store at all (getProperty removed, or null): no crash.
+		snap.clear();
+		Test.assertEqualMessage($.migrateLegacyPreferences(new NoLegacyStore()), 0, "no getProperty -> 0");
+		Test.assertEqualMessage($.migrateLegacyPreferences(null), 0, "null -> 0");
+		Test.assertMessage(Application.Storage.getValue($.PREF_BEEP_KEY) == null, "no old store -> nothing written");
+	}
+	finally
+	{
+		snap.restore();
+	}
+	return true;
+}
+
+// The real thing: values written by a version before D6 with
+// AppBase.setProperty, then this version starts (new Preferences() runs the
+// migration) and starts again, and the user changes a value.
+(:test)
+function testMigrateLegacyPreferencesRealStoreAfterUpdate(logger)
+{
+	var app = Application.getApp();
+	var stored = new StoredPrefsSnapshot();
+	var legacy = new LegacyPrefsSnapshot(app);
+	try
+	{
+		stored.clear();
+		legacy.clear();
+		legacy.writeAsOldVersion($.PREF_BEEP_KEY, true);
+		legacy.writeAsOldVersion($.PREF_VS_WINDOW_KEY, 180000);
+
+		// First launch after the update.
+		var p = new Preferences();
+		Test.assertEqualMessage(p.getBeep(), true, "old beep true taken over");
+		Test.assertEqualMessage(p.getVsWindowMs(), 180000, "old 3 min taken over");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), true, "beep in Storage");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 180000, "3 min in Storage");
+		Test.assertMessage(legacy.read($.PREF_BEEP_KEY) == null, "old beep key erased");
+		Test.assertMessage(legacy.read($.PREF_VS_WINDOW_KEY) == null, "old VS key erased");
+
+		// Next launch: values kept.
+		p = new Preferences();
+		Test.assertEqualMessage(p.getBeep(), true, "beep kept on the next launch");
+		Test.assertEqualMessage(p.getVsWindowMs(), 180000, "3 min kept on the next launch");
+
+		// Changed in this version, then relaunched: the new values stay.
+		p.setBeep(false);
+		p.setVsWindowMs(300000);
+		p = new Preferences();
+		Test.assertEqualMessage(p.getBeep(), false, "beep false kept after a relaunch");
+		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "5 min kept after a relaunch");
+		Test.assertMessage(legacy.read($.PREF_BEEP_KEY) == null, "nothing written back to the old store");
+		Test.assertMessage(legacy.read($.PREF_VS_WINDOW_KEY) == null, "nothing written back to the old store (VS)");
+
+		// Corrupted old value on the real store -> default.
+		stored.clear();
+		legacy.writeAsOldVersion($.PREF_VS_WINDOW_KEY, "abc");
+		p = new Preferences();
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "real store, corrupted old VS -> 60000");
+		Test.assertMessage(legacy.read($.PREF_VS_WINDOW_KEY) == null, "real store, corrupted old VS erased");
+	}
+	finally
+	{
+		stored.restore();
+		legacy.restore();
+	}
+	return true;
+}
+
+// Beep against Storage.
+(:test)
+function testPreferencesBeepStore(logger)
+{
+	var snap = new StoredPrefsSnapshot();
+	try
+	{
+		snap.clear();
+		var p = new Preferences();
+		Test.assertEqualMessage(p.getBeep(), false, "nothing stored -> false");
+
+		p.setBeep(true);
+		Test.assertEqualMessage(p.getBeep(), true, "true stored");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), true, "true in Storage");
+		Test.assertEqualMessage(new Preferences().getBeep(), true, "read back by a new Preferences (store, not a cache)");
+		p.setBeep(false);
+		Test.assertEqualMessage(p.getBeep(), false, "false stored");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), false, "false in Storage (a value, not absent)");
+
+		// Corrupted values in Storage.
+		Application.Storage.setValue($.PREF_BEEP_KEY, 1);
+		Test.assertEqualMessage(p.getBeep(), false, "Number in Storage -> false");
+		Application.Storage.setValue($.PREF_BEEP_KEY, "true");
+		Test.assertEqualMessage(p.getBeep(), false, "String in Storage -> false");
+
+		// set() never writes an invalid value.
+		p.setBeep(true);
+		p.setBeep(null);
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), false, "null set -> false stored");
+		p.setBeep(1);
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), false, "Number set -> false stored");
+
+		// The VS window is a separate key.
+		p.setVsWindowMs(300000);
+		p.setBeep(true);
+		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "beep does not change the VS window");
+	}
+	finally
+	{
+		snap.restore();
+	}
+	return true;
+}
+
+// VS window against Storage.
 (:test)
 function testPreferencesVsWindowStore(logger)
 {
-	var p = new Preferences();
-	var original = p.app.getProperty(p.VS_WINDOW_KEY);
+	var snap = new StoredPrefsSnapshot();
 	try
 	{
-		p.app.deleteProperty(p.VS_WINDOW_KEY);
+		snap.clear();
+		var p = new Preferences();
 		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "nothing stored -> 60000");
 
 		p.setVsWindowMs(300000);
@@ -1669,19 +2023,21 @@ function testPreferencesVsWindowStore(logger)
 		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "1 min stored -> 60000");
 
 		// Corrupted values in the store.
-		p.app.setProperty(p.VS_WINDOW_KEY, "abc");
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, "abc");
 		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "String in the store -> 60000");
-		p.app.setProperty(p.VS_WINDOW_KEY, 120000);
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, 120000);
 		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "unknown Number in the store -> 60000");
-		p.app.setProperty(p.VS_WINDOW_KEY, 180000.0);
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, 180000.0);
 		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "Float in the store -> 60000");
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, 0);
+		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "zero in the store -> 60000");
 
 		// set() never writes an invalid value.
 		p.setVsWindowMs(300000);
 		p.setVsWindowMs(42);
-		Test.assertEqualMessage(p.app.getProperty(p.VS_WINDOW_KEY), 60000, "invalid set -> the default is stored");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 60000, "invalid set -> the default is stored");
 		p.setVsWindowMs(null);
-		Test.assertEqualMessage(p.app.getProperty(p.VS_WINDOW_KEY), 60000, "null set -> the default is stored");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 60000, "null set -> the default is stored");
 
 		// The beep preference is a separate key.
 		var beep = p.getBeep();
@@ -1690,14 +2046,7 @@ function testPreferencesVsWindowStore(logger)
 	}
 	finally
 	{
-		if (original == null)
-		{
-			p.app.deleteProperty(p.VS_WINDOW_KEY);
-		}
-		else
-		{
-			p.app.setProperty(p.VS_WINDOW_KEY, original);
-		}
+		snap.restore();
 	}
 	return true;
 }
@@ -1903,8 +2252,8 @@ function testWatchDataHikeVsWindowSwitch(logger)
 (:test)
 function testApplyVsWindowChoice(logger)
 {
+	var snap = new StoredPrefsSnapshot();
 	var p = new Preferences();
-	var original = p.app.getProperty(p.VS_WINDOW_KEY);
 	try
 	{
 		var data = new WatchData();
@@ -1926,17 +2275,11 @@ function testApplyVsWindowChoice(logger)
 		// No Preferences: WatchData only.
 		Test.assertEqualMessage($.applyVsWindowChoice(null, data, 300000), 300000, "no Preferences -> WatchData only");
 		Test.assertEqualMessage(data.getHikeVsWindowMs(), 300000, "WatchData set without Preferences");
+		Test.assertEqualMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY), 300000, "the choice lands in Storage");
 	}
 	finally
 	{
-		if (original == null)
-		{
-			p.app.deleteProperty(p.VS_WINDOW_KEY);
-		}
-		else
-		{
-			p.app.setProperty(p.VS_WINDOW_KEY, original);
-		}
+		snap.restore();
 	}
 	return true;
 }

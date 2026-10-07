@@ -112,39 +112,112 @@ function applyVsWindowChoice(prefs, data, ms)
 }
 
 // --------------------------------------------------------------------------------
+// Storage (decision D6, 07/10). Both preferences live in Application.Storage
+// (CIQ 2.4+, every watch of the manifest). Versions before D6 kept them in the
+// AppBase object store (getProperty / setProperty, deprecated); the same keys
+// are carried over once by migrateLegacyPreferences().
+// --------------------------------------------------------------------------------
+
+const PREF_BEEP_KEY = "beep";
+const PREF_VS_WINDOW_KEY = "vsWindowMs";
+
+// Stored or requested beep -> Boolean. Anything but a Boolean (null: nothing
+// stored, a Number, a String...) gives the default, off.
+function sanitizeBeep(raw)
+{
+	return (raw instanceof Lang.Boolean) ? raw : false;
+}
+
+// Key + raw value -> the value to store for that preference, or null for a
+// key that is not one of ours (nothing to write).
+function sanitizePreference(key, raw)
+{
+	if (!(key instanceof Lang.String))
+	{
+		return null;
+	}
+	if (key.equals(PREF_BEEP_KEY))
+	{
+		return sanitizeBeep(raw);
+	}
+	if (key.equals(PREF_VS_WINDOW_KEY))
+	{
+		return sanitizeVsWindowMs(raw);
+	}
+	return null;
+}
+
+// Migration decision for one key: (value already in Storage, value in the old
+// object store) -> value kept. Storage wins as soon as it holds something
+// (false and 0 included): it was written by this version, so it is the
+// user's latest choice; otherwise the old value is taken (null if none).
+function preferenceToKeep(storageValue, legacyValue)
+{
+	return (storageValue != null) ? storageValue : legacyValue;
+}
+
+// ONE-TIME MIGRATION, the only place allowed to use the deprecated object
+// store: for each preference key still present there (AppBase.getProperty),
+// write the kept value (sanitized) to Storage, then erase the old key
+// (AppBase.deleteProperty). Storage is written before the old key is erased,
+// so an interruption loses nothing. Once the old keys are gone, later launches
+// only read two empty keys and write nothing. `legacy` is the AppBase (any
+// object with getProperty / deleteProperty in tests); null, or a firmware
+// where getProperty has been removed, means nothing to migrate.
+// Returns the number of keys migrated.
+function migrateLegacyPreferences(legacy)
+{
+	if (legacy == null || !(legacy has :getProperty) || !(legacy has :deleteProperty))
+	{
+		return 0;
+	}
+	var keys = [PREF_BEEP_KEY, PREF_VS_WINDOW_KEY];
+	var migrated = 0;
+	for (var i = 0; i < keys.size(); i++)
+	{
+		var old = legacy.getProperty(keys[i]);
+		if (old != null)
+		{
+			var kept = preferenceToKeep(Application.Storage.getValue(keys[i]), old);
+			Application.Storage.setValue(keys[i], sanitizePreference(keys[i], kept));
+			legacy.deleteProperty(keys[i]);
+			migrated += 1;
+		}
+	}
+	return migrated;
+}
+
+// --------------------------------------------------------------------------------
 
 class Preferences
 {
-	const VS_WINDOW_KEY = "vsWindowMs";
-
-	var app;
-
 	function initialize()
     {
-    	app = Application.getApp();
+		$.migrateLegacyPreferences(Application.getApp());
     }
 
-    function getBeep ()
+	// Read from Storage on every call (no cache).
+    function getBeep()
     {
-    	var beep = app.getProperty("beep");
-		return (beep == null ? false: beep);
+		return $.sanitizeBeep(Application.Storage.getValue($.PREF_BEEP_KEY));
     }
 
-    function setBeep (newVal)
+	// Only a Boolean is ever written (false for anything else).
+    function setBeep(newVal)
     {
-    	app.setProperty("beep", newVal);
+		Application.Storage.setValue($.PREF_BEEP_KEY, $.sanitizeBeep(newVal));
     }
 
-	// Read from the store on every call (no cache), like getBeep().
+	// Read from Storage on every call (no cache), like getBeep().
 	function getVsWindowMs()
 	{
-		return $.sanitizeVsWindowMs(app.getProperty(VS_WINDOW_KEY));
+		return $.sanitizeVsWindowMs(Application.Storage.getValue($.PREF_VS_WINDOW_KEY));
 	}
 
 	// Only one of the three windows is ever written.
 	function setVsWindowMs(ms)
 	{
-		app.setProperty(VS_WINDOW_KEY, $.sanitizeVsWindowMs(ms));
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, $.sanitizeVsWindowMs(ms));
 	}
 
 }
