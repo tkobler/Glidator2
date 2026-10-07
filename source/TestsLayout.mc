@@ -15,7 +15,10 @@ using Toybox.WatchUi;
 //   OFFSCREEN  a corner is outside the screen (circle on round screens,
 //              [0, w] x [0, h] otherwise; Instinct cut corners: manual M08);
 //   SUBSCREEN  a text cuts the Instinct sub-window (WatchUi.getSubscreen(),
-//              or the table of section 2.2 when the API gives nothing);
+//              or the table of section 2.2 when the API gives nothing):
+//              "SUBSCREEN disk" when it reaches the round window itself,
+//              "SUBSCREEN corner" when it only cuts the corners of its
+//              bounding square;
 //   STATE      the texts drawn are not the ones the state should give (the
 //              state setup is wrong, the layout result would mean nothing).
 // Each defect is logged as one ERROR line
@@ -326,11 +329,30 @@ class LayoutBench
 			{
 				if (overlaps(inks[i], sb))
 				{
-					out.add("SUBSCREEN " + named(texts[i], inks[i]) + " in " + fmtBox(sb));
+					// The Instinct sub-window is a disk: "disk" when the ink
+					// box reaches it, "corner" when it only cuts the corners
+					// of its bounding square. Both are reported.
+					var kind = hitsDisk(inks[i], sub) ? "disk " : "corner ";
+					out.add("SUBSCREEN " + kind + named(texts[i], inks[i]) + " in " + fmtBox(sb));
 				}
 			}
 		}
 		return out;
+	}
+
+	// True if box [x0, y0, x1, y1] shares an area with the disk inscribed in
+	// sub = [x, y, width, height]: the point of the box nearest the centre is
+	// strictly closer than the radius (a box tangent to the disk is out).
+	static function hitsDisk(b, sub)
+	{
+		var cx = sub[0] + sub[2] / 2.0;
+		var cy = sub[1] + sub[3] / 2.0;
+		var r = (sub[2] < sub[3] ? sub[2] : sub[3]) / 2.0;
+		var nx = cx < b[0] ? b[0] : (cx > b[2] ? b[2] : cx);
+		var ny = cy < b[1] ? b[1] : (cy > b[3] ? b[3] : cy);
+		var dx = nx - cx;
+		var dy = ny - cy;
+		return dx * dx + dy * dy < r * r;
 	}
 
 	static function join(texts)
