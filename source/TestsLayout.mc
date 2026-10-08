@@ -355,6 +355,19 @@ class LayoutBench
 		return dx * dx + dy * dy < r * r;
 	}
 
+	// Every drawText() call as it was made: "text"@x,y font f justify j,
+	// so that a change of anchor or of font shows even when the box does not.
+	static function calls(texts)
+	{
+		var s = "";
+		for (var i = 0; i < texts.size(); i++)
+		{
+			var e = texts[i];
+			s += " \"" + e[0] + "\"@" + e[2].toFloat().format("%.2f") + "," + e[3].toFloat().format("%.2f") + " f" + e[1] + " j" + e[4];
+		}
+		return s;
+	}
+
 	static function join(texts)
 	{
 		var s = "";
@@ -628,6 +641,7 @@ class LayoutBench
 			boxes += " " + named(dc.texts[i], inkBox(dc.texts[i], LAYOUT_INK_K));
 		}
 		logger.debug(head + "ink" + boxes);
+		logger.debug(head + "calls" + calls(dc.texts));
 		for (var i = 0; i < errs.size(); i++)
 		{
 			logger.error(head + errs[i]);
