@@ -368,6 +368,13 @@ class LayoutBench
 		return s;
 	}
 
+	// Why `defect` (a findDefects() line) of `view` is not a defect, or null
+	// when it is one.
+	static function exemption(view, defect)
+	{
+		return null;
+	}
+
 	static function join(texts)
 	{
 		var s = "";
@@ -879,6 +886,72 @@ function testBenchSelfSubscreenSource(logger)
 	LayoutBench.expectDefects(errs, "corner is not disk", defs, "SUBSCREEN disk ", []);
 	defs = LayoutBench.findDefects([inDisk, inCorner], 176, 176, false, null, 0.0);
 	LayoutBench.expectDefects(errs, "no sub-window", defs, "SUBSCREEN", []);
+	return LayoutBench.finish(errs, logger);
+}
+
+// B05: the exemptions of run() (LayoutBench.exemption()), as narrow as they
+// can be: the corner of the sub-window's bounding square (any view), and the
+// compass letter "E" in the sub-window disk (Compass view, letter E only).
+// Nothing else: another letter, another view, an OVERLAP, an OFFSCREEN or
+// a disk hit of any other text stays a defect.
+(:test, :layouttest, :typecheck(false))
+function testBenchSelfExemptions(logger)
+{
+	LayoutBench.reset();
+	var errs = [];
+	var sq = " in (113,0,175,62)";
+	var exempt = [
+		["Paused", "SUBSCREEN corner \"Paused\"(59,52,117,70)" + sq],
+		["HikePosition", "SUBSCREEN corner \"ALTITUDE\"(52,19,112,36)" + sq],
+		["Compass", "SUBSCREEN disk \"E\"(133,27,142,50)" + sq],
+		["Compass", "SUBSCREEN corner \"E\"(113,50,118,60)" + sq]
+	];
+	var kept = [
+		["Paused", "SUBSCREEN disk \"Paused\"(100,30,140,50)" + sq],
+		["Compass", "SUBSCREEN disk \"N\"(133,27,142,50)" + sq],
+		["Compass", "SUBSCREEN disk \"W\"(133,27,142,50)" + sq],
+		["Compass", "SUBSCREEN disk \"East\"(133,27,160,50)" + sq],
+		["Compass", "SUBSCREEN disk \"46°07'28.1\"E\"(100,27,160,50)" + sq],
+		["Compass", "OVERLAP \"E\"(133,27,142,50) x \"W\"(133,27,142,50)"],
+		["Compass", "OFFSCREEN \"E\"(170,27,180,50)"],
+		["Compass", "STATE texts \"E\", expected \"N|S|E|W\""],
+		["HikePosition", "SUBSCREEN disk \"E\"(133,27,142,50)" + sq],
+		["Fly", "SUBSCREEN disk \" km/h\"(75,36,114,52)" + sq],
+		["HikePace", "SUBSCREEN disk \"PACE\"(108,61,146,78)" + sq],
+		["HikePosition", "OVERLAP \"ALTITUDE\"(52,19,124,36) x \"2149\"(63,35,113,60)"]
+	];
+	for (var i = 0; i < exempt.size(); i++)
+	{
+		if (LayoutBench.exemption(exempt[i][0], exempt[i][1]) == null)
+		{
+			errs.add(exempt[i][0] + " " + exempt[i][1] + ": must be exempt");
+		}
+	}
+	for (var i = 0; i < kept.size(); i++)
+	{
+		var why = LayoutBench.exemption(kept[i][0], kept[i][1]);
+		if (why != null)
+		{
+			errs.add(kept[i][0] + " " + kept[i][1] + ": must stay a defect, exempt as \"" + why + "\"");
+		}
+	}
+
+	// End to end on findDefects(): an "E" both in the disk and over "W" keeps
+	// its OVERLAP; only its SUBSCREEN line is exempt.
+	var L = Graphics.TEXT_JUSTIFY_LEFT;
+	var e = LayoutBench.entry("E", 139, 20, L, 12, 10);
+	var w = LayoutBench.entry("W", 145, 20, L, 12, 10);
+	var defs = LayoutBench.findDefects([e, w], 176, 176, false, [113, 0, 62, 62], 0.0);
+	var left = [];
+	for (var i = 0; i < defs.size(); i++)
+	{
+		if (LayoutBench.exemption("Compass", defs[i]) == null)
+		{
+			left.add(defs[i]);
+		}
+	}
+	LayoutBench.expectDefects(errs, "E over W in the disk: OVERLAP kept", left, "OVERLAP ", ["\"E\""]);
+	LayoutBench.expectDefects(errs, "E over W in the disk: W kept", left, "SUBSCREEN disk ", ["\"W\""]);
 	return LayoutBench.finish(errs, logger);
 }
 
