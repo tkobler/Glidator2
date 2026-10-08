@@ -461,6 +461,10 @@ class WatchDisplay
 
         var w = dc.getWidth();
         var h = dc.getHeight();
+        if (hikeScreen == null)
+        {
+            hikeScreen = [w, h, Sys.getDeviceSettings().screenShape == Sys.SCREEN_SHAPE_ROUND];
+        }
         var refSize = 260.0;
         var scale = (w < h ? w : h) / refSize;
 
@@ -504,32 +508,79 @@ class WatchDisplay
         dc.setPenWidth(dividerPenWidth);
         dc.drawLine(left, y1, right, y1);
 
-        // Middle two columns
+        // Middle two columns: NUMBER_MILD at the tuned centres when both
+        // values fit; else spread about the divider, or a smaller font
+        // (HikeGridLayout.placeColumns()). Each label follows its value.
         var midCenterY = (y1 + y2) / 2;
         var colOffset = 5 * scale;
-        var colLeftX = (left + centerX) / 2 - colOffset;
-        var colRightX = (centerX + right) / 2 + colOffset;
+        var midValueY = midCenterY + 12 * scale;
+        var cols = HikeGridLayout.placeColumns(textDims(HIKE_GRID_MID_FONTS, leftValue, rightValue),
+            [(left + centerX) / 2 - colOffset, (centerX + right) / 2 + colOffset],
+            midValueY, hikeScreen, w * HikeGridLayout.MIN_GAP_SHARE);
+        var midValueFont = HIKE_GRID_MID_FONTS[cols[0]];
+        var colLeftX = cols[1];
+        var colRightX = cols[2];
 
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(colLeftX, midCenterY - 28 * scale, Graphics.FONT_XTINY, leftLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.drawText(colRightX, midCenterY - 28 * scale, Graphics.FONT_XTINY, rightLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(colLeftX, midCenterY + 12 * scale, Graphics.FONT_NUMBER_MILD, leftValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.drawText(colRightX, midCenterY + 12 * scale, Graphics.FONT_NUMBER_MILD, rightValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colLeftX, midValueY, midValueFont, leftValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colRightX, midValueY, midValueFont, rightValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(centerX, y1 + 8 * scale, centerX, y2 - 8 * scale);
         dc.drawLine(left, y2, right, y2);
         dc.setPenWidth(1);
 
-        // Bottom field (timer) -- biggest text on the page
+        // Bottom field (timer) -- biggest text on the page. pickFont()'s
+        // font at the tuned position when it fits in the screen and clear
+        // of its label; else a smaller font, or just below the label
+        // (HikeGridLayout.placeTimer()).
         var bottomCenterY = (y2 + y3) / 2;
+        var bottomLabelY = y2 + 14 * scale;
         var bottomValueFont = pickFont(HIKE_GRID_HERO_VALUE_FONTS, [bottomValue], fullWidth, 74 * scale);
+        var labelDim = dc.getTextDimensions(bottomLabel, Graphics.FONT_XTINY);
+        var timer = HikeGridLayout.placeTimer(textDims(HIKE_GRID_TIMER_FONTS, bottomValue, null),
+            bottomValueFont == Graphics.FONT_NUMBER_MEDIUM ? 0 : 1, bottomCenterY + 14 * scale,
+            HikeGridLayout.inkBox(centerX, bottomLabelY, labelDim[0], labelDim[1]), hikeScreen, fullWidth);
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, y2 + 14 * scale, Graphics.FONT_XTINY, bottomLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(centerX, bottomLabelY, Graphics.FONT_XTINY, bottomLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, bottomCenterY + 14 * scale, bottomValueFont, bottomValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(centerX, timer[1], HIKE_GRID_TIMER_FONTS[timer[0]], bottomValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    // [w, h, round] of this screen, for HikeGridLayout (set once).
+    var hikeScreen = null;
+
+    // Font ladders of hikeGrid(), largest first: the timer starts at
+    // pickFont()'s choice (index 0 or 1), the middle values at NUMBER_MILD.
+    // The smaller ones are only used where the tuned layout does not fit.
+    const HIKE_GRID_TIMER_FONTS = [Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD,
+        Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL];
+    const HIKE_GRID_MID_FONTS = [Graphics.FONT_NUMBER_MILD, Graphics.FONT_LARGE,
+        Graphics.FONT_MEDIUM, Graphics.FONT_SMALL];
+
+    // getTextDimensions() of `a` in each font: [width, height]; with `b`
+    // too: [width of a, width of b, larger height].
+    function textDims(fonts, a, b)
+    {
+        var out = new [fonts.size()];
+        for (var i = 0; i < fonts.size(); i += 1)
+        {
+            var da = dc.getTextDimensions(a, fonts[i]);
+            if (b == null)
+            {
+                out[i] = da;
+            }
+            else
+            {
+                var db = dc.getTextDimensions(b, fonts[i]);
+                out[i] = [da[0], db[0], da[1] > db[1] ? da[1] : db[1]];
+            }
+        }
+        return out;
     }
 
     // HikeGridLayout.compute() result for this screen, computed once (the
