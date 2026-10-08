@@ -226,7 +226,9 @@ function testHikeGridLayoutLimits(logger)
 //     "32:45" MEDIUM 208, "99:59:59" MILD 282, "+940" MILD 164, "26:48"
 //     MILD 182, "TIMER" XTINY 74; timer at (180, 298.38), middle values at
 //     (101.08, 196.62) and (258.92, 196.62).
-// Widths not logged by the bench (other fonts) are estimates, flagged "est.".
+//   After the fix: fenix6pro "99:59:59" MILD 156; fr265s LARGE 58 high,
+//     "99:59:59" 192, "+940" 112, "26:48" 124.
+// Widths not logged by the bench are estimates, flagged "est.".
 // ---------------------------------------------------------------------------
 
 // inkBox(), inScreen(), overlap(): the ink model and the rules of the
@@ -290,6 +292,13 @@ function testHikeGridPlaceTimerKeepsWhatFits(logger)
     HikeGridCheck.near(errs, "99:59:59 font", p[0], 1);
     HikeGridCheck.near(errs, "99:59:59 y", p[1], 215.5);
 
+    // The real MILD width is 156 (bench log after the fix: ink 53..207):
+    // 2 px more and its bottom corners leave the circle at 215.5; just
+    // below the label (ink top 189.5 + 1) it fits: y = 190.5 + 30 - 9.
+    p = HikeGridLayout.placeTimer([[184, 74], [156, 60], [110, 40]], 0, 215.5, label, round, 208);
+    HikeGridCheck.near(errs, "real 99:59:59 font", p[0], 1);
+    HikeGridCheck.near(errs, "real 99:59:59 y", p[1], 211.5);
+
     // Default MILD (pickFont() chose it): MEDIUM is never tried again, even
     // if it would fit.
     p = HikeGridLayout.placeTimer([[118, 74], [100, 60], [70, 40]], 1, 215.5, label, round, 208);
@@ -324,7 +333,9 @@ function testHikeGridPlaceTimerFixes(logger)
     HikeGridCheck.near(errs, "fr265s 32:45 y", p[1], 298.38);
 
     // Extreme "99:59:59": default MILD 282 x 85 off the circle, also just
-    // below the label; LARGE (est. 192 x 58) fits at the same position.
+    // below the label; LARGE (192 x 58, confirmed by the bench log after
+    // the fix) fits at the same position. MEDIUM 300 is a placeholder:
+    // never tried, the ladder starts at the default MILD.
     p = HikeGridLayout.placeTimer([[300, 98], [282, 85], [192, 58]], 1, 298.38, label, round, 288);
     HikeGridCheck.near(errs, "fr265s 99:59:59 font", p[0], 2);
     HikeGridCheck.near(errs, "fr265s 99:59:59 y", p[1], 298.38);
@@ -379,7 +390,8 @@ function testHikeGridPlaceColumns(logger)
 
     // fr265s Normal: "+940" 164 x "26:48" 182 in MILD 85 overlap by 13 px
     // (bench); spread, the wider ink 180 leaves no room in the half chord
-    // 175: LARGE (est. 112, 124, 58) at the default centres.
+    // 175: LARGE (112, 124, 58, confirmed by the bench log after the fix)
+    // at the default centres.
     var xs = [101.08, 258.92];
     c = HikeGridLayout.placeColumns([[164, 182, 85], [112, 124, 58]], xs, 196.62, [360, 360, true], 7.2);
     HikeGridCheck.near(errs, "fr265s font", c[0], 1);
