@@ -90,4 +90,31 @@ module HikeGridLayout
     {
         return v < 0 ? 0.0 : v;
     }
+
+    // --- Fit of the texts on screens without a sub-window (stubs) ----------
+
+    function inkBox(x, y, tw, th)
+    {
+        return [0, 0, 0, 0];
+    }
+
+    function inScreen(b, screen)
+    {
+        return false;
+    }
+
+    function overlap(a, b)
+    {
+        return false;
+    }
+
+    function placeTimer(dims, first, y, label, screen, maxW)
+    {
+        return [first, y];
+    }
+
+    function placeColumns(dims, xs, y, screen, minGap)
+    {
+        return [0, xs[0], xs[1]];
+    }
 }
