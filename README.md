@@ -64,7 +64,7 @@ You can find the app in the Garmin IQ store under Glidator2
 ## Development
 
 ### Requirements
-To develop and build Glidator, you need the following tools:
+To develop and build Glidator2, you need the following tools:
 - **Garmin Connect IQ SDK**: Download from [Garmin's Connect IQ SDK page](https://developer.garmin.com/connect-iq/sdk/). This includes the `monkeyc` compiler and `monkeydo` simulator.
 - **Java Runtime Environment (JRE)**: Install JAVA 17 as required by the Connect IQ SDK.
 - **VS Code with Connect IQ Extension**: Install Visual Studio Code and the [Connect IQ extension](https://marketplace.visualstudio.com/items?itemName=Garmin.connectiq). Configure the SDK path in VS Code settings (>MonkeyC: Verify installation).
