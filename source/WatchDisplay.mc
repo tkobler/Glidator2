@@ -443,8 +443,22 @@ class WatchDisplay
     // on a 163px Instinct2s and a 466px fenix9pro51mm alike, instead of
     // staying frozen in fenix6pro pixels while the fonts around them grow or
     // shrink with the device.
+    //
+    // Watches with a sub-window (Instinct) use hikeGridSubscreen() instead:
+    // the layout below put texts in the sub-window and over each other there.
     function hikeGrid(topLabel, topValue, showHeartIcon, leftLabel, leftValue, rightLabel, rightValue, bottomLabel, bottomValue)
     {
+        if (!hikeSubLayoutDone)
+        {
+            hikeSubLayout = subscreenHikeLayout();
+            hikeSubLayoutDone = true;
+        }
+        if (hikeSubLayout != null)
+        {
+            hikeGridSubscreen(topLabel, topValue, showHeartIcon, leftLabel, leftValue, rightLabel, rightValue, bottomLabel, bottomValue);
+            return;
+        }
+
         var w = dc.getWidth();
         var h = dc.getHeight();
         var refSize = 260.0;
@@ -516,6 +530,114 @@ class WatchDisplay
         dc.drawText(centerX, y2 + 14 * scale, Graphics.FONT_XTINY, bottomLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(centerX, bottomCenterY + 14 * scale, bottomValueFont, bottomValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    // HikeGridLayout.compute() result for this screen, computed once (the
+    // sub-window and the fonts do not change): null on watches without a
+    // sub-window, which keep the hikeGrid() layout above.
+    var hikeSubLayout = null;
+    var hikeSubLayoutDone = false;
+
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    // WatchUi.getSubscreen() (API 3.2.7, null without a sub-window) turned
+    // into a HikeGridLayout, or null.
+    function subscreenHikeLayout()
+    {
+        if (!(WatchUi has :getSubscreen))
+        {
+            return null;
+        }
+        var b = WatchUi.getSubscreen();
+        if (b == null || b.width == null || b.height == null)
+        {
+            return null;
+        }
+        var w = dc.getWidth();
+        var h = dc.getHeight();
+        var sub = [b.x == null ? 0 : b.x, b.y == null ? 0 : b.y, b.width, b.height];
+        var round = Sys.getDeviceSettings().screenShape == Sys.SCREEN_SHAPE_ROUND;
+        return HikeGridLayout.compute(w, h, round, sub, w * 0.1,
+            [dc.getFontHeight(Graphics.FONT_XTINY), Graphics.getFontAscent(Graphics.FONT_XTINY)],
+            [dc.getFontHeight(Graphics.FONT_NUMBER_MILD), Graphics.getFontAscent(Graphics.FONT_NUMBER_MILD)]);
+    }
+
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    // hikeGrid() on a watch with a sub-window, positions from hikeSubLayout
+    // (HikeGridLayout.compute(); a field, not an argument: some targets
+    // allow 9 arguments at most): same fields, fonts and colours, the top
+    // field beside the sub-window, the rest below it. Texts are drawn from
+    // their top (no TEXT_JUSTIFY_VCENTER).
+    function hikeGridSubscreen(topLabel, topValue, showHeartIcon, leftLabel, leftValue, rightLabel, rightValue, bottomLabel, bottomValue)
+    {
+        var l = hikeSubLayout;
+        var w = dc.getWidth();
+        var h = dc.getHeight();
+        var scale = (w < h ? w : h) / 260.0;
+        var centerX = w / 2;
+        var marginX = w * 0.1;
+        var left = marginX;
+        var right = w - marginX;
+        var C = Graphics.TEXT_JUSTIFY_CENTER;
+        var topX = l[HikeGridLayout.TOP_X];
+
+        var dividerPenWidth = (2 * scale).toNumber();
+        if (dividerPenWidth < 1)
+        {
+            dividerPenWidth = 1;
+        }
+
+        // Top field, beside the sub-window
+        if (showHeartIcon)
+        {
+            var valueWidth = dc.getTextWidthInPixels(topValue, Graphics.FONT_NUMBER_MILD);
+            var heartSize = 16 * scale;
+            var y = l[HikeGridLayout.TOP_VALUE_ONLY_Y];
+            dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+            drawHeart(topX - valueWidth / 2 - heartSize, y + dc.getFontHeight(Graphics.FONT_NUMBER_MILD) / 2, heartSize);
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(topX + 10 * scale, y, Graphics.FONT_NUMBER_MILD, topValue, C);
+        }
+        else
+        {
+            dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(topX, l[HikeGridLayout.TOP_LABEL_Y], Graphics.FONT_XTINY, topLabel, C);
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(topX, l[HikeGridLayout.TOP_VALUE_Y], Graphics.FONT_NUMBER_MILD, topValue, C);
+        }
+
+        // Dividers in the empty leading above the middle and bottom labels
+        var y1 = l[HikeGridLayout.MID_LABEL_Y];
+        var y2 = l[HikeGridLayout.BOT_LABEL_Y];
+        dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(dividerPenWidth);
+        dc.drawLine(left, y1, right, y1);
+
+        // Middle two columns, below the sub-window
+        var colLeftX = l[HikeGridLayout.COL_LEFT_X];
+        var colRightX = l[HikeGridLayout.COL_RIGHT_X];
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(colLeftX, y1, Graphics.FONT_XTINY, leftLabel, C);
+        dc.drawText(colRightX, y1, Graphics.FONT_XTINY, rightLabel, C);
+
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(colLeftX, l[HikeGridLayout.MID_VALUE_Y], Graphics.FONT_NUMBER_MILD, leftValue, C);
+        dc.drawText(colRightX, l[HikeGridLayout.MID_VALUE_Y], Graphics.FONT_NUMBER_MILD, rightValue, C);
+
+        dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(centerX, y1 + 8 * scale, centerX, y2 - 8 * scale);
+        dc.drawLine(left, y2, right, y2);
+        dc.setPenWidth(1);
+
+        // Bottom field (timer): FONT_NUMBER_MEDIUM if it fits in the width
+        // and in the height left below its label, else FONT_NUMBER_MILD.
+        var botValueY = l[HikeGridLayout.BOT_VALUE_Y];
+        var bottomValueFont = pickFont(HIKE_GRID_HERO_VALUE_FONTS, [bottomValue], right - left, h - botValueY);
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, y2, Graphics.FONT_XTINY, bottomLabel, C);
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, botValueY, bottomValueFont, bottomValue, C);
     }
 
     // Live breadcrumb map: draws the recorded trail (a ring buffer, oldest-to-newest
