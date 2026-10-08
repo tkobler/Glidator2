@@ -24,7 +24,10 @@ using Toybox.WatchUi;
 // Each defect is logged as one ERROR line
 //   LAYOUT <w>x<h> <shape> <View>/<State>: OVERLAP "a"(x0,y0,x1,y1) x "b"(...)
 // and the test returns false (FAIL). A real layout defect found here is an
-// expected result: the app code is not changed by this bench.
+// expected result: the app code is not changed by this bench. Two kinds of
+// lines are not defects (LayoutBench.exemption(), checked by B05) and are
+// logged as DEBUG "EXEMPT (reason)" lines instead: SUBSCREEN corner, and the
+// compass letter "E" in the sub-window disk (decision D3 of 2026-10-07).
 //
 // Annotated :layouttest as well as :test so that the functional suite can be
 // built without the bench (and the bench without :chaintest), from a
@@ -369,9 +372,27 @@ class LayoutBench
 	}
 
 	// Why `defect` (a findDefects() line) of `view` is not a defect, or null
-	// when it is one.
+	// when it is one. Only two exemptions, matched on the start of the line
+	// so that they cannot hide an OVERLAP, OFFSCREEN or STATE line, nor a
+	// disk hit of another text (B05 checks both ways):
 	static function exemption(view, defect)
 	{
+		// 1. The sub-window is a round window in the glass: outside its disk,
+		// the corners of its bounding square show the main screen like
+		// anywhere else. A text there is readable, not hidden (the "Paused"
+		// title of PausedView on instinct2 only touches those corners).
+		if (defect.find("SUBSCREEN corner ") == 0)
+		{
+			return "corner of the sub-window's bounding square, outside the disk";
+		}
+		// 2. Decision of 2026-10-07 (D3): the compass letter E, on the rim of
+		// the dial, may cross the Instinct sub-window; WatchDisplay.compass()
+		// is not changed for it. Compass view and letter "E" only: any other
+		// letter or text in the disk stays a defect.
+		if (view.equals("Compass") && defect.find("SUBSCREEN disk \"E\"(") == 0)
+		{
+			return "compass letter E in the sub-window, accepted on 2026-10-07 (D3)";
+		}
 		return null;
 	}
 
@@ -637,9 +658,18 @@ class LayoutBench
 			errs.add("STATE texts \"" + drawn + "\", expected \"" + want + "\"");
 		}
 		var defects = findDefects(dc.texts, s.screenWidth, s.screenHeight, isRound(), subscreen(), LAYOUT_INK_K);
+		var exempted = [];
 		for (var i = 0; i < defects.size(); i++)
 		{
-			errs.add(defects[i]);
+			var why = exemption(view, defects[i]);
+			if (why == null)
+			{
+				errs.add(defects[i]);
+			}
+			else
+			{
+				exempted.add("EXEMPT (" + why + ") " + defects[i]);
+			}
 		}
 
 		var boxes = "";
@@ -649,6 +679,10 @@ class LayoutBench
 		}
 		logger.debug(head + "ink" + boxes);
 		logger.debug(head + "calls" + calls(dc.texts));
+		for (var i = 0; i < exempted.size(); i++)
+		{
+			logger.debug(head + exempted[i]);
+		}
 		for (var i = 0; i < errs.size(); i++)
 		{
 			logger.error(head + errs[i]);
