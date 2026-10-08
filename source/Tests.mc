@@ -5,6 +5,7 @@ using Toybox.ActivityRecording;
 using Toybox.Position;
 using Toybox.Sensor;
 using Toybox.Attention;
+using Toybox.WatchUi;
 
 // Unit tests for the hike-and-fly feature's pure logic, run with:
 //   monkeyc -f monkey.jungle -o /tmp/glidator-build/Glidator.prg -d fenix6pro -y developer_key -t
@@ -3324,5 +3325,18 @@ function testDiagSimulatorPositionInfo(logger)
 	{
 		Test.assertMessage($.isValidLatLon(data.getLat(), data.getLon()), "a usable fix always has a valid position");
 	}
+	return true;
+}
+
+// The app name shown in the launcher and the Store (manifest name="@Strings.AppName")
+// is "Glidator2", the same as the Store listing.
+// WatchUi.loadResource (API 1.0.0) rather than Application.loadResource (3.1.0):
+// minSdkVersion is 3.0.0.
+(:test)
+function testAppNameIsGlidator2(logger)
+{
+	var name = WatchUi.loadResource(Rez.Strings.AppName);
+	Test.assertMessage(name != null, "AppName resource must load");
+	Test.assertEqualMessage(name, "Glidator2", "AppName must be Glidator2");
 	return true;
 }
