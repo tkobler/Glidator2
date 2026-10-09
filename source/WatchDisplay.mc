@@ -401,14 +401,15 @@ class WatchDisplay
         ]);
     }
 
-    // Ladder for the bottom (hero/timer) value font in hikeGrid(): prefer
-    // FONT_NUMBER_MEDIUM (the size fenix6pro uses) but fall back to the
-    // smaller FONT_NUMBER_MILD if MEDIUM doesn't fit -- protects against
-    // per-device font quirks like fr55, where FONT_NUMBER_MEDIUM renders
-    // wider than its entire 208px-wide screen. Labels and the top/mid values
-    // stay on fenix6pro's original fonts (FONT_XTINY / FONT_NUMBER_MILD)
-    // with no ladder: nothing bigger should ever be substituted in for them,
-    // only this one field ever needed a shrink fallback.
+    // pickFont() ladder for the bottom (hero/timer) value, smallest first:
+    // FONT_NUMBER_MEDIUM (the size fenix6pro uses) if it fits, else
+    // FONT_NUMBER_MILD -- protects against per-device font quirks like fr55,
+    // where FONT_NUMBER_MEDIUM renders wider than its whole 208px screen.
+    // hikeGridSubscreen() draws the timer in pickFont()'s choice. hikeGrid()
+    // only uses it as the starting index in HIKE_GRID_TIMER_FONTS, which
+    // HikeGridLayout.placeTimer() may shrink further; the middle values have
+    // their own ladder there (HIKE_GRID_MID_FONTS, placeColumns()). Labels
+    // (FONT_XTINY) and the top value (FONT_NUMBER_MILD) have no ladder.
     const HIKE_GRID_HERO_VALUE_FONTS = [Graphics.FONT_NUMBER_MILD, Graphics.FONT_NUMBER_MEDIUM];
 
     (:typecheck(false))
