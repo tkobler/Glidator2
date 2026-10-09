@@ -13,11 +13,11 @@ You can find the app in the Garmin IQ store under Glidator2
   - **Time & Battery View**: Shows current time and battery percentage with a graphical icon.
 - **Hiking Mode**:
   - **Position View**: Altitude, elevation gain, distance, and elapsed timer in a 4-field grid.
-  - **Pace View**: Heart rate, vertical speed, pace (min/km), and elapsed timer.
+  - **Pace View**: Heart rate, vertical speed, pace (min/km), and elapsed timer. The vertical speed reads "--" beyond ±3000 m/h (altitude glitch or flight phase); the flight vario is not capped.
   - **Map View**: Live breadcrumb trail of the current track with a heading-oriented position marker.
   - **Time & Battery View**: Shared with Flying mode.
-- **Activity Recording**: Start, pause/resume, and save-or-discard flight or hike sessions using Garmin's ActivityRecording API, with audio/vibration feedback and a start-recording confirmation icon.
-- **Preferences**: Toggle audio beeps for climbing, stored via Application Storage.
+- **Activity Recording**: Start, pause/resume, and save/ignore flight or hike sessions using Garmin's ActivityRecording API, with audio/vibration feedback and a start-recording confirmation icon.
+- **Preferences**: Toggle audio beeps for climbing and pick the hike vertical-speed window (1, 3 or 5 min), both stored with `Application.Storage`; values saved by older versions are carried over on the first launch after the update.
 - **Adaptive Layout**: The Hiking grid views scale their fonts and spacing to the device's screen size, tuned against the fenix6pro as a reference, so the layout stays clean from the smallest Instinct to the largest AMOLED Fenix/Forerunner screens.
 - **Broad Device Support**: Fenix, Forerunner, and Instinct series watches.
 - **Sensor Integration**: Uses GPS, barometer, and optional heart rate sensors, with fallbacks for unavailable data.
@@ -25,10 +25,17 @@ You can find the app in the Garmin IQ store under Glidator2
 ## Usage
 - **Launch**: Start the app on your Garmin device to enter Hiking mode's Position View.
 - **Navigation**: Use up/down keys to cycle through the pages of the current mode.
-- **Mode Switch**: Hold BACK/LAP for 1.5 seconds to switch between Hiking and Flying mode.
-- **Recording**: Press SELECT to start recording. Pressing SELECT again pauses recording and opens a Resume/Save/Discard menu.
-- **Exit**: Press BACK while idle (no active session) to exit the app.
-- **Preferences**: Press MENU to open preferences and enable/disable audio beeps.
+- **Mode Switch**: Hold BACK/LAP for 1.5 seconds to switch between Hiking and Flying mode (on the activity pages only: in the Paused menu any BACK press means Resume, and on the Paused screen BACK does nothing).
+- **Recording** (SELECT / START button):
+  - No session: SELECT starts recording.
+  - Recording: SELECT pauses (the timer stops) and opens the **Paused** menu: Resume, Pause, Save, Ignore. BACK in this menu means Resume, and the activity also resumes on its own after 30 seconds without a choice.
+  - **Pause** opens the Paused screen (the frozen timer). The activity stays paused there, with no automatic resume, until you press SELECT, which resumes and returns to the activity pages. BACK does nothing on this screen.
+  - **Save** / **Ignore** end the activity (saved or discarded) and close the app.
+  - Feedback: pausing vibrates two short pulses, resuming one long pulse.
+  - While paused, the heart rate and temperature sensors are turned off (GPS stays on) and turned back on when you resume. The hike vertical speed and pace show "--" for about 20 seconds after resuming, until enough new data is collected.
+- **What gets recorded**: The whole outing is recorded as a single SPORT_FLYING activity (shown as Sport="Other" in TCX exports; on watches whose firmware has no SPORT_FLYING, i.e. Connect IQ below 3.2 such as the fenix 5 and fenix 5X, it falls back to a SPORT_GENERIC activity), with the hike and the flight separated by a lap at each mode switch made while recording (a switch made while paused is not marked). If the app is closed by the system while a session is recording or paused, the session is saved rather than discarded.
+- **Exit**: Press BACK while idle (no active session) to exit the app. While a session exists (recording or paused), a short BACK press on the activity pages does nothing; end the activity with SELECT, then Save or Ignore.
+- **Preferences**: Press MENU to open preferences and enable/disable audio beeps, or set the **VS window** (1, 3 or 5 min, default 1 min): the time over which the hike vertical speed (Pace View) is averaged. Each press on "VS window" moves to the next value (1 → 3 → 5 → 1 min), shown under the item. The choice is saved and applies at once, without losing the data already collected, and is kept when the app restarts. Until the window is filled, the value is computed over the data available (shown after about 20 seconds); pace always uses 1 minute.
 
 ## Technical Details
 - **Language**: Monkey C
@@ -43,6 +50,7 @@ You can find the app in the Garmin IQ store under Glidator2
   - `HikeMapView.mc`: Hiking mode's live breadcrumb map.
   - `BreadcrumbTrail.mc`: Ring buffer that records the live GPS trail for the Map view.
   - `TimeView.mc`: Time and battery display, shared by both modes.
+  - `PausedView.mc`: Paused screen (frozen timer, SELECT to resume).
   - `WatchData.mc`: Manages GPS, activity, and sensor data.
   - `WatchDisplay.mc`: Handles rendering of metrics, compass, and the adaptive hiking grid layout.
   - `Preferences.mc`: Manages user settings.
@@ -56,7 +64,7 @@ You can find the app in the Garmin IQ store under Glidator2
 ## Development
 
 ### Requirements
-To develop and build Glidator, you need the following tools:
+To develop and build Glidator2, you need the following tools:
 - **Garmin Connect IQ SDK**: Download from [Garmin's Connect IQ SDK page](https://developer.garmin.com/connect-iq/sdk/). This includes the `monkeyc` compiler and `monkeydo` simulator.
 - **Java Runtime Environment (JRE)**: Install JAVA 17 as required by the Connect IQ SDK.
 - **VS Code with Connect IQ Extension**: Install Visual Studio Code and the [Connect IQ extension](https://marketplace.visualstudio.com/items?itemName=Garmin.connectiq). Configure the SDK path in VS Code settings (>MonkeyC: Verify installation).
@@ -74,13 +82,20 @@ To develop and build Glidator, you need the following tools:
 ### Building and Running
 - **Command Line**: Use `monkeyc` to compile the project:
   ```bash
-  monkeyc -f monkey.jungle -o bin/Glidator.prg -d <device_id>
+  monkeyc -f monkey.jungle -o bin/Glidator2.prg -d <device_id>
   ```
   Replace `<device_id>` with your target device (e.g., `fenix7`, `fr965`, `instinct2`). Find supported devices in the SDK's `devices` folder.
 - **IDE**:
   - In VS Code, use the Connect IQ extension's build task (Ctrl+Shift+B or Cmd+Shift+B).
   - In VS Code, open a .mc file of the source folder and use the "run and debug" button to build and run the app in the simulator.
 - **Debugging**: Enable `Sys.println` logs in the code for debugging. View logs in the simulator's console or IDE output. Simulate GPS data via the simulator's "Location" settings.
+
+### Python tools tests
+The activity analysis script `tools/analyze_activity.py` (Python 3, standard library only) has its own unit tests in `tools/test_analyze_activity.py`. Run them from the repository root with:
+```bash
+python3 -m unittest discover -s tools -p 'test_*.py'
+```
+The `-s tools -p 'test_*.py'` arguments are needed: a bare `python3 -m unittest` finds no test (`Ran 0 tests`).
 
 ### Exporting .iq File
 - Compile the app with the `-r` flag to generate a signed `.iq` file for distribution:

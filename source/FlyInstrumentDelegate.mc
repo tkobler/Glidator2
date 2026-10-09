@@ -1,53 +1,112 @@
 using Toybox.WatchUi;
 using Toybox.ActivityRecording;
+using Toybox.Timer;
 
 using Toybox.System as Sys;
 
 // --------------------------------------------------------------------------------
 
+// Resume / Pause / Save / Ignore menu, shown by SELECT while recording (the
+// session is already paused when it opens). The rules live in
+// FlyInstrumentApp.mc (menuItemAction, menuBackAction, quitMenuTickAction):
+// - Resume, BACK, or MENU_AUTO_RESUME_MS without a choice -> resume + close;
+// - Pause -> the menu is replaced by the "Paused" screen (PausedView.mc), which
+//   stays paused until SELECT, with no automatic resume;
+// - Save / Ignore -> end the session and exit the app.
+// A repeating 1 s timer checks the elapsed time; it is stopped as soon as the
+// menu is closed, and `closed` makes sure only the first action ever runs.
 class MyMenu2QuitDelegate extends WatchUi.Menu2InputDelegate
 {
-    function initialize()
+    const TICK_MS = 1000;
+
+    var app;
+    var openedMs;
+    var closed;
+    var timer;
+
+    function initialize(appInstance)
     {
         Menu2InputDelegate.initialize();
+        app = appInstance;
+        openedMs = Sys.getTimer();
+        closed = false;
+        timer = new Timer.Timer();
+        timer.start(method(:onTick), TICK_MS, true);
     }
 
     function onSelect(item)
     {
-        if( item.getId().equals("resume") )
+        apply($.menuItemAction(item.getId()));
+    }
+
+    function onBack()
+    {
+        apply($.menuBackAction());
+    }
+
+    function onTick() as Void
+    {
+        apply($.quitMenuTickAction(closed, Sys.getTimer() - openedMs));
+    }
+
+    function apply(action)
+    {
+        if (closed || action == :none)
         {
-            $.resumeRecording(); // no-op if it wasn't paused (e.g. reached here via a stray BACK while still recording)
+            return;
+        }
+        closed = true;
+        if (timer != null)
+        {
+            timer.stop();
+            timer = null; // also breaks the delegate <-> timer callback reference cycle
+        }
+
+        if (action == :resume)
+        {
+            $.resumeRecording(); // no-op if not paused
             WatchUi.popView(WatchUi.SLIDE_DOWN);
         }
-        else if( item.getId().equals("save") )
+        else if (action == :pause)
+        {
+            // Replaces the menu (no pop + push): the stack stays activity
+            // page + one view, so the Paused screen's single pop goes back
+            // to the activity page.
+            WatchUi.switchToView(new PausedView(app), new PausedDelegate(), WatchUi.SLIDE_IMMEDIATE);
+        }
+        else if (action == :save)
         {
             $.stopRecording(true);
             System.exit();
         }
-        else if( item.getId().equals("ignore") )
+        else if (action == :ignore)
         {
             $.stopRecording(false);
             System.exit();
         }
-    }
-    
-    function onBack()
-    {
-        $.resumeRecording(); // backing out of the menu is equivalent to picking Resume
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        WatchUi.requestUpdate();
     }
 }
 
 // --------------------------------------------------------------------------------
 
+// Preferences menu (MENU): Beep toggle, saved on BACK, and "VS window": each
+// press goes to the next window, 1 -> 3 -> 5 -> 1 min (decision R6, 07/10, no
+// sub-menu). The new window is stored at once, applied to the WatchData read by
+// HikePaceView (no buffer reset) and shown as the item's sub-label. The rules
+// live in Preferences.mc (preferencesMenuAction, cycleVsWindow, vsWindowLabel).
 class MyMenu2PreferencesDelegate extends WatchUi.Menu2InputDelegate
 {
     var beepToggleMenu;
+    var app;
+    var prefsMenu;
 
-    function initialize(beepTM)
+    function initialize(beepTM, appInstance, menu)
     {
         Menu2InputDelegate.initialize();
         beepToggleMenu = beepTM;
+        app = appInstance;
+        prefsMenu = menu;
     }
 
     function onSelect(item)
@@ -56,8 +115,31 @@ class MyMenu2PreferencesDelegate extends WatchUi.Menu2InputDelegate
         {
             Sys.println("On MyMenu2PreferencesDelegate:audio");
         }
+        if ($.preferencesMenuAction(item.getId()) == :cycleVsWindow)
+        {
+            onVsWindowPressed(item);
+        }
     }
-    
+
+    // The menu stays open: only the item's sub-label changes.
+    function onVsWindowPressed(item)
+    {
+        var data = (app != null && app.mainView != null) ? app.mainView.data : null;
+        var applied = $.cycleVsWindow($.preferences, data);
+        Sys.println("VS window set to " + applied + " ms");
+
+        item.setSubLabel($.vsWindowLabel(applied));
+        if (prefsMenu != null)
+        {
+            var idx = prefsMenu.findItemById("vsWindow");
+            if (idx >= 0)
+            {
+                prefsMenu.updateItem(item, idx);
+            }
+        }
+        WatchUi.requestUpdate();
+    }
+
     function onBack()
     {
         $.preferences.setBeep(beepToggleMenu.isEnabled());
@@ -101,23 +183,31 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
         }
     }
 
-    // SELECT (START) is the only button that drives recording now: not recording
-    // -> start; recording -> pause AND immediately show the Resume/Save/Ignore
-    // menu (matching stock Garmin activity apps, where pausing and offering to
-    // stop are the same moment). BACK/LAP is reserved entirely for the 1.5s-hold
-    // Hiking/Flying mode switch -- see onKeyPressed/onKeyReleased below.
+    // SELECT (START) is the only button that drives recording (see
+    // selectAction() in FlyInstrumentApp.mc), like the stock Garmin Hike app:
+    // no session -> start; recording -> pause (timer frozen) AND show the
+    // Resume/Pause/Save/Ignore menu; paused -> resume (normally the Paused
+    // screen handles SELECT itself, see PausedView.mc; kept as a fallback).
+    // BACK/LAP is reserved for the 1.5s-hold Hiking/Flying mode switch -- see
+    // onKeyPressed/onKeyReleased below.
     function onSelect()
     {
-        if (!$.hasActiveSession())
+        var action = $.selectAction($.hasActiveSession(), $.isRecording());
+        if (action == :start)
         {
             $.startRecording();
             Sys.println("Select pressed, starting recording");
         }
-        else
+        else if (action == :pauseMenu)
         {
             $.pauseRecording();
-            Sys.println("Select pressed, pausing recording, showing quit menu");
+            Sys.println("Select pressed, pausing recording, showing pause menu");
             showQuitMenu();
+        }
+        else if (action == :resume)
+        {
+            $.resumeRecording();
+            Sys.println("Select pressed, resuming recording");
         }
         WatchUi.requestUpdate();
         return true;
@@ -125,11 +215,12 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
 
     function showQuitMenu()
     {
-        var menu = new WatchUi.Menu2({:title=>"Quit ?"});
+        var menu = new WatchUi.Menu2({:title=>"Paused"});
         menu.addItem(new WatchUi.MenuItem("Resume", null, "resume", null));
+        menu.addItem(new WatchUi.MenuItem("Pause", null, "pause", null));
         menu.addItem(new WatchUi.MenuItem("Save", null, "save", null));
         menu.addItem(new WatchUi.MenuItem("Ignore", null, "ignore", null));
-        var delegate = new MyMenu2QuitDelegate();
+        var delegate = new MyMenu2QuitDelegate(app);
 
         WatchUi.pushView(menu, delegate, WatchUi.SLIDE_IMMEDIATE);
     }
@@ -217,8 +308,11 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
         var beep = $.preferences.getBeep();
         var beepTM = new WatchUi.ToggleMenuItem("Beep", "Set audio on/off", "beep", beep, null);
         menu.addItem(beepTM);
-          
-        var delegate = new MyMenu2PreferencesDelegate(beepTM);
+
+        var vsWindow = $.preferences.getVsWindowMs();
+        menu.addItem(new WatchUi.MenuItem("VS window", $.vsWindowLabel(vsWindow), "vsWindow", null));
+
+        var delegate = new MyMenu2PreferencesDelegate(beepTM, app, menu);
             
         WatchUi.pushView(menu, delegate, WatchUi.SLIDE_IMMEDIATE);
         Sys.println("Menu pressed, showing preferences");

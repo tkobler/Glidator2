@@ -39,9 +39,18 @@ class HikeMapView extends WatchUi.View {
         var trail = app.breadcrumbTrail;
         var curData = app.mainView.data;
 
+        // Without a fix usable for the map, there is no current position:
+        // map() then draws the trail alone (or "Waiting for GPS" if empty).
+        var curLat = null;
+        var curLon = null;
+        if (curData.hasUsableFix()) {
+            curLat = curData.getLat();
+            curLon = curData.getLon();
+        }
+
         display.map(
             trail.getLats(), trail.getLons(), trail.getCount(), trail.getWriteIndex(),
-            curData.getLat(), curData.getLon(), curData.getHeading()
+            curLat, curLon, curData.getHeading()
         );
 
         if ($.isRecordFlashActive()) {

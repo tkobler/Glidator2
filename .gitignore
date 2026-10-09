@@ -1,0 +1,4 @@
+bin/
+.DS_Store
+developer_key
+__pycache__/

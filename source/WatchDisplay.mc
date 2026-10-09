@@ -110,14 +110,18 @@ class WatchDisplay
         
     function altitude(alt, recording)
     {
-        var unit = " m";
-    
+        var unit = $.flightAltitudeUnit(alt); // " m", none after "--" (decision of 09/10)
+
         var yOffset = dc.getHeight() / 2;
         var xOffset = dc.getWidth() / 2;
-        
+
         var dimAlt  = dc.getTextDimensions(alt, Graphics.FONT_NUMBER_HOT) as [Lang.Number, Lang.Number];
-        var dimUnit = dc.getTextDimensions(unit, Graphics.FONT_XTINY) as [Lang.Number, Lang.Number];
-        
+        var dimUnit = [0, 0];
+        if (unit.length() > 0)
+        {
+            dimUnit = dc.getTextDimensions(unit, Graphics.FONT_XTINY) as [Lang.Number, Lang.Number];
+        }
+
         xOffset -= (dimAlt[0] + (recording ? 1.5 : 1) * dimUnit[0]) / 2;
         
 
@@ -139,7 +143,11 @@ class WatchDisplay
         
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(xOffset, yOffset, Graphics.FONT_NUMBER_HOT, alt, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
-        
+
+        if (unit.length() == 0)
+        {
+            return;
+        }
         xOffset += dimAlt[0];
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(xOffset, yOffset, Graphics.FONT_XTINY, unit, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
@@ -156,6 +164,8 @@ class WatchDisplay
         var dimUnit = dc.getTextDimensions(unit, Graphics.FONT_XTINY) as [Lang.Number, Lang.Number];
         
         xOffset -= (dimSpeed[0] + dimUnit[0]) / 2;
+        // Instinct: moved left, clear of the sub-window (V1a); elsewhere unchanged.
+        xOffset = $.flySpeedLineX(xOffset, dimSpeed[0] + dimUnit[0], yOffset - dimSpeed[1] / 2.0, yOffset + dimSpeed[1] / 2.0, subscreenBox());
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(xOffset, yOffset, Graphics.FONT_NUMBER_MILD, speed, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         
@@ -235,7 +245,8 @@ class WatchDisplay
 
         // Flip heading to match watch orientation. 
         // This is necessary because We want the cadrant to turn CCW if we turn the watch CW
-       heading = -heading; 
+        // A null heading (no GPS course yet) draws the dial without rotation.
+        heading = $.compassRotation(heading);
 
 
         var width = dc.getWidth();
@@ -311,16 +322,9 @@ class WatchDisplay
 
         // Draw latitude and longitude if available
         if (lat != null && lon != null) {
-            // Convert latitude and longitude to degrees, minutes, seconds format
-            var latDeg = lat.toNumber();
-            var latMin = ((lat - latDeg) * 60).abs();
-            var latSec = ((latMin - latMin.toNumber()) * 60).abs();
-            var latStr = latDeg + "°" + latMin.format("%02d") + "'" + latSec.format("%.1f") + "\"" + (lat >= 0 ? "N" : "S");
-
-            var lonDeg = lon.toNumber();
-            var lonMin = ((lon - lonDeg) * 60).abs();
-            var lonSec = ((lonMin - lonMin.toNumber()) * 60).abs();
-            var lonStr = lonDeg + "°" + lonMin.format("%02d") + "'" + lonSec.format("%.1f") + "\"" + (lon >= 0 ? "E" : "W");
+            // Degrees, minutes, seconds with the hemisphere letter (Utils.mc)
+            var latStr = $.formatLatLon(lat, true);
+            var lonStr = $.formatLatLon(lon, false);
 
             // Draw coordinates
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
@@ -397,14 +401,15 @@ class WatchDisplay
         ]);
     }
 
-    // Ladder for the bottom (hero/timer) value font in hikeGrid(): prefer
-    // FONT_NUMBER_MEDIUM (the size fenix6pro uses) but fall back to the
-    // smaller FONT_NUMBER_MILD if MEDIUM doesn't fit -- protects against
-    // per-device font quirks like fr55, where FONT_NUMBER_MEDIUM renders
-    // wider than its entire 208px-wide screen. Labels and the top/mid values
-    // stay on fenix6pro's original fonts (FONT_XTINY / FONT_NUMBER_MILD)
-    // with no ladder: nothing bigger should ever be substituted in for them,
-    // only this one field ever needed a shrink fallback.
+    // pickFont() ladder for the bottom (hero/timer) value, smallest first:
+    // FONT_NUMBER_MEDIUM (the size fenix6pro uses) if it fits, else
+    // FONT_NUMBER_MILD -- protects against per-device font quirks like fr55,
+    // where FONT_NUMBER_MEDIUM renders wider than its whole 208px screen.
+    // hikeGridSubscreen() draws the timer in pickFont()'s choice. hikeGrid()
+    // only uses it as the starting index in HIKE_GRID_TIMER_FONTS, which
+    // HikeGridLayout.placeTimer() may shrink further; the middle values have
+    // their own ladder there (HIKE_GRID_MID_FONTS, placeColumns()). Labels
+    // (FONT_XTINY) and the top value (FONT_NUMBER_MILD) have no ladder.
     const HIKE_GRID_HERO_VALUE_FONTS = [Graphics.FONT_NUMBER_MILD, Graphics.FONT_NUMBER_MEDIUM];
 
     (:typecheck(false))
@@ -449,10 +454,28 @@ class WatchDisplay
     // on a 163px Instinct2s and a 466px fenix9pro51mm alike, instead of
     // staying frozen in fenix6pro pixels while the fonts around them grow or
     // shrink with the device.
+    //
+    // Watches with a sub-window (Instinct) use hikeGridSubscreen() instead:
+    // the layout below put texts in the sub-window and over each other there.
     function hikeGrid(topLabel, topValue, showHeartIcon, leftLabel, leftValue, rightLabel, rightValue, bottomLabel, bottomValue)
     {
+        if (!hikeSubLayoutDone)
+        {
+            hikeSubLayout = subscreenHikeLayout();
+            hikeSubLayoutDone = true;
+        }
+        if (hikeSubLayout != null)
+        {
+            hikeGridSubscreen(topLabel, topValue, showHeartIcon, leftLabel, leftValue, rightLabel, rightValue, bottomLabel, bottomValue);
+            return;
+        }
+
         var w = dc.getWidth();
         var h = dc.getHeight();
+        if (hikeScreen == null)
+        {
+            hikeScreen = [w, h, Sys.getDeviceSettings().screenShape == Sys.SCREEN_SHAPE_ROUND];
+        }
         var refSize = 260.0;
         var scale = (w < h ? w : h) / refSize;
 
@@ -496,88 +519,259 @@ class WatchDisplay
         dc.setPenWidth(dividerPenWidth);
         dc.drawLine(left, y1, right, y1);
 
-        // Middle two columns
+        // Middle two columns: NUMBER_MILD at the tuned centres when both
+        // values fit; else spread about the divider, or a smaller font
+        // (HikeGridLayout.placeColumns()). Each label follows its value.
         var midCenterY = (y1 + y2) / 2;
         var colOffset = 5 * scale;
-        var colLeftX = (left + centerX) / 2 - colOffset;
-        var colRightX = (centerX + right) / 2 + colOffset;
+        var midValueY = midCenterY + 12 * scale;
+        var cols = HikeGridLayout.placeColumns(textDims(HIKE_GRID_MID_FONTS, leftValue, rightValue),
+            [(left + centerX) / 2 - colOffset, (centerX + right) / 2 + colOffset],
+            midValueY, hikeScreen, w * HikeGridLayout.MIN_GAP_SHARE);
+        var midValueFont = HIKE_GRID_MID_FONTS[cols[0]];
+        var colLeftX = cols[1];
+        var colRightX = cols[2];
 
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(colLeftX, midCenterY - 28 * scale, Graphics.FONT_XTINY, leftLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.drawText(colRightX, midCenterY - 28 * scale, Graphics.FONT_XTINY, rightLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(colLeftX, midCenterY + 12 * scale, Graphics.FONT_NUMBER_MILD, leftValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.drawText(colRightX, midCenterY + 12 * scale, Graphics.FONT_NUMBER_MILD, rightValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colLeftX, midValueY, midValueFont, leftValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colRightX, midValueY, midValueFont, rightValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(centerX, y1 + 8 * scale, centerX, y2 - 8 * scale);
         dc.drawLine(left, y2, right, y2);
         dc.setPenWidth(1);
 
-        // Bottom field (timer) -- biggest text on the page
+        // Bottom field (timer) -- biggest text on the page. pickFont()'s
+        // font at the tuned position when it fits in the screen and clear
+        // of its label; else a smaller font, or just below the label
+        // (HikeGridLayout.placeTimer()).
         var bottomCenterY = (y2 + y3) / 2;
+        var bottomLabelY = y2 + 14 * scale;
         var bottomValueFont = pickFont(HIKE_GRID_HERO_VALUE_FONTS, [bottomValue], fullWidth, 74 * scale);
+        var labelDim = dc.getTextDimensions(bottomLabel, Graphics.FONT_XTINY);
+        var timer = HikeGridLayout.placeTimer(textDims(HIKE_GRID_TIMER_FONTS, bottomValue, null),
+            bottomValueFont == Graphics.FONT_NUMBER_MEDIUM ? 0 : 1, bottomCenterY + 14 * scale,
+            HikeGridLayout.inkBox(centerX, bottomLabelY, labelDim[0], labelDim[1]), hikeScreen, fullWidth);
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, y2 + 14 * scale, Graphics.FONT_XTINY, bottomLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(centerX, bottomLabelY, Graphics.FONT_XTINY, bottomLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, bottomCenterY + 14 * scale, bottomValueFont, bottomValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(centerX, timer[1], HIKE_GRID_TIMER_FONTS[timer[0]], bottomValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    // [w, h, round] of this screen, for HikeGridLayout (set once).
+    var hikeScreen = null;
+
+    // Font ladders of hikeGrid(), largest first: the timer starts at
+    // pickFont()'s choice (index 0 or 1), the middle values at NUMBER_MILD.
+    // The smaller ones are only used where the tuned layout does not fit.
+    const HIKE_GRID_TIMER_FONTS = [Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD,
+        Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL];
+    const HIKE_GRID_MID_FONTS = [Graphics.FONT_NUMBER_MILD, Graphics.FONT_LARGE,
+        Graphics.FONT_MEDIUM, Graphics.FONT_SMALL];
+
+    // getTextDimensions() of `a` in each font: [width, height]; with `b`
+    // too: [width of a, width of b, larger height].
+    function textDims(fonts, a, b)
+    {
+        var out = new [fonts.size()];
+        for (var i = 0; i < fonts.size(); i += 1)
+        {
+            var da = dc.getTextDimensions(a, fonts[i]);
+            if (b == null)
+            {
+                out[i] = da;
+            }
+            else
+            {
+                var db = dc.getTextDimensions(b, fonts[i]);
+                out[i] = [da[0], db[0], da[1] > db[1] ? da[1] : db[1]];
+            }
+        }
+        return out;
+    }
+
+    // HikeGridLayout.compute() result for this screen, computed once (the
+    // sub-window and the fonts do not change): null on watches without a
+    // sub-window, which keep the hikeGrid() layout above.
+    var hikeSubLayout = null;
+    var hikeSubLayoutDone = false;
+
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    // WatchUi.getSubscreen() (API 3.2.7, null without a sub-window) turned
+    // into a HikeGridLayout, or null.
+    function subscreenHikeLayout()
+    {
+        if (!(WatchUi has :getSubscreen))
+        {
+            return null;
+        }
+        var b = WatchUi.getSubscreen();
+        if (b == null || b.width == null || b.height == null)
+        {
+            return null;
+        }
+        var w = dc.getWidth();
+        var h = dc.getHeight();
+        var sub = [b.x == null ? 0 : b.x, b.y == null ? 0 : b.y, b.width, b.height];
+        var round = Sys.getDeviceSettings().screenShape == Sys.SCREEN_SHAPE_ROUND;
+        return HikeGridLayout.compute(w, h, round, sub, w * 0.1,
+            [dc.getFontHeight(Graphics.FONT_XTINY), Graphics.getFontAscent(Graphics.FONT_XTINY)],
+            [dc.getFontHeight(Graphics.FONT_NUMBER_MILD), Graphics.getFontAscent(Graphics.FONT_NUMBER_MILD)]);
+    }
+
+    // WatchUi.getSubscreen() as [x, y, width, height], read once (it does not
+    // change), for the flight page speed line (V1a). null without the API
+    // (CIQ < 3.2.7: fenix5...) or without a sub-window.
+    var subBox = null;
+    var subBoxDone = false;
+
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    function subscreenBox()
+    {
+        if (!subBoxDone)
+        {
+            subBoxDone = true;
+            if (WatchUi has :getSubscreen)
+            {
+                var b = WatchUi.getSubscreen();
+                if (b != null && b.width != null && b.height != null)
+                {
+                    subBox = [b.x == null ? 0 : b.x, b.y == null ? 0 : b.y, b.width, b.height];
+                }
+            }
+        }
+        return subBox;
+    }
+
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    // hikeGrid() on a watch with a sub-window, positions from hikeSubLayout
+    // (HikeGridLayout.compute(); a field, not an argument: some targets
+    // allow 9 arguments at most): same fields, fonts and colours, the top
+    // field beside the sub-window, the rest below it. Texts are drawn from
+    // their top (no TEXT_JUSTIFY_VCENTER).
+    function hikeGridSubscreen(topLabel, topValue, showHeartIcon, leftLabel, leftValue, rightLabel, rightValue, bottomLabel, bottomValue)
+    {
+        var l = hikeSubLayout;
+        var w = dc.getWidth();
+        var h = dc.getHeight();
+        var scale = (w < h ? w : h) / 260.0;
+        var centerX = w / 2;
+        var marginX = w * 0.1;
+        var left = marginX;
+        var right = w - marginX;
+        var C = Graphics.TEXT_JUSTIFY_CENTER;
+        var topX = l[HikeGridLayout.TOP_X];
+
+        var dividerPenWidth = (2 * scale).toNumber();
+        if (dividerPenWidth < 1)
+        {
+            dividerPenWidth = 1;
+        }
+
+        // Top field, beside the sub-window
+        if (showHeartIcon)
+        {
+            var valueWidth = dc.getTextWidthInPixels(topValue, Graphics.FONT_NUMBER_MILD);
+            var heartSize = 16 * scale;
+            var y = l[HikeGridLayout.TOP_VALUE_ONLY_Y];
+            dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+            drawHeart(topX - valueWidth / 2 - heartSize, y + dc.getFontHeight(Graphics.FONT_NUMBER_MILD) / 2, heartSize);
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(topX + 10 * scale, y, Graphics.FONT_NUMBER_MILD, topValue, C);
+        }
+        else
+        {
+            dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(topX, l[HikeGridLayout.TOP_LABEL_Y], Graphics.FONT_XTINY, topLabel, C);
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(topX, l[HikeGridLayout.TOP_VALUE_Y], Graphics.FONT_NUMBER_MILD, topValue, C);
+        }
+
+        // Dividers in the empty leading above the middle and bottom labels
+        var y1 = l[HikeGridLayout.MID_LABEL_Y];
+        var y2 = l[HikeGridLayout.BOT_LABEL_Y];
+        dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(dividerPenWidth);
+        dc.drawLine(left, y1, right, y1);
+
+        // Middle two columns, below the sub-window
+        var colLeftX = l[HikeGridLayout.COL_LEFT_X];
+        var colRightX = l[HikeGridLayout.COL_RIGHT_X];
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(colLeftX, y1, Graphics.FONT_XTINY, leftLabel, C);
+        dc.drawText(colRightX, y1, Graphics.FONT_XTINY, rightLabel, C);
+
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(colLeftX, l[HikeGridLayout.MID_VALUE_Y], Graphics.FONT_NUMBER_MILD, leftValue, C);
+        dc.drawText(colRightX, l[HikeGridLayout.MID_VALUE_Y], Graphics.FONT_NUMBER_MILD, rightValue, C);
+
+        dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(centerX, y1 + 8 * scale, centerX, y2 - 8 * scale);
+        dc.drawLine(left, y2, right, y2);
+        dc.setPenWidth(1);
+
+        // Bottom field (timer): FONT_NUMBER_MEDIUM if it fits in the width
+        // and in the height left below its label, else FONT_NUMBER_MILD.
+        var botValueY = l[HikeGridLayout.BOT_VALUE_Y];
+        var bottomValueFont = pickFont(HIKE_GRID_HERO_VALUE_FONTS, [bottomValue], right - left, h - botValueY);
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, y2, Graphics.FONT_XTINY, bottomLabel, C);
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, botValueY, bottomValueFont, bottomValue, C);
     }
 
     // Live breadcrumb map: draws the recorded trail (a ring buffer, oldest-to-newest
     // starting at writeIndex once it has wrapped) plus a heading-oriented marker at
     // the current position, scaled and centered to fit whatever's been recorded so far.
+    // curLat / curLon are null without a usable fix: the trail is then drawn alone,
+    // and "Waiting for GPS" only shows when there is no trail either (mapDrawMode()).
     (:typecheck(false))
     // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
     function map(lats, lons, count, writeIndex, curLat, curLon, heading)
     {
-        if (curLat == null || curLon == null)
+        var mode = $.mapDrawMode(count, curLat != null && curLon != null);
+        if (mode == :waiting)
         {
+            // h/2 -+ 15 where the two lines fit, one font height apart where
+            // they would overlap (big FONT_SMALL: fr265s, fr965, epix2,
+            // fenix 8 / 9...; HikeMapLayout.waitingLinesY()).
+            var lines = HikeMapLayout.waitingLinesY(dc.getHeight(), dc.getFontHeight(Graphics.FONT_SMALL));
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 - 15, Graphics.FONT_SMALL, "Waiting for", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-            dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 15, Graphics.FONT_SMALL, "GPS", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(dc.getWidth() / 2, lines[0], Graphics.FONT_SMALL, "Waiting for", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(dc.getWidth() / 2, lines[1], Graphics.FONT_SMALL, "GPS", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
             return;
         }
+        var hasCurrent = (mode == :trailAndMarker);
 
         var capacity = lats.size();
         var centerX = dc.getWidth() / 2;
         var centerY = dc.getHeight() / 2;
         var screenRadius = dc.getWidth() / 2 - borderSize;
 
-        // Bounding box (in degrees) over the trail plus the current position.
-        var minLat = curLat, maxLat = curLat, minLon = curLon, maxLon = curLon;
-        for (var i = 0; i < count; i++)
+        // Longitude-compressed local projection (equirectangular), in degrees of
+        // latitude on both axes, centered on the bounding box of the trail plus
+        // the current position (mapProjectionCenter()): `scale` below is in
+        // pixels per degree of latitude (mapPixelsPerDegree(); the scale bar
+        // converts it to m/px with metersPerPixelFromScale()).
+        var center = $.mapProjectionCenter(lats, lons, count, writeIndex, curLat, curLon);
+        var centerLat = center[0];
+        var centerLon = center[1];
+        var cosLat = center[2];
+        var curDx = 0.0, curDy = 0.0;
+        if (hasCurrent)
         {
-            var idx = (writeIndex - count + i + capacity) % capacity;
-            var lat = lats[idx];
-            var lon = lons[idx];
-            if (lat < minLat) { minLat = lat; }
-            if (lat > maxLat) { maxLat = lat; }
-            if (lon < minLon) { minLon = lon; }
-            if (lon > maxLon) { maxLon = lon; }
+            curDx = (curLon - centerLon) * cosLat;
+            curDy = curLat - centerLat;
         }
 
-        var centerLat = (minLat + maxLat) / 2.0;
-        var centerLon = (minLon + maxLon) / 2.0;
-        var cosLat = Math.cos(Math.toRadians(centerLat));
-
-        // Longitude-compressed local projection (equirectangular); the scale unit
-        // doesn't matter since it only feeds a fit-to-screen ratio below.
-        var maxRange = 0.0001; // floor avoids a divide-by-zero when stationary
-        for (var i = 0; i < count; i++)
-        {
-            var idx = (writeIndex - count + i + capacity) % capacity;
-            var dx = (lons[idx] - centerLon) * cosLat;
-            var dy = lats[idx] - centerLat;
-            var r = (dx.abs() > dy.abs()) ? dx.abs() : dy.abs();
-            if (r > maxRange) { maxRange = r; }
-        }
-        var curDx = (curLon - centerLon) * cosLat;
-        var curDy = curLat - centerLat;
-        var curR = (curDx.abs() > curDy.abs()) ? curDx.abs() : curDy.abs();
-        if (curR > maxRange) { maxRange = curR; }
-
-        var scale = (screenRadius * 0.85) / maxRange;
+        var scale = $.mapPixelsPerDegree(lats, lons, count, writeIndex, curLat, curLon, center, screenRadius);
 
         // Trail line, oldest to newest, connected through to the current position.
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
@@ -596,6 +790,37 @@ class WatchDisplay
             }
             prevX = x;
             prevY = y;
+        }
+
+        // Scale bar at the bottom, in the border ring below the fitted trail:
+        // a round length (pickScaleBar) at most a third of the screen wide,
+        // none when no round length suits the current zoom.
+        var bar = $.pickScaleBar($.metersPerPixelFromScale(scale), dc.getWidth() / 3);
+        if (bar != null)
+        {
+            var barY = centerY + screenRadius + borderSize / 2;
+            var barLeft = centerX - bar[1] / 2;
+            var barRight = barLeft + bar[1];
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.setPenWidth(2);
+            dc.drawLine(barLeft, barY, barRight, barY);
+            dc.drawLine(barLeft, barY, barLeft, barY - 5);
+            dc.drawLine(barRight, barY, barRight, barY - 5);
+            dc.drawText(centerX, barY - 3 - dc.getFontHeight(Graphics.FONT_XTINY) / 2, Graphics.FONT_XTINY, $.formatScaleBarLabel(bar[0]), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+            dc.setPenWidth(3);
+        }
+
+        if (!hasCurrent)
+        {
+            // Trail alone, no marker. A single point draws no line: show it
+            // as a small dot so the page isn't blank.
+            if (count == 1 && prevX != null)
+            {
+                dc.fillCircle(prevX, prevY, 3);
+            }
+            dc.setPenWidth(1);
+            return;
         }
 
         var curX = centerX + curDx * scale;
@@ -654,11 +879,16 @@ class WatchDisplay
     
         var batteryStr = battery.toString() + "%";
         var batteryTextWidth = dc.getTextWidthInPixels(batteryStr, Graphics.FONT_TINY);
-        var batteryY = dc.getHeight() / 2 + 50; // Position below the time
+        // Below the time: h/2 + 50 as before, lower where the time's font is
+        // too tall for it (V2, AMOLED 360-466 px). Icon left of the text.
+        var place = $.timeBatteryLayout(dc.getWidth(), dc.getHeight(),
+            dc.getFontHeight(Graphics.FONT_NUMBER_HOT), dc.getFontHeight(Graphics.FONT_TINY), batteryTextWidth);
+        var batteryX = place[0];
+        var batteryY = place[1];
 
         // Draw battery icon (rectangle with a tip and fill level)
-        var iconX = centerX - (batteryTextWidth / 2) - 10; // Position to the left of the text
-        var iconY = batteryY - 2; // Align vertically with the text
+        var iconX = place[2];
+        var iconY = place[3];
         var iconWidth = 12;
         var iconHeight = 6;
         var tipWidth = 2;
@@ -676,7 +906,7 @@ class WatchDisplay
         // Draw battery percentage text to the right of the icon
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(
-            centerX + 10, // Adjust to the right of the icon
+            batteryX, // right of the icon
             batteryY,
             Graphics.FONT_TINY,
             batteryStr,

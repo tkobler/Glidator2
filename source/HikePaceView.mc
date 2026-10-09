@@ -1,7 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Graphics;
-using Toybox.Math;
 
 // Render-only, like HikeMapView: reads app.mainView.data (see HikePositionView.mc
 // for why -- a page-local WatchData would let its vario/altitude-delta state go
@@ -38,21 +37,18 @@ class HikePaceView extends WatchUi.View {
         var data = app.mainView.data;
 
         var heartRate = data.getHeartRate();
-        var hrStr = (heartRate == null) ? "--" : heartRate.toString(); // bpm
+        var hrStr = $.formatHeartRate(heartRate); // bpm, "--" outside 25..250
 
-        // Vertical speed: same instantaneous altitude-delta the Vario page already
-        // uses, just expressed as a climb rate (m/h) instead of m/s.
-        var vario = data.getVario();
-        var vPaceStr = (vario == null) ? "--" : (vario >= 0 ? "+" : "") + Math.round(vario * 3600).toNumber().toString(); // m/h
+        // Vertical speed (m/h): regression over the last 1, 3 or 5 min of hike
+        // samples (MENU -> "VS window", default 1 min;
+        // WatchData.getHikeVerticalSpeed), not the 1 s flight vario, whose
+        // 0.2 m altitude steps read as +/-720 m/h jumps when walking.
+        var vPaceStr = $.formatVerticalSpeed(data.getHikeVerticalSpeed()); // m/h
 
-        var speed = data.getSpeed();
-        var hPaceStr = "--:--";
-        if (speed != null && speed > 0.0) {
-            var paceMinPerKm = 1000.0 / (speed * 60.0);
-            var paceMinutes = paceMinPerKm.toNumber();
-            var paceSeconds = Math.round((paceMinPerKm - paceMinutes) * 60).toNumber();
-            hPaceStr = paceMinutes.toString() + ":" + paceSeconds.format("%02d"); // min/km 
-        }
+        // Pace (min/km): elapsedDistance over the last 60 s of hike samples
+        // (WatchData.getHikeSpeed), which keeps progressing when the
+        // instantaneous speed reads 0. "--:--" without a session (no distance).
+        var hPaceStr = $.formatPace(data.getHikeSpeed());
 
         var timerStr = $.hasActiveSession() ? formatDuration(data.getTimerTime()) : "--:--";
 

@@ -1,5 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Math;
+using Toybox.Position;
+using Toybox.System as Sys;
 
 class WatchData
 {
@@ -84,8 +86,8 @@ class WatchData
 		// 3. Accelerometer
         
         // Speed is in mps
-        
-        if (info has :speed)
+        // A null speed is not stored: a "speed" => null key would win in getSpeed().
+        if (info has :speed && info.speed != null)
         {
         	data ["speed"] = info.speed;
         }
@@ -119,8 +121,9 @@ class WatchData
         	data ["altitude"] = info.altitude;
         }
         
-        // The current heart rate in beats per minute (bpm).
-		if (info has :currentHeartRate)
+        // The current heart rate in beats per minute (bpm). Not stored when null:
+        // a "heartRate" => null key would hide the sensor heart rate in getHeartRate().
+		if (info has :currentHeartRate && info.currentHeartRate != null)
         {
         	data ["heartRate"] = info.currentHeartRate;
         }
@@ -132,8 +135,8 @@ class WatchData
         	data ["heading"] = info.currentHeading;
         }
 
-        // The current speed in meters per second (mps).
-        if (info has :currentSpeed)
+        // The current speed in meters per second (mps). Not stored when null.
+        if (info has :currentSpeed && info.currentSpeed != null)
         {
         	data ["speed"] = info.currentSpeed;
         }
@@ -183,14 +186,15 @@ class WatchData
         // }
         
         
-       	// The heart rate in beats per minute (bpm).
-		if (info has :heartRate)
+       	// The heart rate in beats per minute (bpm). Not stored when null.
+		if (info has :heartRate && info.heartRate != null)
         {
         	data ["heartRate"] = info.heartRate;
         }
         
-        // The speed in meters per second (m/s).
-        if (info has :speed)
+        // The speed in meters per second (m/s). Not stored when null, so that
+        // getSpeed() falls back to the GPS speed.
+        if (info has :speed && info.speed != null)
         {
         	data ["speed"] = info.speed;
         }
@@ -359,4 +363,103 @@ class WatchData
 		return null;
 	}
 
+	// ---------------------------------------------------------------------
+	// Map: GPS fix quality. Without a fix, Position.Info.position can be
+	// (180, 180); such points must neither feed the breadcrumb trail nor be
+	// shown as the current position.
+	// ---------------------------------------------------------------------
+
+	// Minimum Position.Info.accuracy for the map. QUALITY_USABLE is a 3D fix;
+	// QUALITY_POOR (2D) would fill the trail better under trees or cliffs, at
+	// the cost of less precise points. Single place to change that choice.
+	const MIN_MAP_QUALITY = Position.QUALITY_USABLE;
+
+	// Position.Info.accuracy (Position.QUALITY_*) from the last updateInfo(),
+	// or null when unknown.
+	(:typecheck(false))
+	function getAccuracy()
+	{
+		if (gpsData != null && gpsData.hasKey("accuracy"))
+		{
+			return gpsData ["accuracy"];
+		}
+		return null;
+	}
+
+	// True when the last GPS data is good enough for the map: accuracy at
+	// least MIN_MAP_QUALITY and a valid position (see isValidLatLon()).
+	(:typecheck(false))
+	function hasUsableFix()
+	{
+		var acc = getAccuracy();
+		if (acc == null || acc < MIN_MAP_QUALITY)
+		{
+			return false;
+		}
+		return $.isValidLatLon(getLat(), getLon());
+	}
+
+	// ---------------------------------------------------------------------
+	// Hike mode: windowed vertical speed and speed (HikeHistory.mc).
+	// Fed once per tick from FlyInstrumentApp.onSensor(), after updateData().
+	// Only reads getAltitude() / getDistance(): the flight vario (endMeasure,
+	// getVario, oldAlt) is left alone.
+	// The *At(ms) variants take the timestamp as a parameter for unit tests;
+	// the app uses the System.getTimer() wrappers.
+	// ---------------------------------------------------------------------
+
+	// Pace window (fixed). The vertical-speed window is the user's choice.
+	const HIKE_WINDOW_MS = 60000;
+
+	var hikeHistory = new HikeHistory();
+
+	// Vertical-speed window in ms, one of vsWindowChoicesMs() (Preferences.mc).
+	// Set by the app from the stored preference at start and by the MENU
+	// "VS window" choice; changing it never resets hikeHistory.
+	var hikeVsWindowMs = $.VS_WINDOW_DEFAULT_MS;
+
+	function setHikeVsWindowMs(ms)
+	{
+		hikeVsWindowMs = $.sanitizeVsWindowMs(ms);
+	}
+
+	function getHikeVsWindowMs()
+	{
+		return hikeVsWindowMs;
+	}
+
+	function recordHikeSample()
+	{
+		recordHikeSampleAt(Sys.getTimer());
+	}
+
+	function recordHikeSampleAt(tMs)
+	{
+		// HikeHistory ignores a null altitude; a null distance is kept as such.
+		hikeHistory.add(tMs, getAltitude(), getDistance());
+	}
+
+	// m/h over the chosen window (1, 3 or 5 min, default 1 min), or null if
+	// the window holds fewer than 3 samples or less than 20 s. A window longer
+	// than the data held gives the regression over what is there.
+	function getHikeVerticalSpeed()
+	{
+		return getHikeVerticalSpeedAt(Sys.getTimer());
+	}
+
+	function getHikeVerticalSpeedAt(nowMs)
+	{
+		return hikeHistory.verticalSpeedMh(nowMs, hikeVsWindowMs);
+	}
+
+	// m/s over the last 60 s, or null if not enough data / no distance.
+	function getHikeSpeed()
+	{
+		return getHikeSpeedAt(Sys.getTimer());
+	}
+
+	function getHikeSpeedAt(nowMs)
+	{
+		return hikeHistory.speedMps(nowMs, HIKE_WINDOW_MS);
+	}
 }
