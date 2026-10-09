@@ -179,7 +179,7 @@ function formatDistanceKm(meters)
 }
 
 // Largest hike vertical speed shown by formatVerticalSpeed(), in m/h, bound
-// included (decision D3, 07/10). Walking or running uphill stays well under
+// included (decision of 07/10, VS cap). Walking or running uphill stays well under
 // it (Salvan climb, 60 s window: median +636 m/h, p95 +891 m/h); anything
 // faster on the Pace page is an altitude glitch or a flight phase (spiral),
 // and reads "--". The flight vario (m/s) does not use this function.

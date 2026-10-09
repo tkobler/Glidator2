@@ -521,7 +521,7 @@ function testChainVerticalSpeedSalvanSteepClimb(logger)
 }
 
 // F07: real spiral (extract S): -14 419.8 m/h, beyond the hike cap of
-// 3000 m/h (decision D3, 07/10) -> "--" on the Pace page; 510.69 m / 57 s
+// 3000 m/h (decision of 07/10, VS cap) -> "--" on the Pace page; 510.69 m / 57 s
 // = 8.9595 m/s -> 1:52 /km; position page with a session: 1732 m, 22.0 km.
 (:test, :chaintest, :typecheck(false))
 function testChainVerticalSpeedSalvanSpiralDescent(logger)
@@ -544,7 +544,7 @@ function testChainVerticalSpeedSalvanSpiralDescent(logger)
 
 // F08: a +1000 m jump on the last of 13 samples (5 s apart) is not filtered:
 // sxy 30 000, sxx 4550 -> 23 736.3 m/h (no jump filter, current behaviour
-// pinned), beyond the hike cap of 3000 m/h (decision D3, 07/10) -> "--".
+// pinned), beyond the hike cap of 3000 m/h (decision of 07/10, VS cap) -> "--".
 (:test, :chaintest, :typecheck(false))
 function testChainVerticalSpeedAltitudeJump(logger)
 {

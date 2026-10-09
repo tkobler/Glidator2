@@ -1169,7 +1169,7 @@ function testFormatVerticalSpeed(logger)
 	Test.assertEqualMessage($.formatVerticalSpeed(0), "0", "Number 0 -> 0");
 
 	// Very large values (altitude glitch) are beyond the +-3000 m/h cap
-	// (decision D3, 07/10): "--", never an overflowed Number.
+	// (decision of 07/10, VS cap): "--", never an overflowed Number.
 	Test.assertEqualMessage($.formatVerticalSpeed(1000000.0), "--", "1e6 -> -- (beyond the 3000 m/h cap)");
 	Test.assertEqualMessage($.formatVerticalSpeed(-1000000.0), "--", "-1e6 -> -- (beyond the 3000 m/h cap)");
 	Test.assertEqualMessage($.formatVerticalSpeed(1.0e10), "--", "1e10 -> -- (beyond the 3000 m/h cap)");
@@ -1196,7 +1196,7 @@ function testFormatVerticalSpeed(logger)
 	return true;
 }
 
-// Cap of formatVerticalSpeed() (decision D3, 07/10): |v| <= 3000 m/h (bound
+// Cap of formatVerticalSpeed() (decision of 07/10, VS cap): |v| <= 3000 m/h (bound
 // included) is formatted, anything larger reads "--", in climb and descent.
 // The rule is on the value BEFORE rounding: 3000.4 would round to "+3000"
 // but is above the cap, so it reads "--".
