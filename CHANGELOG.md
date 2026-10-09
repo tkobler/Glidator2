@@ -23,16 +23,16 @@ All notable changes to Glidator2 are listed here, newest first.
 - Preferences are now stored with the current Connect IQ storage; the audio setting of the previous version is carried over on the first launch.
 
 ### Display
-- Large round screens (AMOLED Forerunner, fenix and epix): the timer and the middle values of the Position and Pace pages now fit inside the screen, the "Waiting for GPS" lines of the Map page no longer overlap, and the battery line of the Time page sits below the time.
-- Instinct watches: the Position and Pace pages are laid out around the round sub-window, and the speed line of the flight page no longer runs into it.
+- Layout fixes on large round screens, checked on the Forerunner 265S, epix (Gen 2), epix Pro (Gen 2) 42 mm and fenix 8 43 mm: the timer and the middle values of the Hiking Position and Pace pages now fit inside the screen, the "Waiting for" / "GPS" lines of the Map page no longer overlap, and the battery line of the Time page sits below the time.
+- Instinct 2: the Hiking Position and Pace pages are laid out around the round sub-window, and the speed line of the Flight Instrument page no longer runs into it.
 - Missing or out-of-range readings now show "--" instead of odd numbers: hiking altitude (outside -100 to 6000 m), elevation gain, distance, heart rate (outside 25 to 250 bpm), and flight altitude (outside -500 to 9000 m, shown as "--" alone, without the "m" unit).
-- GPS coordinates on the compass page are shown without a minus sign (the N/S and E/W letter gives the hemisphere), and seconds no longer read 60.0.
 
 ### Fixes
-- Fixed a crash on the compass page when no heading is available.
+- Compass page (Flying mode): GPS coordinates are shown without a minus sign (the N/S and E/W letter gives the hemisphere), and seconds no longer read 60.0.
+- Fixed a crash on the Compass page when no heading is available.
 
 ### Devices
-- Added epix (Gen 2) and epix Pro (Gen 2) 42, 47 and 51 mm.
+- Added epix (Gen 2), and epix Pro (Gen 2) in 42, 47 and 51 mm.
 
 ## 2.1
 
