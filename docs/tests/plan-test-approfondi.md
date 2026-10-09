@@ -353,7 +353,7 @@ Bilan de l'axe 1 au 06/10 (fenix6pro et fenix5, résultats identiques) : 30 test
 | B03 | `testBenchSelfScreenShapeRule` | écran rond : la boîte centrée en (w/2, 2) de 2 × 2 px est dedans, la boîte en (0, 0) est dehors ; semi-octogone ou rectangle : (0, 0)–(2, 2) est dedans. Journalise `w, h, screenShape` |
 | B04 | `testBenchSelfSubscreenSource` | journalise `WatchUi.getSubscreen()`. Sur G11 : (113, 0, 62, 62) ; G12 : (113, 0, 52, 52) ; G13 : (108, 0, 54, 54) ; ailleurs null, sauf peut-être G14/G15, dont on note la valeur. Échoue si getSubscreen et le tableau du § 2.2 ne concordent pas |
 
-**Tests de mise en page (35)** : `testLayout_<Vue>_<État>`. Vues : `HikePosition`, `HikePace`, `HikeMap`, `Time`, `Fly`, `Compass` (`display.compass`), `Paused`. États : `Empty`, `Normal`, `Extreme`, `Paused`, `Recording`.
+**Tests de mise en page (35, puis 36 au 09/10 avec `testLayout_Fly_InvalidAltitude`)** : `testLayout_<Vue>_<État>`. Vues : `HikePosition`, `HikePace`, `HikeMap`, `Time`, `Fly`, `Compass` (`display.compass`), `Paused`. États : `Empty`, `Normal`, `Extreme`, `Paused`, `Recording`.
 
 | Vue \ État | Empty | Normal | Extreme | Paused | Recording |
 |---|---|---|---|---|---|
@@ -400,10 +400,10 @@ Les rounds suivants **comparent la liste des noms**, pas leur nombre. Un nom en 
 | Axe | Tests | Attendu (08/10) |
 |---|---|---|
 | 1. Fonctionnel (tâche a) | 32 = 29 identifiants F01–F29, dont F05 compté deux fois (F05a, F05b), + F12b + F17b ; **écrits** (`source/TestsChain.mc`) | 32 PASS (dont D1 et D4 verrouillés) ; les 8 `testDefect*` passent depuis les corrections des 06-07/10 ; 33 au 09/10 (F15b, D4 devenu comportement voulu) |
-| 2. Affichage (tâche b) | 40 (B01–B04, `testBenchSelfExemptions`, 35 `testLayout_*`), **écrits** (`source/TestsLayout.mc`, 07-08/10) | B01–B04 PASS ; échecs attendus = liste nominative du § 3.2 relevée le 08/10 (fenix6pro 2, instinct2 23, fenix5 0, fenix843mm 13) ; depuis les corrections d'affichage, fenix6pro et fenix5 passent toute la suite (09/10) |
+| 2. Affichage (tâche b) | 41 au 09/10 (B01–B04, `testBenchSelfExemptions`, 36 `testLayout_*` dont `testLayout_Fly_InvalidAltitude`) ; 40 avant, **écrits** (`source/TestsLayout.mc`, 07-08/10) | B01–B04 PASS ; échecs attendus = liste nominative du § 3.2 relevée le 08/10 (fenix6pro 2, instinct2 23, fenix5 0, fenix843mm 13) ; depuis les corrections d'affichage, fenix6pro et fenix5 passent toute la suite (09/10) |
 | 2. Fonctions (tâche c) | 9 vérifications C01–C09 sur 62 montres (procédure, pas de nouveau code) | voir § 2.3 |
 | Manuel | 13 étapes M01–M13 (§ 5) | voir § 5 |
-| **Suite complète par montre** | **185** au 09/10 après V1a/V1b = 91 (`Tests.mc`) + 9 (`TestsFormat.mc`) + 33 (`TestsChain.mc`) + 40 (`TestsLayout.mc`) + 8 (`TestsHikeGrid.mc`) + 4 (`TestsHikeMap.mc`) ; 182 au 09/10 avant (7 et 32) ; 166 au 08/10 (88 + 7 + 32 + 39) | le plan du 06/10 prévoyait 76 + 69 = 145 ; l'écart vient des tests ajoutés avec les corrections des 06-07/10 (Tests.mc +12, TestsFormat.mc +7, TestsChain.mc +2), puis des corrections d'affichage de la marche et de la migration des réglages (08-09/10) |
+| **Suite complète par montre** | **188** au 09/10 après V2 (page Heure, `testTimeBatteryLayout`) et l'altitude de vol invalide sans unité (`testFlightAltitudeUnit`, `testLayout_Fly_InvalidAltitude`) = 91 (`Tests.mc`) + 11 (`TestsFormat.mc`) + 33 (`TestsChain.mc`) + 41 (`TestsLayout.mc`) + 8 (`TestsHikeGrid.mc`) + 4 (`TestsHikeMap.mc`) ; 185 au 09/10 après V1a/V1b (9 et 40) ; 182 au 09/10 avant (7 et 32) ; 166 au 08/10 (88 + 7 + 32 + 39) | le plan du 06/10 prévoyait 76 + 69 = 145 ; l'écart vient des tests ajoutés avec les corrections des 06-07/10 (Tests.mc +12, TestsFormat.mc +7, TestsChain.mc +2), puis des corrections d'affichage de la marche et de la migration des réglages (08-09/10) |
 
 ---
 
@@ -465,7 +465,7 @@ Les deux jungles compilent sur fenix6pro (07/10). Le 07/10, le .prg complet (166
 - **`monkeydo` renvoie le code 1 même quand tout passe** (constaté le 05/10). Ne jamais se fier au code de retour.
 - Lire le bloc de fin `RESULTS` : `Ran N tests`, puis `PASSED (passed=N, failed=0, errors=0)` ou `FAILED (passed=…, failed=…, errors=…)`.
 - Chaque test affiche `PASS`, `FAIL` ou `ERROR` ; en cas d'ERROR, une pile `Error: … Stack: … at source/<fichier>:<ligne>` suit.
-- Attendu par montre au 08/10 : **N = 166**. Les échecs attendus sont **seulement** des `testLayout_*`, ceux de la liste nominative du § 3.2 pour les montres qui y figurent. Aucun `testDefect*` ne doit échouer (tous corrigés les 06-07/10) ; les `testKnownDefect*` doivent toujours passer. Tout autre FAIL ou ERROR est une régression à signaler. Depuis la décision D2 du 08/10, la suite complète doit être **verte** (N = 185 au 09/10 après V1a/V1b).
+- Attendu par montre au 08/10 : **N = 166**. Les échecs attendus sont **seulement** des `testLayout_*`, ceux de la liste nominative du § 3.2 pour les montres qui y figurent. Aucun `testDefect*` ne doit échouer (tous corrigés les 06-07/10) ; les `testKnownDefect*` doivent toujours passer. Tout autre FAIL ou ERROR est une régression à signaler. Depuis la décision D2 du 08/10, la suite complète doit être **verte** (N = 185 au 09/10 après V1a/V1b, N = 188 après V2 et l'altitude de vol invalide sans unité).
 - Les tests `testStopRecordingSaves*` enregistrent une activité dans le simulateur. Une ERROR isolée sur ces tests a déjà été vue (instable) : relancer une fois avant de conclure.
 
 ### 4.5 Contrôles des zones sensibles (base `origin/hikeandfly`, ou le dernier commit vérifié, ex. `a078d7d`)
