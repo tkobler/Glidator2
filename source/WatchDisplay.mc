@@ -703,9 +703,13 @@ class WatchDisplay
         var mode = $.mapDrawMode(count, curLat != null && curLon != null);
         if (mode == :waiting)
         {
+            // h/2 -+ 15 where the two lines fit, one font height apart where
+            // they would overlap (big FONT_SMALL: fr265s, fr965, epix2,
+            // fenix 8 / 9...; HikeMapLayout.waitingLinesY()).
+            var lines = HikeMapLayout.waitingLinesY(dc.getHeight(), dc.getFontHeight(Graphics.FONT_SMALL));
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 - 15, Graphics.FONT_SMALL, "Waiting for", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-            dc.drawText(dc.getWidth() / 2, dc.getHeight() / 2 + 15, Graphics.FONT_SMALL, "GPS", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(dc.getWidth() / 2, lines[0], Graphics.FONT_SMALL, "Waiting for", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(dc.getWidth() / 2, lines[1], Graphics.FONT_SMALL, "GPS", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
             return;
         }
         var hasCurrent = (mode == :trailAndMarker);
