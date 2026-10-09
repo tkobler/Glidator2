@@ -90,6 +90,13 @@ To develop and build Glidator2, you need the following tools:
   - In VS Code, open a .mc file of the source folder and use the "run and debug" button to build and run the app in the simulator.
 - **Debugging**: Enable `Sys.println` logs in the code for debugging. View logs in the simulator's console or IDE output. Simulate GPS data via the simulator's "Location" settings.
 
+### Python tools tests
+The activity analysis script `tools/analyze_activity.py` (Python 3, standard library only) has its own unit tests in `tools/test_analyze_activity.py`. Run them from the repository root with:
+```bash
+python3 -m unittest discover -s tools -p 'test_*.py'
+```
+The `-s tools -p 'test_*.py'` arguments are needed: a bare `python3 -m unittest` finds no test (`Ran 0 tests`).
+
 ### Exporting .iq File
 - Compile the app with the `-r` flag to generate a signed `.iq` file for distribution:
   ```bash
