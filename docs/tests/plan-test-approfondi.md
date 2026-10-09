@@ -43,10 +43,11 @@ onSensor() 1 Hz (FlyInstrumentApp.mc:445)
   ├─ si shouldRecordHikeSample(session, recording) : data.recordHikeSample()  → HikeHistory (1 échantillon / 5 s, 60 échantillons = 5 min)
   └─ feedBreadcrumbTrail(trail, data)  → seulement si hasUsableFix() (accuracy ≥ QUALITY_USABLE et position valide)
 Vues (onUpdate(dc)) : lisent app.mainView.data et app.breadcrumbTrail, puis formatent :
-  ALTITUDE = formatHikeAltitude(getAltitude())   ELEV. GAIN = formatHikeAscent(totalAscent)   (si session)
+  ALTITUDE = formatHikeAltitude(getAltitude()) (`--` si null, non finie ou hors [−100 ; 6000] m)   ELEV. GAIN = formatHikeAscent(totalAscent)   (si session)
   DISTANCE = formatDistanceKm(distance) (si session)   TIMER = formatDuration(timerTime)    (si session)
   Heart Rate = formatHeartRate(getHeartRate())   VERT. SPD. = formatVerticalSpeed(HikeHistory, fenêtre VS 1/3/5 min)
   PACE = formatPace(HikeHistory 60 s, distance)  Vol : vitesse = getSpeed()*3.6 "%.0f", vario = alt - oldAlt "%.1f"
+  Vol : altitude = Math.round(getAltitude()) sans garde (FlyInstrumentView.mc:69, état au 09/10 ; décision du 08/10 : `--` si non finie ou hors [−500 ; 9000] m, pas encore codée sur cette branche)
 ```
 
 Priorités des sources (WatchData) :
@@ -76,7 +77,7 @@ Priorités des sources (WatchData) :
 - **À corriger** (tests rouges `testDefect*` au 06/10) : D2 côté HikePositionView, D3, D5, D6, D7, D8, D9. **Tous corrigés les 06 et 07/10** (commits `bc34950` D6, `6c00c74` D3, `a7d5563` D2, `d797013` D5, `2f1e05f` D7 et D8, `6295a70` D9) : les tests `testDefect*` gardent leur nom et **passent** depuis.
 - **Bornes d'affichage décidées** : altitude valide de **−100 à 6000 m** (HikePositionView), FC valide de **25 à 250 bpm** (HikePaceView) ; hors bornes ou non finie → `--`. La borne porte sur la valeur brute : −100,1 et 6000,1 donnent `--`, −99,6 donne `-100`.
 - **Garde du D+ de la page Position (décision du 07/10)** : ELEV. GAIN valide de **0 à 20 000 m** (bornes incluses), sinon (négatif, au-delà de 20 000 m, NaN, ±Inf, null) → `--`, par `formatHikeAscent()` (Utils.mc). La borne porte sur la valeur brute : −0,1 et 20 000,1 donnent `--` ; −0,0 donne `0`. Le D+ n'est affiché que par HikePositionView.
-- **Plafond de la vitesse verticale de marche (décision « D3 » du 07/10)** : au-delà de ±3000 m/h, VERT. SPD. lit `--`. *Attention : cette « décision D3 » (plafond de vitesse verticale, nom repris des commits `7328587` et `108ab40`) n'a rien à voir avec le **défaut D3** du tableau ci-dessous (distance négative).*
+- **Plafond de la vitesse verticale de marche (décision du 07/10 (plafond VS))** : au-delà de ±3000 m/h, VERT. SPD. lit `--`. *Les commits `7328587` et `108ab40` l'appellent « decision D3 » ; ce nom n'est plus employé ici, pour ne pas la confondre avec le **défaut D3** du tableau ci-dessous (distance négative).*
 
 **Décisions de l'utilisateur (07/10)** : menu Paused inchangé ; FC hors 25–250 → `--` sans repli sur une autre source ; pas d'indication de fenêtre sur la page Pace.
 
@@ -213,7 +214,7 @@ Les fonctions d'aide (boîtes, contrôles, états) vont dans une **classe `(:tes
 |---|---|---|---|
 | **vide** | `$.session = null` | non | `new WatchData()` sans donnée, trace vide, pas de fix. Vario null. TimeView `"00:00"`, batterie 0. Boussole (0.0, null, null) : **cap 0.0** (le cap null relève de D9, testé en F25) |
 | **normal** | enregistrement (fausse session, `isRecording() = true`) | non | Tick réel 10:51:28 (§ 3.1, F10) : altitude 2149.4, distance 1692.49, FC 139, D+ 335.0 (synthétique), chrono 1 965 000 ms, vitesse 0.0, cap 0.785 rad, fix (46.12446558661759, 6.985453460365534, accuracy 4), HikeHistory = extrait réel M (§ 3.1, F06) → `+940` / `26:48` (banc écrit le 07/10 ; le plan prévoyait l'extrait T, `+950` / `26:00`, de même largeur), trace = 20 points Salvan (`MapTestHelper`) avec le fix sur le dernier point, vario +0.4. TimeView `"10:51"`, 76 %. Boussole : mêmes coordonnées |
-| **extrême** | enregistrement | non | altitude 8849 en vol, **6000** sur la page Position de marche (borne haute décidée le 06/10 ; D2 étant corrigé, 8849 y donnerait `--`), D+ **20 000** (`20000`, borne haute de la garde du 07/10), distance 999 900 m (`999.9`), chrono 359 999 000 ms (`99:59:59`), FC **250** (`250`, borne haute), vitesse verticale −2998 m/h (12 échantillons sur 55 s → `-3000`, borne du plafond marche, « décision D3 » du 07/10 ; la spirale réelle −14 420 m/h lit `--`), pace `60:00` (0.2778 m/s). Vol : 33.3 m/s (`120` km/h), vario −10.0. TimeView `"23:59"`, 100 %. Boussole cap 0.785, (−89.999972, −179.999972) → `89°59'59.9"S` / `179°59'59.9"W` (chaînes les plus longues depuis la correction de D7/D8 : plus de signe moins ni de `60.0"`). Paused : 360 000 000 ms (`100:00:00`) |
+| **extrême** | enregistrement | non | altitude 8849 en vol, **6000** sur la page Position de marche (borne haute décidée le 06/10 ; D2 étant corrigé, 8849 y donnerait `--`), D+ **20 000** (`20000`, borne haute de la garde du 07/10), distance 999 900 m (`999.9`), chrono 359 999 000 ms (`99:59:59`), FC **250** (`250`, borne haute), vitesse verticale −2998 m/h (12 échantillons sur 55 s → `-3000`, borne du plafond marche, décision du 07/10 (plafond VS) ; la spirale réelle −14 420 m/h lit `--`), pace `60:00` (0.2778 m/s). Vol : 33.3 m/s (`120` km/h), vario −10.0. TimeView `"23:59"`, 100 %. Boussole cap 0.785, (−89.999972, −179.999972) → `89°59'59.9"S` / `179°59'59.9"W` (chaînes les plus longues depuis la correction de D7/D8 : plus de signe moins ni de `60.0"`). Paused : 360 000 000 ms (`100:00:00`) |
 | **pause** | fausse session, `isRecording() = false` | non | données « normal » ; pour PausedView : chrono `32:45` |
 | **enregistrement** | enregistrement | oui (`$.recordFlashStartMs = System.getTimer()`) | données « normal ». En vol, `record = true` élargit l'unité de l'altitude (×1,5) |
 
@@ -225,7 +226,7 @@ Avant et après chaque test, remettre à zéro : `$.session = null`, `$.recordFl
 - **TimeView** : la batterie est à `h/2 + 50` px fixes sous l'heure en `FONT_NUMBER_HOT`. Chevauchement probable sur les grands écrans.
 - **FlyInstrumentView** vide : « starting ... » en `FONT_LARGE` sur 176 px ou moins (G11 à G13) risque de sortir de l'écran.
 - **PausedView** : « Paused » (`FONT_MEDIUM`, y = 35 % de h) sur G11 à G13 frôle la sous-fenêtre (x ≥ 113, y ≤ 62).
-- **hikeGrid** : le champ du haut sur G11 à G13 (libellé vers y ≈ 27, valeur vers y ≈ 48 sur 176 px) frôle la sous-fenêtre. `-14420` en `FONT_NUMBER_MILD` dans une demi-colonne risquait de déborder sur G1/G2/G11 à G13 ; depuis le plafond de ±3000 m/h (« décision D3 » du 07/10), la valeur la plus large est `-3000`.
+- **hikeGrid** : le champ du haut sur G11 à G13 (libellé vers y ≈ 27, valeur vers y ≈ 48 sur 176 px) frôle la sous-fenêtre. `-14420` en `FONT_NUMBER_MILD` dans une demi-colonne risquait de déborder sur G1/G2/G11 à G13 ; depuis le plafond de ±3000 m/h (décision du 07/10 (plafond VS)), la valeur la plus large est `-3000`.
 
 ---
 
@@ -310,7 +311,7 @@ HikeHistory accepte 13 échantillons, aux ticks 10:50:28 + 5k s. Altitudes reten
 | F05a | `testDefectAltitudeOutOfBounds` (**D2 marche**, corrigé) | −100.1, 6000.1, −432.4, 8848.6, −1000, 1e10, −1e10 | **correct** `--` partout. Au 06/10 : `-100`, `6000`, `-432`, `8849`, `-1000`, `2147483647`, `-2147483648` (FAIL). PASS depuis `a7d5563` |
 | F05b | `testDefectAltitudeNonFinite` (**D2 marche**, corrigé) | +Inf, −Inf, NaN | **correct** `--`. Au 06/10 : `2147483647`, `-2147483648`, `0` (FAIL). PASS depuis `a7d5563` |
 | F06 | `testChainVerticalSpeedSalvanSteepClimb` | extrait M (11 échantillons) | `getHikeVerticalSpeedAt(T_fin)` = 944,6 ± 0,3 m/h ; `formatVerticalSpeed` → `+940` ; HikePaceView VERT. SPD. `+940` |
-| F07 | `testChainVerticalSpeedSalvanSpiralDescent` | extrait S (12 échantillons) | −14 419,8 ± 1 m/h → `--` (au-delà du plafond marche de ±3000 m/h, « décision D3 » du 07/10) ; vitesse 8,9595 ± 0,001 m/s → PACE `1:52` ; HikePositionView DISTANCE `22.0` (avec session), ALTITUDE `1732` |
+| F07 | `testChainVerticalSpeedSalvanSpiralDescent` | extrait S (12 échantillons) | −14 419,8 ± 1 m/h → `--` (au-delà du plafond marche de ±3000 m/h, décision du 07/10 (plafond VS)) ; vitesse 8,9595 ± 0,001 m/s → PACE `1:52` ; HikePositionView DISTANCE `22.0` (avec session), ALTITUDE `1732` |
 | F08 | `testChainVerticalSpeedAltitudeJump` | 13 échantillons toutes les 5 s à 2000.0, sauf le dernier à 3000.0 (+1000 m d'un coup) ; `now` = dernier | 23 736,3 ± 1 m/h (sxy = 30 000, sxx = 4550) → `--` (au-delà du plafond de ±3000 m/h). Comportement actuel épinglé : pas de filtre de saut (amélioration possible, non exigée) |
 | F09 | `testChainVerticalSpeedNaNAltitudeRecovers` | montée de 600 m/h (alt = 2000 + s/6), échantillon toutes les 5 s de 0 à 125 s ; NaN à s = 30 | `--` pour `now` ≤ t0 + 90 s (le NaN est dans la fenêtre) ; `+600` à t0 + 95 s puis à t0 + 125 s (599,9 à 600,1 m/h) |
 | F10 | `testChainTickSalvanClimb1Hz` | extrait T, 61 ticks : `feedTick(FakeGpsInfo, FakeFullActivityInfo(alt, dist, FC 139, speed 0.0, timer), FakeSensorInfo)`, puis `endMeasure()`, puis `recordHikeSampleAt` si `shouldRecordHikeSample(true, true)`, puis `feedBreadcrumbTrail` | `hikeHistory.getCount()` = 13 ; vitesse verticale 953,4 ± 0,5 → `+950` ; vitesse 0,6412 ± 0,001 → `26:00` ; HikePaceView : `139` / `+950` / `26:00` |
@@ -396,11 +397,11 @@ Les rounds suivants **comparent la liste des noms**, pas leur nombre. Un nom en 
 
 | Axe | Tests | Attendu (08/10) |
 |---|---|---|
-| 1. Fonctionnel (tâche a) | 32 (F01–F29, F05 en deux, F12b, F17b), **écrits** | 32 PASS (dont D1 et D4 verrouillés) ; les 8 `testDefect*` passent depuis les corrections des 06-07/10 |
-| 2. Affichage (tâche b) | 39 (B01–B04, 35 `testLayout_*`), **écrits** (`source/TestsLayout.mc`, 07/10) | B01–B04 PASS ; échecs attendus = liste nominative du § 3.2 (fenix6pro 2, instinct2 23, fenix5 0, fenix843mm 13) jusqu'à une tâche de correction de l'affichage |
+| 1. Fonctionnel (tâche a) | 32 = 29 identifiants F01–F29, dont F05 compté deux fois (F05a, F05b), + F12b + F17b ; **écrits** (`source/TestsChain.mc`) | 32 PASS (dont D1 et D4 verrouillés) ; les 8 `testDefect*` passent depuis les corrections des 06-07/10 |
+| 2. Affichage (tâche b) | 40 (B01–B04, `testBenchSelfExemptions`, 35 `testLayout_*`), **écrits** (`source/TestsLayout.mc`, 07-08/10) | B01–B04 PASS ; échecs attendus = liste nominative du § 3.2 relevée le 08/10 (fenix6pro 2, instinct2 23, fenix5 0, fenix843mm 13) ; depuis les corrections d'affichage, fenix6pro et fenix5 passent toute la suite (09/10) |
 | 2. Fonctions (tâche c) | 9 vérifications C01–C09 sur 62 montres (procédure, pas de nouveau code) | voir § 2.3 |
 | Manuel | 13 étapes M01–M13 (§ 5) | voir § 5 |
-| **Suite complète par montre** | **166** = 88 (`Tests.mc`) + 7 (`TestsFormat.mc`) + 32 (`TestsChain.mc`) + 39 (`TestsLayout.mc`) | le plan du 06/10 prévoyait 76 + 69 = 145 ; l'écart vient des tests ajoutés les 06-07/10 avec les corrections (Tests.mc +12, TestsFormat.mc +7, TestsChain.mc +2) |
+| **Suite complète par montre** | **182** au 09/10 = 91 (`Tests.mc`) + 7 (`TestsFormat.mc`) + 32 (`TestsChain.mc`) + 40 (`TestsLayout.mc`) + 8 (`TestsHikeGrid.mc`) + 4 (`TestsHikeMap.mc`) ; 166 au 08/10 (88 + 7 + 32 + 39) | le plan du 06/10 prévoyait 76 + 69 = 145 ; l'écart vient des tests ajoutés avec les corrections des 06-07/10 (Tests.mc +12, TestsFormat.mc +7, TestsChain.mc +2), puis des corrections d'affichage de la marche et de la migration des réglages (08-09/10) |
 
 ---
 
@@ -482,7 +483,7 @@ Les deux jungles compilent sur fenix6pro (07/10). Le 07/10, le .prg complet (166
 Préparation : compiler fenix6pro hors de `bin/`, lancer `monkeydo /tmp/glidator-build/fenix6pro.prg fenix6pro`, puis charger `garmin_data/activity_24346302742.gpx` dans *Simulation > Activity Data* (ou *Data Playback*). Le simulateur calcule la distance à partir des positions GPX : prévoir environ +2,7 % par rapport au TCX, donc un pace un peu plus rapide. Fenêtre VS laissée à **1 min** (valeur par défaut) sauf en M13.
 
 - [ ] **M01 Montée raide** : sur la page Pace, au passage de 10:51:28 dans la trace, VERT. SPD. lit entre **+900 et +1000** (attendu dans le code : +950, fenêtre 1 min), PACE entre **25:00 et 27:00**, et la vitesse instantanée en vol (BACK maintenu) vaut `0` à ce moment. Sur la page Position : ALTITUDE environ **2149**, DISTANCE environ **1.7** km.
-- [ ] **M02 Spirale** : en mode Marche, au passage de 13:01:47, VERT. SPD. lit **`--`** (−14 420 m/h, au-delà du plafond marche de ±3000 m/h, « décision D3 » du 07/10) ; la valeur la plus large affichable est désormais `-3000`, à vérifier dans la demi-case sur fenix6pro, fr55, instinct2 et instinct2s.
+- [ ] **M02 Spirale** : en mode Marche, au passage de 13:01:47, VERT. SPD. lit **`--`** (−14 420 m/h, au-delà du plafond marche de ±3000 m/h, décision du 07/10 (plafond VS)) ; la valeur la plus large affichable est désormais `-3000`, à vérifier dans la demi-case sur fenix6pro, fr55, instinct2 et instinct2s.
 - [ ] **M03 Menu de pause** : SELECT pendant l'enregistrement → menu « Paused » (Resume / Pause / Save / Ignore), 2 vibrations courtes. Choisir Pause → écran « Paused », chrono figé, « START: resume » ; BACK ne fait rien ; SELECT → retour à la page, 1 vibration longue (600 ms), le chrono repart.
 - [ ] **M04 Reprise automatique** : menu ouvert sans rien toucher pendant **30 s** → reprise toute seule (délai compté depuis l'ouverture, sans remise à zéro : décision du 07/10). Choisir Pause puis attendre 60 s → aucune reprise automatique depuis l'écran Paused.
 - [ ] **M05 Capteurs en pause** : simuler une FC (Simulation > Sensors, 120 bpm). En pause, Heart Rate affiche `--`. Après la reprise, `120` revient en moins de 3 s. La trace de la carte continue de s'allonger pendant la pause.
@@ -530,7 +531,7 @@ Sur la montre (si disponible) : refaire M01, M03 et M05 pendant une vraie monté
 6. Manifest : « 58 produits, la tâche suivante ajoute les epix » ; c'est fait (`0f31666`), 62 produits.
 7. Risque mémoire du § 2.2 : la suite complète tourne sur fenix5, fr55 et instinct2.
 8. Marge d'encre : le § 7 disait encore `k = 0,15` alors que le § 4.3 retient 0,16.
-9. Homonymie : « décision D3 » (plafond ±3000 m/h) et « défaut D3 » (distance négative) ; une note les distingue.
+9. Homonymie : le plafond ±3000 m/h portait le même nom « D3 » que le défaut de distance négative ; il est désormais appelé « décision du 07/10 (plafond VS) » (09/10), et « D3 » ne désigne plus que le défaut de distance.
 10. Décisions de l'utilisateur du 07/10 (menu Paused inchangé, FC sans repli, pas d'indication de fenêtre) et du 06/10 (tactile, sport générique fenix5) ajoutées là où le plan en parle (§ 0, 1.1, 2.2, 2.3, 5, 8).
 11. Numéro de ligne de `getAltitude()` (l. 213 à `f306659`) ; exception connue au contrôle « tests non affaiblis » (plafond VS).
 12. Protocole manuel : fenêtre VS précisée pour M01 ; ajout de M13 (fenêtre VS 1/3/5 min), seule fonction livrée sans étape manuelle.
