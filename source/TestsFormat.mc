@@ -280,3 +280,90 @@ function testFlySpeedLineX(logger)
 	Test.assertEqualMessage(flySpeedLineX(0, 0, 26.5, 61.5, i2), 0, "empty line at 0");
 	return true;
 }
+
+// V2 (Time page, plan of 08/10): [textX, textY, iconX, iconY] of the battery
+// line under the time (WatchDisplay.time_and_battery(); the time is drawn in
+// FONT_NUMBER_HOT, VCENTER at h/2; the battery text in FONT_TINY, CENTER |
+// VCENTER at (textX, textY); the 12 x 6 icon plus its 2 px tip at (iconX,
+// iconY)). The old place h/2 + 50 is kept wherever the time and the battery
+// text do not overlap (ink boxes of the layout bench: font box less 16 % of
+// its height at the top and at the bottom); else the battery text is centred
+// on the bottom of the time's font box, h/2 + ceil(hotHeight / 2), as on
+// fenix6pro, and never higher than its first clear place. The icon always
+// follows the text: 2 px above its centre line, its tip left of the text.
+// Font heights and text widths: real values logged by the bench on 09/10.
+(:test)
+function testTimeBatteryLayout(logger)
+{
+	// Old place kept (no bench defect): fenix6pro and fenix5 unchanged, and
+	// fenix7x (NUMBER_HOT 107, taller than fenix6pro's, still 2 px clear).
+	TimeLayoutTestHelper.check(timeBatteryLayout(260, 260, 100, 29, 38), [140, 180, 101, 178], "fenix6pro 76% unchanged");
+	TimeLayoutTestHelper.check(timeBatteryLayout(240, 240, 52, 26, 36), [130, 170, 92, 168], "fenix5 76% unchanged");
+	TimeLayoutTestHelper.check(timeBatteryLayout(280, 280, 107, 31, 40), [150, 190, 110, 188], "fenix7x unchanged (no defect)");
+	TimeLayoutTestHelper.check(timeBatteryLayout(208, 208, 90, 25, 36), [114, 154, 76, 152], "fr55 unchanged");
+	TimeLayoutTestHelper.check(timeBatteryLayout(176, 176, 44, 23, 30), [98, 138, 63, 136], "instinct2 unchanged");
+	TimeLayoutTestHelper.check(timeBatteryLayout(163, 156, 41, 19, 30), [91, 128, 56, 126], "instinct2s (163 x 156) unchanged");
+	// AMOLED 360-466 (bench: time x battery overlap): moved down to
+	// h/2 + ceil(hotHeight / 2).
+	TimeLayoutTestHelper.check(timeBatteryLayout(360, 360, 122, 39, 82), [190, 241, 129, 239], "fr265s 100% (was y 230)");
+	TimeLayoutTestHelper.check(timeBatteryLayout(390, 390, 138, 39, 68), [205, 264, 151, 262], "epix2pro42mm 100% (was y 245)");
+	TimeLayoutTestHelper.check(timeBatteryLayout(390, 390, 140, 33, 68), [205, 265, 151, 263], "instinct3amoled45mm 100% (was y 245)");
+	TimeLayoutTestHelper.check(timeBatteryLayout(416, 416, 159, 43, 70), [218, 288, 163, 286], "fenix843mm 76% (was y 258)");
+	TimeLayoutTestHelper.check(timeBatteryLayout(416, 416, 147, 42, 72), [218, 282, 162, 280], "epix2 100% (was y 258)");
+	TimeLayoutTestHelper.check(timeBatteryLayout(416, 416, 150, 36, 70), [218, 283, 163, 281], "instinct3amoled50mm 100% (was y 258)");
+	TimeLayoutTestHelper.check(timeBatteryLayout(454, 454, 152, 47, 96), [237, 303, 169, 301], "fr965 100% (was y 277)");
+	TimeLayoutTestHelper.check(timeBatteryLayout(466, 466, 173, 47, 96), [243, 320, 175, 318], "fenix9pro51mm 100% (was y 283)");
+	// Bounds of the overlap rule (h 200: old place y 150). NUMBER_HOT 100
+	// (ink bottom 100 + 34) with TINY 46 (ink half 23 - 7 = 16): ink boxes
+	// touch at y 134, not a defect, old place kept. TINY 48 (24 - 7 = 17):
+	// 1 px over; h/2 + 50 = 150 is not enough either, first clear place 151.
+	TimeLayoutTestHelper.check(timeBatteryLayout(200, 200, 100, 46, 40), [110, 150, 70, 148], "ink boxes touching: old place kept");
+	TimeLayoutTestHelper.check(timeBatteryLayout(200, 200, 100, 48, 40), [110, 151, 70, 149], "1 px overlap: first clear place");
+	// Odd font height: ceil(123 / 2) = 62, not 61.
+	TimeLayoutTestHelper.check(timeBatteryLayout(360, 360, 123, 39, 82), [190, 242, 129, 240], "odd NUMBER_HOT height rounded up");
+	// Odd screen size and text width: integer halves, as before.
+	TimeLayoutTestHelper.check(timeBatteryLayout(261, 261, 100, 29, 37), [140, 180, 102, 178], "odd w, h and text width");
+	TimeLayoutTestHelper.check(timeBatteryLayout(260, 260, 100, 29, 0), [140, 180, 120, 178], "empty text: icon 10 px left of centre");
+	// Unknown or empty font heights: the old place.
+	TimeLayoutTestHelper.check(timeBatteryLayout(416, 416, null, 43, 70), [218, 258, 163, 256], "NUMBER_HOT height null: old place");
+	TimeLayoutTestHelper.check(timeBatteryLayout(416, 416, 159, null, 70), [218, 258, 163, 256], "TINY height null: old place");
+	TimeLayoutTestHelper.check(timeBatteryLayout(416, 416, 0, 0, 70), [218, 258, 163, 256], "zero heights: old place");
+	TimeLayoutTestHelper.check(timeBatteryLayout(416, 416, -159, -43, 70), [218, 258, 163, 256], "negative heights: old place");
+
+	// Icon and text aligned, icon clear of the time, on every real device
+	// above: icon centre 1 px below the text's centre line (iconY = textY - 2,
+	// 6 px high), icon tip (iconX + 14) at least 5 px left of the text box, and
+	// the icon's top below the time's ink box.
+	var cases = [
+		[260, 260, 100, 29, 38], [240, 240, 52, 26, 36], [280, 280, 107, 31, 40],
+		[208, 208, 90, 25, 36], [176, 176, 44, 23, 30], [360, 360, 122, 39, 82],
+		[390, 390, 138, 39, 68], [390, 390, 140, 33, 68], [416, 416, 159, 43, 70],
+		[416, 416, 147, 42, 72], [416, 416, 150, 36, 70], [454, 454, 152, 47, 96],
+		[466, 466, 173, 47, 96]
+	];
+	for (var i = 0; i < cases.size(); i++)
+	{
+		var c = cases[i];
+		var r = timeBatteryLayout(c[0], c[1], c[2], c[3], c[4]);
+		var name = "" + c[0] + "x" + c[1] + " hot " + c[2];
+		Test.assertEqualMessage(r[3], r[1] - 2, name + ": icon 2 px above the text centre line");
+		Test.assertMessage(r[2] + 14 <= r[0] - c[4] / 2.0 - 5, name + ": icon tip 5 px or more left of the text");
+		var timeInkBottom = c[1] / 2 + c[2] / 2.0 - (0.16 * c[2]).toNumber();
+		Test.assertMessage(r[3] >= timeInkBottom, name + ": icon below the time's ink");
+	}
+	return true;
+}
+
+(:test)
+class TimeLayoutTestHelper
+{
+	// Asserts that the [textX, textY, iconX, iconY] array `got` is `want`.
+	static function check(got, want, msg)
+	{
+		Test.assertMessage(got != null && got.size() == 4, msg + ": 4 values expected, got " + got);
+		for (var i = 0; i < 4; i++)
+		{
+			Test.assertEqualMessage(got[i], want[i], msg + " [" + i + "] (got " + got + ", want " + want + ")");
+		}
+	}
+}

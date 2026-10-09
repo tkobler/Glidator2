@@ -93,6 +93,15 @@ function flySpeedLineX(centeredX, lineWidth, lineTop, lineBottom, sub)
 	return maxX < 0 ? 0 : maxX;
 }
 
+// Time page battery line (V2). Stub: today's fixed h/2 + 50 (tests first).
+// Returns [textX, textY, iconX, iconY].
+function timeBatteryLayout(w, h, hotHeight, tinyHeight, textWidth)
+{
+	var centerX = w / 2;
+	var y = h / 2 + 50;
+	return [centerX + 10, y, centerX - (textWidth / 2) - 10, y - 2];
+}
+
 // Largest elevation gain shown by the hike Position page, in meters, bound
 // included (decision of 07/10, Position ascent guard). Far above any real
 // day out (Salvan climb: 908 m); a larger Activity totalAscent is a glitch.
