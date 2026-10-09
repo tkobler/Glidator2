@@ -82,7 +82,7 @@ To develop and build Glidator2, you need the following tools:
 ### Building and Running
 - **Command Line**: Use `monkeyc` to compile the project:
   ```bash
-  monkeyc -f monkey.jungle -o bin/Glidator.prg -d <device_id>
+  monkeyc -f monkey.jungle -o bin/Glidator2.prg -d <device_id>
   ```
   Replace `<device_id>` with your target device (e.g., `fenix7`, `fr965`, `instinct2`). Find supported devices in the SDK's `devices` folder.
 - **IDE**:
