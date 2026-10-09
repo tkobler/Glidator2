@@ -798,6 +798,8 @@ function testChainFlightSpeedNegativeShown(logger)
 // FlyInstrumentView. Speed and vario lines are still drawn. A null altitude
 // still gives "starting ..." (testKnownDefectD1..., testChainAltitudeAbsent).
 // Before: 1e10 -> "2147483647", NaN -> "0", 9000.1 -> "9000".
+// Decision D3 B of 09/10: "--" is drawn alone, without " m" (until then
+// "--| m"); a shown altitude keeps its " m".
 (:test, :chaintest, :typecheck(false))
 function testChainFlightAltitudeGuard(logger)
 {
@@ -806,11 +808,11 @@ function testChainFlightAltitudeGuard(logger)
 	var data = new WatchData();
 	var alts = [-500.0, -500.1, 9000.0, 9000.1, 8848.6, 6000.1, 1.0e10,
 		MapTestHelper.nan(), MapTestHelper.inf(), -MapTestHelper.inf()];
-	var want = ["-500", "--", "9000", "--", "8849", "6000", "--", "--", "--", "--"];
+	var want = ["-500| m", "--", "9000| m", "--", "8849| m", "6000| m", "--", "--", "--", "--"];
 	for (var i = 0; i < alts.size(); i++)
 	{
 		WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 9.844), ChainHelper.act(alts[i], null, null, null, null), null);
-		ChainHelper.expect(errs, "altitude " + alts[i], ChainHelper.fly(data), want[i] + "| m|35| km/h");
+		ChainHelper.expect(errs, "altitude " + alts[i], ChainHelper.fly(data), want[i] + "|35| km/h");
 	}
 	// Real value: Salvan 13:01:47 UTC (AltitudeMeters 1732.2).
 	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 9.844), ChainHelper.act(1732.2, null, null, null, null), null);

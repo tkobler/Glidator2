@@ -252,6 +252,37 @@ function testFormatFlightAltitude(logger)
 	return true;
 }
 
+// Decision D3 B of 09/10 (flight page): the unit drawn after the flight
+// altitude (WatchDisplay.altitude()). " m" after a shown altitude, as before;
+// "" (no unit) after "--", null or an empty text: an invalid altitude reads
+// "--" alone. A negative altitude ("-432", one minus sign) keeps its " m".
+(:test)
+function testFlightAltitudeUnit(logger)
+{
+	// Invalid: no unit.
+	Test.assertEqualMessage(flightAltitudeUnit("--"), "", "\"--\": no unit");
+	Test.assertEqualMessage(flightAltitudeUnit(null), "", "null: no unit");
+	Test.assertEqualMessage(flightAltitudeUnit(""), "", "empty text: no unit");
+	// Shown altitudes: " m", unchanged.
+	Test.assertEqualMessage(flightAltitudeUnit("2149"), " m", "2149");
+	Test.assertEqualMessage(flightAltitudeUnit("0"), " m", "zero");
+	Test.assertEqualMessage(flightAltitudeUnit("-500"), " m", "lower bound -500");
+	Test.assertEqualMessage(flightAltitudeUnit("9000"), " m", "upper bound 9000");
+	Test.assertEqualMessage(flightAltitudeUnit("-432"), " m", "negative, one minus sign");
+	Test.assertEqualMessage(flightAltitudeUnit("-4"), " m", "negative, 2 characters like \"--\"");
+	// Through formatFlightAltitude(), as FlyInstrumentView calls them.
+	Test.assertEqualMessage(flightAltitudeUnit(formatFlightAltitude(9000.1)), "", "9000.1 m: \"--\", no unit");
+	Test.assertEqualMessage(flightAltitudeUnit(formatFlightAltitude(-500.1)), "", "-500.1 m: \"--\", no unit");
+	Test.assertEqualMessage(flightAltitudeUnit(formatFlightAltitude(MapTestHelper.nan())), "", "NaN: no unit");
+	Test.assertEqualMessage(flightAltitudeUnit(formatFlightAltitude(MapTestHelper.inf())), "", "+Inf: no unit");
+	Test.assertEqualMessage(flightAltitudeUnit(formatFlightAltitude(null)), "", "null altitude: no unit");
+	Test.assertEqualMessage(flightAltitudeUnit(formatFlightAltitude(9000.0)), " m", "9000.0 m: unit kept");
+	Test.assertEqualMessage(flightAltitudeUnit(formatFlightAltitude(-500.0)), " m", "-500.0 m: unit kept");
+	// Real value: Salvan 10:51:28 UTC (AltitudeMeters 2149.4).
+	Test.assertEqualMessage(flightAltitudeUnit(formatFlightAltitude(2149.4)), " m", "Salvan 2149.4: unit kept");
+	return true;
+}
+
 // V1a (flight page, plan of 08/10): left x of the speed line ("<speed> km/h",
 // WatchDisplay.speed()). Unchanged without a sub-window or when the line is
 // clear of it; else moved left until its right end meets the left edge of

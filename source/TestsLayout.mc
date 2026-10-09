@@ -480,7 +480,37 @@ class LayoutBench
 	{
 		if (state.equals("Empty")) { return new WatchData(); }
 		if (state.equals("Extreme")) { return extremeData(extremeAlt, extremeTimer); }
+		if (state.equals("InvalidAltitude"))
+		{
+			// Normal, altitude 9000.1 m: just above the flight bound, "--".
+			var d = normalData();
+			d.activityData["altitude"] = 9000.1;
+			return d;
+		}
 		return normalData();
+	}
+
+	// Decision D3 B of 09/10: on the flight page, an invalid altitude is
+	// drawn as "--" alone (no " m"), centred on the screen like the
+	// altitude line, (text + unit) centred on w/2: the middle of the "--"
+	// box within 1 px of w/2.
+	static function checkFlyAltitudeAlone(errs)
+	{
+		var dc = render("Fly", "InvalidAltitude");
+		reset();
+		var t = dc.texts;
+		if (t.size() < 2 || !t[0][0].equals("--") || t[1][0].equals(" m"))
+		{
+			errs.add("invalid flight altitude: expected \"--\" without \" m\", got \"" + join(t) + "\"");
+			return;
+		}
+		var b = box(t[0]);
+		var mid = (b[0] + b[2]) / 2.0;
+		var w = System.getDeviceSettings().screenWidth;
+		if ((mid - w / 2.0).abs() > 1.0)
+		{
+			errs.add("invalid flight altitude: \"--\" box " + fmtBox(b) + " centred on x = " + mid.format("%.1f") + ", expected " + (w / 2.0).format("%.1f") + " +- 1");
+		}
 	}
 
 	// Session and start icon of a state: Empty none; Paused a paused session;
@@ -614,6 +644,7 @@ class LayoutBench
 		{
 			if (state.equals("Empty")) { return "starting ..."; }
 			if (state.equals("Extreme")) { return "8849| m|120| km/h|-10.0| m/s"; }
+			if (state.equals("InvalidAltitude")) { return "--|0| km/h|+0.4| m/s"; }
 			return "2149| m|0| km/h|+0.4| m/s";
 		}
 		if (view.equals("Paused"))
@@ -991,7 +1022,7 @@ function testBenchSelfExemptions(logger)
 }
 
 // ---------------------------------------------------------------------------
-// Layout tests: testLayout_<View>_<State> (35)
+// Layout tests: testLayout_<View>_<State> (35, plus Fly_InvalidAltitude)
 // ---------------------------------------------------------------------------
 
 (:test, :layouttest, :typecheck(false))
@@ -1048,6 +1079,16 @@ function testLayout_Fly_Extreme(logger) { return LayoutBench.run(logger, "Fly", 
 function testLayout_Fly_Paused(logger) { return LayoutBench.run(logger, "Fly", "Paused"); }
 (:test, :layouttest, :typecheck(false))
 function testLayout_Fly_Recording(logger) { return LayoutBench.run(logger, "Fly", "Recording"); }
+// Decision D3 B of 09/10: altitude 9000.1 m (recording) reads "--" alone,
+// without " m", centred; the speed and vario lines as in Normal.
+(:test, :layouttest, :typecheck(false))
+function testLayout_Fly_InvalidAltitude(logger)
+{
+	var ok = LayoutBench.run(logger, "Fly", "InvalidAltitude");
+	var errs = [];
+	LayoutBench.checkFlyAltitudeAlone(errs);
+	return LayoutBench.finish(errs, logger) && ok;
+}
 
 (:test, :layouttest, :typecheck(false))
 function testLayout_Compass_Empty(logger) { return LayoutBench.run(logger, "Compass", "Empty"); }

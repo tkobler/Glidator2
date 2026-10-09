@@ -72,6 +72,13 @@ function formatFlightAltitude(alt)
 	return Toybox.Math.round(alt).toNumber().toString();
 }
 
+// Unit drawn after the flight altitude text (decision D3 B of 09/10).
+// Stub: today's behaviour, " m" after any text.
+function flightAltitudeUnit(altText)
+{
+	return " m";
+}
+
 // Left x of the flight page speed line ("<speed> km/h", WatchDisplay.speed(),
 // plan point V1a): centeredX, the x of the centred line, as is when there is
 // no sub-window (sub null: every watch but the Instinct), when the line is
