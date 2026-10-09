@@ -47,17 +47,50 @@ function formatHikeAltitude(alt)
 	return Toybox.Math.round(v).toNumber().toString();
 }
 
-// Flight page altitude (V1b). Stub: today's FlyInstrumentView rounding, no
-// guard (tests first).
+// Altitude range shown by the flight page (decision of 2026-10-08, plan
+// point V1b): wider than the hike pages', a flight can go above 6000 m.
+const FLIGHT_ALTITUDE_MIN_M = -500.0d;
+const FLIGHT_ALTITUDE_MAX_M = 9000.0d;
+
+// Formats an altitude in meters for the flight page (FlyInstrumentView),
+// rounded to the meter exactly as before (Math.round of the value as given).
+// "--" when null, NaN, +-Infinity or outside FLIGHT_ALTITUDE_MIN_M..
+// FLIGHT_ALTITUDE_MAX_M (bounds included). The range is checked on the raw
+// value, in Double, before rounding: 9000.4 reads "--", not "9000". Before
+// the guard, 1e10 read "2147483647" and NaN "0".
 function formatFlightAltitude(alt)
 {
-	return alt == null ? null : Toybox.Math.round(alt).toNumber().toString();
+	if (alt == null)
+	{
+		return "--";
+	}
+	var v = alt.toDouble();
+	if (!isFiniteFloat(v) || v < FLIGHT_ALTITUDE_MIN_M || v > FLIGHT_ALTITUDE_MAX_M)
+	{
+		return "--";
+	}
+	return Toybox.Math.round(alt).toNumber().toString();
 }
 
-// Flight page speed line x (V1a). Stub: today's centred x (tests first).
+// Left x of the flight page speed line ("<speed> km/h", WatchDisplay.speed(),
+// plan point V1a): centeredX, the x of the centred line, as is when there is
+// no sub-window (sub null: every watch but the Instinct), when the line is
+// above or below it (lineTop..lineBottom outside sub's height) or already
+// ends left of it. Else the line is moved left until its right end
+// (x + lineWidth) meets the sub-window's left edge sub[0], never left of 0.
+// sub: [x, y, width, height] of WatchUi.getSubscreen(), or null.
 function flySpeedLineX(centeredX, lineWidth, lineTop, lineBottom, sub)
 {
-	return centeredX;
+	if (sub == null || lineBottom <= sub[1] || lineTop >= sub[1] + sub[3])
+	{
+		return centeredX;
+	}
+	var maxX = sub[0] - lineWidth;
+	if (centeredX <= maxX)
+	{
+		return centeredX;
+	}
+	return maxX < 0 ? 0 : maxX;
 }
 
 // Largest elevation gain shown by the hike Position page, in meters, bound

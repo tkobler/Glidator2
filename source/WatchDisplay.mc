@@ -156,6 +156,8 @@ class WatchDisplay
         var dimUnit = dc.getTextDimensions(unit, Graphics.FONT_XTINY) as [Lang.Number, Lang.Number];
         
         xOffset -= (dimSpeed[0] + dimUnit[0]) / 2;
+        // Instinct: moved left, clear of the sub-window (V1a); elsewhere unchanged.
+        xOffset = $.flySpeedLineX(xOffset, dimSpeed[0] + dimUnit[0], yOffset - dimSpeed[1] / 2.0, yOffset + dimSpeed[1] / 2.0, subscreenBox());
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(xOffset, yOffset, Graphics.FONT_NUMBER_MILD, speed, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         
@@ -611,6 +613,31 @@ class WatchDisplay
         return HikeGridLayout.compute(w, h, round, sub, w * 0.1,
             [dc.getFontHeight(Graphics.FONT_XTINY), Graphics.getFontAscent(Graphics.FONT_XTINY)],
             [dc.getFontHeight(Graphics.FONT_NUMBER_MILD), Graphics.getFontAscent(Graphics.FONT_NUMBER_MILD)]);
+    }
+
+    // WatchUi.getSubscreen() as [x, y, width, height], read once (it does not
+    // change), for the flight page speed line (V1a). null without the API
+    // (CIQ < 3.2.7: fenix5...) or without a sub-window.
+    var subBox = null;
+    var subBoxDone = false;
+
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    function subscreenBox()
+    {
+        if (!subBoxDone)
+        {
+            subBoxDone = true;
+            if (WatchUi has :getSubscreen)
+            {
+                var b = WatchUi.getSubscreen();
+                if (b != null && b.width != null && b.height != null)
+                {
+                    subBox = [b.x == null ? 0 : b.x, b.y == null ? 0 : b.y, b.width, b.height];
+                }
+            }
+        }
+        return subBox;
     }
 
     (:typecheck(false))
