@@ -110,14 +110,18 @@ class WatchDisplay
         
     function altitude(alt, recording)
     {
-        var unit = " m";
-    
+        var unit = $.flightAltitudeUnit(alt); // " m", none after "--" (D3 B of 09/10)
+
         var yOffset = dc.getHeight() / 2;
         var xOffset = dc.getWidth() / 2;
-        
+
         var dimAlt  = dc.getTextDimensions(alt, Graphics.FONT_NUMBER_HOT) as [Lang.Number, Lang.Number];
-        var dimUnit = dc.getTextDimensions(unit, Graphics.FONT_XTINY) as [Lang.Number, Lang.Number];
-        
+        var dimUnit = [0, 0];
+        if (unit.length() > 0)
+        {
+            dimUnit = dc.getTextDimensions(unit, Graphics.FONT_XTINY) as [Lang.Number, Lang.Number];
+        }
+
         xOffset -= (dimAlt[0] + (recording ? 1.5 : 1) * dimUnit[0]) / 2;
         
 
@@ -139,7 +143,11 @@ class WatchDisplay
         
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(xOffset, yOffset, Graphics.FONT_NUMBER_HOT, alt, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
-        
+
+        if (unit.length() == 0)
+        {
+            return;
+        }
         xOffset += dimAlt[0];
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(xOffset, yOffset, Graphics.FONT_XTINY, unit, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
