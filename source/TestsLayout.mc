@@ -143,7 +143,7 @@ class LayoutBench
 		$.sensorsOffForPause = false;
 		if ($.preferences == null)
 		{
-			$.preferences = new Preferences();
+			$.preferences = new Preferences(Toybox.Application.getApp());
 		}
 	}
 
