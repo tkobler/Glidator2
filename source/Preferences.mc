@@ -177,7 +177,18 @@ function preferenceToKeep(storageValue, legacyValue)
 // Returns the number of keys migrated.
 function migrateLegacyPreferences(legacy)
 {
-	if (legacy == null || !(legacy has :getProperty) || !(legacy has :deleteProperty))
+	return migrateLegacyPreferencesTo(legacy, new AppStorageStore());
+}
+
+// Same migration into `store` (any object with getValue / setValue:
+// AppStorageStore in the app, a stand-in in tests). It runs at start-up, so
+// it never throws: if reading or writing a key fails (setValue raises an
+// exception when the store is full), that key is skipped and its old value is
+// kept for the next launch; the other key is still migrated. A null store
+// migrates nothing.
+function migrateLegacyPreferencesTo(legacy, store)
+{
+	if (legacy == null || !(legacy has :getProperty) || !(legacy has :deleteProperty) || store == null)
 	{
 		return 0;
 	}
@@ -188,22 +199,55 @@ function migrateLegacyPreferences(legacy)
 		var old = legacy.getProperty(keys[i]);
 		if (old != null)
 		{
-			var kept = preferenceToKeep(Application.Storage.getValue(keys[i]), old);
-			Application.Storage.setValue(keys[i], sanitizePreference(keys[i], kept));
-			legacy.deleteProperty(keys[i]);
-			migrated += 1;
+			var written = false;
+			try
+			{
+				var kept = preferenceToKeep(store.getValue(keys[i]), old);
+				store.setValue(keys[i], sanitizePreference(keys[i], kept));
+				written = true;
+			}
+			catch (e)
+			{
+				// Old key left in place: retried on the next launch.
+			}
+			if (written)
+			{
+				legacy.deleteProperty(keys[i]);
+				migrated += 1;
+			}
 		}
 	}
 	return migrated;
+}
+
+// Application.Storage behind the getValue / setValue pair used by
+// migrateLegacyPreferencesTo().
+class AppStorageStore
+{
+	function initialize() {}
+
+	function getValue(key)
+	{
+		return Application.Storage.getValue(key);
+	}
+
+	function setValue(key, value)
+	{
+		Application.Storage.setValue(key, value);
+	}
 }
 
 // --------------------------------------------------------------------------------
 
 class Preferences
 {
-	function initialize()
+	// `app`: the AppBase holding the old object store. FlyInstrumentApp passes
+	// self from its own constructor rather than looking the app up with
+	// Application.getApp() while it is still being built. null means nothing
+	// to migrate.
+	function initialize(app)
     {
-		$.migrateLegacyPreferences(Application.getApp());
+		$.migrateLegacyPreferences(app);
     }
 
 	// Read from Storage on every call (no cache).

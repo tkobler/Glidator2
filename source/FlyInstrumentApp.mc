@@ -403,7 +403,7 @@ class FlyInstrumentApp extends Application.AppBase
     function initialize()
     {
         AppBase.initialize();
-        preferences = new Preferences();
+        preferences = new Preferences(self);
         mode = MODE_HIKE;
         currentViewIndex = 0;
         Sys.println("App initialized");
