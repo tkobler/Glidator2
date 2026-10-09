@@ -453,7 +453,8 @@ class LayoutBench
 	// 6000 (upper bound), D+ 20000 (upper bound), 999.9 km, 99:59:59, HR 250
 	// (upper bound), vertical speed -2998 m/h -> "-3000" (cap +-3000 m/h),
 	// pace 0.2778 m/s -> "60:00" (slowest shown). Flight: `alt` (8849 m,
-	// no bound there), 33.3 m/s -> "120" km/h, vario -10.0.
+	// within the flight bounds -500..9000 m), 33.3 m/s -> "120" km/h,
+	// vario -10.0.
 	static function extremeData(alt, timerMs)
 	{
 		var d = new WatchData();

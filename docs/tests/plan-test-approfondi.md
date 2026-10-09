@@ -47,7 +47,7 @@ Vues (onUpdate(dc)) : lisent app.mainView.data et app.breadcrumbTrail, puis form
   DISTANCE = formatDistanceKm(distance) (si session)   TIMER = formatDuration(timerTime)    (si session)
   Heart Rate = formatHeartRate(getHeartRate())   VERT. SPD. = formatVerticalSpeed(HikeHistory, fenêtre VS 1/3/5 min)
   PACE = formatPace(HikeHistory 60 s, distance)  Vol : vitesse = getSpeed()*3.6 "%.0f", vario = alt - oldAlt "%.1f"
-  Vol : altitude = Math.round(getAltitude()) sans garde (FlyInstrumentView.mc:69, état au 09/10 ; décision du 08/10 : `--` si non finie ou hors [−500 ; 9000] m, pas encore codée sur cette branche)
+  Vol : altitude = formatFlightAltitude(getAltitude()) (FlyInstrumentView.mc:69, Utils.mc) : `--` si non finie ou hors [−500 ; 9000] m (décision du 08/10, point V1b, codé le 09/10), sinon Math.round comme avant
 ```
 
 Priorités des sources (WatchData) :
@@ -73,7 +73,8 @@ Priorités des sources (WatchData) :
 ### 1.3 Défauts relevés à la lecture
 
 **Décisions de l'utilisateur (06/10)** :
-- **Défauts connus, non corrigés** (aucun test rouge) : **D1**, **D2 côté FlyInstrumentView**, **D4**. FlyInstrumentView.mc et le vario restent intacts. D1 et D4 sont verrouillés par des tests qui passent (`testKnownDefectD1…`, `testKnownDefectD4…`) : s'ils échouent, le comportement a changé (pour D1, c'est la source du vario qui aurait changé). D2 côté vol n'a pas de test (l'affichage de 1e10 ou NaN n'est pas un comportement à figer).
+- **Défaut connu, non corrigé** (aucun test rouge) : **D1**. Le vario reste intact. D1 est verrouillé par un test qui passe (`testKnownDefectD1…`) : s'il échoue, le comportement a changé (c'est la source du vario qui aurait changé).
+- **Mis à jour le 09/10 (plan d'affichage du vol validé le 08/10)** : **D2 côté FlyInstrumentView corrigé** (point V1b : `--` si non finie ou hors [−500 ; 9000] m, `testFormatFlightAltitude`, `testChainFlightAltitudeGuard`). **D4 n'est plus un défaut** (point V1c, décision de l'utilisateur : la vitesse négative reste affichée telle quelle) : le test s'appelle désormais `testChainFlightSpeedNegativeShown`.
 - **À corriger** (tests rouges `testDefect*` au 06/10) : D2 côté HikePositionView, D3, D5, D6, D7, D8, D9. **Tous corrigés les 06 et 07/10** (commits `bc34950` D6, `6c00c74` D3, `a7d5563` D2, `d797013` D5, `2f1e05f` D7 et D8, `6295a70` D9) : les tests `testDefect*` gardent leur nom et **passent** depuis.
 - **Bornes d'affichage décidées** : altitude valide de **−100 à 6000 m** (HikePositionView), FC valide de **25 à 250 bpm** (HikePaceView) ; hors bornes ou non finie → `--`. La borne porte sur la valeur brute : −100,1 et 6000,1 donnent `--`, −99,6 donne `-100`.
 - **Garde du D+ de la page Position (décision du 07/10)** : ELEV. GAIN valide de **0 à 20 000 m** (bornes incluses), sinon (négatif, au-delà de 20 000 m, NaN, ±Inf, null) → `--`, par `formatHikeAscent()` (Utils.mc). La borne porte sur la valeur brute : −0,1 et 20 000,1 donnent `--` ; −0,0 donne `0`. Le D+ n'est affiché que par HikePositionView.
@@ -87,9 +88,9 @@ Valeurs « actuelles » ci-dessous : celles relevées à l'exécution des tests 
 |---|---|---|---|---|---|---|
 | D1 | **défaut connu, non corrigé** | `WatchData.mc:119-122` (lu par `getAltitude()` l. 215-218) | `updateActivityInfo` enregistre `"altitude" => null` dès que le champ existe. `getAltitude()` renvoie alors null et masque l'altitude Sensor/GPS | `getAltitude()` = null, ALTITUDE `--`, vol `starting ...`, aucun échantillon de marche | (non corrigé : le correctif changerait la source du vario) | `testKnownDefectD1NullActivityAltitudeHidesSensor` : **verrouille** le comportement actuel, PASS |
 | D2 marche | **corrigé** (`a7d5563`) | `HikePositionView.mc:45` | `Math.round(alt).toNumber()` sans garde ni bornes | −100,1 → `-100` ; 6000,1 → `6000` ; 8848,6 → `8849` ; 1e10 et +Inf → `2147483647` ; −Inf → `-2147483648` ; NaN → `0` | `--` si l'altitude n'est pas finie ou sort de [−100 ; 6000] m | `testDefectAltitudeOutOfBounds`, `testDefectAltitudeNonFinite` : PASS depuis la correction |
-| D2 vol | **défaut connu, non corrigé** | `FlyInstrumentView.mc:69` | même calcul sans garde | idem | (FlyInstrumentView intact) | aucun test (comportement absurde non figé) ; `-432` et `8849` en vol épinglés dans `testChainAltitudeNegativeAndHigh` |
+| D2 vol | **corrigé le 09/10** (point V1b du plan d'affichage du vol) | `FlyInstrumentView.mc:69` | même calcul sans garde | idem | `formatFlightAltitude()` (Utils.mc) : `--` si non finie ou hors [−500 ; 9000] m, bornes valides, contrôle sur la valeur brute | `testFormatFlightAltitude`, `testChainFlightAltitudeGuard` ; `-432` et `8849` en vol toujours affichés (`testChainAltitudeNegativeAndHigh`) |
 | D3 | **corrigé** (`6c00c74`) | `HikePositionView.mc:53` | distance négative affichée | `-0.0` pour −5 m, `-1.0` pour −1000 m | `--` | `testDefectNegativeDistance` : PASS |
-| D4 | **défaut connu, non corrigé** | `FlyInstrumentView.mc:71-75` | vitesse négative affichée | `-4` pour −1 m/s | (FlyInstrumentView intact) | `testKnownDefectD4NegativeFlightSpeedShown` : **verrouille** `-4`, PASS |
+| D4 | **comportement voulu** (décision du 08/10, point V1c : plus un défaut) | `FlyInstrumentView.mc:71-75` | vitesse négative affichée | `-4` pour −1 m/s | aucun (la vitesse de vol n'est pas bornée) | `testChainFlightSpeedNegativeShown` (ex-`testKnownDefectD4NegativeFlightSpeedShown`) : `-4`, PASS |
 | D5 | **corrigé** (`d797013`) | `HikePaceView.mc:40` | FC hors bornes affichée telle quelle | `24`, `251`, `0`, `255`, `-1`, `300` (capteur) | `--` hors de [25 ; 250] bpm | `testDefectHeartRateOutOfBounds` : PASS |
 | D6 | **corrigé** (`bc34950`) | `Utils.mc:6-24` | `formatDuration` d'une valeur négative | −65 000 → `-1:-5` ; −1000 → `00:-1` ; −1 → `00:00` ; −3 600 000 → `00:00` | `--:--` pour toute valeur < 0 | `testDefectNegativeDuration` : PASS |
 | D7 | **corrigé** (`2f1e05f`) | `WatchDisplay.mc:315-323` | hémisphères S/W : signe moins **et** lettre S/W | `-22°57'6.8"S` / `-43°12'37.8"W` | `22°57'6.8"S` / `43°12'37.8"W` | `testDefectCompassSouthWestSign` : PASS |
@@ -244,7 +245,7 @@ Avant et après chaque test, remettre à zéro : `$.session = null`, `$.recordFl
 - Textes de hikeGrid, dans l'ordre de dessin : sans cœur (Position) : `[topLabel, topValue, leftLabel, rightLabel, leftValue, rightValue, bottomLabel, bottomValue]` ; avec cœur (Pace) : `[topValue, leftLabel, rightLabel, leftValue, rightValue, bottomLabel, bottomValue]`.
 - Pour les vues qui appellent `System.getTimer()` (VERT. SPD. et PACE) : `end = System.getTimer() + 500` ; chaque échantillon réel d'heure T_i est enregistré à `end - (T_fin - T_i)`. **Correction** : il faut *avancer* de 500 ms (et non reculer) pour que le premier échantillon, 59,5 s avant `end`, reste dans la fenêtre de 60 s quand `onUpdate` relit l'horloge quelques ms plus tard. La régression ne dépend pas d'une translation des temps. Les tests de chaîne utilisent la fenêtre VS par défaut (1 min).
 - `testDefect*` : ces tests vérifient la valeur **correcte**. Au 06/10, ils échouaient tant que le défaut existait : ils listaient toutes les valeurs fausses dans le journal (`ERROR (hh:mm): …`) puis renvoyaient `false`, ce qui donnait **FAIL** (une assertion ratée sort en ERROR, sans son message). **Depuis les corrections des 06-07/10, ils passent tous.**
-- `testKnownDefect*` : défaut que l'utilisateur garde (D1, D4) ; le test **verrouille le comportement actuel** et passe.
+- `testKnownDefect*` : défaut que l'utilisateur garde (D1) ; le test **verrouille le comportement actuel** et passe. (D4 en est sorti le 09/10 : comportement voulu, `testChainFlightSpeedNegativeShown`.)
 
 #### Extraits réels (TCX), utilisés tels quels
 
@@ -307,7 +308,7 @@ HikeHistory accepte 13 échantillons, aux ticks 10:50:28 + 5k s. Altitudes reten
 | F01 | `testChainAltitudeSourcePriority` | `feedTick` : Activity 2149.4, Sensor 2150.0, GPS 2155.0 ; puis Activity sans champ altitude (`FakeSensorInfo` 2150.0) ; puis GPS seul 2155.0 | `getAltitude()` = 2149.4, puis 2150.0, puis 2155.0. HikePositionView, valeur du haut : `2149`, puis `2150`, puis `2155` |
 | F02 | `testKnownDefectD1NullActivityAltitudeHidesSensor` (**D1, défaut connu**) | `FakeFullActivityInfo` avec altitude **null**, `FakeSensorInfo(1500.0, null)` | **verrouille l'actuel** (décision 06/10, option prudente : la source du vario ne doit pas changer en douce) : `getAltitude()` null, ALTITUDE `--`, vol `starting ...`, 0 échantillon, vario et `oldAlt` null. PASS |
 | F03 | `testChainAltitudeAbsent` | aucune altitude dans les 3 sources | `getAltitude()` null ; HikePositionView haut `--` ; FlyInstrumentView dessine seulement `starting ...` (aucun texte ` m`) ; `getVario()` reste null |
-| F04 | `testChainAltitudeNegativeAndHigh` | Marche : −100.0, 6000.0, 0.0, −99.6, 5999.4 ; vol : −432.4, 8848.6 | Marche : `-100`, `6000`, `0`, `-100`, `5999` (bornes valides) ; vol (FlyInstrumentView intact, sans bornes) : `-432`, `8849`. PASS |
+| F04 | `testChainAltitudeNegativeAndHigh` | Marche : −100.0, 6000.0, 0.0, −99.6, 5999.4 ; vol : −432.4, 8848.6 | Marche : `-100`, `6000`, `0`, `-100`, `5999` (bornes valides) ; vol (bornes −500..9000 depuis le 09/10, V1b) : `-432`, `8849`. PASS |
 | F05a | `testDefectAltitudeOutOfBounds` (**D2 marche**, corrigé) | −100.1, 6000.1, −432.4, 8848.6, −1000, 1e10, −1e10 | **correct** `--` partout. Au 06/10 : `-100`, `6000`, `-432`, `8849`, `-1000`, `2147483647`, `-2147483648` (FAIL). PASS depuis `a7d5563` |
 | F05b | `testDefectAltitudeNonFinite` (**D2 marche**, corrigé) | +Inf, −Inf, NaN | **correct** `--`. Au 06/10 : `2147483647`, `-2147483648`, `0` (FAIL). PASS depuis `a7d5563` |
 | F06 | `testChainVerticalSpeedSalvanSteepClimb` | extrait M (11 échantillons) | `getHikeVerticalSpeedAt(T_fin)` = 944,6 ± 0,3 m/h ; `formatVerticalSpeed` → `+940` ; HikePaceView VERT. SPD. `+940` |
@@ -320,7 +321,8 @@ HikeHistory accepte 13 échantillons, aux ticks 10:50:28 + 5k s. Altitudes reten
 | F12b | `testChainPositionAscentGuard` (garde du D+, décision du 07/10) | session ; altitude 2149.4, distance 1692.49, chrono 1 965 000 ; `totalAscent` −0.1, −1.0, 20 000.1, 20 000.4, 20 001.0, 1e10, NaN, +Inf, −Inf ; puis 20 000.0, −0.0, 908.0 (D+ de la montée de Salvan) ; puis sans session | ELEV. GAIN `--` pour les 9 premières valeurs (avant la garde, mesuré le 07/10 sur fenix6pro : `0`, `-1`, `20000`, `20000`, `20001`, `2147483647`, `0`, `2147483647`, `-2147483648`) ; `20000`, `0`, `908` ; sans session `--`. Fonction pure : `testFormatHikeAscent` (TestsFormat.mc) |
 | F13 | `testDefectNegativeDistance` (**D3**, corrigé) | session, distance −5.0 puis −1000.0 | **correct** `--` ; au 06/10 : `-0.0`, `-1.0` (FAIL). PASS depuis `6c00c74` |
 | F14 | `testChainFlightSpeedKmh` | FlyInstrumentView, altitude 1732.2 : (a) Sensor null + GPS 9.844 ; (b) Sensor 2.0 ; (c) Activity 0.0 seule ; (d) aucune vitesse ; (e) GPS 1000.0 | (a) `35` ; (b) `7` ; (c) `0` ; (d) aucun texte ` km/h` ; (e) `3600` |
-| F15 | `testKnownDefectD4NegativeFlightSpeedShown` (**D4, défaut connu**) | GPS −1.0 | **verrouille l'actuel** : `1732| m|-4| km/h`. PASS. FlyInstrumentView reste intact (décision 06/10) |
+| F15 | `testChainFlightSpeedNegativeShown` (ex-`testKnownDefectD4…` ; D4 = **comportement voulu**, décision du 08/10, V1c) | GPS −1.0 | `1732| m|-4| km/h`. PASS |
+| F15b | `testChainFlightAltitudeGuard` (V1b, 09/10) | Activity −500.0, −500.1, 9000.0, 9000.1, 8848.6, 6000.1, 1e10, NaN, ±Inf, puis 1732.2 (Salvan) ; GPS 9.844 m/s | `-500`, `--`, `9000`, `--`, `8849`, `6000`, `--` ×4, `1732` ; toujours suivis de ` m|35| km/h`. PASS |
 | F16 | `testChainHeartRateSources` | (a) Activity 139, Sensor 141 ; (b) Activity null, Sensor 141 ; (c) les deux null ; bornes valides 25 et 250 (Activity puis Sensor) | HikePaceView haut : `139`, `141`, `--`, `25`, `250`, `25`, `250`. PASS |
 | F17 | `testDefectHeartRateOutOfBounds` (**D5**, corrigé) | Activity 24, 251, 0, 255, −1 (Sensor null) ; Sensor 24, 251, 300 seuls | **correct** `--` partout ; au 06/10 : `24`, `251`, `0`, `255`, `-1`, `300` (FAIL). PASS depuis `d797013` |
 | F17b | `testChainHeartRateInvalidActivityHidesSensor` (décision du 07/10 : pas de repli) | Activity 0, 24, 251 avec Sensor 141 | `getHeartRate()` garde la valeur d'Activity ; HikePaceView haut `--` (et non `141`). PASS |
@@ -338,7 +340,7 @@ HikeHistory accepte 13 échantillons, aux ticks 10:50:28 + 5k s. Altitudes reten
 | F29 | `testVarioDisplayThresholdsAndText` (lecture seule) | `WatchDisplay(ChainDc)` : `start(v)` puis `vario(v)` pour v = 0.3, 0.29, −2.0, −1.99, 1.5, −1.0, 0.0 | couleur de fond du `clear()` : vert, gris clair, rouge, gris clair, vert, gris clair, gris clair ; textes `+0.3`, `+0.3`, `-2.0`, `-2.0`, `+1.5`, `-1.0`, `+0.0` (comportement actuel épinglé, sans jugement) |
 
 Bilan de l'axe 1 au 06/10 (fenix6pro et fenix5, résultats identiques) : 30 tests (F05 coupé en deux) ; 22 passaient, 8 en échec attendu (7 FAIL et 1 ERROR, D2 marche, D3, D5 à D9) ; suite complète `Ran 106 tests` → `FAILED (passed=98, failed=7, errors=1)`.
-**Bilan au 08/10 (`f306659`)** : **32 tests** (F12b et F17b ajoutés), **32 PASS** sur fenix6pro et fenix5 : les 8 `testDefect*` passent depuis les corrections, les 2 `testKnownDefect*` verrouillent toujours D1 et D4.
+**Bilan au 08/10 (`f306659`)** : **32 tests** (F12b et F17b ajoutés), **32 PASS** sur fenix6pro et fenix5 : les 8 `testDefect*` passent depuis les corrections, les 2 `testKnownDefect*` verrouillent toujours D1 et D4. **Au 09/10** : 33 tests (F15 renommé, D4 devenu comportement voulu ; F15b ajouté), 33 PASS sur fenix6pro et fenix5.
 
 ### 3.2 Banc d'affichage (tâche b) : 39 tests, dans un nouveau `source/TestsLayout.mc` en `(:test)`
 
@@ -377,7 +379,7 @@ Les rounds suivants **comparent la liste des noms**, pas leur nombre. Un nom en 
 **instinct2 (176×176, semi-octogone, sous-fenêtre (113, 0, 62, 62))** : 166 tests, 143 PASS, 23 FAIL. *disk* = au moins un `SUBSCREEN disk` (le texte atteint la fenêtre ronde) ; *corner* = seulement des `SUBSCREEN corner` (coins du carré englobant).
 - `testLayout_HikePosition_Empty`, `_Normal`, `_Extreme`, `_Paused`, `_Recording` (5) : *disk*. Aussi OVERLAP `"ALTITUDE"` × valeur du haut, `"ELEV. GAIN"` × `"DISTANCE"`, `"TIMER"` × chrono ; SUBSCREEN `"ALTITUDE"`, `"DISTANCE"`.
 - `testLayout_HikePace_Empty`, `_Normal`, `_Extreme`, `_Paused`, `_Recording` (5) : *disk*. Aussi OVERLAP `"TIMER"` × chrono ; SUBSCREEN `"PACE"`, plus la FC hors état vide.
-- `testLayout_Fly_Normal`, `_Extreme`, `_Paused`, `_Recording` (4) : *disk*, SUBSCREEN `" km/h"`. Zone sensible : signalé, non corrigé.
+- `testLayout_Fly_Normal`, `_Extreme`, `_Paused`, `_Recording` (4) : *disk*, SUBSCREEN `" km/h"`. **Corrigé le 09/10** (point V1a : ligne vitesse décalée à gauche de la sous-fenêtre, `flySpeedLineX()`) : les 4 passent.
 - `testLayout_Compass_Normal`, `_Extreme`, `_Paused`, `_Recording` (4) : *disk*, SUBSCREEN `"E"` (cap 0.785 rad).
 - `testLayout_Paused_Empty`, `_Normal`, `_Extreme`, `_Paused`, `_Recording` (5) : *corner*, SUBSCREEN `"Paused"`.
 
@@ -397,11 +399,11 @@ Les rounds suivants **comparent la liste des noms**, pas leur nombre. Un nom en 
 
 | Axe | Tests | Attendu (08/10) |
 |---|---|---|
-| 1. Fonctionnel (tâche a) | 32 = 29 identifiants F01–F29, dont F05 compté deux fois (F05a, F05b), + F12b + F17b ; **écrits** (`source/TestsChain.mc`) | 32 PASS (dont D1 et D4 verrouillés) ; les 8 `testDefect*` passent depuis les corrections des 06-07/10 |
+| 1. Fonctionnel (tâche a) | 32 = 29 identifiants F01–F29, dont F05 compté deux fois (F05a, F05b), + F12b + F17b ; **écrits** (`source/TestsChain.mc`) | 32 PASS (dont D1 et D4 verrouillés) ; les 8 `testDefect*` passent depuis les corrections des 06-07/10 ; 33 au 09/10 (F15b, D4 devenu comportement voulu) |
 | 2. Affichage (tâche b) | 40 (B01–B04, `testBenchSelfExemptions`, 35 `testLayout_*`), **écrits** (`source/TestsLayout.mc`, 07-08/10) | B01–B04 PASS ; échecs attendus = liste nominative du § 3.2 relevée le 08/10 (fenix6pro 2, instinct2 23, fenix5 0, fenix843mm 13) ; depuis les corrections d'affichage, fenix6pro et fenix5 passent toute la suite (09/10) |
 | 2. Fonctions (tâche c) | 9 vérifications C01–C09 sur 62 montres (procédure, pas de nouveau code) | voir § 2.3 |
 | Manuel | 13 étapes M01–M13 (§ 5) | voir § 5 |
-| **Suite complète par montre** | **182** au 09/10 = 91 (`Tests.mc`) + 7 (`TestsFormat.mc`) + 32 (`TestsChain.mc`) + 40 (`TestsLayout.mc`) + 8 (`TestsHikeGrid.mc`) + 4 (`TestsHikeMap.mc`) ; 166 au 08/10 (88 + 7 + 32 + 39) | le plan du 06/10 prévoyait 76 + 69 = 145 ; l'écart vient des tests ajoutés avec les corrections des 06-07/10 (Tests.mc +12, TestsFormat.mc +7, TestsChain.mc +2), puis des corrections d'affichage de la marche et de la migration des réglages (08-09/10) |
+| **Suite complète par montre** | **185** au 09/10 après V1a/V1b = 91 (`Tests.mc`) + 9 (`TestsFormat.mc`) + 33 (`TestsChain.mc`) + 40 (`TestsLayout.mc`) + 8 (`TestsHikeGrid.mc`) + 4 (`TestsHikeMap.mc`) ; 182 au 09/10 avant (7 et 32) ; 166 au 08/10 (88 + 7 + 32 + 39) | le plan du 06/10 prévoyait 76 + 69 = 145 ; l'écart vient des tests ajoutés avec les corrections des 06-07/10 (Tests.mc +12, TestsFormat.mc +7, TestsChain.mc +2), puis des corrections d'affichage de la marche et de la migration des réglages (08-09/10) |
 
 ---
 
@@ -463,13 +465,14 @@ Les deux jungles compilent sur fenix6pro (07/10). Le 07/10, le .prg complet (166
 - **`monkeydo` renvoie le code 1 même quand tout passe** (constaté le 05/10). Ne jamais se fier au code de retour.
 - Lire le bloc de fin `RESULTS` : `Ran N tests`, puis `PASSED (passed=N, failed=0, errors=0)` ou `FAILED (passed=…, failed=…, errors=…)`.
 - Chaque test affiche `PASS`, `FAIL` ou `ERROR` ; en cas d'ERROR, une pile `Error: … Stack: … at source/<fichier>:<ligne>` suit.
-- Attendu par montre au 08/10 : **N = 166**. Les échecs attendus sont **seulement** des `testLayout_*`, ceux de la liste nominative du § 3.2 pour les montres qui y figurent. Aucun `testDefect*` ne doit échouer (tous corrigés les 06-07/10) ; les `testKnownDefect*` doivent toujours passer. Tout autre FAIL ou ERROR est une régression à signaler.
+- Attendu par montre au 08/10 : **N = 166**. Les échecs attendus sont **seulement** des `testLayout_*`, ceux de la liste nominative du § 3.2 pour les montres qui y figurent. Aucun `testDefect*` ne doit échouer (tous corrigés les 06-07/10) ; les `testKnownDefect*` doivent toujours passer. Tout autre FAIL ou ERROR est une régression à signaler. Depuis la décision D2 du 08/10, la suite complète doit être **verte** (N = 185 au 09/10 après V1a/V1b).
 - Les tests `testStopRecordingSaves*` enregistrent une activité dans le simulateur. Une ERROR isolée sur ces tests a déjà été vue (instable) : relancer une fois avant de conclure.
 
 ### 4.5 Contrôles des zones sensibles (base `origin/hikeandfly`, ou le dernier commit vérifié, ex. `a078d7d`)
 | Contrôle | Commande | Attendu |
 |---|---|---|
-| FlyInstrumentView | `git diff origin/hikeandfly -- source/FlyInstrumentView.mc` | vide |
+| FlyInstrumentView | `git diff origin/hikeandfly -- source/FlyInstrumentView.mc` | vide jusqu'au 08/10 ; depuis le 09/10, une seule ligne changée : l. 69, `display.altitude ($.formatFlightAltitude(altitude), record)` (V1b) |
+| `WatchDisplay.start()` (l. 25-55) | `git diff origin/hikeandfly -- source/WatchDisplay.mc` | aucun hunk dans cette fonction ; `speed()` : seulement l'appel à `flySpeedLineX()` (V1a, 09/10) |
 | `WatchDisplay.vario()` (l. 193-230) et `beep()` (l. 167-187) | `git diff origin/hikeandfly -- source/WatchDisplay.mc` | aucun hunk dans ces fonctions |
 | `WatchData` : `oldAlt` (l. 12), `endMeasure()` (l. 26-44), `getVario()` (l. 46-49), `getAltitude()` (l. 213 et suivantes ; l. 211 à `d07ba5d`) | `git diff origin/hikeandfly -- source/WatchData.mc` | aucun hunk dans ces lignes. Si D1 a été corrigé dans `updateActivityInfo`, le signaler : cela change la source du vario, et l'utilisateur doit l'avoir accepté |
 | manifest.xml | `git log --stat origin/hikeandfly..HEAD -- manifest.xml` | un seul commit (epix, `0f31666`), +4 lignes `<iq:product>` |
@@ -516,7 +519,7 @@ Sur la montre (si disponible) : refaire M01, M03 et M05 pendant une vraie monté
 
 ## 8. Questions pour l'utilisateur (réponses du 06/10 et du 07/10)
 1. **D1** (altitude d'Activity null qui masque le capteur) : **non corrigé**, défaut connu ; verrouillé par `testKnownDefectD1NullActivityAltitudeHidesSensor`.
-2. **D2 / D4** côté `FlyInstrumentView.mc` : **on n'y touche pas**, défauts connus. D2 côté HikePositionView : à corriger (fait, `a7d5563`).
+2. **D2 / D4** côté `FlyInstrumentView.mc` : défauts connus au 06/10. Depuis le plan d'affichage du vol validé le 08/10 : D2 vol corrigé (V1b, `--` hors [−500 ; 9000] m) ; D4 gardé comme comportement voulu (V1c). D2 côté HikePositionView : corrigé (`a7d5563`).
 3. Seuils : altitude **−100 à 6000 m**, FC **25 à 250 bpm** ; hors bornes ou non finie → `--`.
 4. Écrans tactiles : **pas de tactile** ; l'écran Paused reste inchangé.
 5. fenix5/5x : **restent en sport générique**.
