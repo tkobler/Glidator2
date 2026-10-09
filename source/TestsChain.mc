@@ -17,9 +17,12 @@ using Toybox.Sensor;
 //                    (D2 hike page, D3, D5, D6, D7, D8, D9), red until fixed;
 //                    all fixed since (formatters in Utils.mc, unit tested
 //                    in TestsFormat.mc); the "Today" notes give the old output;
-//   testKnownDefect* pin a defect the user chose NOT to fix (D1, D4, decision
+//   testKnownDefect* pin a defect the user chose NOT to fix (D1, decision
 //                    of 2026-10-06): they pass today and fail if that
 //                    behaviour changes (D1: the source of the flight vario).
+//                    D4 (negative flight speed shown) is no longer a defect
+//                    since the decision of 2026-10-08 (plan point V1c):
+//                    testChainFlightSpeedNegativeShown.
 // Display bounds decided on 2026-10-06: altitude -100..6000 m, heart rate
 // 25..250 bpm, anything else (or non finite) reads "--".
 // ---------------------------------------------------------------------------
@@ -663,7 +666,8 @@ function testChainPaceWhenInstantSpeedZero(logger)
 }
 
 // ---------------------------------------------------------------------------
-// Position page fields (F12, F13 / D3) and flight speed (F14, D4)
+// Position page fields (F12, F13 / D3), flight speed (F14, F15) and
+// flight altitude (V1b)
 // ---------------------------------------------------------------------------
 
 // F12: ALTITUDE | ELEV. GAIN | DISTANCE | TIMER with and without a session.
@@ -775,16 +779,42 @@ function testChainFlightSpeedKmh(logger)
 	return ChainHelper.finish(errs, logger);
 }
 
-// Known defect D4, NOT fixed (FlyInstrumentView untouched, decision
-// 2026-10-06): a negative speed is shown, -1 m/s -> "-4" km/h. Pinned.
+// Flight speed below zero is shown as it is: -1 m/s -> "-4" km/h. Wanted
+// behaviour, not a defect (user decision of 2026-10-08, plan point V1c: the
+// speed is not bounded on the flight page; formerly "known defect D4").
 (:test, :chaintest, :typecheck(false))
-function testKnownDefectD4NegativeFlightSpeedShown(logger)
+function testChainFlightSpeedNegativeShown(logger)
 {
 	ChainHelper.reset();
 	var errs = [];
 	var data = new WatchData();
 	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, -1.0), ChainHelper.act(1732.2, null, null, null, null), null);
-	ChainHelper.expect(errs, "D4 pinned: -1 m/s", ChainHelper.fly(data), "1732| m|-4| km/h");
+	ChainHelper.expect(errs, "-1 m/s shown as is", ChainHelper.fly(data), "1732| m|-4| km/h");
+	return ChainHelper.finish(errs, logger);
+}
+
+// V1b (plan of 08/10): flight ALTITUDE "--" when not finite or outside
+// -500..9000 m (bounds included, raw value), through WatchData and
+// FlyInstrumentView. Speed and vario lines are still drawn. A null altitude
+// still gives "starting ..." (testKnownDefectD1..., testChainAltitudeAbsent).
+// Before: 1e10 -> "2147483647", NaN -> "0", 9000.1 -> "9000".
+(:test, :chaintest, :typecheck(false))
+function testChainFlightAltitudeGuard(logger)
+{
+	ChainHelper.reset();
+	var errs = [];
+	var data = new WatchData();
+	var alts = [-500.0, -500.1, 9000.0, 9000.1, 8848.6, 6000.1, 1.0e10,
+		MapTestHelper.nan(), MapTestHelper.inf(), -MapTestHelper.inf()];
+	var want = ["-500", "--", "9000", "--", "8849", "6000", "--", "--", "--", "--"];
+	for (var i = 0; i < alts.size(); i++)
+	{
+		WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 9.844), ChainHelper.act(alts[i], null, null, null, null), null);
+		ChainHelper.expect(errs, "altitude " + alts[i], ChainHelper.fly(data), want[i] + "| m|35| km/h");
+	}
+	// Real value: Salvan 13:01:47 UTC (AltitudeMeters 1732.2).
+	WatchDataTestHelper.feedTick(data, ChainHelper.gps(null, null, 0, null, 9.844), ChainHelper.act(1732.2, null, null, null, null), null);
+	ChainHelper.expect(errs, "altitude Salvan 1732.2", ChainHelper.fly(data), "1732| m|35| km/h");
 	return ChainHelper.finish(errs, logger);
 }
 

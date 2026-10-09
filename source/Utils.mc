@@ -47,6 +47,19 @@ function formatHikeAltitude(alt)
 	return Toybox.Math.round(v).toNumber().toString();
 }
 
+// Flight page altitude (V1b). Stub: today's FlyInstrumentView rounding, no
+// guard (tests first).
+function formatFlightAltitude(alt)
+{
+	return alt == null ? null : Toybox.Math.round(alt).toNumber().toString();
+}
+
+// Flight page speed line x (V1a). Stub: today's centred x (tests first).
+function flySpeedLineX(centeredX, lineWidth, lineTop, lineBottom, sub)
+{
+	return centeredX;
+}
+
 // Largest elevation gain shown by the hike Position page, in meters, bound
 // included (decision of 07/10, Position ascent guard). Far above any real
 // day out (Salvan climb: 908 m); a larger Activity totalAscent is a glitch.

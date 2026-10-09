@@ -211,3 +211,72 @@ function testFormatLatLon(logger)
 	Test.assertEqualMessage(formatLatLon(MapTestHelper.inf(), false), "--", "+Inf");
 	return true;
 }
+
+// V1b (flight page, plan of 08/10): altitude rounded to the meter as before
+// (Math.round), "--" for null, NaN, +-Infinity or outside -500..9000 m
+// (bounds included). The bound applies to the raw value: 9000.4 rounds to
+// 9000 but is out of range, so "--". Wider than the hike bounds: 6000.1 and
+// -432.4 are shown in flight.
+(:test)
+function testFormatFlightAltitude(logger)
+{
+	Test.assertEqualMessage(formatFlightAltitude(null), "--", "null");
+	Test.assertEqualMessage(formatFlightAltitude(-500.0), "-500", "lower bound -500 is valid");
+	Test.assertEqualMessage(formatFlightAltitude(9000.0), "9000", "upper bound 9000 is valid");
+	Test.assertEqualMessage(formatFlightAltitude(-500), "-500", "Number -500");
+	Test.assertEqualMessage(formatFlightAltitude(9000), "9000", "Number 9000");
+	Test.assertEqualMessage(formatFlightAltitude(-500.1), "--", "just below -500");
+	Test.assertEqualMessage(formatFlightAltitude(9000.1), "--", "just above 9000");
+	Test.assertEqualMessage(formatFlightAltitude(-501), "--", "Number -501");
+	Test.assertEqualMessage(formatFlightAltitude(9001), "--", "Number 9001");
+	Test.assertEqualMessage(formatFlightAltitude(9000.4), "--", "rounds to 9000 but the raw value is out of range");
+	Test.assertEqualMessage(formatFlightAltitude(-500.4), "--", "rounds to -500 but the raw value is out of range");
+	Test.assertEqualMessage(formatFlightAltitude(9000.0001d), "--", "Double just above 9000 (checked in Double)");
+	Test.assertEqualMessage(formatFlightAltitude(-499.6), "-500", "in range, rounds to -500");
+	Test.assertEqualMessage(formatFlightAltitude(8999.6), "9000", "in range, rounds up to 9000");
+	Test.assertEqualMessage(formatFlightAltitude(8848.6), "8849", "Everest");
+	Test.assertEqualMessage(formatFlightAltitude(6000.1), "6000", "above the hike bound, shown in flight");
+	Test.assertEqualMessage(formatFlightAltitude(-432.4), "-432", "Dead Sea shore, shown in flight");
+	Test.assertEqualMessage(formatFlightAltitude(0.0), "0", "zero");
+	Test.assertEqualMessage(formatFlightAltitude(-0.4), "0", "rounds to zero, no minus sign");
+	Test.assertEqualMessage(formatFlightAltitude(1.0e10), "--", "huge (was 2147483647)");
+	Test.assertEqualMessage(formatFlightAltitude(-1.0e10), "--", "huge negative");
+	Test.assertEqualMessage(formatFlightAltitude(MapTestHelper.nan()), "--", "NaN (was 0)");
+	Test.assertEqualMessage(formatFlightAltitude(MapTestHelper.inf()), "--", "+Inf");
+	Test.assertEqualMessage(formatFlightAltitude(-MapTestHelper.inf()), "--", "-Inf");
+	Test.assertEqualMessage(formatFlightAltitude(2149.4d), "2149", "Double");
+	// Real values (garmin_data/activity_24346302742.tcx, AltitudeMeters at
+	// 10:51:28 and 13:01:47 UTC).
+	Test.assertEqualMessage(formatFlightAltitude(2149.4), "2149", "Salvan 10:51:28");
+	Test.assertEqualMessage(formatFlightAltitude(1732.2), "1732", "Salvan 13:01:47");
+	return true;
+}
+
+// V1a (flight page, plan of 08/10): left x of the speed line ("<speed> km/h",
+// WatchDisplay.speed()). Unchanged without a sub-window or when the line is
+// clear of it; else moved left until its right end meets the left edge of
+// the sub-window (x = sub[0]), never left of x = 0.
+(:test)
+function testFlySpeedLineX(logger)
+{
+	var i2 = [113, 0, 62, 62]; // instinct2 sub-window [x, y, width, height]
+	// No sub-window (fenix6pro, fenix5...): the centred x, as is.
+	Test.assertEqualMessage(flySpeedLineX(100, 59, 47.5, 82.5, null), 100, "no sub-window: fenix6pro Normal unchanged");
+	Test.assertEqualMessage(flySpeedLineX(73, 94, 42.5, 77.5, null), 73, "no sub-window: Extreme unchanged");
+	Test.assertEqualMessage(flySpeedLineX(-5, 300, 0, 40, null), -5, "no sub-window: even off screen, unchanged");
+	// instinct2 bench values (Normal "0 km/h": x 61, width 54; Extreme
+	// "120 km/h": x 48, width 80; NUMBER_MILD 35 px high at y = 44).
+	Test.assertEqualMessage(flySpeedLineX(61, 54, 26.5, 61.5, i2), 59, "instinct2 Normal: 2 px left, ends at 113");
+	Test.assertEqualMessage(flySpeedLineX(48, 80, 26.5, 61.5, i2), 33, "instinct2 Extreme: ends at 113");
+	// Already clear of the sub-window.
+	Test.assertEqualMessage(flySpeedLineX(59, 54, 26.5, 61.5, i2), 59, "right end exactly at sub x (touching): unchanged");
+	Test.assertEqualMessage(flySpeedLineX(20, 54, 26.5, 61.5, i2), 20, "left of the sub-window: unchanged");
+	Test.assertEqualMessage(flySpeedLineX(61, 54, 62, 97, i2), 61, "top at the sub-window bottom (touching): unchanged");
+	Test.assertEqualMessage(flySpeedLineX(61, 54, 70, 105, i2), 61, "below the sub-window: unchanged");
+	Test.assertEqualMessage(flySpeedLineX(61, 54, 0, 20, [113, 30, 62, 62]), 61, "above a lower sub-window: unchanged");
+	Test.assertEqualMessage(flySpeedLineX(61, 54, 61.9, 96.9, i2), 59, "0.1 px into the sub-window height: moved");
+	// Wider than the room left of the sub-window: clamped to 0.
+	Test.assertEqualMessage(flySpeedLineX(10, 150, 26.5, 61.5, i2), 0, "too wide: clamped to x = 0");
+	Test.assertEqualMessage(flySpeedLineX(0, 0, 26.5, 61.5, i2), 0, "empty line at 0");
+	return true;
+}
