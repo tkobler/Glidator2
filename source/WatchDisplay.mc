@@ -870,11 +870,16 @@ class WatchDisplay
     
         var batteryStr = battery.toString() + "%";
         var batteryTextWidth = dc.getTextWidthInPixels(batteryStr, Graphics.FONT_TINY);
-        var batteryY = dc.getHeight() / 2 + 50; // Position below the time
+        // Below the time: h/2 + 50 as before, lower where the time's font is
+        // too tall for it (V2, AMOLED 360-466 px). Icon left of the text.
+        var place = $.timeBatteryLayout(dc.getWidth(), dc.getHeight(),
+            dc.getFontHeight(Graphics.FONT_NUMBER_HOT), dc.getFontHeight(Graphics.FONT_TINY), batteryTextWidth);
+        var batteryX = place[0];
+        var batteryY = place[1];
 
         // Draw battery icon (rectangle with a tip and fill level)
-        var iconX = centerX - (batteryTextWidth / 2) - 10; // Position to the left of the text
-        var iconY = batteryY - 2; // Align vertically with the text
+        var iconX = place[2];
+        var iconY = place[3];
         var iconWidth = 12;
         var iconHeight = 6;
         var tipWidth = 2;
@@ -892,7 +897,7 @@ class WatchDisplay
         // Draw battery percentage text to the right of the icon
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(
-            centerX + 10, // Adjust to the right of the icon
+            batteryX, // right of the icon
             batteryY,
             Graphics.FONT_TINY,
             batteryStr,

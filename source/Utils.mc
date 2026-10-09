@@ -93,12 +93,52 @@ function flySpeedLineX(centeredX, lineWidth, lineTop, lineBottom, sub)
 	return maxX < 0 ? 0 : maxX;
 }
 
-// Time page battery line (V2). Stub: today's fixed h/2 + 50 (tests first).
-// Returns [textX, textY, iconX, iconY].
+// Share of a font's height taken as empty leading at the top and at the
+// bottom of its box when checking that two texts overlap: the ink model of
+// the layout bench (TestsLayout.mc, LAYOUT_INK_K), so that the Time page
+// moves its battery exactly where the bench finds a defect.
+const TIME_INK_MARGIN = 0.16;
+
+// Place of the battery line under the time on the Time page (V2, plan of
+// 08/10), as [textX, textY, iconX, iconY]: the battery text is drawn in
+// FONT_TINY, CENTER | VCENTER at (textX, textY), its 12 x 6 icon (plus a
+// 2 px tip) at (iconX, iconY); the time in FONT_NUMBER_HOT, VCENTER at h/2.
+// hotHeight, tinyHeight: Dc.getFontHeight() of those fonts; textWidth: width
+// of the battery text in FONT_TINY.
+// textY is the old fixed h/2 + 50 wherever the time and the battery text do
+// not overlap (ink boxes: font box less floor(TIME_INK_MARGIN x height) at
+// the top and at the bottom; touching is fine): fenix6pro, fenix5 and every
+// MIP watch keep their place. Else (the AMOLED 360-466 px, NUMBER_HOT of
+// 122 to 173 px) the battery text is centred on the bottom of the time's font
+// box, h/2 + ceil(hotHeight / 2) -- where fenix6pro's 100 px font puts it --
+// and never above its first clear place. Unknown (null) or non-positive
+// heights: the old place.
+// The icon follows the text, as before: 2 px above its centre line, its tip
+// 6 px left of the text box.
 function timeBatteryLayout(w, h, hotHeight, tinyHeight, textWidth)
 {
 	var centerX = w / 2;
 	var y = h / 2 + 50;
+	if (hotHeight != null && tinyHeight != null && hotHeight > 0 && tinyHeight > 0)
+	{
+		// Lowest y of the battery text centre that keeps its ink box clear of
+		// the time's: time ink bottom + battery ink half height.
+		var clearY = h / 2
+			+ hotHeight / 2.0 - (TIME_INK_MARGIN * hotHeight).toNumber()
+			+ tinyHeight / 2.0 - (TIME_INK_MARGIN * tinyHeight).toNumber();
+		if (y < clearY)
+		{
+			y = h / 2 + (hotHeight + 1) / 2;
+			if (y < clearY)
+			{
+				y = clearY.toNumber();
+				if (y < clearY)
+				{
+					y += 1;
+				}
+			}
+		}
+	}
 	return [centerX + 10, y, centerX - (textWidth / 2) - 10, y - 2];
 }
 
