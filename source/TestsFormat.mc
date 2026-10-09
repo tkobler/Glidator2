@@ -252,7 +252,7 @@ function testFormatFlightAltitude(logger)
 	return true;
 }
 
-// Decision D3 B of 09/10 (flight page): the unit drawn after the flight
+// Decision of 09/10 (flight altitude unit): the unit drawn after the flight
 // altitude (WatchDisplay.altitude()). " m" after a shown altitude, as before;
 // "" (no unit) after "--", null or an empty text: an invalid altitude reads
 // "--" alone. A negative altitude ("-432", one minus sign) keeps its " m".

@@ -798,7 +798,7 @@ function testChainFlightSpeedNegativeShown(logger)
 // FlyInstrumentView. Speed and vario lines are still drawn. A null altitude
 // still gives "starting ..." (testKnownDefectD1..., testChainAltitudeAbsent).
 // Before: 1e10 -> "2147483647", NaN -> "0", 9000.1 -> "9000".
-// Decision D3 B of 09/10: "--" is drawn alone, without " m" (until then
+// Decision of 09/10 (flight altitude unit): "--" is drawn alone, without " m" (until then
 // "--| m"); a shown altitude keeps its " m".
 (:test, :chaintest, :typecheck(false))
 function testChainFlightAltitudeGuard(logger)

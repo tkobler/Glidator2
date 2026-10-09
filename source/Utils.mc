@@ -73,7 +73,7 @@ function formatFlightAltitude(alt)
 }
 
 // Unit drawn after the flight altitude text (WatchDisplay.altitude(),
-// decision D3 B of 09/10): " m" after a shown altitude, "" (no unit) after
+// decision of 09/10 (flight altitude unit)): " m" after a shown altitude, "" (no unit) after
 // "--" (formatFlightAltitude() of an invalid altitude), null or "".
 function flightAltitudeUnit(altText)
 {

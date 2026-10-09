@@ -110,7 +110,7 @@ class WatchDisplay
         
     function altitude(alt, recording)
     {
-        var unit = $.flightAltitudeUnit(alt); // " m", none after "--" (D3 B of 09/10)
+        var unit = $.flightAltitudeUnit(alt); // " m", none after "--" (decision of 09/10)
 
         var yOffset = dc.getHeight() / 2;
         var xOffset = dc.getWidth() / 2;

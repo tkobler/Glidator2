@@ -534,7 +534,7 @@ Sur la montre (si disponible) : refaire M01, M03 et M05 pendant une vraie monté
 6. Manifest : « 58 produits, la tâche suivante ajoute les epix » ; c'est fait (`0f31666`), 62 produits.
 7. Risque mémoire du § 2.2 : la suite complète tourne sur fenix5, fr55 et instinct2.
 8. Marge d'encre : le § 7 disait encore `k = 0,15` alors que le § 4.3 retient 0,16.
-9. Homonymie : le plafond ±3000 m/h portait le même nom « D3 » que le défaut de distance négative ; il est désormais appelé « décision du 07/10 (plafond VS) » (09/10), et « D3 » ne désigne plus que le défaut de distance.
+9. Homonymie : le plafond ±3000 m/h portait le même nom « D3 » que le défaut de distance négative ; il est désormais appelé « décision du 07/10 (plafond VS) » (09/10). La tolérance de la lettre E de la boussole dans la sous-fenêtre Instinct (exemption du banc, `LayoutBench.exemption()`) s'appelait aussi « D3 » dans `source/TestsLayout.mc` ; elle est désormais appelée « décision du 07/10 (lettre E de la boussole) » (09/10). « D3 » ne désigne plus que le défaut de distance.
 10. Décisions de l'utilisateur du 07/10 (menu Paused inchangé, FC sans repli, pas d'indication de fenêtre) et du 06/10 (tactile, sport générique fenix5) ajoutées là où le plan en parle (§ 0, 1.1, 2.2, 2.3, 5, 8).
 11. Numéro de ligne de `getAltitude()` (l. 213 à `f306659`) ; exception connue au contrôle « tests non affaiblis » (plafond VS).
 12. Protocole manuel : fenêtre VS précisée pour M01 ; ajout de M13 (fenêtre VS 1/3/5 min), seule fonction livrée sans étape manuelle.

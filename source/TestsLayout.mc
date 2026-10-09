@@ -27,7 +27,7 @@ using Toybox.WatchUi;
 // expected result: the app code is not changed by this bench. Two kinds of
 // lines are not defects (LayoutBench.exemption(), checked by B05) and are
 // logged as DEBUG "EXEMPT (reason)" lines instead: SUBSCREEN corner, and the
-// compass letter "E" in the sub-window disk (decision D3 of 2026-10-07).
+// compass letter "E" in the sub-window disk (decision of 07/10 (compass letter E)).
 //
 // Annotated :layouttest as well as :test so that the functional suite can be
 // built without the bench (and the bench without :chaintest), from a
@@ -385,13 +385,13 @@ class LayoutBench
 		{
 			return "corner of the sub-window's bounding square, outside the disk";
 		}
-		// 2. Decision of 2026-10-07 (D3): the compass letter E, on the rim of
+		// 2. Decision of 07/10 (compass letter E): the compass letter E, on the rim of
 		// the dial, may cross the Instinct sub-window; WatchDisplay.compass()
 		// is not changed for it. Compass view and letter "E" only: any other
 		// letter or text in the disk stays a defect.
 		if (view.equals("Compass") && defect.find("SUBSCREEN disk \"E\"(") == 0)
 		{
-			return "compass letter E in the sub-window, accepted on 2026-10-07 (D3)";
+			return "compass letter E in the sub-window, decision of 07/10 (compass letter E)";
 		}
 		return null;
 	}
@@ -490,7 +490,7 @@ class LayoutBench
 		return normalData();
 	}
 
-	// Decision D3 B of 09/10: on the flight page, an invalid altitude is
+	// Decision of 09/10 (flight altitude unit): on the flight page, an invalid altitude is
 	// drawn as "--" alone (no " m"), centred on the screen like the
 	// altitude line, (text + unit) centred on w/2: the middle of the "--"
 	// box within 1 px of w/2.
@@ -1079,7 +1079,7 @@ function testLayout_Fly_Extreme(logger) { return LayoutBench.run(logger, "Fly", 
 function testLayout_Fly_Paused(logger) { return LayoutBench.run(logger, "Fly", "Paused"); }
 (:test, :layouttest, :typecheck(false))
 function testLayout_Fly_Recording(logger) { return LayoutBench.run(logger, "Fly", "Recording"); }
-// Decision D3 B of 09/10: altitude 9000.1 m (recording) reads "--" alone,
+// Decision of 09/10 (flight altitude unit): altitude 9000.1 m (recording) reads "--" alone,
 // without " m", centred; the speed and vario lines as in Normal.
 (:test, :layouttest, :typecheck(false))
 function testLayout_Fly_InvalidAltitude(logger)
