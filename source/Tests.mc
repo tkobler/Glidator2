@@ -443,9 +443,19 @@ function testActiveSensorList(logger)
 	return true;
 }
 
-// Through the real session API: pausing turns the sensors off, resuming
-// (from the Paused screen or the menu) turns them back on, and ending a paused
-// session never leaves them off.
+// Pausing turns the sensors off, resuming (from the Paused screen or the menu)
+// turns them back on, and ending a paused session never leaves them off.
+//
+// The session is a FakeSession (TestsChain.mc), not ActivityRecording's: with
+// the simulator's real session, Session.start() may leave isRecording() false
+// (it returns false when recording could not start, and the simulator does so
+// now and then under load: seen once on fenix6s, 10/10). pauseRecording() then
+// rightly does nothing -- the app only calls it when isRecording() is true,
+// see selectAction() -- and this test failed for a reason unrelated to the
+// sensors. The real session API (start / stop / save / discard) stays covered
+// by testSessionStateMachine, testIsPausedAndSelectFlow and the
+// testStopRecordingSaves* tests; what is checked here is only how
+// pause / resume / stop drive the sensors, which depends on isRecording() alone.
 (:test)
 function testSensorsFollowPauseAndResume(logger)
 {
@@ -455,10 +465,12 @@ function testSensorsFollowPauseAndResume(logger)
 	}
 	Test.assertMessage($.sensorsOffForPause != true, "precondition: sensors on without a session");
 
-	$.startRecording();
+	$.session = new FakeSession(true); // what startRecording() leaves when start() succeeds
+	Test.assertMessage($.isRecording(), "precondition: recording");
 	Test.assertMessage($.sensorsOffForPause != true, "recording -> sensors on");
 
 	$.pauseRecording();
+	Test.assertMessage(!$.isRecording(), "pauseRecording() stops the session");
 	Test.assertMessage($.sensorsOffForPause == true, "paused -> sensors off");
 	Test.assertEqualMessage($.pausedSelectAction(false, $.hasActiveSession(), $.isRecording()), :resume, "SELECT on the Paused screen -> resume");
 
@@ -483,6 +495,40 @@ function testSensorsFollowPauseAndResume(logger)
 	Test.assertMessage($.sensorsOffForPause != true, "pause without a session -> sensors untouched");
 	$.resumeRecording();
 	Test.assertMessage($.sensorsOffForPause != true, "resume without a session -> sensors untouched");
+
+	// Pause and resume are transitions: pause only from recording, resume only
+	// from a session that is not recording; outside their state they leave the
+	// session and the sensors alone. (Kept in this test rather than a new one:
+	// the 'globals' module is at the compiler's 253-member limit.)
+	// Session whose start() did not take (exists, not recording): the UI shows
+	// it as paused (SELECT -> resume), a stray pauseRecording() must not stop
+	// anything, and resuming starts it.
+	$.session = new FakeSession(false);
+	Test.assertEqualMessage($.selectAction($.hasActiveSession(), $.isRecording()), :resume, "session not recording -> SELECT resumes, never pauses");
+	$.pauseRecording();
+	Test.assertMessage($.sensorsOffForPause != true, "pause of a session not recording -> sensors untouched");
+	Test.assertMessage($.hasActiveSession() && !$.isRecording(), "pause of a session not recording -> session unchanged");
+	$.resumeRecording();
+	Test.assertMessage($.isRecording(), "resume of a session not recording -> recording");
+	Test.assertMessage($.sensorsOffForPause != true, "resume -> sensors on");
+
+	// Resume of a session already recording: no-op, even if the sensors were off.
+	$.sensorsOffForPause = true;
+	$.resumeRecording();
+	Test.assertMessage($.sensorsOffForPause == true, "resume while recording -> sensors untouched");
+	Test.assertMessage($.isRecording(), "resume while recording -> still recording");
+	$.sensorsOffForPause = false;
+
+	// Two pauses in a row: the second one changes nothing.
+	$.pauseRecording();
+	Test.assertMessage($.sensorsOffForPause == true, "first pause -> sensors off");
+	$.pauseRecording();
+	Test.assertMessage($.sensorsOffForPause == true, "second pause -> sensors still off");
+	Test.assertMessage($.hasActiveSession() && !$.isRecording(), "second pause -> still paused");
+
+	$.stopRecording(false);
+	Test.assertMessage(!$.hasActiveSession(), "session gone after stop");
+	Test.assertMessage($.sensorsOffForPause != true, "session ended after a double pause -> sensors on");
 	return true;
 }
 
