@@ -1882,26 +1882,42 @@ class LegacyPrefsSnapshot
 
 // Stand-in for the old object store, so the migration rules can be checked
 // without the real AppBase: same getProperty / deleteProperty as AppBase.
+// failGetKeys / failDeleteKeys (empty by default): keys whose getProperty /
+// deleteProperty throws, like a damaged or removed object store. Kept in this
+// class rather than a new one: the 'globals' module is close to its
+// 253-member limit on fenix6pro.
 (:test)
 class FakeLegacyStore
 {
 	var values;
 	var deleteCalls;
+	var failGetKeys;
+	var failDeleteKeys;
 
 	function initialize(dict)
 	{
 		values = dict;
 		deleteCalls = 0;
+		failGetKeys = [];
+		failDeleteKeys = [];
 	}
 
 	function getProperty(key)
 	{
+		if (failGetKeys.indexOf(key) >= 0)
+		{
+			throw new FakeStoreException();
+		}
 		return values.get(key);
 	}
 
 	function deleteProperty(key)
 	{
 		deleteCalls += 1;
+		if (failDeleteKeys.indexOf(key) >= 0)
+		{
+			throw new FakeStoreException();
+		}
 		values.remove(key);
 	}
 }
@@ -2230,6 +2246,66 @@ function testMigrateLegacyPreferencesToStore(logger)
 	old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true });
 	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, null), 0, "null store -> 0");
 	Test.assertEqualMessage(old.getProperty($.PREF_BEEP_KEY), true, "null store: old beep kept");
+
+	// Review of 08/10: the OLD store throws (getProperty or deleteProperty).
+	// Nothing escapes the start-up migration; the key concerned is skipped,
+	// the other one is still migrated. A key counts as migrated only once its
+	// old copy is erased. Storage still wins (decision of the user).
+
+	// getProperty throws for the beep: beep untouched (nothing written,
+	// nothing erased), VS window migrated.
+	store = new FakePrefStore({}, [], []);
+	old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true, $.PREF_VS_WINDOW_KEY => 300000 });
+	old.failGetKeys = [$.PREF_BEEP_KEY];
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 1, "old beep read throws: only the VS window migrated");
+	Test.assertMessage(store.values.get($.PREF_BEEP_KEY) == null, "old beep read throws: nothing stored for the beep");
+	Test.assertEqualMessage(store.values.get($.PREF_VS_WINDOW_KEY), 300000, "old beep read throws: 5 min stored");
+	Test.assertEqualMessage(old.values.get($.PREF_BEEP_KEY), true, "old beep read throws: old beep left for the next launch");
+	Test.assertEqualMessage(old.deleteCalls, 1, "old beep read throws: only the VS key erased");
+
+	// Every old read throws: nothing read from Storage, nothing written.
+	store = new FakePrefStore({}, [], []);
+	old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true, $.PREF_VS_WINDOW_KEY => 300000 });
+	old.failGetKeys = [$.PREF_BEEP_KEY, $.PREF_VS_WINDOW_KEY];
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 0, "every old read throws: nothing migrated");
+	Test.assertEqualMessage(store.setCalls, 0, "every old read throws: no write");
+	Test.assertEqualMessage(old.deleteCalls, 0, "every old read throws: no erase");
+
+	// deleteProperty throws for the VS window: its value is already in
+	// Storage (kept), the old key stays, it is not counted; the beep is
+	// migrated.
+	store = new FakePrefStore({}, [], []);
+	old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true, $.PREF_VS_WINDOW_KEY => 300000 });
+	old.failDeleteKeys = [$.PREF_VS_WINDOW_KEY];
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 1, "old VS erase throws: only the beep counted");
+	Test.assertEqualMessage(store.values.get($.PREF_VS_WINDOW_KEY), 300000, "old VS erase throws: 5 min already stored");
+	Test.assertEqualMessage(store.values.get($.PREF_BEEP_KEY), true, "old VS erase throws: beep stored");
+	Test.assertEqualMessage(old.values.get($.PREF_VS_WINDOW_KEY), 300000, "old VS erase throws: old VS key still there");
+	Test.assertMessage(old.values.get($.PREF_BEEP_KEY) == null, "old VS erase throws: old beep erased");
+	// The user then picks 1 min; next launch, the erase works: Storage wins
+	// over the stale old 5 min, the old key is erased.
+	store.values.put($.PREF_VS_WINDOW_KEY, 60000);
+	old.failDeleteKeys = [];
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 1, "next launch: old VS key handled");
+	Test.assertEqualMessage(store.values.get($.PREF_VS_WINDOW_KEY), 60000, "next launch: Storage 1 min wins");
+	Test.assertMessage(old.values.get($.PREF_VS_WINDOW_KEY) == null, "next launch: old VS key erased");
+
+	// Every erase throws: both values stored, both old keys kept, 0 counted.
+	store = new FakePrefStore({}, [], []);
+	old = new FakeLegacyStore({ $.PREF_BEEP_KEY => false, $.PREF_VS_WINDOW_KEY => 180000 });
+	old.failDeleteKeys = [$.PREF_BEEP_KEY, $.PREF_VS_WINDOW_KEY];
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 0, "every erase throws: 0 counted");
+	Test.assertEqualMessage(store.values.get($.PREF_BEEP_KEY), false, "every erase throws: beep false stored");
+	Test.assertEqualMessage(store.values.get($.PREF_VS_WINDOW_KEY), 180000, "every erase throws: 3 min stored");
+	Test.assertEqualMessage(old.deleteCalls, 2, "every erase throws: both erases tried");
+
+	// A failed Storage write is never followed by an erase, even when the
+	// erase would throw too.
+	store = new FakePrefStore({}, [$.PREF_BEEP_KEY], []);
+	old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true });
+	old.failDeleteKeys = [$.PREF_BEEP_KEY];
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 0, "write and erase throw: 0");
+	Test.assertEqualMessage(old.deleteCalls, 0, "write throws: no erase tried");
 	return true;
 }
 
@@ -2270,6 +2346,22 @@ function testPreferencesStartupMigratesGivenApp(logger)
 		p = new Preferences(new NoLegacyStore());
 		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "no getProperty: VS default");
 		Test.assertEqualMessage(legacy.read($.PREF_VS_WINDOW_KEY), 180000, "real old store still untouched");
+
+		// Review of 08/10: an old store whose getProperty / deleteProperty
+		// throw must not stop the start-up (`new Preferences(app)` raising
+		// would keep the app from starting). Here in this test rather than in
+		// a new one: the 'globals' module is at its 253-member limit on
+		// fenix6pro.
+		Application.Storage.setValue($.PREF_VS_WINDOW_KEY, 180000);
+		given = new FakeLegacyStore({ $.PREF_BEEP_KEY => true, $.PREF_VS_WINDOW_KEY => 300000 });
+		given.failGetKeys = [$.PREF_BEEP_KEY];
+		given.failDeleteKeys = [$.PREF_VS_WINDOW_KEY];
+		p = new Preferences(given);
+		Test.assertEqualMessage(p.getBeep(), false, "throwing old store: beep default (old read failed)");
+		Test.assertEqualMessage(p.getVsWindowMs(), 180000, "throwing old store: Storage 3 min wins");
+		Test.assertEqualMessage(given.values.get($.PREF_BEEP_KEY), true, "throwing old store: old beep kept");
+		Test.assertEqualMessage(given.values.get($.PREF_VS_WINDOW_KEY), 300000, "throwing old store: old VS kept (erase failed)");
+		Test.assertEqualMessage(legacy.read($.PREF_VS_WINDOW_KEY), 180000, "throwing old store: real old store untouched");
 	}
 	finally
 	{
