@@ -1,6 +1,8 @@
 // --------------------------------------------------------------------------------
 // Layout of WatchDisplay.map() (hike Map page), pure functions of the screen
 // height and the font metrics, unit tested in TestsHikeMap.mc without a Dc.
+// waitingLinesY() also places the two centre lines of WatchDisplay.compass()
+// (coordinates or "Waiting for" / "GPS", same font, plan point V3b).
 // "Overlap" uses the ink model of the display bench (TestsLayout.mc), shared
 // with HikeGridLayout (INK_K), so that the layout changes exactly where the
 // bench finds a defect.

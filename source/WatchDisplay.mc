@@ -323,6 +323,11 @@ class WatchDisplay
 		var outerY = centerY - radius;
 		dc.drawLine(outerX, outerY, innerX, innerY);
 
+        // Two centre lines: h/2 -+ 15 where they fit, one FONT_SMALL height
+        // apart where they would overlap (V3b, HikeMapLayout.waitingLinesY(),
+        // as on the hike Map page).
+        var lines = compassLinesY();
+
         // Draw latitude and longitude if available
         if (lat != null && lon != null) {
             // Degrees, minutes, seconds with the hemisphere letter (Utils.mc)
@@ -333,14 +338,14 @@ class WatchDisplay
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 dc.getWidth() / 2,
-                dc.getHeight() / 2 - 15, // Position
-                Graphics.FONT_SMALL, 
+                lines[0], // Position
+                Graphics.FONT_SMALL,
 				latStr,
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
             dc.drawText(
                 dc.getWidth() / 2,
-                dc.getHeight() / 2 + 15, // Position
+                lines[1], // Position
                 Graphics.FONT_SMALL,
                 lonStr,
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
@@ -352,12 +357,12 @@ class WatchDisplay
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 dc.getWidth() / 2,
-                dc.getHeight() / 2 - 15,
+                lines[0],
                 Graphics.FONT_SMALL, "Waiting for", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
 			dc.drawText(
                 dc.getWidth() / 2,
-                dc.getHeight() / 2 + 15,
+                lines[1],
                 Graphics.FONT_SMALL, "GPS", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
             );
             Sys.println("Compass drawn, waiting for GPS");
@@ -381,6 +386,19 @@ class WatchDisplay
             compassInset = CompassLayout.letterInset(dc.getFontHeight(Graphics.FONT_LARGE), dims);
         }
         return compassInset;
+    }
+
+    // HikeMapLayout.waitingLinesY() for this screen's FONT_SMALL, computed
+    // once, for compass() (V3b).
+    var compassLines = null;
+
+    function compassLinesY()
+    {
+        if (compassLines == null)
+        {
+            compassLines = HikeMapLayout.waitingLinesY(dc.getHeight(), dc.getFontHeight(Graphics.FONT_SMALL));
+        }
+        return compassLines;
     }
 
     // "Recording started" banner: a green circle with a white play triangle,
