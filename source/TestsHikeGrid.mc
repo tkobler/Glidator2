@@ -383,7 +383,7 @@ function testHikeGridPlaceColumns(logger)
 {
     var errs = [];
     // fenix6pro Extreme: "20000" 116, "999.9" 100, MILD 60: unchanged.
-    var c = HikeGridLayout.placeColumns([[116, 100, 60], [80, 70, 40]], [73, 187], 142, [260, 260, true], 5.2);
+    var c = HikeGridLayout.placeColumns([[116, 100, 60], [80, 70, 40]], [73, 187], 142, [260, 260, true], 5.2, null);
     HikeGridCheck.near(errs, "fenix6pro font", c[0], 0);
     HikeGridCheck.near(errs, "fenix6pro left x", c[1], 73.0);
     HikeGridCheck.near(errs, "fenix6pro right x", c[2], 187.0);
@@ -393,7 +393,7 @@ function testHikeGridPlaceColumns(logger)
     // 175: LARGE (112, 124, 58, confirmed by the bench log after the fix)
     // at the default centres.
     var xs = [101.08, 258.92];
-    c = HikeGridLayout.placeColumns([[164, 182, 85], [112, 124, 58]], xs, 196.62, [360, 360, true], 7.2);
+    c = HikeGridLayout.placeColumns([[164, 182, 85], [112, 124, 58]], xs, 196.62, [360, 360, true], 7.2, null);
     HikeGridCheck.near(errs, "fr265s font", c[0], 1);
     HikeGridCheck.near(errs, "fr265s left x", c[1], 101.08);
     HikeGridCheck.near(errs, "fr265s right x", c[2], 258.92);
@@ -403,27 +403,162 @@ function testHikeGridPlaceColumns(logger)
     // 190..310). Spread: g = 2 (200 - 150) / 3 = 33.33 (the gap, and the
     // margin left beside the wider value); left centre 200 - 16.67 - 75 =
     // 108.33, right centre 200 + 16.67 + 60 = 276.67.
-    c = HikeGridLayout.placeColumns([[152, 122, 40], [100, 80, 30]], [150, 250], 200, [400, 400, false], 10);
+    c = HikeGridLayout.placeColumns([[152, 122, 40], [100, 80, 30]], [150, 250], 200, [400, 400, false], 10, null);
     HikeGridCheck.near(errs, "spread font", c[0], 0);
     HikeGridCheck.near(errs, "spread left x", c[1], 108.333);
     HikeGridCheck.near(errs, "spread right x", c[2], 276.667);
 
     // Same, but minGap 40 > 33.33: the next font, at the default centres
     // (left ink 101..199, right 211..289: they fit).
-    c = HikeGridLayout.placeColumns([[152, 122, 40], [100, 80, 30]], [150, 250], 200, [400, 400, false], 40);
+    c = HikeGridLayout.placeColumns([[152, 122, 40], [100, 80, 30]], [150, 250], 200, [400, 400, false], 40, null);
     HikeGridCheck.near(errs, "minGap font", c[0], 1);
     HikeGridCheck.near(errs, "minGap left x", c[1], 150.0);
 
     // Nothing fits: the smallest font at the default centres.
-    c = HikeGridLayout.placeColumns([[300, 300, 40], [250, 250, 30]], [150, 250], 200, [400, 400, false], 10);
+    c = HikeGridLayout.placeColumns([[300, 300, 40], [250, 250, 30]], [150, 250], 200, [400, 400, false], 10, null);
     HikeGridCheck.near(errs, "nothing fits font", c[0], 1);
     HikeGridCheck.near(errs, "nothing fits left x", c[1], 150.0);
     HikeGridCheck.near(errs, "nothing fits right x", c[2], 250.0);
 
     // No metrics: the defaults.
-    c = HikeGridLayout.placeColumns(null, [150, 250], 200, [400, 400, false], 10);
+    c = HikeGridLayout.placeColumns(null, [150, 250], 200, [400, 400, false], 10, null);
     HikeGridCheck.near(errs, "null dims font", c[0], 0);
     HikeGridCheck.near(errs, "null dims right x", c[2], 250.0);
+    return HikeGridCheck.finish(errs, logger);
+}
+
+// placeColumns() spreading the values on a ROUND screen (review of 08/10:
+// the spread was only tested on a rectangle). fr265s geometry (360 x 360,
+// values on y = 196.62, tuned centres 101.08 / 258.92, minGap 7.2), values
+// 162 px wide in a font 85 px high (synthetic: wider than "+940" / "26:48",
+// so that the tuned centres overlap by 2.16 px).
+// Spread: ink rows 167.12 .. 226.12, farthest 46.12 px from the centre row;
+// half chord sqrt(181^2 - 46.12^2) = 175.026; g = 2 (175.026 - 160) / 3 =
+// 10.017; left centre 180 - 5.009 - 80 = 94.991, right 265.009.
+// Kept in a test function of this module: the 'globals' module is close to
+// its 253-member limit on fenix6pro (a new test module went over it).
+(:test)
+function testHikeGridPlaceColumnsSpreadsOnRound(logger)
+{
+    var errs = [];
+    var round = [360, 360, true];
+    var xs = [101.08, 258.92];
+    var dims = [[162, 162, 85], [112, 124, 58]];
+    var c = HikeGridLayout.placeColumns(dims, xs, 196.62, round, 7.2, null);
+    HikeGridCheck.near(errs, "round spread font", c[0], 0);
+    HikeGridCheck.near(errs, "round spread left x", c[1], 94.991);
+    HikeGridCheck.near(errs, "round spread right x", c[2], 265.009);
+    // Symmetric about the divider, and the gap between the values equals
+    // the room left to the circle beside the wider one.
+    HikeGridCheck.near(errs, "round spread centred", (c[1] + c[2]) / 2.0, 180.0);
+    var gap = (c[2] - 80) - (c[1] + 80);
+    HikeGridCheck.near(errs, "round spread gap", gap, 10.017);
+    HikeGridCheck.near(errs, "round spread margin = gap", 175.026 - (180 - (c[1] - 80)), gap);
+    // Both spread inks inside the circle, clear of each other.
+    var a = HikeGridLayout.inkBox(c[1], 196.62, 162, 85);
+    var b = HikeGridLayout.inkBox(c[2], 196.62, 162, 85);
+    if (!HikeGridLayout.inScreen(a, round) || !HikeGridLayout.inScreen(b, round)) { errs.add("round spread: values must be on the circle"); }
+    if (HikeGridLayout.overlap(a, b)) { errs.add("round spread: values must not overlap"); }
+
+    // The real fr265s labels follow their values ("VERT. SPD." 127 x 29,
+    // "PACE" 62 x 29, XTINY, at y = 141.23): they fit, the spread is kept.
+    c = HikeGridLayout.placeColumns(dims, xs, 196.62, round, 7.2, [127, 62, 29, 141.23]);
+    HikeGridCheck.near(errs, "round spread + labels font", c[0], 0);
+    HikeGridCheck.near(errs, "round spread + labels left x", c[1], 94.991);
+    HikeGridCheck.near(errs, "round spread + labels right x", c[2], 265.009);
+
+    // Values low on the circle: their ink rows are beyond the radius
+    // (dy >= r, half chord 0), no font fits, not even spread: the smallest
+    // font at the tuned centres.
+    c = HikeGridLayout.placeColumns([[100, 100, 85], [80, 80, 58]], xs, 350, round, 7.2, null);
+    HikeGridCheck.near(errs, "below the circle font", c[0], 1);
+    HikeGridCheck.near(errs, "below the circle left x", c[1], 101.08);
+    HikeGridCheck.near(errs, "below the circle right x", c[2], 258.92);
+    if (HikeGridLayout.chordHalf(199.5, round) != 0.0) { errs.add("chordHalf beyond the radius must be 0"); }
+    HikeGridCheck.near(errs, "chordHalf on a rectangle", HikeGridLayout.chordHalf(199.5, [400, 300, false]), 200.0);
+    return HikeGridCheck.finish(errs, logger);
+}
+
+// placeColumns() with the XTINY labels (review of 08/10): when it spreads
+// the values, each label follows its value, so the spread is only taken if
+// both labels are on the screen, clear of each other and of both values
+// (rules of the bench); otherwise the next font is tried. labels = [left
+// width, right width, height, y] (getTextDimensions(), drawn VCENTER).
+// At the tuned centres the labels are not checked: that layout is the
+// original one and must not change.
+(:test)
+function testHikeGridPlaceColumnsChecksLabels(logger)
+{
+    var errs = [];
+    var round = [360, 360, true];
+    var xs = [101.08, 258.92];
+    var dims = [[162, 162, 85], [112, 124, 58]];
+    // Round: a 182 px left label at the spread centre 94.991 (ink x0 4.991,
+    // rows 130.73 .. 151.73) leaves the circle -> no spread; the next font
+    // fits at the tuned centres.
+    var c = HikeGridLayout.placeColumns(dims, xs, 196.62, round, 7.2, [182, 62, 29, 141.23]);
+    HikeGridCheck.near(errs, "label off the circle font", c[0], 1);
+    HikeGridCheck.near(errs, "label off the circle left x", c[1], 101.08);
+    HikeGridCheck.near(errs, "label off the circle right x", c[2], 258.92);
+
+    // Rectangle 400 x 400 (spread centres 108.333 / 276.667, see
+    // testHikeGridPlaceColumns), labels 20 px high (ink rows y +- 7).
+    var rect = [400, 400, false];
+    var rdims = [[152, 122, 40], [100, 80, 30]];
+    var rxs = [150, 250];
+    // Labels that fit (y = 160): spread kept.
+    c = HikeGridLayout.placeColumns(rdims, rxs, 200, rect, 10, [60, 40, 20, 160]);
+    HikeGridCheck.near(errs, "labels fit font", c[0], 0);
+    HikeGridCheck.near(errs, "labels fit left x", c[1], 108.333);
+    HikeGridCheck.near(errs, "labels fit right x", c[2], 276.667);
+    // Labels 180 px wide: inks 19.33 .. 197.33 and 187.67 .. 365.67
+    // overlap -> next font at the tuned centres.
+    c = HikeGridLayout.placeColumns(rdims, rxs, 200, rect, 10, [180, 180, 20, 160]);
+    HikeGridCheck.near(errs, "labels overlap font", c[0], 1);
+    HikeGridCheck.near(errs, "labels overlap left x", c[1], 150.0);
+    HikeGridCheck.near(errs, "labels overlap right x", c[2], 250.0);
+    // Labels on y = 190 (ink rows 183 .. 197) over the values' ink (rows
+    // 186 .. 214) -> next font.
+    c = HikeGridLayout.placeColumns(rdims, rxs, 200, rect, 10, [40, 40, 20, 190]);
+    HikeGridCheck.near(errs, "label over a value font", c[0], 1);
+    HikeGridCheck.near(errs, "label over a value left x", c[1], 150.0);
+    // Labels on y = 5 (ink rows -2 .. 12): above the screen -> next font.
+    c = HikeGridLayout.placeColumns(rdims, rxs, 200, rect, 10, [40, 40, 20, 5]);
+    HikeGridCheck.near(errs, "label above the screen font", c[0], 1);
+    // Every font rejected for its labels: the smallest at the tuned centres.
+    c = HikeGridLayout.placeColumns([[152, 122, 40], [152, 122, 40]], rxs, 200, rect, 10, [180, 180, 20, 160]);
+    HikeGridCheck.near(errs, "labels never fit font", c[0], 1);
+    HikeGridCheck.near(errs, "labels never fit left x", c[1], 150.0);
+    HikeGridCheck.near(errs, "labels never fit right x", c[2], 250.0);
+
+    // Empty labels (width 0) never block the spread.
+    c = HikeGridLayout.placeColumns(rdims, rxs, 200, rect, 10, [0, 0, 20, 160]);
+    HikeGridCheck.near(errs, "empty labels font", c[0], 0);
+    HikeGridCheck.near(errs, "empty labels left x", c[1], 108.333);
+    // Missing or malformed labels: not checked, as before.
+    c = HikeGridLayout.placeColumns(rdims, rxs, 200, rect, 10, null);
+    HikeGridCheck.near(errs, "null labels left x", c[1], 108.333);
+    c = HikeGridLayout.placeColumns(rdims, rxs, 200, rect, 10, [180, 180, 20]);
+    HikeGridCheck.near(errs, "3-item labels left x", c[1], 108.333);
+
+    // Tuned centres: the labels are not checked, the original layout stays
+    // even with labels that would overlap (values 60 px fit at 150 / 250).
+    c = HikeGridLayout.placeColumns([[60, 60, 40], [40, 40, 30]], rxs, 200, rect, 10, [150, 150, 20, 160]);
+    HikeGridCheck.near(errs, "tuned, labels unchecked font", c[0], 0);
+    HikeGridCheck.near(errs, "tuned, labels unchecked left x", c[1], 150.0);
+    HikeGridCheck.near(errs, "tuned, labels unchecked right x", c[2], 250.0);
+
+    // Real fenix6pro Position page: "ELEV. GAIN" 74 x 19 and "DISTANCE"
+    // 68 x 19 at y = 102 (bench), values "20000" / "999.9": unchanged.
+    c = HikeGridLayout.placeColumns([[116, 100, 60], [80, 70, 40]], [73, 187], 142, [260, 260, true], 5.2, [74, 68, 19, 102]);
+    HikeGridCheck.near(errs, "fenix6pro + labels font", c[0], 0);
+    HikeGridCheck.near(errs, "fenix6pro + labels left x", c[1], 73.0);
+    HikeGridCheck.near(errs, "fenix6pro + labels right x", c[2], 187.0);
+    // Real fr265s Pace page ("+940" 164, "26:48" 182, MILD 85; labels
+    // "VERT. SPD." 127, "PACE" 62): LARGE at the tuned centres, as before.
+    c = HikeGridLayout.placeColumns([[164, 182, 85], [112, 124, 58]], xs, 196.62, round, 7.2, [127, 62, 29, 141.23]);
+    HikeGridCheck.near(errs, "fr265s + labels font", c[0], 1);
+    HikeGridCheck.near(errs, "fr265s + labels left x", c[1], 101.08);
     return HikeGridCheck.finish(errs, logger);
 }
 
