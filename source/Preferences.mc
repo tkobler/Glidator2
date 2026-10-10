@@ -182,10 +182,14 @@ function migrateLegacyPreferences(legacy)
 
 // Same migration into `store` (any object with getValue / setValue:
 // AppStorageStore in the app, a stand-in in tests). It runs at start-up, so
-// it never throws: if reading or writing a key fails (setValue raises an
-// exception when the store is full), that key is skipped and its old value is
-// kept for the next launch; the other key is still migrated. A null store
-// migrates nothing.
+// it never throws: if any step for a key fails (reading the old store,
+// reading or writing Storage -- setValue raises an exception when the store
+// is full -- or erasing the old key), the rest of that key is skipped and
+// the other key is still migrated. The old key is only erased after Storage
+// is written; if the write failed, the old value is kept for the next
+// launch; if only the erase failed, Storage already holds the value (it
+// wins on the next launch) and the erase is retried. A key counts as
+// migrated once its old copy is erased. A null store migrates nothing.
 function migrateLegacyPreferencesTo(legacy, store)
 {
 	if (legacy == null || !(legacy has :getProperty) || !(legacy has :deleteProperty) || store == null)
@@ -196,25 +200,20 @@ function migrateLegacyPreferencesTo(legacy, store)
 	var migrated = 0;
 	for (var i = 0; i < keys.size(); i++)
 	{
-		var old = legacy.getProperty(keys[i]);
-		if (old != null)
+		try
 		{
-			var written = false;
-			try
+			var old = legacy.getProperty(keys[i]);
+			if (old != null)
 			{
 				var kept = preferenceToKeep(store.getValue(keys[i]), old);
 				store.setValue(keys[i], sanitizePreference(keys[i], kept));
-				written = true;
-			}
-			catch (e)
-			{
-				// Old key left in place: retried on the next launch.
-			}
-			if (written)
-			{
 				legacy.deleteProperty(keys[i]);
 				migrated += 1;
 			}
+		}
+		catch (e)
+		{
+			// Key left as it is: retried on the next launch.
 		}
 	}
 	return migrated;
