@@ -285,30 +285,33 @@ class WatchDisplay
 		}
 
 		dc.setPenWidth(3); // Reset pen width
-		// Draw cardinal directions (N, S, E, W), rotated by heading
+		// Draw cardinal directions (N, S, E, W), rotated by heading.
+		// 18 px from the rim as before, further in where a letter would leave
+		// the circle (V3a, CompassLayout.letterInset()).
+		var inset = compassLetterInset();
 		dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
 		// N at 270 degrees (rotated by heading)
 		var nAngle = Math.toRadians(270) + heading;
-		var nX = centerX + (radius - 18) * Math.cos(nAngle);
-		var nY = centerY + (radius - 18) * Math.sin(nAngle);
+		var nX = centerX + (radius - inset) * Math.cos(nAngle);
+		var nY = centerY + (radius - inset) * Math.sin(nAngle);
 		dc.drawText(nX, nY, Graphics.FONT_LARGE, "N", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
 		// S at 90 degrees (rotated by heading)
 		var sAngle = Math.toRadians(90) + heading;
-		var sX = centerX + (radius - 18) * Math.cos(sAngle);
-		var sY = centerY + (radius - 18) * Math.sin(sAngle);
+		var sX = centerX + (radius - inset) * Math.cos(sAngle);
+		var sY = centerY + (radius - inset) * Math.sin(sAngle);
 		dc.drawText(sX, sY, Graphics.FONT_LARGE, "S", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
 		// E at 0 degrees (rotated by heading)
 		var eAngle = 0 + heading;
-		var eX = centerX + (radius - 18) * Math.cos(eAngle);
-		var eY = centerY + (radius - 18) * Math.sin(eAngle);
+		var eX = centerX + (radius - inset) * Math.cos(eAngle);
+		var eY = centerY + (radius - inset) * Math.sin(eAngle);
 		dc.drawText(eX, eY, Graphics.FONT_LARGE, "E", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
 		// W at 180 degrees (rotated by heading)
 		var wAngle = Math.toRadians(180) + heading;
-		var wX = centerX + (radius - 18) * Math.cos(wAngle);
-		var wY = centerY + (radius - 18) * Math.sin(wAngle);
+		var wX = centerX + (radius - inset) * Math.cos(wAngle);
+		var wY = centerY + (radius - inset) * Math.sin(wAngle);
 		dc.drawText(wX, wY, Graphics.FONT_LARGE, "W", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         
         // Draw red Line at 12h
@@ -359,6 +362,25 @@ class WatchDisplay
             );
             Sys.println("Compass drawn, waiting for GPS");
         }
+    }
+
+    // CompassLayout.letterInset() for this screen's FONT_LARGE, computed once
+    // (the fonts do not change), for compass() (V3a).
+    var compassInset = null;
+
+    function compassLetterInset()
+    {
+        if (compassInset == null)
+        {
+            var letters = ["N", "S", "E", "W"];
+            var dims = new [4];
+            for (var i = 0; i < 4; i++)
+            {
+                dims[i] = dc.getTextDimensions(letters[i], Graphics.FONT_LARGE);
+            }
+            compassInset = CompassLayout.letterInset(dc.getFontHeight(Graphics.FONT_LARGE), dims);
+        }
+        return compassInset;
     }
 
     // "Recording started" banner: a green circle with a white play triangle,
