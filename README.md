@@ -82,9 +82,9 @@ To develop and build Glidator2, you need the following tools:
 ### Building and Running
 - **Command Line**: Use `monkeyc` to compile the project:
   ```bash
-  monkeyc -f monkey.jungle -o bin/Glidator2.prg -d <device_id>
+  monkeyc -f monkey.jungle -o bin/Glidator2.prg -d <device_id> -y developer_key
   ```
-  Replace `<device_id>` with your target device (e.g., `fenix7`, `fr965`, `instinct2`). Find supported devices in the SDK's `devices` folder.
+  Replace `<device_id>` with your target device (e.g., `fenix7`, `fr965`, `instinct2`). Find supported devices in the SDK's `devices` folder. `-y` gives the private key used to sign the build (here `developer_key` at the repository root): `monkeyc` refuses to build without it.
 - **IDE**:
   - In VS Code, use the Connect IQ extension's build task (Ctrl+Shift+B or Cmd+Shift+B).
   - In VS Code, open a .mc file of the source folder and use the "run and debug" button to build and run the app in the simulator.
@@ -98,9 +98,9 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 The `-s tools -p 'test_*.py'` arguments are needed: a bare `python3 -m unittest` finds no test (`Ran 0 tests`).
 
 ### Exporting .iq File
-- Compile the app with the `-r` flag to generate a signed `.iq` file for distribution:
+- Package the app with the `-e` flag and sign it with your developer key (`-y`) to generate the `.iq` file for distribution (it builds every device of `manifest.xml`, which takes a few minutes):
   ```bash
-  monkeyc -f monkey.jungle -o bin/Glidator.iq -r
+  monkeyc -e -f monkey.jungle -o bin/Glidator2.iq -y developer_key
   ```
 - Alternatively, in VS Code, select the >Monkey C: Export Project option, which packages the app with your developer key (that you can generate also with a Monkey C command ).
 - The resulting `.iq` file is ready for sideloading or publishing.
