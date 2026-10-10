@@ -500,6 +500,10 @@ function testHikeGridPlaceColumnsChecksLabels(logger)
     HikeGridCheck.near(errs, "label off the circle font", c[0], 1);
     HikeGridCheck.near(errs, "label off the circle left x", c[1], 101.08);
     HikeGridCheck.near(errs, "label off the circle right x", c[2], 258.92);
+    // Same with the RIGHT label too wide (ink x1 355.009 beyond the circle).
+    c = HikeGridLayout.placeColumns(dims, xs, 196.62, round, 7.2, [62, 182, 29, 141.23]);
+    HikeGridCheck.near(errs, "right label off the circle font", c[0], 1);
+    HikeGridCheck.near(errs, "right label off the circle right x", c[2], 258.92);
 
     // Rectangle 400 x 400 (spread centres 108.333 / 276.667, see
     // testHikeGridPlaceColumns), labels 20 px high (ink rows y +- 7).
@@ -525,6 +529,12 @@ function testHikeGridPlaceColumnsChecksLabels(logger)
     // Labels on y = 5 (ink rows -2 .. 12): above the screen -> next font.
     c = HikeGridLayout.placeColumns(rdims, rxs, 200, rect, 10, [40, 40, 20, 5]);
     HikeGridCheck.near(errs, "label above the screen font", c[0], 1);
+    // Right label 260 px wide at the spread centre 276.667: ink x 147.67 ..
+    // 405.67, past the right edge (clear of the empty left label and, on
+    // rows 153 .. 167, of both values) -> next font.
+    c = HikeGridLayout.placeColumns(rdims, rxs, 200, rect, 10, [0, 260, 20, 160]);
+    HikeGridCheck.near(errs, "label past the right edge font", c[0], 1);
+    HikeGridCheck.near(errs, "label past the right edge right x", c[2], 250.0);
     // Every font rejected for its labels: the smallest at the tuned centres.
     c = HikeGridLayout.placeColumns([[152, 122, 40], [152, 122, 40]], rxs, 200, rect, 10, [180, 180, 20, 160]);
     HikeGridCheck.near(errs, "labels never fit font", c[0], 1);
