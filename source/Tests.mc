@@ -2352,6 +2352,27 @@ function testMigrateLegacyPreferencesToStore(logger)
 	old.failDeleteKeys = [$.PREF_BEEP_KEY];
 	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 0, "write and erase throw: 0");
 	Test.assertEqualMessage(old.deleteCalls, 0, "write throws: no erase tried");
+
+	// Conflict while the old read throws: Storage already holds both values,
+	// the old store throws on every read. Storage is neither read over nor
+	// written (it keeps the user's latest choice), the old keys stay.
+	store = new FakePrefStore({ $.PREF_BEEP_KEY => false, $.PREF_VS_WINDOW_KEY => 60000 }, [], []);
+	old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true, $.PREF_VS_WINDOW_KEY => 300000 });
+	old.failGetKeys = [$.PREF_BEEP_KEY, $.PREF_VS_WINDOW_KEY];
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 0, "Storage set, old reads throw: 0");
+	Test.assertEqualMessage(store.setCalls, 0, "Storage set, old reads throw: no write");
+	Test.assertEqualMessage(store.values.get($.PREF_BEEP_KEY), false, "Storage set, old reads throw: beep false kept");
+	Test.assertEqualMessage(store.values.get($.PREF_VS_WINDOW_KEY), 60000, "Storage set, old reads throw: 1 min kept");
+	Test.assertEqualMessage(old.deleteCalls, 0, "Storage set, old reads throw: no erase");
+
+	// Empty old store whose erase would throw: nothing to read, so no erase
+	// is tried and nothing is written.
+	store = new FakePrefStore({}, [], []);
+	old = new FakeLegacyStore({});
+	old.failDeleteKeys = [$.PREF_BEEP_KEY, $.PREF_VS_WINDOW_KEY];
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 0, "empty old store, erase would throw: 0");
+	Test.assertEqualMessage(old.deleteCalls, 0, "empty old store, erase would throw: no erase tried");
+	Test.assertEqualMessage(store.setCalls, 0, "empty old store, erase would throw: no write");
 	return true;
 }
 
