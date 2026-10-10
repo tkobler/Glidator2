@@ -561,20 +561,24 @@ class WatchDisplay
 
         // Middle two columns: NUMBER_MILD at the tuned centres when both
         // values fit; else spread about the divider, or a smaller font
-        // (HikeGridLayout.placeColumns()). Each label follows its value.
+        // (HikeGridLayout.placeColumns()). Each label follows its value: a
+        // spread is only taken if the labels fit too.
         var midCenterY = (y1 + y2) / 2;
         var colOffset = 5 * scale;
         var midValueY = midCenterY + 12 * scale;
+        var midLabelY = midCenterY - 28 * scale;
+        var labelDims = textDims([Graphics.FONT_XTINY], leftLabel, rightLabel)[0];
         var cols = HikeGridLayout.placeColumns(textDims(HIKE_GRID_MID_FONTS, leftValue, rightValue),
             [(left + centerX) / 2 - colOffset, (centerX + right) / 2 + colOffset],
-            midValueY, hikeScreen, w * HikeGridLayout.MIN_GAP_SHARE);
+            midValueY, hikeScreen, w * HikeGridLayout.MIN_GAP_SHARE,
+            [labelDims[0], labelDims[1], labelDims[2], midLabelY]);
         var midValueFont = HIKE_GRID_MID_FONTS[cols[0]];
         var colLeftX = cols[1];
         var colRightX = cols[2];
 
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(colLeftX, midCenterY - 28 * scale, Graphics.FONT_XTINY, leftLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.drawText(colRightX, midCenterY - 28 * scale, Graphics.FONT_XTINY, rightLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colLeftX, midLabelY, Graphics.FONT_XTINY, leftLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(colRightX, midLabelY, Graphics.FONT_XTINY, rightLabel, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(colLeftX, midValueY, midValueFont, leftValue, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);

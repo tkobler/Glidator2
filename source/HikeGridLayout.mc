@@ -221,8 +221,15 @@ module HikeGridLayout
     // spread symmetrically about the screen centre (the divider), the gap
     // between them equal to the room left beside the wider one, at least
     // minGap. If no font fits, the smallest at the tuned centres.
-    function placeColumns(dims, xs, y, screen, minGap)
+    // labels = [left width, right width, height, y] of the two labels
+    // (FONT_XTINY), drawn above and centred on their values: a spread is
+    // only taken if both labels, moved with their values, are on the
+    // screen, clear of each other and of both values; else the next font
+    // is tried. null (or not 4 items): labels not checked. The tuned
+    // centres never check the labels, so the original layout is kept.
+    function placeColumns(dims, xs, y, screen, minGap, labels)
     {
+        var lab = (labels != null && labels.size() == 4) ? labels : null;
         if (dims == null || dims.size() == 0)
         {
             return [0, xs[0], xs[1]];
@@ -246,7 +253,7 @@ module HikeGridLayout
             {
                 var xl = cx - g / 2.0 - inkL / 2.0;
                 var xr = cx + g / 2.0 + inkR / 2.0;
-                if (columnsFit(d, xl, xr, y, screen))
+                if (columnsFit(d, xl, xr, y, screen) && labelsFit(lab, d, xl, xr, y, screen))
                 {
                     return [i, xl, xr];
                 }
@@ -260,6 +267,26 @@ module HikeGridLayout
         var a = inkBox(xl, y, d[0], d[2]);
         var b = inkBox(xr, y, d[1], d[2]);
         return !overlap(a, b) && inScreen(a, screen) && inScreen(b, screen);
+    }
+
+    // True if the labels centred on xl and xr (labels: see placeColumns(),
+    // null: not checked) are on the screen, clear of each other and of the
+    // two values of dims d on the row y.
+    function labelsFit(labels, d, xl, xr, y, screen)
+    {
+        if (labels == null)
+        {
+            return true;
+        }
+        var la = inkBox(xl, labels[3], labels[0], labels[2]);
+        var lb = inkBox(xr, labels[3], labels[1], labels[2]);
+        if (overlap(la, lb) || !inScreen(la, screen) || !inScreen(lb, screen))
+        {
+            return false;
+        }
+        var va = inkBox(xl, y, d[0], d[2]);
+        var vb = inkBox(xr, y, d[1], d[2]);
+        return !overlap(la, va) && !overlap(la, vb) && !overlap(lb, va) && !overlap(lb, vb);
     }
 
     // Half width of the screen at dy px from its centre row: w / 2 on a
