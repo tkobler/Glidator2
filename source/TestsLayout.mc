@@ -1,5 +1,6 @@
 using Toybox.Test;
 using Toybox.Graphics;
+using Toybox.Math;
 using Toybox.Position;
 using Toybox.System;
 using Toybox.WatchUi;
@@ -1022,7 +1023,8 @@ function testBenchSelfExemptions(logger)
 }
 
 // ---------------------------------------------------------------------------
-// Layout tests: testLayout_<View>_<State> (35, plus Fly_InvalidAltitude)
+// Layout tests: testLayout_<View>_<State> (35, plus Fly_InvalidAltitude and
+// Compass_Placement)
 // ---------------------------------------------------------------------------
 
 (:test, :layouttest, :typecheck(false))
@@ -1100,6 +1102,59 @@ function testLayout_Compass_Extreme(logger) { return LayoutBench.run(logger, "Co
 function testLayout_Compass_Paused(logger) { return LayoutBench.run(logger, "Compass", "Paused"); }
 (:test, :layouttest, :typecheck(false))
 function testLayout_Compass_Recording(logger) { return LayoutBench.run(logger, "Compass", "Recording"); }
+// V3a, V3b (plan of 08/10): WatchDisplay.compass() draws its 4 letters in
+// FONT_LARGE, centred (radius - CompassLayout.letterInset()) from the centre
+// of the screen, the inset computed from this device's FONT_LARGE; and its
+// two centre lines (coordinates, or "Waiting for" / "GPS") in FONT_SMALL at
+// HikeMapLayout.waitingLinesY() of this device's FONT_SMALL height. Checked
+// on the drawText() calls, heading 0 (Empty) and 45 degrees (Normal).
+(:test, :layouttest, :typecheck(false))
+function testLayout_Compass_Placement(logger)
+{
+	var errs = [];
+	var states = ["Empty", "Normal"];
+	for (var s = 0; s < states.size(); s++)
+	{
+		var dc = LayoutBench.render("Compass", states[s]);
+		LayoutBench.reset();
+		var t = dc.texts;
+		if (t.size() != 6)
+		{
+			errs.add(states[s] + ": expected 6 texts, got \"" + LayoutBench.join(t) + "\"");
+			continue;
+		}
+		var w = dc.getWidth();
+		var h = dc.getHeight();
+		var dims = [];
+		for (var i = 0; i < 4; i++)
+		{
+			dims.add([t[i][5], t[i][6]]);
+		}
+		var inset = CompassLayout.letterInset(dc.getFontHeight(Graphics.FONT_LARGE), dims);
+		var want = w / 2 - inset;
+		for (var i = 0; i < 4; i++)
+		{
+			var dx = t[i][2] - w / 2;
+			var dy = t[i][3] - h / 2;
+			var dist = Math.sqrt(dx * dx + dy * dy);
+			if ((dist - want).abs() > 0.05 || t[i][1] != Graphics.FONT_LARGE)
+			{
+				errs.add(states[s] + ": \"" + t[i][0] + "\" font " + t[i][1] + " at " + dist + " px from the centre, expected FONT_LARGE at " + want + " (inset " + inset + ")");
+			}
+		}
+		var lines = HikeMapLayout.waitingLinesY(h, dc.getFontHeight(Graphics.FONT_SMALL));
+		for (var i = 0; i < 2; i++)
+		{
+			var e = t[4 + i];
+			if ((e[3] - lines[i]).abs() > 0.01 || e[2] != w / 2 || e[1] != Graphics.FONT_SMALL)
+			{
+				errs.add(states[s] + ": \"" + e[0] + "\" font " + e[1] + " at (" + e[2] + ", " + e[3] + "), expected FONT_SMALL at (" + (w / 2) + ", " + lines[i] + ")");
+			}
+		}
+		logger.debug(states[s] + ": letter inset " + inset + ", centre lines " + lines);
+	}
+	return LayoutBench.finish(errs, logger);
+}
 
 (:test, :layouttest, :typecheck(false))
 function testLayout_Paused_Empty(logger) { return LayoutBench.run(logger, "Paused", "Empty"); }
