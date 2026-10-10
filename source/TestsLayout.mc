@@ -766,6 +766,105 @@ class LayoutBench
 		}
 	}
 
+	// Middle columns of a hike page (review of 08/10, XTINY labels checked by
+	// placeColumns() when the values are spread): draws `view` in `state`,
+	// recomputes the placeColumns() call of WatchDisplay.hikeGrid() from the
+	// drawn texts, and checks that it gives exactly what was drawn (font and
+	// x of both values, labels on their values). It then logs the result the
+	// same call gives with labels = null, i.e. the layout before the labels
+	// were checked (labelsFit(null) is always true), as
+	//   COLUMNS ... same | differs: now [font, xl, xr] before [font, xl, xr]
+	// so that the logs show, watch by watch, which pages the change moved.
+	// A page that differs must have been a label defect before: the old
+	// spread, drawn with the bench's own ink boxes, has a label over the
+	// other label, over a value, or off the screen. Sub-window watches use
+	// hikeGridSubscreen(), not placeColumns(): skipped (logged).
+	static function middleColumns(errs, logger, view, state)
+	{
+		var dc = render(view, state);
+		reset();
+		var head = header(view, state);
+		if (apiSubscreen() != null)
+		{
+			logger.debug(head + "COLUMNS sub-window layout, placeColumns() not used");
+			return;
+		}
+		var t = dc.texts;
+		var k = -1;
+		for (var i = 0; i + 3 < t.size(); i++)
+		{
+			if (t[i][1] == Graphics.FONT_XTINY && t[i + 1][1] == Graphics.FONT_XTINY && t[i][3] == t[i + 1][3])
+			{
+				k = i;
+				break;
+			}
+		}
+		if (k < 0)
+		{
+			errs.add(head + "COLUMNS no pair of middle labels in \"" + join(t) + "\"");
+			return;
+		}
+		var s = System.getDeviceSettings();
+		var w = s.screenWidth;
+		var h = s.screenHeight;
+		// Same inputs as hikeGrid() (same expressions, same order).
+		var scale = (w < h ? w : h) / 260.0;
+		var centerX = w / 2;
+		var left = w * 0.1;
+		var right = w - left;
+		var colOffset = 5 * scale;
+		var xs = [(left + centerX) / 2 - colOffset, (centerX + right) / 2 + colOffset];
+		var labelY = t[k][3];
+		var valueY = t[k + 2][3];
+		var disp = new WatchDisplay(newDc());
+		var fonts = disp.HIKE_GRID_MID_FONTS;
+		var dims = disp.textDims(fonts, t[k + 2][0], t[k + 3][0]);
+		var ld = disp.textDims([Graphics.FONT_XTINY], t[k][0], t[k + 1][0])[0];
+		var screen = [w, h, isRound()];
+		var minGap = w * HikeGridLayout.MIN_GAP_SHARE;
+		var now = HikeGridLayout.placeColumns(dims, xs, valueY, screen, minGap, [ld[0], ld[1], ld[2], labelY]);
+		var before = HikeGridLayout.placeColumns(dims, xs, valueY, screen, minGap, null);
+
+		// The recomputation is the drawing: else the comparison means nothing.
+		if (fonts[now[0]] != t[k + 2][1] || fonts[now[0]] != t[k + 3][1]
+			|| (now[1] - t[k + 2][2]).abs() > 0.001 || (now[2] - t[k + 3][2]).abs() > 0.001
+			|| (now[1] - t[k][2]).abs() > 0.001 || (now[2] - t[k + 1][2]).abs() > 0.001)
+		{
+			errs.add(head + "COLUMNS recomputed " + fmtPlace(now) + " but drawn" + calls([t[k], t[k + 1], t[k + 2], t[k + 3]]));
+			return;
+		}
+		var same = now[0] == before[0] && (now[1] - before[1]).abs() <= 0.001 && (now[2] - before[2]).abs() <= 0.001;
+		logger.debug(head + "COLUMNS " + (same ? "same" : "differs") + ": now " + fmtPlace(now) + " before " + fmtPlace(before));
+		if (same)
+		{
+			return;
+		}
+		// The old layout, redrawn: it must have had a label defect.
+		var f = fonts[before[0]];
+		var j = t[k][4];
+		var old = [
+			[t[k][0], Graphics.FONT_XTINY, before[1], labelY, j, ld[0], t[k][6]],
+			[t[k + 1][0], Graphics.FONT_XTINY, before[2], labelY, j, ld[1], t[k + 1][6]],
+			[t[k + 2][0], f, before[1], valueY, j, dims[before[0]][0], dims[before[0]][2]],
+			[t[k + 3][0], f, before[2], valueY, j, dims[before[0]][1], dims[before[0]][2]]
+		];
+		var defs = findDefects(old, w, h, isRound(), null, LAYOUT_INK_K);
+		var labelHit = false;
+		for (var i = 0; i < defs.size() && !labelHit; i++)
+		{
+			labelHit = defs[i].find("\"" + t[k][0] + "\"") != null || defs[i].find("\"" + t[k + 1][0] + "\"") != null;
+		}
+		if (!labelHit)
+		{
+			errs.add(head + "COLUMNS changed from " + fmtPlace(before) + " to " + fmtPlace(now) + " without any label defect before");
+		}
+	}
+
+	static function fmtPlace(p)
+	{
+		return "[" + p[0] + ", " + p[1].toFloat().format("%.2f") + ", " + p[2].toFloat().format("%.2f") + "]";
+	}
+
 	static function finish(errs, logger)
 	{
 		reset();
@@ -1025,8 +1124,8 @@ function testBenchSelfExemptions(logger)
 }
 
 // ---------------------------------------------------------------------------
-// Layout tests: testLayout_<View>_<State> (35, plus Fly_InvalidAltitude and
-// Compass_Placement)
+// Layout tests: testLayout_<View>_<State> (35, plus Fly_InvalidAltitude,
+// HikeMiddleColumns and Compass_Placement)
 // ---------------------------------------------------------------------------
 
 (:test, :layouttest, :typecheck(false))
@@ -1050,6 +1149,25 @@ function testLayout_HikePace_Extreme(logger) { return LayoutBench.run(logger, "H
 function testLayout_HikePace_Paused(logger) { return LayoutBench.run(logger, "HikePace", "Paused"); }
 (:test, :layouttest, :typecheck(false))
 function testLayout_HikePace_Recording(logger) { return LayoutBench.run(logger, "HikePace", "Recording"); }
+
+// Middle columns of both hike pages in the 5 states: placeColumns() as
+// drawn, and the layout before the XTINY labels were checked (see
+// LayoutBench.middleColumns()).
+(:test, :layouttest, :typecheck(false))
+function testLayout_HikeMiddleColumns(logger)
+{
+	var errs = [];
+	var views = ["HikePosition", "HikePace"];
+	var states = ["Empty", "Normal", "Extreme", "Paused", "Recording"];
+	for (var v = 0; v < views.size(); v++)
+	{
+		for (var s = 0; s < states.size(); s++)
+		{
+			LayoutBench.middleColumns(errs, logger, views[v], states[s]);
+		}
+	}
+	return LayoutBench.finish(errs, logger);
+}
 
 (:test, :layouttest, :typecheck(false))
 function testLayout_HikeMap_Empty(logger) { return LayoutBench.run(logger, "HikeMap", "Empty"); }
