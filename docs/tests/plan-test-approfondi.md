@@ -389,7 +389,7 @@ Les rounds suivants **comparent la liste des noms**, pas leur nombre. Un nom en 
 - `testLayout_HikePosition_Extreme` : OVERLAP `"20000"` × `"999.9"` ; OFFSCREEN `"99:59:59"`
 - `testLayout_HikePace_Extreme` : OFFSCREEN `"99:59:59"`
 - `testLayout_HikeMap_Empty` : OVERLAP `"Waiting for"` × `"GPS"`
-- `testLayout_Time_Empty`, `_Normal`, `_Extreme`, `_Paused`, `_Recording` (5) : OVERLAP heure × batterie
+- `testLayout_Time_Empty`, `_Normal`, `_Extreme`, `_Paused`, `_Recording` (5) : OVERLAP heure × batterie. **Corrigé le 09/10 (V2)** (batterie placée sous la hauteur réelle de `NUMBER_HOT`, `timeBatteryLayout()`) : les 5 passent (10/10 : heure (72,154,344,262), « 76% » (184,272,252,304) ; testLayout_Time_* verts sur les 17 montres représentatives).
 - `testLayout_Compass_Empty` : OVERLAP `"Waiting for"` × `"GPS"` ; OFFSCREEN `"N"`, `"S"`, `"W"`
 - `testLayout_Compass_Normal`, `_Extreme`, `_Paused`, `_Recording` (4) : OVERLAP latitude × longitude ; OFFSCREEN `"N"`, `"S"`, `"E"`, `"W"`
 
