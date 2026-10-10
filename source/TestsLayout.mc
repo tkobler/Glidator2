@@ -24,11 +24,13 @@ using Toybox.WatchUi;
 //              state setup is wrong, the layout result would mean nothing).
 // Each defect is logged as one ERROR line
 //   LAYOUT <w>x<h> <shape> <View>/<State>: OVERLAP "a"(x0,y0,x1,y1) x "b"(...)
-// and the test returns false (FAIL). A real layout defect found here is an
-// expected result: the app code is not changed by this bench. Two kinds of
-// lines are not defects (LayoutBench.exemption(), checked by B05) and are
-// logged as DEBUG "EXEMPT (reason)" lines instead: SUBSCREEN corner, and the
-// compass letter "E" in the sub-window disk (decision of 07/10 (compass letter E)).
+// and the test returns false (FAIL). The suite must be green (decision D2 of
+// 08/10): a FAIL is a layout defect to fix in the app, never an expected
+// result. Two kinds of lines are not defects (LayoutBench.exemption(),
+// checked by B05) and are logged as DEBUG "EXEMPT (reason)" lines instead:
+// SUBSCREEN corner (a false defect: outside the round window), and the
+// compass letter "E" in the sub-window disk (known defect accepted on 07/10,
+// plan point V3c).
 //
 // Annotated :layouttest as well as :test so that the functional suite can be
 // built without the bench (and the bench without :chaintest), from a
