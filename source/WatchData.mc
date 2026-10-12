@@ -369,10 +369,13 @@ class WatchData
 	// shown as the current position.
 	// ---------------------------------------------------------------------
 
-	// Minimum Position.Info.accuracy for the map. QUALITY_USABLE is a 3D fix;
-	// QUALITY_POOR (2D) would fill the trail better under trees or cliffs, at
-	// the cost of less precise points. Single place to change that choice.
-	const MIN_MAP_QUALITY = Position.QUALITY_USABLE;
+	// Minimum Position.Info.accuracy for the map: QUALITY_POOR (2D fix) since
+	// decision D6 of 12/10, so the trail also fills under trees or cliffs and
+	// in the simulator (accuracy 2 on every tick while it plays a GPX), at the
+	// cost of less precise points. Was QUALITY_USABLE (3D fix). The no-fix
+	// positions (180, 180) and (0, 0) are still rejected by isValidLatLon().
+	// Single place to change that choice.
+	const MIN_MAP_QUALITY = Position.QUALITY_POOR;
 
 	// Position.Info.accuracy (Position.QUALITY_*) from the last updateInfo(),
 	// or null when unknown.
