@@ -13,11 +13,14 @@
 #   ko*    - build fails (exit 100);
 #   mute*  - first test run prints nothing and hangs, later runs pass;
 #   dead*  - every test run prints nothing and hangs;
-#   freeze* - the test run hangs and the simulator never answers again.
+#   freeze* - the test run hangs and the simulator never answers again;
+#   hang*  - every test run prints one passing test, starts a second one and
+#            hangs.
 # The probe run (test name run_watches_probe) answers unless the file
 # <state>/sim_dead exists; then every monkeydo call fails at once, as when
-# the simulator is unreachable. STUB_RELANCER_EXIT sets the exit status of
-# relancer-simulateur.
+# the simulator is unreachable. Probe calls are counted in <state>/probes:
+# the first STUB_PROBE_FAILS of them fail (simulator still starting).
+# STUB_RELANCER_EXIT sets the exit status of relancer-simulateur.
 
 emulate -L zsh
 zmodload zsh/files 2>/dev/null || true
@@ -45,6 +48,7 @@ check() {   # check <description> <command...>
 contains() { [[ $1 == *"$2"* ]] }
 lacks()    { [[ $1 != *"$2"* ]] }
 equals()   { [[ $1 == "$2" ]] }
+matches()  { [[ $1 == $~2 ]] }
 
 write_stub() {   # write_stub <name> <body>
   print -r -- "#!/bin/zsh
@@ -65,6 +69,9 @@ watch=$2 name=${4:-}
 print -r -- "monkeydo $watch${name:+ $name}" >> $state/calls
 if [[ -e $state/sim_dead ]]; then print "Unable to connect to the simulator"; exit 1; fi
 if [[ $name == run_watches_probe ]]; then
+  print -r -- probe >> $state/probes
+  probes=(${(f)"$(<$state/probes)"})
+  if (( ${#probes} <= ${STUB_PROBE_FAILS:-0} )); then print "Unable to connect to the simulator"; exit 1; fi
   print "Executing test run_watches_probe..."
   print "ERROR"
   print "RESULTS"
@@ -76,6 +83,7 @@ case $watch in
   mute*) if [[ ! -e $state/muted.$watch ]]; then : >| $state/muted.$watch; sleep 30; fi ;;
   dead*) sleep 30 ;;
   freeze*) : >| $state/sim_dead; sleep 30 ;;
+  hang*) print "Executing test testA..."; print "PASS"; print "Executing test testB..."; sleep 30 ;;
 esac
 print "Executing test testA..."
 print "PASS"
@@ -106,6 +114,7 @@ run_case() {
   local state=$ROOT/$case_name
   mkdir -p -- $state/build
   : >| $state/calls
+  : >| $state/probes
   [[ -n ${SIM_DEAD-} ]] && : >| $state/sim_dead
   print -r -- "$case_name"
   out=$(env PATH="$STUBS:$PATH" STUB_STATE=$state \
@@ -214,6 +223,31 @@ count "$calls" relancer
 check "a single restart attempt" equals $REPLY 1
 check "no test run after giving up" lacks "$calls" "monkeydo ok2"
 check "only probes for ok1" lacks "${calls}${nl}" "monkeydo ok1${nl}"
+count "$calls" "monkeydo ok1 run_watches_probe"
+check "waiting stops: 2 probes in 2s (at 0s, then after a 2s pause)" equals $REPLY 2
+
+# --- the simulator answers after a few probes ------------------------------------
+run_case slow_simulator RUN_WATCHES_SIM_WAIT=20 STUB_PROBE_FAILS=2 -- ok1
+check "exit 0" equals $st 0
+check "probes repeated until the third answers, then tests run" equals "$calls" \
+  "monkeyc ok1${nl}relancer${nl}monkeydo ok1 run_watches_probe${nl}monkeydo ok1 run_watches_probe${nl}monkeydo ok1 run_watches_probe${nl}monkeydo ok1"
+# two 5s pauses, plus up to 0.5s of polling for each of the 3 probes
+check "answer reported after the two 5s pauses" matches "$out" "*simulator answered after 1[0-2]s*"
+check "tests run" contains "$out" "ok1: build OK, 2 tests: 2 passed, 0 failed ["
+
+run_case simulator_too_slow RUN_WATCHES_SIM_WAIT=7 STUB_PROBE_FAILS=5 -- ok1
+check "exit 3" equals $st 3
+count "$calls" "monkeydo ok1 run_watches_probe"
+check "probes at 0s, 5s and 7s, then give up" equals $REPLY 3
+check "clear message" contains "$out" "simulator NOT ANSWERING 7s after restart"
+
+# --- a watch that prints tests then hangs -----------------------------------------
+run_case hang RUN_WATCHES_TIMEOUT=3 -- hang1 ok1
+check "exit 0" equals $st 0
+check "blocked twice: reported with partial counts and the retry" contains "$out" \
+  "hang1: build OK, tests BLOCKED (>3s) after 2 tests: 1 passed, 1 failed (retried after simulator restart) -- failed: testB (no result)"
+check "hang: restart, retry once, fresh restart for the next watch" equals "$calls" \
+  "monkeyc hang1${nl}relancer${nl}monkeydo hang1 run_watches_probe${nl}monkeydo hang1${nl}relancer${nl}monkeydo hang1 run_watches_probe${nl}monkeydo hang1${nl}monkeyc ok1${nl}relancer${nl}monkeydo ok1 run_watches_probe${nl}monkeydo ok1"
 
 run_case freeze_mid_run -- --batch-size 2 freeze1 ok1 ok2
 check "exit 3" equals $st 3
@@ -252,6 +286,15 @@ check "nothing built" equals "$calls" ""
 
 run_case bad_env_batch RUN_WATCHES_BATCH=abc -- ok1
 check "invalid RUN_WATCHES_BATCH rejected" equals $st 2
+
+for bad in yes 2 no; do
+  run_case "bad_env_restart_$bad" RUN_WATCHES_RESTART=$bad -- ok1
+  check "RUN_WATCHES_RESTART='$bad' rejected with exit 2" equals $st 2
+  check "RUN_WATCHES_RESTART='$bad' builds nothing" equals "$calls" ""
+done
+
+run_case env_restart_1 RUN_WATCHES_RESTART=1 -- ok1
+check "RUN_WATCHES_RESTART=1 accepted: restart done" contains "$calls" "relancer"
 
 rm -rf -- $ROOT
 print
