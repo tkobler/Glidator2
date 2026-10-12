@@ -1,80 +1,1038 @@
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Application,1,13,24]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Application,1,13,24]; ]
 using Toybox.Application;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 3; @symbol_classdef = [Preferences,3,6,17]; ]
-class Preferences {
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 3; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Lang,2,13,17]; ]
+using Toybox.Lang;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 11; @position = 6; @symbol_constdef = [VS_WINDOW_DEFAULT_MS,11,6,26]; ]
+const VS_WINDOW_DEFAULT_MS = 60000;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 13; @symbol_functiondef = [vsWindowChoicesMs,13,9,26]; ]
+function vsWindowChoicesMs() {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_14_0_16_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 15 1 ]
+    %tmp.1 = newa 3;
+    %tmp.2 = 60000;
+    %tmp.3 = dup %tmp.1;
+    %tmp.4 = aputv %tmp.3 0 %tmp.2;
+    %tmp.5 = 180000;
+    %tmp.6 = dup %tmp.4;
+    %tmp.7 = aputv %tmp.6 1 %tmp.5;
+    %tmp.8 = 300000;
+    %tmp.9 = dup %tmp.7;
+    %tmp.10 = aputv %tmp.9 2 %tmp.8;
+    ret %tmp.10;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_14_0_16_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 20; @symbol_functiondef = [sanitizeVsWindowMs,20,9,27]; @symbol_param<0> = [raw,20,28,31]; ]
+function sanitizeVsWindowMs(raw) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_21_0_35_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 22 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_22_1_25_1_if_stmt:
+    %tmp.1 = lgetv %raw;
+    symbol [ raw %tmp.1 22 7 10 ];
+    symbol [ Lang %tmp.2 22 22 26 ];
+    %tmp.2 = getm $.Toybox.Lang;
+    symbol [ Number %tmp.3 22 27 33 ];
+    %tmp.3 = getv %tmp.2 :Number;
+    %tmp.4 = isa %tmp.1 %tmp.3;
+    %tmp.5 = not %tmp.4;
+    bf %tmp.5 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_22_1_25_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_22_1_25_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_23_1_25_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 24 2 ]
+    symbol [ VS_WINDOW_DEFAULT_MS %tmp.7 24 9 29 ];
+    %tmp.7 = getv ? :VS_WINDOW_DEFAULT_MS;
+    ret %tmp.7;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_23_1_25_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_22_1_25_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_22_1_25_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 26 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_21_0_35_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_21_0_35_0_stop" ]
+    %choices.1 = local;
+    symbol [ choices %choices.1 26 5 12 ];
+    %tmp.8 = self;
+    symbol [ vsWindowChoicesMs %tmp.9 26 15 32 ];
+    %tmp.9 = getv function %tmp.8 :vsWindowChoicesMs;
+    %tmp.10 = invoke %tmp.8 %tmp.9();
+    lputv %choices.1 %tmp.10;
+    symbol [ choices %choices.1 26 5 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 27 1 ]
+    for @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_test @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_incr @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_init:
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_begin" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_end" ]
+    %i.2 = local;
+    symbol [ i %i.2 27 10 11 ];
+    %tmp.11 = 0;
+    lputv %i.2 %tmp.11;
+    symbol [ i %i.2 27 10 11 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_test:
+    %tmp.12 = lgetv %i.2;
+    symbol [ i %tmp.12 27 17 18 ];
+    %tmp.13 = lgetv %choices.1;
+    symbol [ choices %tmp.13 27 21 28 ];
+    symbol [ size %tmp.14 27 29 33 ];
+    %tmp.14 = getv function %tmp.13 :size;
+    %tmp.15 = invoke %tmp.13 %tmp.14();
+    %tmp.16 = lt %tmp.12 %tmp.15;
+    bf %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_28_1_33_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 29 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_29_2_32_2_if_stmt:
+    %tmp.17 = lgetv %raw;
+    symbol [ raw %tmp.17 29 6 9 ];
+    %tmp.18 = lgetv %choices.1;
+    symbol [ choices %tmp.18 29 13 20 ];
+    %tmp.19 = lgetv %i.2;
+    symbol [ i %tmp.19 29 21 22 ];
+    %tmp.20 = agetv %tmp.18 %tmp.19;
+    %tmp.21 = eq %tmp.17 %tmp.20;
+    bf %tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_29_2_32_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_29_2_32_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_30_2_32_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 31 3 ]
+    %tmp.22 = lgetv %raw;
+    symbol [ raw %tmp.22 31 10 13 ];
+    ret %tmp.22;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_30_2_32_2_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_29_2_32_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_29_2_32_2_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_28_1_33_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_incr:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 27 ]
+    %tmp.25 = lgetv %i.2;
+    symbol [ i %tmp.25 27 37 38 ];
+    %tmp.26 = add %tmp.25 1;
+    lputv %i.2 %tmp.26;
+    symbol [ i %i.2 27 37 38 ];
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_test;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_27_1_33_1_for_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 34 1 ]
+    symbol [ VS_WINDOW_DEFAULT_MS %tmp.28 34 8 28 ];
+    %tmp.28 = getv ? :VS_WINDOW_DEFAULT_MS;
+    ret %tmp.28;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_21_0_35_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 38; @symbol_functiondef = [vsWindowFocusIndex,38,9,27]; @symbol_param<0> = [ms,38,28,30]; ]
+function vsWindowFocusIndex(ms) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_39_0_50_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 40 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_39_0_50_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_39_0_50_0_stop" ]
+    %w.1 = local;
+    symbol [ w %w.1 40 5 6 ];
+    %tmp.1 = self;
+    symbol [ sanitizeVsWindowMs %tmp.2 40 9 27 ];
+    %tmp.2 = getv function %tmp.1 :sanitizeVsWindowMs;
+    %tmp.3 = lgetv %ms;
+    symbol [ ms %tmp.3 40 28 30 ];
+    %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
+    lputv %w.1 %tmp.4;
+    symbol [ w %w.1 40 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 41 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_39_0_50_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_39_0_50_0_stop" ]
+    %choices.2 = local;
+    symbol [ choices %choices.2 41 5 12 ];
+    %tmp.5 = self;
+    symbol [ vsWindowChoicesMs %tmp.6 41 15 32 ];
+    %tmp.6 = getv function %tmp.5 :vsWindowChoicesMs;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %choices.2 %tmp.7;
+    symbol [ choices %choices.2 41 5 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 42 1 ]
+    for @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_test @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_incr @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_init:
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_begin" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_end" ]
+    %i.3 = local;
+    symbol [ i %i.3 42 10 11 ];
+    %tmp.8 = 0;
+    lputv %i.3 %tmp.8;
+    symbol [ i %i.3 42 10 11 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_test:
+    %tmp.9 = lgetv %i.3;
+    symbol [ i %tmp.9 42 17 18 ];
+    %tmp.10 = lgetv %choices.2;
+    symbol [ choices %tmp.10 42 21 28 ];
+    symbol [ size %tmp.11 42 29 33 ];
+    %tmp.11 = getv function %tmp.10 :size;
+    %tmp.12 = invoke %tmp.10 %tmp.11();
+    %tmp.13 = lt %tmp.9 %tmp.12;
+    bf %tmp.13 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_43_1_48_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 44 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_44_2_47_2_if_stmt:
+    %tmp.14 = lgetv %w.1;
+    symbol [ w %tmp.14 44 6 7 ];
+    %tmp.15 = lgetv %choices.2;
+    symbol [ choices %tmp.15 44 11 18 ];
+    %tmp.16 = lgetv %i.3;
+    symbol [ i %tmp.16 44 19 20 ];
+    %tmp.17 = agetv %tmp.15 %tmp.16;
+    %tmp.18 = eq %tmp.14 %tmp.17;
+    bf %tmp.18 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_44_2_47_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_44_2_47_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_45_2_47_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 46 3 ]
+    %tmp.19 = lgetv %i.3;
+    symbol [ i %tmp.19 46 10 11 ];
+    ret %tmp.19;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_45_2_47_2_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_44_2_47_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_44_2_47_2_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_43_1_48_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_incr:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 42 ]
+    %tmp.22 = lgetv %i.3;
+    symbol [ i %tmp.22 42 37 38 ];
+    %tmp.23 = add %tmp.22 1;
+    lputv %i.3 %tmp.23;
+    symbol [ i %i.3 42 37 38 ];
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_test;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_42_1_48_1_for_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 49 1 ]
+    %tmp.24 = 0;
+    ret %tmp.24;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_39_0_50_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 53; @symbol_functiondef = [vsWindowLabel,53,9,22]; @symbol_param<0> = [ms,53,23,25]; ]
+function vsWindowLabel(ms) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_54_0_56_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 55 1 ]
+    %tmp.1 = newa 3;
+    %tmp.2 = "1 min";
+    %tmp.3 = dup %tmp.1;
+    %tmp.4 = aputv %tmp.3 0 %tmp.2;
+    %tmp.5 = "3 min";
+    %tmp.6 = dup %tmp.4;
+    %tmp.7 = aputv %tmp.6 1 %tmp.5;
+    %tmp.8 = "5 min";
+    %tmp.9 = dup %tmp.7;
+    %tmp.10 = aputv %tmp.9 2 %tmp.8;
+    %tmp.11 = self;
+    symbol [ vsWindowFocusIndex %tmp.12 55 36 54 ];
+    %tmp.12 = getv function %tmp.11 :vsWindowFocusIndex;
+    %tmp.13 = lgetv %ms;
+    symbol [ ms %tmp.13 55 55 57 ];
+    %tmp.14 = invoke %tmp.11 %tmp.12(%tmp.13);
+    %tmp.15 = agetv %tmp.10 %tmp.14;
+    ret %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_54_0_56_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 61; @symbol_functiondef = [nextVsWindowMs,61,9,23]; @symbol_param<0> = [ms,61,24,26]; ]
+function nextVsWindowMs(ms) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_62_0_76_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 63 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_63_1_66_1_if_stmt:
+    %tmp.1 = lgetv %ms;
+    symbol [ ms %tmp.1 63 7 9 ];
+    symbol [ Lang %tmp.2 63 21 25 ];
+    %tmp.2 = getm $.Toybox.Lang;
+    symbol [ Number %tmp.3 63 26 32 ];
+    %tmp.3 = getv %tmp.2 :Number;
+    %tmp.4 = isa %tmp.1 %tmp.3;
+    %tmp.5 = not %tmp.4;
+    bf %tmp.5 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_63_1_66_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_63_1_66_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_64_1_66_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 65 2 ]
+    symbol [ VS_WINDOW_DEFAULT_MS %tmp.7 65 9 29 ];
+    %tmp.7 = getv ? :VS_WINDOW_DEFAULT_MS;
+    ret %tmp.7;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_64_1_66_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_63_1_66_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_63_1_66_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 67 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_62_0_76_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_62_0_76_0_stop" ]
+    %choices.1 = local;
+    symbol [ choices %choices.1 67 5 12 ];
+    %tmp.8 = self;
+    symbol [ vsWindowChoicesMs %tmp.9 67 15 32 ];
+    %tmp.9 = getv function %tmp.8 :vsWindowChoicesMs;
+    %tmp.10 = invoke %tmp.8 %tmp.9();
+    lputv %choices.1 %tmp.10;
+    symbol [ choices %choices.1 67 5 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 68 1 ]
+    for @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_test @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_incr @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_init:
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_begin" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_end" ]
+    %i.2 = local;
+    symbol [ i %i.2 68 10 11 ];
+    %tmp.11 = 0;
+    lputv %i.2 %tmp.11;
+    symbol [ i %i.2 68 10 11 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_test:
+    %tmp.12 = lgetv %i.2;
+    symbol [ i %tmp.12 68 17 18 ];
+    %tmp.13 = lgetv %choices.1;
+    symbol [ choices %tmp.13 68 21 28 ];
+    symbol [ size %tmp.14 68 29 33 ];
+    %tmp.14 = getv function %tmp.13 :size;
+    %tmp.15 = invoke %tmp.13 %tmp.14();
+    %tmp.16 = lt %tmp.12 %tmp.15;
+    bf %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_69_1_74_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 70 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_70_2_73_2_if_stmt:
+    %tmp.17 = lgetv %ms;
+    symbol [ ms %tmp.17 70 6 8 ];
+    %tmp.18 = lgetv %choices.1;
+    symbol [ choices %tmp.18 70 12 19 ];
+    %tmp.19 = lgetv %i.2;
+    symbol [ i %tmp.19 70 20 21 ];
+    %tmp.20 = agetv %tmp.18 %tmp.19;
+    %tmp.21 = eq %tmp.17 %tmp.20;
+    bf %tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_70_2_73_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_70_2_73_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_71_2_73_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 72 3 ]
+    %tmp.22 = lgetv %choices.1;
+    symbol [ choices %tmp.22 72 10 17 ];
+    %tmp.23 = lgetv %i.2;
+    symbol [ i %tmp.23 72 19 20 ];
+    %tmp.24 = 1;
+    %tmp.25 = add %tmp.23 %tmp.24;
+    %tmp.26 = lgetv %choices.1;
+    symbol [ choices %tmp.26 72 28 35 ];
+    symbol [ size %tmp.27 72 36 40 ];
+    %tmp.27 = getv function %tmp.26 :size;
+    %tmp.28 = invoke %tmp.26 %tmp.27();
+    %tmp.29 = mod %tmp.25 %tmp.28;
+    %tmp.30 = agetv %tmp.22 %tmp.29;
+    ret %tmp.30;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_71_2_73_2_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_70_2_73_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_70_2_73_2_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_69_1_74_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_incr:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 68 ]
+    %tmp.33 = lgetv %i.2;
+    symbol [ i %tmp.33 68 37 38 ];
+    %tmp.34 = add %tmp.33 1;
+    lputv %i.2 %tmp.34;
+    symbol [ i %i.2 68 37 38 ];
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_test;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_68_1_74_1_for_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 75 1 ]
+    symbol [ VS_WINDOW_DEFAULT_MS %tmp.36 75 8 28 ];
+    %tmp.36 = getv ? :VS_WINDOW_DEFAULT_MS;
+    ret %tmp.36;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_62_0_76_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 80; @symbol_functiondef = [preferencesMenuAction,80,9,30]; @symbol_param<0> = [id,80,31,33]; ]
+function preferencesMenuAction(id) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_81_0_87_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 82 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_1_85_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_5_82_54_begin:
+    %tmp.1 = lgetv %id;
+    symbol [ id %tmp.1 82 5 7 ];
+    symbol [ Lang %tmp.2 82 19 23 ];
+    %tmp.2 = getm $.Toybox.Lang;
+    symbol [ String %tmp.3 82 24 30 ];
+    %tmp.3 = getv %tmp.2 :String;
+    %tmp.4 = isa %tmp.1 %tmp.3;
+    bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_1_85_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_34_82_54_true:
+    %tmp.5 = lgetv %id;
+    symbol [ id %tmp.5 82 34 36 ];
+    %tmp.6 = as %tmp.5 { (Lang.String) };
+    symbol [ equals %tmp.7 82 37 43 ];
+    %tmp.7 = getv function %tmp.6 :equals;
+    %tmp.8 = "vsWindow";
+    %tmp.9 = invoke %tmp.6 %tmp.7(%tmp.8);
+    push %tmp.9;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_34_82_54_end:
+    %tmp.10 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_5_82_54_begin] [%tmp.9 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_34_82_54_true] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_34_82_54_end];
+    bf %tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_1_85_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_1_85_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_83_1_85_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 84 2 ]
+    %tmp.12 = const :cycleVsWindow;
+    symbol [ cycleVsWindow %tmp.12 84 10 23 const ];
+    ret %tmp.12;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_83_1_85_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_1_85_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_82_1_85_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 86 1 ]
+    %tmp.14 = const :none;
+    symbol [ none %tmp.14 86 9 13 const ];
+    ret %tmp.14;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_81_0_87_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 93; @symbol_functiondef = [cycleVsWindow,93,9,22]; @symbol_param<0> = [prefs,93,23,28]; @symbol_param<1> = [data,93,30,34]; ]
+function cycleVsWindow(prefs, data) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_94_0_105_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 95 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_94_0_105_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_94_0_105_0_stop" ]
+    %current.1 = local;
+    symbol [ current %current.1 95 5 12 ];
+    symbol [ VS_WINDOW_DEFAULT_MS %tmp.2 95 15 35 ];
+    %tmp.2 = getv ? :VS_WINDOW_DEFAULT_MS;
+    lputv %current.1 %tmp.2;
+    symbol [ current %current.1 95 5 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 96 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_96_1_103_1_if_stmt:
+    %tmp.3 = lgetv %prefs;
+    symbol [ prefs %tmp.3 96 5 10 ];
+    %tmp.4 = null;
+    %tmp.5 = ne %tmp.3 %tmp.4;
+    bf %tmp.5 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_96_1_103_1_if_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_96_1_103_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_97_1_99_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 98 2 ]
+    %tmp.6 = lgetv %prefs;
+    symbol [ prefs %tmp.6 98 12 17 ];
+    %tmp.7 = as %tmp.6 { (!Null) };
+    symbol [ getVsWindowMs %tmp.8 98 18 31 ];
+    %tmp.8 = getv function %tmp.7 :getVsWindowMs;
+    %tmp.9 = invoke %tmp.7 %tmp.8();
+    lputv %current.1 %tmp.9;
+    symbol [ current %current.1 98 2 9 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_97_1_99_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_96_1_103_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_96_1_103_1_if_false:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 100 6 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_100_6_103_1_if_stmt:
+    %tmp.10 = lgetv %data;
+    symbol [ data %tmp.10 100 10 14 ];
+    %tmp.11 = null;
+    %tmp.12 = ne %tmp.10 %tmp.11;
+    bf %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_100_6_103_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_100_6_103_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_101_1_103_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 102 2 ]
+    %tmp.13 = lgetv %data;
+    symbol [ data %tmp.13 102 12 16 ];
+    %tmp.14 = as %tmp.13 { (!Null) };
+    symbol [ getHikeVsWindowMs %tmp.15 102 17 34 ];
+    %tmp.15 = getv function %tmp.14 :getHikeVsWindowMs;
+    %tmp.16 = invoke %tmp.14 %tmp.15();
+    lputv %current.1 %tmp.16;
+    symbol [ current %current.1 102 2 9 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_101_1_103_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_100_6_103_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_100_6_103_1_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_96_1_103_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 104 1 ]
+    %tmp.17 = self;
+    symbol [ applyVsWindowChoice %tmp.18 104 8 27 ];
+    %tmp.18 = getv function %tmp.17 :applyVsWindowChoice;
+    %tmp.19 = lgetv %prefs;
+    symbol [ prefs %tmp.19 104 28 33 ];
+    %tmp.20 = lgetv %data;
+    symbol [ data %tmp.20 104 35 39 ];
+    %tmp.21 = self;
+    symbol [ nextVsWindowMs %tmp.22 104 41 55 ];
+    %tmp.22 = getv function %tmp.21 :nextVsWindowMs;
+    %tmp.23 = lgetv %current.1;
+    symbol [ current %tmp.23 104 56 63 ];
+    %tmp.24 = invoke %tmp.21 %tmp.22(%tmp.23);
+    %tmp.25 = invoke %tmp.17 %tmp.18(%tmp.19, %tmp.20, %tmp.24);
+    ret %tmp.25;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_94_0_105_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 110; @symbol_functiondef = [applyVsWindowChoice,110,9,28]; @symbol_param<0> = [prefs,110,29,34]; @symbol_param<1> = [data,110,36,40]; @symbol_param<2> = [ms,110,42,44]; ]
+function applyVsWindowChoice(prefs, data, ms) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_111_0_122_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 112 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_111_0_122_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_111_0_122_0_stop" ]
+    %w.1 = local;
+    symbol [ w %w.1 112 5 6 ];
+    %tmp.1 = self;
+    symbol [ sanitizeVsWindowMs %tmp.2 112 9 27 ];
+    %tmp.2 = getv function %tmp.1 :sanitizeVsWindowMs;
+    %tmp.3 = lgetv %ms;
+    symbol [ ms %tmp.3 112 28 30 ];
+    %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
+    lputv %w.1 %tmp.4;
+    symbol [ w %w.1 112 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 113 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_113_1_116_1_if_stmt:
+    %tmp.5 = lgetv %prefs;
+    symbol [ prefs %tmp.5 113 5 10 ];
+    %tmp.6 = null;
+    %tmp.7 = ne %tmp.5 %tmp.6;
+    bf %tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_113_1_116_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_113_1_116_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_114_1_116_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 115 2 ]
+    %tmp.8 = lgetv %prefs;
+    symbol [ prefs %tmp.8 115 2 7 ];
+    %tmp.9 = as %tmp.8 { (!Null) };
+    symbol [ setVsWindowMs %tmp.10 115 8 21 ];
+    %tmp.10 = getv function %tmp.9 :setVsWindowMs;
+    %tmp.11 = lgetv %w.1;
+    symbol [ w %tmp.11 115 22 23 ];
+    invoke %tmp.9 %tmp.10(%tmp.11);
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_114_1_116_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_113_1_116_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_113_1_116_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 117 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_117_1_120_1_if_stmt:
+    %tmp.12 = lgetv %data;
+    symbol [ data %tmp.12 117 5 9 ];
+    %tmp.13 = null;
+    %tmp.14 = ne %tmp.12 %tmp.13;
+    bf %tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_117_1_120_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_117_1_120_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_118_1_120_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 119 2 ]
+    %tmp.15 = lgetv %data;
+    symbol [ data %tmp.15 119 2 6 ];
+    %tmp.16 = as %tmp.15 { (!Null) };
+    symbol [ setHikeVsWindowMs %tmp.17 119 7 24 ];
+    %tmp.17 = getv function %tmp.16 :setHikeVsWindowMs;
+    %tmp.18 = lgetv %w.1;
+    symbol [ w %tmp.18 119 25 26 ];
+    invoke %tmp.16 %tmp.17(%tmp.18);
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_118_1_120_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_117_1_120_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_117_1_120_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 121 1 ]
+    %tmp.19 = lgetv %w.1;
+    symbol [ w %tmp.19 121 8 9 ];
+    ret %tmp.19;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_111_0_122_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 131; @position = 6; @symbol_constdef = [PREF_BEEP_KEY,131,6,19]; ]
+const PREF_BEEP_KEY = "beep";
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 132; @position = 6; @symbol_constdef = [PREF_VS_WINDOW_KEY,132,6,24]; ]
+const PREF_VS_WINDOW_KEY = "vsWindowMs";
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 136; @symbol_functiondef = [sanitizeBeep,136,9,21]; @symbol_param<0> = [raw,136,22,25]; ]
+function sanitizeBeep(raw) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_137_0_139_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 138 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_begin:
+    %tmp.1 = lgetv %raw;
+    symbol [ raw %tmp.1 138 9 12 ];
+    symbol [ Lang %tmp.2 138 24 28 ];
+    %tmp.2 = getm $.Toybox.Lang;
+    symbol [ Boolean %tmp.3 138 29 36 ];
+    %tmp.3 = getv %tmp.2 :Boolean;
+    %tmp.4 = isa %tmp.1 %tmp.3;
+    bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_true:
+    %tmp.5 = lgetv %raw;
+    symbol [ raw %tmp.5 138 40 43 ];
+    %tmp.6 = as %tmp.5 { (Lang.Boolean) };
+    push %tmp.6;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_else_false:
+    %tmp.7 = false;
+    push %tmp.7;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_end:
+    %tmp.8 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_begin] [%tmp.6 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_true] [%tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_else_false] [%tmp.8 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_138_8_138_46_end];
+    ret %tmp.8;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_137_0_139_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 143; @symbol_functiondef = [sanitizePreference,143,9,27]; @symbol_param<0> = [key,143,28,31]; @symbol_param<1> = [raw,143,33,36]; ]
+function sanitizePreference(key, raw) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_144_0_158_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 145 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_145_1_148_1_if_stmt:
+    %tmp.1 = lgetv %key;
+    symbol [ key %tmp.1 145 7 10 ];
+    symbol [ Lang %tmp.2 145 22 26 ];
+    %tmp.2 = getm $.Toybox.Lang;
+    symbol [ String %tmp.3 145 27 33 ];
+    %tmp.3 = getv %tmp.2 :String;
+    %tmp.4 = isa %tmp.1 %tmp.3;
+    %tmp.5 = not %tmp.4;
+    bf %tmp.5 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_145_1_148_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_145_1_148_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_146_1_148_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 147 2 ]
+    %tmp.6 = null;
+    ret %tmp.6;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_146_1_148_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_145_1_148_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_145_1_148_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 149 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_149_1_152_1_if_stmt:
+    %tmp.7 = lgetv %key;
+    symbol [ key %tmp.7 149 5 8 ];
+    symbol [ equals %tmp.8 149 9 15 ];
+    %tmp.8 = getv function %tmp.7 :equals;
+    symbol [ PREF_BEEP_KEY %tmp.10 149 16 29 ];
+    %tmp.10 = getv ? :PREF_BEEP_KEY;
+    %tmp.11 = invoke %tmp.7 %tmp.8(%tmp.10);
+    bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_149_1_152_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_149_1_152_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_150_1_152_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 151 2 ]
+    %tmp.12 = self;
+    symbol [ sanitizeBeep %tmp.13 151 9 21 ];
+    %tmp.13 = getv function %tmp.12 :sanitizeBeep;
+    %tmp.14 = lgetv %raw;
+    symbol [ raw %tmp.14 151 22 25 ];
+    %tmp.15 = invoke %tmp.12 %tmp.13(%tmp.14);
+    ret %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_150_1_152_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_149_1_152_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_149_1_152_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 153 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_153_1_156_1_if_stmt:
+    %tmp.16 = lgetv %key;
+    symbol [ key %tmp.16 153 5 8 ];
+    symbol [ equals %tmp.17 153 9 15 ];
+    %tmp.17 = getv function %tmp.16 :equals;
+    symbol [ PREF_VS_WINDOW_KEY %tmp.19 153 16 34 ];
+    %tmp.19 = getv ? :PREF_VS_WINDOW_KEY;
+    %tmp.20 = invoke %tmp.16 %tmp.17(%tmp.19);
+    bf %tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_153_1_156_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_153_1_156_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_154_1_156_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 155 2 ]
+    %tmp.21 = self;
+    symbol [ sanitizeVsWindowMs %tmp.22 155 9 27 ];
+    %tmp.22 = getv function %tmp.21 :sanitizeVsWindowMs;
+    %tmp.23 = lgetv %raw;
+    symbol [ raw %tmp.23 155 28 31 ];
+    %tmp.24 = invoke %tmp.21 %tmp.22(%tmp.23);
+    ret %tmp.24;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_154_1_156_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_153_1_156_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_153_1_156_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 157 1 ]
+    %tmp.25 = null;
+    ret %tmp.25;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_144_0_158_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 164; @symbol_functiondef = [preferenceToKeep,164,9,25]; @symbol_param<0> = [storageValue,164,26,38]; @symbol_param<1> = [legacyValue,164,40,51]; ]
+function preferenceToKeep(storageValue, legacyValue) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_165_0_167_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 166 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_begin:
+    %tmp.1 = lgetv %storageValue;
+    symbol [ storageValue %tmp.1 166 9 21 ];
+    %tmp.2 = null;
+    %tmp.3 = ne %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_true:
+    %tmp.4 = lgetv %storageValue;
+    symbol [ storageValue %tmp.4 166 33 45 ];
+    %tmp.5 = as %tmp.4 { (!Null) };
+    push %tmp.5;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_else_false:
+    %tmp.6 = lgetv %legacyValue;
+    symbol [ legacyValue %tmp.6 166 48 59 ];
+    push %tmp.6;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_end:
+    %tmp.7 = phi [%tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_begin] [%tmp.5 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_true] [%tmp.6 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_else_false] [%tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_166_8_166_48_end];
+    ret %tmp.7;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_165_0_167_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 178; @symbol_functiondef = [migrateLegacyPreferences,178,9,33]; @symbol_param<0> = [legacy,178,34,40]; ]
+function migrateLegacyPreferences(legacy) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_179_0_181_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 180 1 ]
+    %tmp.1 = self;
+    symbol [ migrateLegacyPreferencesTo %tmp.2 180 8 34 ];
+    %tmp.2 = getv function %tmp.1 :migrateLegacyPreferencesTo;
+    %tmp.3 = lgetv %legacy;
+    symbol [ legacy %tmp.3 180 35 41 ];
+    symbol [ AppStorageStore %tmp.7 180 47 62 ];
+    %tmp.7 = getv ? :AppStorageStore;
+    %tmp.4 = newc %tmp.7 ();
+    %tmp.8 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4);
+    ret %tmp.8;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_179_0_181_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 193; @symbol_functiondef = [migrateLegacyPreferencesTo,193,9,35]; @symbol_param<0> = [legacy,193,36,42]; @symbol_param<1> = [store,193,44,49]; ]
+function migrateLegacyPreferencesTo(legacy, store) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_194_0_220_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 195 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_1_198_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_5_195_95_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_5_195_81_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_5_195_48_begin:
+    %tmp.1 = lgetv %legacy;
+    symbol [ legacy %tmp.1 195 5 11 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bt %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_1_198_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_23_195_48_false:
+    %tmp.4 = lgetv %legacy;
+    symbol [ legacy %tmp.4 195 25 31 ];
+    %tmp.5 = as %tmp.4 { (!Null) };
+    %tmp.7 = const :getProperty;
+    symbol [ getProperty %tmp.7 195 37 48 const ];
+    %tmp.8 = canhazplz %tmp.5 %tmp.7;
+    %tmp.9 = not %tmp.8;
+    push %tmp.9;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_23_195_48_end:
+    %tmp.10 = phi [%tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_5_195_48_begin] [%tmp.9 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_23_195_48_false] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_23_195_48_end];
+    bt %tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_1_198_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_53_195_81_false:
+    %tmp.11 = lgetv %legacy;
+    symbol [ legacy %tmp.11 195 55 61 ];
+    %tmp.12 = as %tmp.11 { (interface { var getProperty; }) && (!Null) };
+    %tmp.14 = const :deleteProperty;
+    symbol [ deleteProperty %tmp.14 195 67 81 const ];
+    %tmp.15 = canhazplz %tmp.12 %tmp.14;
+    %tmp.16 = not %tmp.15;
+    push %tmp.16;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_53_195_81_end:
+    %tmp.17 = phi [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_5_195_81_begin] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_53_195_81_false] [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_53_195_81_end];
+    bt %tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_1_198_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_86_195_95_false:
+    %tmp.18 = lgetv %store;
+    symbol [ store %tmp.18 195 86 91 ];
+    %tmp.19 = null;
+    %tmp.20 = eq %tmp.18 %tmp.19;
+    push %tmp.20;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_86_195_95_end:
+    %tmp.21 = phi [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_5_195_95_begin] [%tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_86_195_95_false] [%tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_86_195_95_end];
+    bf %tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_1_198_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_1_198_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_196_1_198_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 197 2 ]
+    %tmp.22 = 0;
+    ret %tmp.22;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_196_1_198_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_1_198_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_195_1_198_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 199 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_194_0_220_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_194_0_220_0_stop" ]
+    %keys.1 = local;
+    symbol [ keys %keys.1 199 5 9 ];
+    %tmp.23 = newa 2;
+    symbol [ PREF_BEEP_KEY %tmp.25 199 13 26 ];
+    %tmp.25 = getv ? :PREF_BEEP_KEY;
+    %tmp.26 = dup %tmp.23;
+    %tmp.27 = aputv %tmp.26 0 %tmp.25;
+    symbol [ PREF_VS_WINDOW_KEY %tmp.29 199 28 46 ];
+    %tmp.29 = getv ? :PREF_VS_WINDOW_KEY;
+    %tmp.30 = dup %tmp.27;
+    %tmp.31 = aputv %tmp.30 1 %tmp.29;
+    lputv %keys.1 %tmp.31;
+    symbol [ keys %keys.1 199 5 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 200 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_194_0_220_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_194_0_220_0_stop" ]
+    %migrated.2 = local;
+    symbol [ migrated %migrated.2 200 5 13 ];
+    %tmp.32 = 0;
+    lputv %migrated.2 %tmp.32;
+    symbol [ migrated %migrated.2 200 5 13 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 201 1 ]
+    for @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_test @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_incr @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_init:
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_begin" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_end" ]
+    %i.3 = local;
+    symbol [ i %i.3 201 10 11 ];
+    %tmp.33 = 0;
+    lputv %i.3 %tmp.33;
+    symbol [ i %i.3 201 10 11 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_test:
+    %tmp.34 = lgetv %i.3;
+    symbol [ i %tmp.34 201 17 18 ];
+    %tmp.35 = lgetv %keys.1;
+    symbol [ keys %tmp.35 201 21 25 ];
+    symbol [ size %tmp.36 201 26 30 ];
+    %tmp.36 = getv function %tmp.35 :size;
+    %tmp.37 = invoke %tmp.35 %tmp.36();
+    %tmp.38 = lt %tmp.34 %tmp.37;
+    bf %tmp.38 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_202_1_218_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 203 2 ]
+    try @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_beginTry @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_endTry @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_catch @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_finally;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_beginTry:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_204_2_213_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 205 3 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_204_2_213_2_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_204_2_213_2_stop" ]
+    %old.4 = local;
+    symbol [ old %old.4 205 7 10 ];
+    %tmp.39 = lgetv %legacy;
+    symbol [ legacy %tmp.39 205 13 19 ];
+    symbol [ getProperty %tmp.40 205 20 31 ];
+    %tmp.40 = getv function %tmp.39 :getProperty;
+    %tmp.41 = lgetv %keys.1;
+    symbol [ keys %tmp.41 205 32 36 ];
+    %tmp.42 = lgetv %i.3;
+    symbol [ i %tmp.42 205 37 38 ];
+    %tmp.43 = agetv %tmp.41 %tmp.42;
+    %tmp.44 = invoke %tmp.39 %tmp.40(%tmp.43);
+    lputv %old.4 %tmp.44;
+    symbol [ old %old.4 205 7 10 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 206 3 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_206_3_212_3_if_stmt:
+    %tmp.45 = lgetv %old.4;
+    symbol [ old %tmp.45 206 7 10 ];
+    %tmp.46 = null;
+    %tmp.47 = ne %tmp.45 %tmp.46;
+    bf %tmp.47 @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_206_3_212_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_206_3_212_3_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_207_3_212_3_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 208 4 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_207_3_212_3_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_207_3_212_3_stop" ]
+    %kept.5 = local;
+    symbol [ kept %kept.5 208 8 12 ];
+    %tmp.48 = self;
+    symbol [ preferenceToKeep %tmp.49 208 15 31 ];
+    %tmp.49 = getv function %tmp.48 :preferenceToKeep;
+    %tmp.50 = lgetv %store;
+    symbol [ store %tmp.50 208 32 37 ];
+    symbol [ getValue %tmp.51 208 38 46 ];
+    %tmp.51 = getv function %tmp.50 :getValue;
+    %tmp.52 = lgetv %keys.1;
+    symbol [ keys %tmp.52 208 47 51 ];
+    %tmp.53 = lgetv %i.3;
+    symbol [ i %tmp.53 208 52 53 ];
+    %tmp.54 = agetv %tmp.52 %tmp.53;
+    %tmp.55 = invoke %tmp.50 %tmp.51(%tmp.54);
+    %tmp.56 = lgetv %old.4;
+    symbol [ old %tmp.56 208 57 60 ];
+    %tmp.57 = as %tmp.56 { (!Null) };
+    %tmp.58 = invoke %tmp.48 %tmp.49(%tmp.55, %tmp.57);
+    lputv %kept.5 %tmp.58;
+    symbol [ kept %kept.5 208 8 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 209 4 ]
+    %tmp.59 = lgetv %store;
+    symbol [ store %tmp.59 209 4 9 ];
+    symbol [ setValue %tmp.60 209 10 18 ];
+    %tmp.60 = getv function %tmp.59 :setValue;
+    %tmp.61 = lgetv %keys.1;
+    symbol [ keys %tmp.61 209 19 23 ];
+    %tmp.62 = lgetv %i.3;
+    symbol [ i %tmp.62 209 24 25 ];
+    %tmp.63 = agetv %tmp.61 %tmp.62;
+    %tmp.64 = self;
+    symbol [ sanitizePreference %tmp.65 209 28 46 ];
+    %tmp.65 = getv function %tmp.64 :sanitizePreference;
+    %tmp.66 = lgetv %keys.1;
+    symbol [ keys %tmp.66 209 47 51 ];
+    %tmp.67 = lgetv %i.3;
+    symbol [ i %tmp.67 209 52 53 ];
+    %tmp.68 = agetv %tmp.66 %tmp.67;
+    %tmp.69 = lgetv %kept.5;
+    symbol [ kept %tmp.69 209 56 60 ];
+    %tmp.70 = invoke %tmp.64 %tmp.65(%tmp.68, %tmp.69);
+    invoke %tmp.59 %tmp.60(%tmp.63, %tmp.70);
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 210 4 ]
+    %tmp.71 = lgetv %legacy;
+    symbol [ legacy %tmp.71 210 4 10 ];
+    symbol [ deleteProperty %tmp.72 210 11 25 ];
+    %tmp.72 = getv function %tmp.71 :deleteProperty;
+    %tmp.73 = lgetv %keys.1;
+    symbol [ keys %tmp.73 210 26 30 ];
+    %tmp.74 = lgetv %i.3;
+    symbol [ i %tmp.74 210 31 32 ];
+    %tmp.75 = agetv %tmp.73 %tmp.74;
+    invoke %tmp.71 %tmp.72(%tmp.75);
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 211 4 ]
+    %tmp.76 = lgetv %migrated.2;
+    symbol [ migrated %tmp.76 211 4 12 ];
+    %tmp.77 = 1;
+    %tmp.78 = add %tmp.76 %tmp.77;
+    lputv %migrated.2 %tmp.78;
+    symbol [ migrated %migrated.2 211 4 12 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_207_3_212_3_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_206_3_212_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_206_3_212_3_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_204_2_213_2_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_endTry:
+    jsr @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_finally;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_catch:
+    %tmp.79 = exception;
+    push %tmp.79;
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 214 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_catch" "_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_214_2_217_2_end" ]
+    %e.6 = local;
+    symbol [ e %e.6 214 9 10 ];
+    %tmp.80 = dup %tmp.79;
+    lputv %e.6 %tmp.80;
+    symbol [ e %e.6 214 9 10 ];
+    jsr @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_finally;
+    pop;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_214_2_217_2_end:
+    try @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_catch @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_214_2_217_2_end @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_214_2_217_2_end @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_finally;
+    jsr @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_finally;
+    throw %tmp.79;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_finally:
+    jsrret;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_203_2_217_2_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_202_1_218_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_incr:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 201 ]
+    %tmp.83 = lgetv %i.3;
+    symbol [ i %tmp.83 201 34 35 ];
+    %tmp.84 = add %tmp.83 1;
+    lputv %i.3 %tmp.84;
+    symbol [ i %i.3 201 34 35 ];
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_test;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_201_1_218_1_for_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 219 1 ]
+    %tmp.85 = lgetv %migrated.2;
+    symbol [ migrated %tmp.85 219 8 16 ];
+    ret %tmp.85;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_194_0_220_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 224; @symbol_classdef = [AppStorageStore,224,6,21]; ]
+class AppStorageStore {
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 224; ]
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 3; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 224; ]
     static
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 5; @position = 5; @symbol_vardef = [app,5,5,8]; ]
-    var app;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 7; @symbol_functiondef = [initialize,7,10,20]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 226; @symbol_functiondef = [initialize,226,10,20]; ]
     function initialize() as Void {
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_8_4_10_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc" 9 5 ]
-        symbol [ Application %tmp.1 9 11 22 ];
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 228; @symbol_functiondef = [getValue,228,10,18]; @symbol_param<0> = [key,228,19,22]; ]
+    function getValue(key) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_229_1_231_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 230 2 ]
+        symbol [ Application %tmp.1 230 9 20 ];
         %tmp.1 = getm $.Toybox.Application;
-        symbol [ getApp %tmp.2 9 23 29 ];
-        %tmp.2 = getv function %tmp.1 :getApp;
-        %tmp.3 = invoke %tmp.1 %tmp.2();
-        symbol [ app ? 9 5 8 ];
-        putv self :app %tmp.3;
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_8_4_10_4_stop:
-    }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 12; @symbol_functiondef = [getBeep,12,13,20]; ]
-    function getBeep() {
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_13_4_16_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc" 14 5 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_13_4_16_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_13_4_16_4_stop" ]
-        %beep.1 = local;
-        symbol [ beep %beep.1 14 9 13 ];
-        symbol [ app %tmp.2 14 16 19 ];
-        %tmp.2 = getv ? :app;
-        symbol [ getProperty %tmp.3 14 20 31 ];
-        %tmp.3 = getv function %tmp.2 :getProperty;
-        %tmp.4 = "beep";
+        symbol [ Storage %tmp.2 230 21 28 ];
+        %tmp.2 = getv %tmp.1 :Storage;
+        symbol [ getValue %tmp.3 230 29 37 ];
+        %tmp.3 = getv function %tmp.2 :getValue;
+        %tmp.4 = lgetv %key;
+        symbol [ key %tmp.4 230 38 41 ];
         %tmp.5 = invoke %tmp.2 %tmp.3(%tmp.4);
-        lputv %beep.1 %tmp.5;
-        symbol [ beep %beep.1 14 9 13 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc" 15 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_begin:
-        %tmp.6 = lgetv %beep.1;
-        symbol [ beep %tmp.6 15 10 14 ];
-        %tmp.7 = null;
-        %tmp.8 = eq %tmp.6 %tmp.7;
-        bf %tmp.8 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_else_false;
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_true:
-        %tmp.9 = false;
-        push %tmp.9;
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_end;
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_else_false:
-        %tmp.10 = lgetv %beep.1;
-        symbol [ beep %tmp.10 15 32 36 ];
-        %tmp.11 = as %tmp.10 { (!Null) };
-        push %tmp.11;
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_end:
-        %tmp.12 = phi [%tmp.8 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_begin] [%tmp.9 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_else_false] [%tmp.12 @_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_15_10_15_32_end];
-        ret %tmp.12;
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_13_4_16_4_stop:
+        ret %tmp.5;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_229_1_231_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 18; @symbol_functiondef = [setBeep,18,13,20]; @symbol_param<0> = [newVal,18,22,28]; ]
-    function setBeep(newVal) {
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_19_4_21_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc" 20 5 ]
-        symbol [ app %tmp.2 20 5 8 ];
-        %tmp.2 = getv ? :app;
-        symbol [ setProperty %tmp.3 20 9 20 ];
-        %tmp.3 = getv function %tmp.2 :setProperty;
-        %tmp.4 = "beep";
-        %tmp.5 = lgetv %newVal;
-        symbol [ newVal %tmp.5 20 29 35 ];
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 233; @symbol_functiondef = [setValue,233,10,18]; @symbol_param<0> = [key,233,19,22]; @symbol_param<1> = [value,233,24,29]; ]
+    function setValue(key, value) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_234_1_236_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 235 2 ]
+        symbol [ Application %tmp.1 235 2 13 ];
+        %tmp.1 = getm $.Toybox.Application;
+        symbol [ Storage %tmp.2 235 14 21 ];
+        %tmp.2 = getv %tmp.1 :Storage;
+        symbol [ setValue %tmp.3 235 22 30 ];
+        %tmp.3 = getv function %tmp.2 :setValue;
+        %tmp.4 = lgetv %key;
+        symbol [ key %tmp.4 235 31 34 ];
+        %tmp.5 = lgetv %value;
+        symbol [ value %tmp.5 235 36 41 ];
         invoke %tmp.2 %tmp.3(%tmp.4, %tmp.5);
-_Users_tk_Desktop_Claude_Glidator2_source_Preferences_mc_19_4_21_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_234_1_236_1_stop:
     }
 }
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Preferences.mc"; @line = 1; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 241; @symbol_classdef = [Preferences,241,6,17]; ]
+class Preferences {
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 241; ]
+    <init> {
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 241; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 247; @symbol_functiondef = [initialize,247,10,20]; @symbol_param<0> = [app,247,21,24]; ]
+    function initialize(app) as Void {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_248_4_250_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 249 2 ]
+        symbol [ $ %tmp.1 249 2 3 ];
+        %tmp.1 = getm $;
+        symbol [ migrateLegacyPreferences %tmp.2 249 4 28 ];
+        %tmp.2 = getv function %tmp.1 :migrateLegacyPreferences;
+        %tmp.3 = lgetv %app;
+        symbol [ app %tmp.3 249 29 32 ];
+        invoke %tmp.1 %tmp.2(%tmp.3);
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_248_4_250_4_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 253; @symbol_functiondef = [getBeep,253,13,20]; ]
+    function getBeep() {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_254_4_256_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 255 2 ]
+        symbol [ $ %tmp.1 255 9 10 ];
+        %tmp.1 = getm $;
+        symbol [ sanitizeBeep %tmp.2 255 11 23 ];
+        %tmp.2 = getv function %tmp.1 :sanitizeBeep;
+        symbol [ Application %tmp.3 255 24 35 ];
+        %tmp.3 = getm $.Toybox.Application;
+        symbol [ Storage %tmp.4 255 36 43 ];
+        %tmp.4 = getv %tmp.3 :Storage;
+        symbol [ getValue %tmp.5 255 44 52 ];
+        %tmp.5 = getv function %tmp.4 :getValue;
+        symbol [ $ %tmp.6 255 53 54 ];
+        %tmp.6 = getm $;
+        symbol [ PREF_BEEP_KEY %tmp.7 255 55 68 ];
+        %tmp.7 = getv %tmp.6 :PREF_BEEP_KEY;
+        %tmp.8 = invoke %tmp.4 %tmp.5(%tmp.7);
+        %tmp.9 = invoke %tmp.1 %tmp.2(%tmp.8);
+        ret %tmp.9;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_254_4_256_4_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 259; @symbol_functiondef = [setBeep,259,13,20]; @symbol_param<0> = [newVal,259,21,27]; ]
+    function setBeep(newVal) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_260_4_262_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 261 2 ]
+        symbol [ Application %tmp.1 261 2 13 ];
+        %tmp.1 = getm $.Toybox.Application;
+        symbol [ Storage %tmp.2 261 14 21 ];
+        %tmp.2 = getv %tmp.1 :Storage;
+        symbol [ setValue %tmp.3 261 22 30 ];
+        %tmp.3 = getv function %tmp.2 :setValue;
+        symbol [ $ %tmp.4 261 31 32 ];
+        %tmp.4 = getm $;
+        symbol [ PREF_BEEP_KEY %tmp.5 261 33 46 ];
+        %tmp.5 = getv %tmp.4 :PREF_BEEP_KEY;
+        symbol [ $ %tmp.6 261 48 49 ];
+        %tmp.6 = getm $;
+        symbol [ sanitizeBeep %tmp.7 261 50 62 ];
+        %tmp.7 = getv function %tmp.6 :sanitizeBeep;
+        %tmp.8 = lgetv %newVal;
+        symbol [ newVal %tmp.8 261 63 69 ];
+        %tmp.9 = invoke %tmp.6 %tmp.7(%tmp.8);
+        invoke %tmp.2 %tmp.3(%tmp.5, %tmp.9);
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_260_4_262_4_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 265; @symbol_functiondef = [getVsWindowMs,265,10,23]; ]
+    function getVsWindowMs() {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_266_1_268_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 267 2 ]
+        symbol [ $ %tmp.1 267 9 10 ];
+        %tmp.1 = getm $;
+        symbol [ sanitizeVsWindowMs %tmp.2 267 11 29 ];
+        %tmp.2 = getv function %tmp.1 :sanitizeVsWindowMs;
+        symbol [ Application %tmp.3 267 30 41 ];
+        %tmp.3 = getm $.Toybox.Application;
+        symbol [ Storage %tmp.4 267 42 49 ];
+        %tmp.4 = getv %tmp.3 :Storage;
+        symbol [ getValue %tmp.5 267 50 58 ];
+        %tmp.5 = getv function %tmp.4 :getValue;
+        symbol [ $ %tmp.6 267 59 60 ];
+        %tmp.6 = getm $;
+        symbol [ PREF_VS_WINDOW_KEY %tmp.7 267 61 79 ];
+        %tmp.7 = getv %tmp.6 :PREF_VS_WINDOW_KEY;
+        %tmp.8 = invoke %tmp.4 %tmp.5(%tmp.7);
+        %tmp.9 = invoke %tmp.1 %tmp.2(%tmp.8);
+        ret %tmp.9;
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_266_1_268_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 271; @symbol_functiondef = [setVsWindowMs,271,10,23]; @symbol_param<0> = [ms,271,24,26]; ]
+    function setVsWindowMs(ms) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_272_1_274_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc" 273 2 ]
+        symbol [ Application %tmp.1 273 2 13 ];
+        %tmp.1 = getm $.Toybox.Application;
+        symbol [ Storage %tmp.2 273 14 21 ];
+        %tmp.2 = getv %tmp.1 :Storage;
+        symbol [ setValue %tmp.3 273 22 30 ];
+        %tmp.3 = getv function %tmp.2 :setValue;
+        symbol [ $ %tmp.4 273 31 32 ];
+        %tmp.4 = getm $;
+        symbol [ PREF_VS_WINDOW_KEY %tmp.5 273 33 51 ];
+        %tmp.5 = getv %tmp.4 :PREF_VS_WINDOW_KEY;
+        symbol [ $ %tmp.6 273 53 54 ];
+        %tmp.6 = getm $;
+        symbol [ sanitizeVsWindowMs %tmp.7 273 55 73 ];
+        %tmp.7 = getv function %tmp.6 :sanitizeVsWindowMs;
+        %tmp.8 = lgetv %ms;
+        symbol [ ms %tmp.8 273 74 76 ];
+        %tmp.9 = invoke %tmp.6 %tmp.7(%tmp.8);
+        invoke %tmp.2 %tmp.3(%tmp.5, %tmp.9);
+_Users_sam_claude_hq_worktrees_glidator2_source_Preferences_mc_272_1_274_1_stop:
+    }
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Preferences.mc"; @line = 1; ]
 <init> {
 }

@@ -1,251 +1,348 @@
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Math,1,13,17]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Math,1,13,17]; ]
 using Toybox.Math;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 8; @symbol_classdef = [BreadcrumbTrail,8,6,21]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 8; @symbol_functiondef = [isValidLatLon,8,9,22]; @symbol_param<0> = [lat,8,23,26]; @symbol_param<1> = [lon,8,28,31]; ]
+function isValidLatLon(lat, lon) {
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_9_0_19_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 10 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_1_13_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_5_10_27_begin:
+    %tmp.1 = lgetv %lat;
+    symbol [ lat %tmp.1 10 5 8 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bt %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_1_13_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_20_10_27_false:
+    %tmp.4 = lgetv %lon;
+    symbol [ lon %tmp.4 10 20 23 ];
+    %tmp.5 = null;
+    %tmp.6 = eq %tmp.4 %tmp.5;
+    push %tmp.6;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_20_10_27_end:
+    %tmp.7 = phi [%tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_5_10_27_begin] [%tmp.6 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_20_10_27_false] [%tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_20_10_27_end];
+    bf %tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_1_13_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_1_13_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_11_1_13_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 12 2 ]
+    %tmp.8 = false;
+    ret %tmp.8;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_11_1_13_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_1_13_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_10_1_13_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 14 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_1_17_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_7_14_58_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_7_14_43_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_7_14_28_begin:
+    %tmp.9 = lgetv %lat;
+    symbol [ lat %tmp.9 14 7 10 ];
+    %tmp.10 = -90.0;
+    %tmp.11 = gt %tmp.9 %tmp.10;
+    %tmp.12 = dup %tmp.11;
+    bf %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_22_14_28_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_22_14_28_true:
+    %tmp.13 = lgetv %lat;
+    symbol [ lat %tmp.13 14 22 25 ];
+    %tmp.14 = 90.0;
+    %tmp.15 = lt %tmp.13 %tmp.14;
+    %tmp.16 = and %tmp.11 %tmp.15;
+    push %tmp.16;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_22_14_28_end:
+    %tmp.17 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_7_14_28_begin] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_22_14_28_true] [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_22_14_28_end];
+    %tmp.18 = dup %tmp.17;
+    bf %tmp.18 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_36_14_43_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_36_14_43_true:
+    %tmp.19 = lgetv %lon;
+    symbol [ lon %tmp.19 14 36 39 ];
+    %tmp.20 = -180.0;
+    %tmp.21 = gt %tmp.19 %tmp.20;
+    %tmp.22 = and %tmp.17 %tmp.21;
+    push %tmp.22;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_36_14_43_end:
+    %tmp.23 = phi [%tmp.18 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_7_14_43_begin] [%tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_36_14_43_true] [%tmp.23 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_36_14_43_end];
+    %tmp.24 = dup %tmp.23;
+    bf %tmp.24 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_52_14_58_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_52_14_58_true:
+    %tmp.25 = lgetv %lon;
+    symbol [ lon %tmp.25 14 52 55 ];
+    %tmp.26 = 180.0;
+    %tmp.27 = lt %tmp.25 %tmp.26;
+    %tmp.28 = and %tmp.23 %tmp.27;
+    push %tmp.28;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_52_14_58_end:
+    %tmp.29 = phi [%tmp.24 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_7_14_58_begin] [%tmp.28 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_52_14_58_true] [%tmp.29 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_52_14_58_end];
+    %tmp.30 = not %tmp.29;
+    bf %tmp.30 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_1_17_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_1_17_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_15_1_17_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 16 2 ]
+    %tmp.31 = false;
+    ret %tmp.31;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_15_1_17_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_1_17_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_14_1_17_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 18 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_18_10_18_31_begin:
+    %tmp.32 = lgetv %lat;
+    symbol [ lat %tmp.32 18 10 13 ];
+    %tmp.33 = 0.0;
+    %tmp.34 = eq %tmp.32 %tmp.33;
+    %tmp.35 = dup %tmp.34;
+    bf %tmp.35 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_18_24_18_31_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_18_24_18_31_true:
+    %tmp.36 = lgetv %lon;
+    symbol [ lon %tmp.36 18 24 27 ];
+    %tmp.37 = 0.0;
+    %tmp.38 = eq %tmp.36 %tmp.37;
+    %tmp.39 = and %tmp.34 %tmp.38;
+    push %tmp.39;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_18_24_18_31_end:
+    %tmp.40 = phi [%tmp.35 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_18_10_18_31_begin] [%tmp.39 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_18_24_18_31_true] [%tmp.40 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_18_24_18_31_end];
+    %tmp.41 = not %tmp.40;
+    ret %tmp.41;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_9_0_19_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 27; @symbol_classdef = [BreadcrumbTrail,27,6,21]; ]
 class BreadcrumbTrail {
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 8; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 27; ]
     <init> {
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 13 5 ]
-        symbol [ MAX_POINTS %tmp.3 13 17 27 ];
-        %tmp.3 = getv ? :MAX_POINTS;
-        %tmp.1 = newa %tmp.3;
-        putv self :lats %tmp.1;
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 14 5 ]
-        symbol [ MAX_POINTS %tmp.6 14 17 27 ];
-        %tmp.6 = getv ? :MAX_POINTS;
-        %tmp.4 = newa %tmp.6;
-        putv self :lons %tmp.4;
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 32 5 ]
+        symbol [ MAX_POINTS %tmp.44 32 17 27 ];
+        %tmp.44 = getv ? :MAX_POINTS;
+        %tmp.42 = newa %tmp.44;
+        putv self :lats %tmp.42;
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 33 5 ]
+        symbol [ MAX_POINTS %tmp.47 33 17 27 ];
+        %tmp.47 = getv ? :MAX_POINTS;
+        %tmp.45 = newa %tmp.47;
+        putv self :lons %tmp.45;
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 8; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 27; ]
     static
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 10; @position = 7; @symbol_constdef = [MAX_POINTS,10,7,17]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 29; @position = 7; @symbol_constdef = [MAX_POINTS,29,7,17]; ]
     const MAX_POINTS = 250;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 11; @position = 7; @symbol_constdef = [MIN_DISTANCE_M,11,7,21]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 30; @position = 7; @symbol_constdef = [MIN_DISTANCE_M,30,7,21]; ]
     const MIN_DISTANCE_M = 15.0;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 13; @position = 5; @symbol_vardef = [lats,13,5,9]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 32; @position = 5; @symbol_vardef = [lats,32,5,9]; ]
     var lats;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 14; @position = 5; @symbol_vardef = [lons,14,5,9]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 33; @position = 5; @symbol_vardef = [lons,33,5,9]; ]
     var lons;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 15; @position = 5; @symbol_vardef = [writeIndex,15,5,15]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 34; @position = 5; @symbol_vardef = [writeIndex,34,5,15]; ]
     var writeIndex = 0;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 16; @position = 5; @symbol_vardef = [count,16,5,10]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 35; @position = 5; @symbol_vardef = [count,35,5,10]; ]
     var count = 0;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 18; @position = 5; @symbol_vardef = [lastLat,18,5,12]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 37; @position = 5; @symbol_vardef = [lastLat,37,5,12]; ]
     var lastLat = null;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 19; @position = 5; @symbol_vardef = [lastLon,19,5,12]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 38; @position = 5; @symbol_vardef = [lastLon,38,5,12]; ]
     var lastLon = null;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 23; typecheck = false; @symbol_functiondef = [update,23,10,16]; @symbol_param<0> = [lat,23,17,20]; @symbol_param<1> = [lon,23,22,25]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 42; typecheck = false; @symbol_functiondef = [update,42,10,16]; @symbol_param<0> = [lat,42,17,20]; @symbol_param<1> = [lon,42,22,25]; ]
     function update(lat, lon) {
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_24_1_51_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 25 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_2_28_2_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_6_25_28_begin:
-        %tmp.1 = lgetv %lat;
-        symbol [ lat %tmp.1 25 6 9 ];
-        %tmp.2 = null;
-        %tmp.3 = eq %tmp.1 %tmp.2;
-        bt %tmp.3 @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_2_28_2_if_true;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_21_25_28_false:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_43_1_73_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 47 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_47_2_50_2_if_stmt:
+        symbol [ $ %tmp.1 47 7 8 ];
+        %tmp.1 = getm $;
+        symbol [ isValidLatLon %tmp.2 47 9 22 ];
+        %tmp.2 = getv function %tmp.1 :isValidLatLon;
+        %tmp.3 = lgetv %lat;
+        symbol [ lat %tmp.3 47 23 26 ];
         %tmp.4 = lgetv %lon;
-        symbol [ lon %tmp.4 25 21 24 ];
-        %tmp.5 = null;
-        %tmp.6 = eq %tmp.4 %tmp.5;
-        push %tmp.6;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_21_25_28_end:
-        %tmp.7 = phi [%tmp.3 @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_6_25_28_begin] [%tmp.6 @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_21_25_28_false] [%tmp.7 @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_21_25_28_end];
-        bf %tmp.7 @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_2_28_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_2_28_2_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_26_2_28_2_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 27 3 ]
+        symbol [ lon %tmp.4 47 28 31 ];
+        %tmp.5 = invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4);
+        %tmp.6 = not %tmp.5;
+        bf %tmp.6 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_47_2_50_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_47_2_50_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_48_2_50_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 49 3 ]
         ret ?;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_26_2_28_2_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_2_28_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_25_2_28_2_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 30 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_30_2_39_2_if_stmt:
-        symbol [ lastLat %tmp.9 30 6 13 ];
-        %tmp.9 = getv ? :lastLat;
-        %tmp.10 = null;
-        %tmp.11 = ne %tmp.9 %tmp.10;
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_30_2_39_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_30_2_39_2_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_31_2_39_2_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 32 3 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_31_2_39_2_start" "_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_31_2_39_2_stop" ]
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_48_2_50_2_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_47_2_50_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_47_2_50_2_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 52 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_52_2_61_2_if_stmt:
+        symbol [ lastLat %tmp.8 52 6 13 ];
+        %tmp.8 = getv ? :lastLat;
+        %tmp.9 = null;
+        %tmp.10 = ne %tmp.8 %tmp.9;
+        bf %tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_52_2_61_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_52_2_61_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_53_2_61_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 54 3 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_53_2_61_2_start" "_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_53_2_61_2_stop" ]
         %dLat.1 = local;
-        symbol [ dLat %dLat.1 32 7 11 ];
-        %tmp.12 = lgetv %lat;
-        symbol [ lat %tmp.12 32 15 18 ];
-        symbol [ lastLat %tmp.14 32 21 28 ];
-        %tmp.14 = getv ? :lastLat;
-        %tmp.15 = as %tmp.14 { (!Null) };
-        %tmp.16 = sub %tmp.12 %tmp.15;
-        %tmp.17 = 111320.0;
-        %tmp.18 = mul %tmp.16 %tmp.17;
-        lputv %dLat.1 %tmp.18;
-        symbol [ dLat %dLat.1 32 7 11 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 33 3 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_31_2_39_2_start" "_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_31_2_39_2_stop" ]
+        symbol [ dLat %dLat.1 54 7 11 ];
+        %tmp.11 = lgetv %lat;
+        symbol [ lat %tmp.11 54 15 18 ];
+        symbol [ lastLat %tmp.13 54 21 28 ];
+        %tmp.13 = getv ? :lastLat;
+        %tmp.14 = as %tmp.13 { (!Null) };
+        %tmp.15 = sub %tmp.11 %tmp.14;
+        %tmp.16 = 111320.0;
+        %tmp.17 = mul %tmp.15 %tmp.16;
+        lputv %dLat.1 %tmp.17;
+        symbol [ dLat %dLat.1 54 7 11 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 55 3 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_53_2_61_2_start" "_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_53_2_61_2_stop" ]
         %dLon.2 = local;
-        symbol [ dLon %dLon.2 33 7 11 ];
-        %tmp.19 = lgetv %lon;
-        symbol [ lon %tmp.19 33 15 18 ];
-        symbol [ lastLon %tmp.21 33 21 28 ];
-        %tmp.21 = getv ? :lastLon;
-        %tmp.22 = sub %tmp.19 %tmp.21;
-        %tmp.23 = 111320.0;
-        %tmp.24 = mul %tmp.22 %tmp.23;
-        symbol [ Math %tmp.25 33 43 47 ];
-        %tmp.25 = getm $.Toybox.Math;
-        symbol [ cos %tmp.26 33 48 51 ];
-        %tmp.26 = getv function %tmp.25 :cos;
-        symbol [ Math %tmp.27 33 52 56 ];
-        %tmp.27 = getm $.Toybox.Math;
-        symbol [ toRadians %tmp.28 33 57 66 ];
-        %tmp.28 = getv function %tmp.27 :toRadians;
-        %tmp.29 = lgetv %lat;
-        symbol [ lat %tmp.29 33 67 70 ];
-        %tmp.30 = invoke %tmp.27 %tmp.28(%tmp.29);
-        %tmp.31 = invoke %tmp.25 %tmp.26(%tmp.30);
-        %tmp.32 = mul %tmp.24 %tmp.31;
-        lputv %dLon.2 %tmp.32;
-        symbol [ dLon %dLon.2 33 7 11 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 34 3 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_31_2_39_2_start" "_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_31_2_39_2_stop" ]
+        symbol [ dLon %dLon.2 55 7 11 ];
+        %tmp.18 = lgetv %lon;
+        symbol [ lon %tmp.18 55 15 18 ];
+        symbol [ lastLon %tmp.20 55 21 28 ];
+        %tmp.20 = getv ? :lastLon;
+        %tmp.21 = sub %tmp.18 %tmp.20;
+        %tmp.22 = 111320.0;
+        %tmp.23 = mul %tmp.21 %tmp.22;
+        symbol [ Math %tmp.24 55 43 47 ];
+        %tmp.24 = getm $.Toybox.Math;
+        symbol [ cos %tmp.25 55 48 51 ];
+        %tmp.25 = getv function %tmp.24 :cos;
+        symbol [ Math %tmp.26 55 52 56 ];
+        %tmp.26 = getm $.Toybox.Math;
+        symbol [ toRadians %tmp.27 55 57 66 ];
+        %tmp.27 = getv function %tmp.26 :toRadians;
+        %tmp.28 = lgetv %lat;
+        symbol [ lat %tmp.28 55 67 70 ];
+        %tmp.29 = invoke %tmp.26 %tmp.27(%tmp.28);
+        %tmp.30 = invoke %tmp.24 %tmp.25(%tmp.29);
+        %tmp.31 = mul %tmp.23 %tmp.30;
+        lputv %dLon.2 %tmp.31;
+        symbol [ dLon %dLon.2 55 7 11 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 56 3 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_53_2_61_2_start" "_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_53_2_61_2_stop" ]
         %dist.3 = local;
-        symbol [ dist %dist.3 34 7 11 ];
-        symbol [ Math %tmp.33 34 14 18 ];
-        %tmp.33 = getm $.Toybox.Math;
-        symbol [ sqrt %tmp.34 34 19 23 ];
-        %tmp.34 = getv function %tmp.33 :sqrt;
+        symbol [ dist %dist.3 56 7 11 ];
+        symbol [ Math %tmp.32 56 14 18 ];
+        %tmp.32 = getm $.Toybox.Math;
+        symbol [ sqrt %tmp.33 56 19 23 ];
+        %tmp.33 = getv function %tmp.32 :sqrt;
+        %tmp.34 = lgetv %dLat.1;
+        symbol [ dLat %tmp.34 56 24 28 ];
         %tmp.35 = lgetv %dLat.1;
-        symbol [ dLat %tmp.35 34 24 28 ];
-        %tmp.36 = lgetv %dLat.1;
-        symbol [ dLat %tmp.36 34 31 35 ];
-        %tmp.37 = mul %tmp.35 %tmp.36;
+        symbol [ dLat %tmp.35 56 31 35 ];
+        %tmp.36 = mul %tmp.34 %tmp.35;
+        %tmp.37 = lgetv %dLon.2;
+        symbol [ dLon %tmp.37 56 38 42 ];
         %tmp.38 = lgetv %dLon.2;
-        symbol [ dLon %tmp.38 34 38 42 ];
-        %tmp.39 = lgetv %dLon.2;
-        symbol [ dLon %tmp.39 34 45 49 ];
-        %tmp.40 = mul %tmp.38 %tmp.39;
-        %tmp.41 = add %tmp.37 %tmp.40;
-        %tmp.42 = invoke %tmp.33 %tmp.34(%tmp.41);
-        lputv %dist.3 %tmp.42;
-        symbol [ dist %dist.3 34 7 11 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 35 3 ]
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_35_3_38_3_if_stmt:
-        %tmp.43 = lgetv %dist.3;
-        symbol [ dist %tmp.43 35 7 11 ];
-        symbol [ MIN_DISTANCE_M %tmp.45 35 14 28 ];
-        %tmp.45 = getv ? :MIN_DISTANCE_M;
-        %tmp.46 = lt %tmp.43 %tmp.45;
-        bf %tmp.46 @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_35_3_38_3_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_35_3_38_3_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_36_3_38_3_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 37 4 ]
+        symbol [ dLon %tmp.38 56 45 49 ];
+        %tmp.39 = mul %tmp.37 %tmp.38;
+        %tmp.40 = add %tmp.36 %tmp.39;
+        %tmp.41 = invoke %tmp.32 %tmp.33(%tmp.40);
+        lputv %dist.3 %tmp.41;
+        symbol [ dist %dist.3 56 7 11 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 57 3 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_57_3_60_3_if_stmt:
+        %tmp.42 = lgetv %dist.3;
+        symbol [ dist %tmp.42 57 7 11 ];
+        symbol [ MIN_DISTANCE_M %tmp.44 57 14 28 ];
+        %tmp.44 = getv ? :MIN_DISTANCE_M;
+        %tmp.45 = lt %tmp.42 %tmp.44;
+        bf %tmp.45 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_57_3_60_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_57_3_60_3_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_58_3_60_3_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 59 4 ]
         ret ?;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_36_3_38_3_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_35_3_38_3_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_35_3_38_3_if_end:
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_31_2_39_2_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_30_2_39_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_30_2_39_2_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 41 2 ]
-        symbol [ lats %tmp.47 41 2 6 ];
-        %tmp.47 = getv self :lats;
-        %tmp.48 = lgetv %lat;
-        symbol [ lat %tmp.48 41 21 24 ];
-        symbol [ writeIndex %tmp.50 41 7 17 ];
-        %tmp.50 = getv ? :writeIndex;
-        aputv %tmp.47 %tmp.50 %tmp.48;
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 42 2 ]
-        symbol [ lons %tmp.51 42 2 6 ];
-        %tmp.51 = getv self :lons;
-        %tmp.52 = lgetv %lon;
-        symbol [ lon %tmp.52 42 21 24 ];
-        symbol [ writeIndex %tmp.54 42 7 17 ];
-        %tmp.54 = getv ? :writeIndex;
-        aputv %tmp.51 %tmp.54 %tmp.52;
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 43 2 ]
-        symbol [ writeIndex %tmp.56 43 16 26 ];
-        %tmp.56 = getv ? :writeIndex;
-        %tmp.57 = 1;
-        %tmp.58 = add %tmp.56 %tmp.57;
-        symbol [ MAX_POINTS %tmp.60 43 34 44 ];
-        %tmp.60 = getv ? :MAX_POINTS;
-        %tmp.61 = mod %tmp.58 %tmp.60;
-        symbol [ writeIndex ? 43 2 12 ];
-        putv self :writeIndex %tmp.61;
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 44 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_44_2_47_2_if_stmt:
-        symbol [ count %tmp.63 44 6 11 ];
-        %tmp.63 = getv ? :count;
-        symbol [ MAX_POINTS %tmp.65 44 14 24 ];
-        %tmp.65 = getv ? :MAX_POINTS;
-        %tmp.66 = lt %tmp.63 %tmp.65;
-        bf %tmp.66 @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_44_2_47_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_44_2_47_2_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_45_2_47_2_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 46 3 ]
-        symbol [ count %tmp.67 46 3 8 ];
-        %tmp.67 = getv self :count;
-        %tmp.68 = 1;
-        %tmp.69 = add %tmp.67 %tmp.68;
-        symbol [ count ? 46 3 8 ];
-        putv self :count dup %tmp.69;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_45_2_47_2_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_44_2_47_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_44_2_47_2_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 49 2 ]
-        %tmp.70 = lgetv %lat;
-        symbol [ lat %tmp.70 49 12 15 ];
-        symbol [ lastLat ? 49 2 9 ];
-        putv self :lastLat %tmp.70;
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 50 2 ]
-        %tmp.71 = lgetv %lon;
-        symbol [ lon %tmp.71 50 12 15 ];
-        symbol [ lastLon ? 50 2 9 ];
-        putv self :lastLon %tmp.71;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_24_1_51_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_58_3_60_3_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_57_3_60_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_57_3_60_3_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_53_2_61_2_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_52_2_61_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_52_2_61_2_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 63 2 ]
+        symbol [ lats %tmp.46 63 2 6 ];
+        %tmp.46 = getv self :lats;
+        %tmp.47 = lgetv %lat;
+        symbol [ lat %tmp.47 63 21 24 ];
+        symbol [ writeIndex %tmp.49 63 7 17 ];
+        %tmp.49 = getv ? :writeIndex;
+        aputv %tmp.46 %tmp.49 %tmp.47;
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 64 2 ]
+        symbol [ lons %tmp.50 64 2 6 ];
+        %tmp.50 = getv self :lons;
+        %tmp.51 = lgetv %lon;
+        symbol [ lon %tmp.51 64 21 24 ];
+        symbol [ writeIndex %tmp.53 64 7 17 ];
+        %tmp.53 = getv ? :writeIndex;
+        aputv %tmp.50 %tmp.53 %tmp.51;
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 65 2 ]
+        symbol [ writeIndex %tmp.55 65 16 26 ];
+        %tmp.55 = getv ? :writeIndex;
+        %tmp.56 = 1;
+        %tmp.57 = add %tmp.55 %tmp.56;
+        symbol [ MAX_POINTS %tmp.59 65 34 44 ];
+        %tmp.59 = getv ? :MAX_POINTS;
+        %tmp.60 = mod %tmp.57 %tmp.59;
+        symbol [ writeIndex ? 65 2 12 ];
+        putv self :writeIndex %tmp.60;
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 66 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_66_2_69_2_if_stmt:
+        symbol [ count %tmp.62 66 6 11 ];
+        %tmp.62 = getv ? :count;
+        symbol [ MAX_POINTS %tmp.64 66 14 24 ];
+        %tmp.64 = getv ? :MAX_POINTS;
+        %tmp.65 = lt %tmp.62 %tmp.64;
+        bf %tmp.65 @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_66_2_69_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_66_2_69_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_67_2_69_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 68 3 ]
+        symbol [ count %tmp.66 68 3 8 ];
+        %tmp.66 = getv self :count;
+        %tmp.67 = 1;
+        %tmp.68 = add %tmp.66 %tmp.67;
+        symbol [ count ? 68 3 8 ];
+        putv self :count dup %tmp.68;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_67_2_69_2_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_66_2_69_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_66_2_69_2_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 71 2 ]
+        %tmp.69 = lgetv %lat;
+        symbol [ lat %tmp.69 71 12 15 ];
+        symbol [ lastLat ? 71 2 9 ];
+        putv self :lastLat %tmp.69;
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 72 2 ]
+        %tmp.70 = lgetv %lon;
+        symbol [ lon %tmp.70 72 12 15 ];
+        symbol [ lastLon ? 72 2 9 ];
+        putv self :lastLon %tmp.70;
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_43_1_73_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 53; @symbol_functiondef = [getLats,53,10,17]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 75; @symbol_functiondef = [getLats,75,10,17]; ]
     function getLats() {
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_54_1_56_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 55 2 ]
-        symbol [ lats %tmp.2 55 9 13 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_76_1_78_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 77 2 ]
+        symbol [ lats %tmp.2 77 9 13 ];
         %tmp.2 = getv ? :lats;
         ret %tmp.2;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_54_1_56_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_76_1_78_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 58; @symbol_functiondef = [getLons,58,10,17]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 80; @symbol_functiondef = [getLons,80,10,17]; ]
     function getLons() {
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_59_1_61_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 60 2 ]
-        symbol [ lons %tmp.2 60 9 13 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_81_1_83_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 82 2 ]
+        symbol [ lons %tmp.2 82 9 13 ];
         %tmp.2 = getv ? :lons;
         ret %tmp.2;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_59_1_61_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_81_1_83_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 63; @symbol_functiondef = [getCount,63,10,18]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 85; @symbol_functiondef = [getCount,85,10,18]; ]
     function getCount() {
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_64_1_66_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 65 2 ]
-        symbol [ count %tmp.2 65 9 14 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_86_1_88_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 87 2 ]
+        symbol [ count %tmp.2 87 9 14 ];
         %tmp.2 = getv ? :count;
         ret %tmp.2;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_64_1_66_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_86_1_88_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 68; @symbol_functiondef = [getWriteIndex,68,10,23]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 90; @symbol_functiondef = [getWriteIndex,90,10,23]; ]
     function getWriteIndex() {
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_69_1_71_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc" 70 2 ]
-        symbol [ writeIndex %tmp.2 70 9 19 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_91_1_93_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc" 92 2 ]
+        symbol [ writeIndex %tmp.2 92 9 19 ];
         %tmp.2 = getv ? :writeIndex;
         ret %tmp.2;
-_Users_tk_Desktop_Claude_Glidator2_source_BreadcrumbTrail_mc_69_1_71_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_BreadcrumbTrail_mc_91_1_93_1_stop:
     }
 }
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/BreadcrumbTrail.mc"; @line = 1; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/BreadcrumbTrail.mc"; @line = 1; ]
 <init> {
 }

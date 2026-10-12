@@ -1,1128 +1,1442 @@
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; ]
 using Toybox.WatchUi;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Math,2,13,17]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Math,2,13,17]; ]
 using Toybox.Math;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 4; @symbol_classdef = [WatchData,4,6,15]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [Position,3,13,21]; ]
+using Toybox.Position;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [System,4,13,19]; @symbol_usingAlias = [Sys,4,23,26]; ]
+using Toybox.System as :Sys;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 6; @symbol_classdef = [WatchData,6,6,15]; ]
 class WatchData {
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 4; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 6; ]
     <init> {
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 378 7 ]
+        symbol [ Position %tmp.1 378 25 33 ];
+        %tmp.1 = getm $.Toybox.Position;
+        symbol [ QUALITY_POOR %tmp.2 378 34 46 ];
+        %tmp.2 = getv %tmp.1 :QUALITY_POOR;
+        putv self :MIN_MAP_QUALITY %tmp.2;
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 417 5 ]
+        symbol [ HikeHistory %tmp.6 417 23 34 ];
+        %tmp.6 = getv ? :HikeHistory;
+        %tmp.3 = newc %tmp.6 ();
+        putv self :hikeHistory %tmp.3;
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 422 5 ]
+        symbol [ $ %tmp.7 422 22 23 ];
+        %tmp.7 = getm $;
+        symbol [ VS_WINDOW_DEFAULT_MS %tmp.8 422 24 44 ];
+        %tmp.8 = getv %tmp.7 :VS_WINDOW_DEFAULT_MS;
+        putv self :hikeVsWindowMs %tmp.8;
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 4; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 6; ]
     static
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 6; @position = 5; @symbol_vardef = [gpsData,6,5,12]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 8; @position = 5; @symbol_vardef = [gpsData,8,5,12]; ]
     var gpsData = null;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 7; @position = 5; @symbol_vardef = [activityData,7,5,17]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 9; @position = 5; @symbol_vardef = [activityData,9,5,17]; ]
     var activityData = null;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 8; @position = 5; @symbol_vardef = [sensorData,8,5,15]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 10; @position = 5; @symbol_vardef = [sensorData,10,5,15]; ]
     var sensorData = null;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 10; @position = 5; @symbol_vardef = [oldAlt,10,5,11]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 12; @position = 5; @symbol_vardef = [oldAlt,12,5,11]; ]
     var oldAlt = null;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 14; @position = 5; @symbol_vardef = [vario,14,5,10]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 16; @position = 5; @symbol_vardef = [vario,16,5,10]; ]
     var vario = null;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 16; @symbol_functiondef = [startMeasure,16,10,22]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 18; @symbol_functiondef = [startMeasure,18,10,22]; ]
     function startMeasure() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_17_1_21_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 18 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_19_1_23_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 20 2 ]
         %tmp.1 = null;
-        symbol [ gpsData ? 18 2 9 ];
+        symbol [ gpsData ? 20 2 9 ];
         putv self :gpsData %tmp.1;
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 19 2 ]
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 21 2 ]
         %tmp.2 = null;
-        symbol [ activityData ? 19 2 14 ];
+        symbol [ activityData ? 21 2 14 ];
         putv self :activityData %tmp.2;
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 20 2 ]
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 22 2 ]
         %tmp.3 = null;
-        symbol [ sensorData ? 20 2 12 ];
+        symbol [ sensorData ? 22 2 12 ];
         putv self :sensorData %tmp.3;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_17_1_21_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_19_1_23_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 24; @symbol_functiondef = [endMeasure,24,10,20]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 26; @symbol_functiondef = [endMeasure,26,10,20]; ]
     function endMeasure() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_25_1_42_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 26 2 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_25_1_42_1_start" "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_25_1_42_1_stop" ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_27_1_44_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 28 2 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_27_1_44_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_27_1_44_1_stop" ]
         %alt.1 = local;
-        symbol [ alt %alt.1 26 6 9 ];
+        symbol [ alt %alt.1 28 6 9 ];
         %tmp.1 = self;
-        symbol [ getAltitude %tmp.2 26 12 23 ];
+        symbol [ getAltitude %tmp.2 28 12 23 ];
         %tmp.2 = getv function %tmp.1 :getAltitude;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %alt.1 %tmp.3;
-        symbol [ alt %alt.1 26 6 9 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 27 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_stmt:
+        symbol [ alt %alt.1 28 6 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 29 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_29_2_43_2_if_stmt:
         %tmp.4 = lgetv %alt.1;
-        symbol [ alt %tmp.4 27 6 9 ];
+        symbol [ alt %tmp.4 29 6 9 ];
         %tmp.5 = null;
         %tmp.6 = ne %tmp.4 %tmp.5;
-        bf %tmp.6 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_28_2_41_2_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 29 3 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_stmt:
-        symbol [ oldAlt %tmp.8 29 7 13 ];
+        bf %tmp.6 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_29_2_43_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_29_2_43_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_30_2_43_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 31 3 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_31_3_41_3_if_stmt:
+        symbol [ oldAlt %tmp.8 31 7 13 ];
         %tmp.8 = getv ? :oldAlt;
         %tmp.9 = null;
         %tmp.10 = ne %tmp.8 %tmp.9;
-        bf %tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_30_3_39_3_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 38 4 ]
+        bf %tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_31_3_41_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_31_3_41_3_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_32_3_41_3_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 40 4 ]
         %tmp.11 = lgetv %alt.1;
-        symbol [ alt %tmp.11 38 12 15 ];
+        symbol [ alt %tmp.11 40 12 15 ];
         %tmp.12 = as %tmp.11 { (!Null) };
-        symbol [ oldAlt %tmp.14 38 18 24 ];
+        symbol [ oldAlt %tmp.14 40 18 24 ];
         %tmp.14 = getv ? :oldAlt;
         %tmp.15 = as %tmp.14 { (!Null) };
         %tmp.16 = sub %tmp.12 %tmp.15;
-        symbol [ vario ? 38 4 9 ];
+        symbol [ vario ? 40 4 9 ];
         putv self :vario %tmp.16;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_30_3_39_3_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_29_3_39_3_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 40 3 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_32_3_41_3_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_31_3_41_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_31_3_41_3_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 42 3 ]
         %tmp.17 = lgetv %alt.1;
-        symbol [ alt %tmp.17 40 12 15 ];
+        symbol [ alt %tmp.17 42 12 15 ];
         %tmp.18 = as %tmp.17 { (!Null) };
-        symbol [ oldAlt ? 40 3 9 ];
+        symbol [ oldAlt ? 42 3 9 ];
         putv self :oldAlt %tmp.18;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_28_2_41_2_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_27_2_41_2_if_end:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_25_1_42_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_30_2_43_2_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_29_2_43_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_29_2_43_2_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_27_1_44_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 44; @symbol_functiondef = [getVario,44,10,18]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 46; @symbol_functiondef = [getVario,46,10,18]; ]
     function getVario() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_45_4_47_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 46 5 ]
-        symbol [ vario %tmp.2 46 12 17 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_47_4_49_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 48 5 ]
+        symbol [ vario %tmp.2 48 12 17 ];
         %tmp.2 = getv ? :vario;
         ret %tmp.2;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_45_4_47_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_47_4_49_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 53; typecheck = false; @symbol_functiondef = [updateInfo,53,10,20]; @symbol_param<0> = [info,53,22,26]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 55; typecheck = false; @symbol_functiondef = [updateInfo,55,10,20]; @symbol_param<0> = [info,55,22,26]; ]
     function updateInfo(info) {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_54_1_109_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 55 2 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_54_1_109_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_54_1_109_4_stop" ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_56_1_111_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 57 2 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_56_1_111_4_start" "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_56_1_111_4_stop" ]
         %data.1 = local;
-        symbol [ data %data.1 55 6 10 ];
+        symbol [ data %data.1 57 6 10 ];
         %tmp.1 = newd 0;
         lputv %data.1 %tmp.1;
-        symbol [ data %data.1 55 6 10 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 59 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_stmt:
+        symbol [ data %data.1 57 6 10 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 61 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_61_2_64_8_if_stmt:
         %tmp.2 = lgetv %info;
-        symbol [ info %tmp.2 59 6 10 ];
+        symbol [ info %tmp.2 61 6 10 ];
         %tmp.4 = const :altitude;
-        symbol [ altitude %tmp.4 59 16 24 const ];
+        symbol [ altitude %tmp.4 61 16 24 const ];
         %tmp.5 = canhazplz %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_60_8_62_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 61 9 ]
+        bf %tmp.5 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_61_2_64_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_61_2_64_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_62_8_64_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 63 9 ]
         %tmp.6 = lgetv %data.1;
-        symbol [ data %tmp.6 61 9 13 ];
+        symbol [ data %tmp.6 63 9 13 ];
         %tmp.7 = lgetv %info;
-        symbol [ info %tmp.7 61 29 33 ];
+        symbol [ info %tmp.7 63 29 33 ];
         %tmp.8 = as %tmp.7 { (interface { var altitude; }) };
-        symbol [ altitude %tmp.9 61 34 42 ];
+        symbol [ altitude %tmp.9 63 34 42 ];
         %tmp.9 = getv %tmp.8 :altitude;
         %tmp.10 = "altitude";
         aputv %tmp.6 %tmp.10 %tmp.9;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_60_8_62_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_59_2_62_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 68 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_12_68_51_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_62_8_64_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_61_2_64_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_61_2_64_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 70 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_8_74_8_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_12_70_51_begin:
         %tmp.11 = lgetv %info;
-        symbol [ info %tmp.11 68 12 16 ];
+        symbol [ info %tmp.11 70 12 16 ];
         %tmp.13 = const :position;
-        symbol [ position %tmp.13 68 22 30 const ];
+        symbol [ position %tmp.13 70 22 30 const ];
         %tmp.14 = canhazplz %tmp.11 %tmp.13;
-        bf %tmp.14 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_34_68_51_true:
+        bf %tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_8_74_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_34_70_51_true:
         %tmp.15 = lgetv %info;
-        symbol [ info %tmp.15 68 34 38 ];
+        symbol [ info %tmp.15 70 34 38 ];
         %tmp.16 = as %tmp.15 { (interface { var position; }) };
-        symbol [ position %tmp.17 68 39 47 ];
+        symbol [ position %tmp.17 70 39 47 ];
         %tmp.17 = getv %tmp.16 :position;
         %tmp.18 = null;
         %tmp.19 = ne %tmp.17 %tmp.18;
         push %tmp.19;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_34_68_51_end:
-        %tmp.20 = phi [%tmp.14 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_12_68_51_begin] [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_34_68_51_true] [%tmp.20 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_34_68_51_end];
-        bf %tmp.20 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_69_8_72_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 70 9 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_34_70_51_end:
+        %tmp.20 = phi [%tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_12_70_51_begin] [%tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_34_70_51_true] [%tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_34_70_51_end];
+        bf %tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_8_74_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_8_74_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_71_8_74_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 72 9 ]
         %tmp.21 = lgetv %data.1;
-        symbol [ data %tmp.21 70 9 13 ];
+        symbol [ data %tmp.21 72 9 13 ];
         %tmp.22 = lgetv %info;
-        symbol [ info %tmp.22 70 25 29 ];
+        symbol [ info %tmp.22 72 25 29 ];
         %tmp.23 = as %tmp.22 { (interface { var position; }) };
-        symbol [ position %tmp.24 70 30 38 ];
+        symbol [ position %tmp.24 72 30 38 ];
         %tmp.24 = getv %tmp.23 :position;
-        symbol [ toDegrees %tmp.25 70 39 48 ];
+        symbol [ toDegrees %tmp.25 72 39 48 ];
         %tmp.25 = getv function %tmp.24 :toDegrees;
         %tmp.26 = invoke %tmp.24 %tmp.25();
         %tmp.27 = 0;
         %tmp.28 = agetv %tmp.26 %tmp.27;
         %tmp.29 = "lat";
         aputv %tmp.21 %tmp.29 %tmp.28;
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 71 9 ]
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 73 9 ]
         %tmp.30 = lgetv %data.1;
-        symbol [ data %tmp.30 71 9 13 ];
+        symbol [ data %tmp.30 73 9 13 ];
         %tmp.31 = lgetv %info;
-        symbol [ info %tmp.31 71 25 29 ];
+        symbol [ info %tmp.31 73 25 29 ];
         %tmp.32 = as %tmp.31 { (interface { var position; }) };
-        symbol [ position %tmp.33 71 30 38 ];
+        symbol [ position %tmp.33 73 30 38 ];
         %tmp.33 = getv %tmp.32 :position;
-        symbol [ toDegrees %tmp.34 71 39 48 ];
+        symbol [ toDegrees %tmp.34 73 39 48 ];
         %tmp.34 = getv function %tmp.33 :toDegrees;
         %tmp.35 = invoke %tmp.33 %tmp.34();
         %tmp.36 = 1;
         %tmp.37 = agetv %tmp.35 %tmp.36;
         %tmp.38 = "long";
         aputv %tmp.30 %tmp.38 %tmp.37;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_69_8_72_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_68_8_72_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 75 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_71_8_74_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_8_74_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_70_8_74_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 77 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_77_8_80_8_if_stmt:
         %tmp.39 = lgetv %info;
-        symbol [ info %tmp.39 75 12 16 ];
+        symbol [ info %tmp.39 77 12 16 ];
         %tmp.41 = const :accuracy;
-        symbol [ accuracy %tmp.41 75 22 30 const ];
+        symbol [ accuracy %tmp.41 77 22 30 const ];
         %tmp.42 = canhazplz %tmp.39 %tmp.41;
-        bf %tmp.42 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_76_8_78_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 77 9 ]
+        bf %tmp.42 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_77_8_80_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_77_8_80_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_78_8_80_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 79 9 ]
         %tmp.43 = lgetv %data.1;
-        symbol [ data %tmp.43 77 9 13 ];
+        symbol [ data %tmp.43 79 9 13 ];
         %tmp.44 = lgetv %info;
-        symbol [ info %tmp.44 77 29 33 ];
+        symbol [ info %tmp.44 79 29 33 ];
         %tmp.45 = as %tmp.44 { (interface { var accuracy; }) };
-        symbol [ accuracy %tmp.46 77 34 42 ];
+        symbol [ accuracy %tmp.46 79 34 42 ];
         %tmp.46 = getv %tmp.45 :accuracy;
         %tmp.47 = "accuracy";
         aputv %tmp.43 %tmp.47 %tmp.46;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_76_8_78_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_75_8_78_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 88 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_78_8_80_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_77_8_80_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_77_8_80_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 90 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_8_93_8_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_12_90_45_begin:
         %tmp.48 = lgetv %info;
-        symbol [ info %tmp.48 88 12 16 ];
+        symbol [ info %tmp.48 90 12 16 ];
         %tmp.50 = const :speed;
-        symbol [ speed %tmp.50 88 22 27 const ];
+        symbol [ speed %tmp.50 90 22 27 const ];
         %tmp.51 = canhazplz %tmp.48 %tmp.50;
-        bf %tmp.51 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_89_8_91_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 90 9 ]
-        %tmp.52 = lgetv %data.1;
-        symbol [ data %tmp.52 90 9 13 ];
-        %tmp.53 = lgetv %info;
-        symbol [ info %tmp.53 90 26 30 ];
-        %tmp.54 = as %tmp.53 { (interface { var speed; }) };
-        symbol [ speed %tmp.55 90 31 36 ];
-        %tmp.55 = getv %tmp.54 :speed;
-        %tmp.56 = "speed";
-        aputv %tmp.52 %tmp.56 %tmp.55;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_89_8_91_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_88_8_91_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 95 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_stmt:
-        %tmp.57 = lgetv %info;
-        symbol [ info %tmp.57 95 12 16 ];
-        %tmp.59 = const :heading;
-        symbol [ heading %tmp.59 95 22 29 const ];
-        %tmp.60 = canhazplz %tmp.57 %tmp.59;
-        bf %tmp.60 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_96_8_98_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 97 9 ]
-        %tmp.61 = lgetv %data.1;
-        symbol [ data %tmp.61 97 9 13 ];
-        %tmp.62 = lgetv %info;
-        symbol [ info %tmp.62 97 28 32 ];
-        %tmp.63 = as %tmp.62 { (interface { var heading; }) };
-        symbol [ heading %tmp.64 97 33 40 ];
-        %tmp.64 = getv %tmp.63 :heading;
-        %tmp.65 = "heading";
-        aputv %tmp.61 %tmp.65 %tmp.64;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_96_8_98_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_95_8_98_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 103 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_stmt:
-        %tmp.66 = lgetv %info;
-        symbol [ info %tmp.66 103 12 16 ];
-        %tmp.68 = const :when;
-        symbol [ when %tmp.68 103 22 26 const ];
-        %tmp.69 = canhazplz %tmp.66 %tmp.68;
-        bf %tmp.69 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_104_8_106_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 105 9 ]
-        %tmp.70 = lgetv %data.1;
-        symbol [ data %tmp.70 105 9 13 ];
-        %tmp.71 = lgetv %info;
-        symbol [ info %tmp.71 105 25 29 ];
-        %tmp.72 = as %tmp.71 { (interface { var when; }) };
-        symbol [ when %tmp.73 105 30 34 ];
-        %tmp.73 = getv %tmp.72 :when;
-        %tmp.74 = "when";
-        aputv %tmp.70 %tmp.74 %tmp.73;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_104_8_106_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_103_8_106_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 108 8 ]
-        %tmp.75 = lgetv %data.1;
-        symbol [ data %tmp.75 108 18 22 ];
-        symbol [ gpsData ? 108 8 15 ];
-        putv self :gpsData %tmp.75;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_54_1_109_4_stop:
-    }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 112; @symbol_functiondef = [updateActivityInfo,112,10,28]; @symbol_param<0> = [info,112,30,34]; ]
-    function updateActivityInfo(info) {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_113_1_160_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 114 2 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_113_1_160_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_113_1_160_4_stop" ]
-        %data.1 = local;
-        symbol [ data %data.1 114 6 10 ];
-        %tmp.1 = newd 0;
-        lputv %data.1 %tmp.1;
-        symbol [ data %data.1 114 6 10 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 117 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_stmt:
-        %tmp.2 = lgetv %info;
-        symbol [ info %tmp.2 117 6 10 ];
-        %tmp.4 = const :altitude;
-        symbol [ altitude %tmp.4 117 16 24 const ];
-        %tmp.5 = canhazplz %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_118_8_120_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 119 9 ]
-        %tmp.6 = lgetv %data.1;
-        symbol [ data %tmp.6 119 9 13 ];
-        %tmp.7 = lgetv %info;
-        symbol [ info %tmp.7 119 29 33 ];
-        %tmp.8 = as %tmp.7 { (interface { var altitude; }) };
-        symbol [ altitude %tmp.9 119 34 42 ];
-        %tmp.9 = getv %tmp.8 :altitude;
-        %tmp.10 = "altitude";
-        aputv %tmp.6 %tmp.10 %tmp.9;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_118_8_120_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_117_2_120_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 123 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_stmt:
-        %tmp.11 = lgetv %info;
-        symbol [ info %tmp.11 123 6 10 ];
-        %tmp.13 = const :currentHeartRate;
-        symbol [ currentHeartRate %tmp.13 123 16 32 const ];
-        %tmp.14 = canhazplz %tmp.11 %tmp.13;
-        bf %tmp.14 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_124_8_126_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 125 9 ]
-        %tmp.15 = lgetv %data.1;
-        symbol [ data %tmp.15 125 9 13 ];
-        %tmp.16 = lgetv %info;
-        symbol [ info %tmp.16 125 30 34 ];
-        %tmp.17 = as %tmp.16 { (interface { var currentHeartRate; }) };
-        symbol [ currentHeartRate %tmp.18 125 35 51 ];
-        %tmp.18 = getv %tmp.17 :currentHeartRate;
-        %tmp.19 = "heartRate";
-        aputv %tmp.15 %tmp.19 %tmp.18;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_124_8_126_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_123_2_126_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 130 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_stmt:
-        %tmp.20 = lgetv %info;
-        symbol [ info %tmp.20 130 6 10 ];
-        %tmp.22 = const :currentHeading;
-        symbol [ currentHeading %tmp.22 130 16 30 const ];
-        %tmp.23 = canhazplz %tmp.20 %tmp.22;
-        bf %tmp.23 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_131_8_133_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 132 9 ]
-        %tmp.24 = lgetv %data.1;
-        symbol [ data %tmp.24 132 9 13 ];
-        %tmp.25 = lgetv %info;
-        symbol [ info %tmp.25 132 28 32 ];
-        %tmp.26 = as %tmp.25 { (interface { var currentHeading; }) };
-        symbol [ currentHeading %tmp.27 132 33 47 ];
-        %tmp.27 = getv %tmp.26 :currentHeading;
-        %tmp.28 = "heading";
-        aputv %tmp.24 %tmp.28 %tmp.27;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_131_8_133_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_130_2_133_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 136 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_stmt:
-        %tmp.29 = lgetv %info;
-        symbol [ info %tmp.29 136 12 16 ];
-        %tmp.31 = const :currentSpeed;
-        symbol [ currentSpeed %tmp.31 136 22 34 const ];
-        %tmp.32 = canhazplz %tmp.29 %tmp.31;
-        bf %tmp.32 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_137_8_139_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 138 9 ]
-        %tmp.33 = lgetv %data.1;
-        symbol [ data %tmp.33 138 9 13 ];
-        %tmp.34 = lgetv %info;
-        symbol [ info %tmp.34 138 26 30 ];
-        %tmp.35 = as %tmp.34 { (interface { var currentSpeed; }) };
-        symbol [ currentSpeed %tmp.36 138 31 43 ];
-        %tmp.36 = getv %tmp.35 :currentSpeed;
-        %tmp.37 = "speed";
-        aputv %tmp.33 %tmp.37 %tmp.36;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_137_8_139_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_136_8_139_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 142 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_stmt:
-        %tmp.38 = lgetv %info;
-        symbol [ info %tmp.38 142 12 16 ];
-        %tmp.40 = const :totalAscent;
-        symbol [ totalAscent %tmp.40 142 22 33 const ];
-        %tmp.41 = canhazplz %tmp.38 %tmp.40;
-        bf %tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_143_8_145_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 144 9 ]
-        %tmp.42 = lgetv %data.1;
-        symbol [ data %tmp.42 144 9 13 ];
-        %tmp.43 = lgetv %info;
-        symbol [ info %tmp.43 144 32 36 ];
-        %tmp.44 = as %tmp.43 { (interface { var totalAscent; }) };
-        symbol [ totalAscent %tmp.45 144 37 48 ];
-        %tmp.45 = getv %tmp.44 :totalAscent;
-        %tmp.46 = "totalAscent";
-        aputv %tmp.42 %tmp.46 %tmp.45;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_143_8_145_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_142_8_145_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 148 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_stmt:
-        %tmp.47 = lgetv %info;
-        symbol [ info %tmp.47 148 12 16 ];
-        %tmp.49 = const :elapsedDistance;
-        symbol [ elapsedDistance %tmp.49 148 22 37 const ];
-        %tmp.50 = canhazplz %tmp.47 %tmp.49;
-        bf %tmp.50 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_149_8_151_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 150 9 ]
-        %tmp.51 = lgetv %data.1;
-        symbol [ data %tmp.51 150 9 13 ];
+        bf %tmp.51 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_8_93_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_31_90_45_true:
         %tmp.52 = lgetv %info;
-        symbol [ info %tmp.52 150 29 33 ];
-        %tmp.53 = as %tmp.52 { (interface { var elapsedDistance; }) };
-        symbol [ elapsedDistance %tmp.54 150 34 49 ];
-        %tmp.54 = getv %tmp.53 :elapsedDistance;
-        %tmp.55 = "distance";
-        aputv %tmp.51 %tmp.55 %tmp.54;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_149_8_151_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_148_8_151_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 154 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_stmt:
-        %tmp.56 = lgetv %info;
-        symbol [ info %tmp.56 154 12 16 ];
-        %tmp.58 = const :timerTime;
-        symbol [ timerTime %tmp.58 154 22 31 const ];
-        %tmp.59 = canhazplz %tmp.56 %tmp.58;
-        bf %tmp.59 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_155_8_157_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 156 9 ]
-        %tmp.60 = lgetv %data.1;
-        symbol [ data %tmp.60 156 9 13 ];
-        %tmp.61 = lgetv %info;
-        symbol [ info %tmp.61 156 30 34 ];
-        %tmp.62 = as %tmp.61 { (interface { var timerTime; }) };
-        symbol [ timerTime %tmp.63 156 35 44 ];
-        %tmp.63 = getv %tmp.62 :timerTime;
-        %tmp.64 = "timerTime";
-        aputv %tmp.60 %tmp.64 %tmp.63;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_155_8_157_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_154_8_157_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 159 5 ]
-        %tmp.65 = lgetv %data.1;
-        symbol [ data %tmp.65 159 20 24 ];
-        symbol [ activityData ? 159 5 17 ];
-        putv self :activityData %tmp.65;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_113_1_160_4_stop:
+        symbol [ info %tmp.52 90 31 35 ];
+        %tmp.53 = as %tmp.52 { (interface { var speed; }) };
+        symbol [ speed %tmp.54 90 36 41 ];
+        %tmp.54 = getv %tmp.53 :speed;
+        %tmp.55 = null;
+        %tmp.56 = ne %tmp.54 %tmp.55;
+        push %tmp.56;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_31_90_45_end:
+        %tmp.57 = phi [%tmp.51 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_12_90_45_begin] [%tmp.56 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_31_90_45_true] [%tmp.57 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_31_90_45_end];
+        bf %tmp.57 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_8_93_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_8_93_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_91_8_93_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 92 9 ]
+        %tmp.58 = lgetv %data.1;
+        symbol [ data %tmp.58 92 9 13 ];
+        %tmp.59 = lgetv %info;
+        symbol [ info %tmp.59 92 26 30 ];
+        %tmp.60 = as %tmp.59 { (interface { var speed; }) };
+        symbol [ speed %tmp.61 92 31 36 ];
+        %tmp.61 = getv %tmp.60 :speed;
+        %tmp.62 = "speed";
+        aputv %tmp.58 %tmp.62 %tmp.61;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_91_8_93_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_8_93_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_90_8_93_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 97 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_97_8_100_8_if_stmt:
+        %tmp.63 = lgetv %info;
+        symbol [ info %tmp.63 97 12 16 ];
+        %tmp.65 = const :heading;
+        symbol [ heading %tmp.65 97 22 29 const ];
+        %tmp.66 = canhazplz %tmp.63 %tmp.65;
+        bf %tmp.66 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_97_8_100_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_97_8_100_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_98_8_100_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 99 9 ]
+        %tmp.67 = lgetv %data.1;
+        symbol [ data %tmp.67 99 9 13 ];
+        %tmp.68 = lgetv %info;
+        symbol [ info %tmp.68 99 28 32 ];
+        %tmp.69 = as %tmp.68 { (interface { var heading; }) };
+        symbol [ heading %tmp.70 99 33 40 ];
+        %tmp.70 = getv %tmp.69 :heading;
+        %tmp.71 = "heading";
+        aputv %tmp.67 %tmp.71 %tmp.70;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_98_8_100_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_97_8_100_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_97_8_100_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 105 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_105_8_108_8_if_stmt:
+        %tmp.72 = lgetv %info;
+        symbol [ info %tmp.72 105 12 16 ];
+        %tmp.74 = const :when;
+        symbol [ when %tmp.74 105 22 26 const ];
+        %tmp.75 = canhazplz %tmp.72 %tmp.74;
+        bf %tmp.75 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_105_8_108_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_105_8_108_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_106_8_108_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 107 9 ]
+        %tmp.76 = lgetv %data.1;
+        symbol [ data %tmp.76 107 9 13 ];
+        %tmp.77 = lgetv %info;
+        symbol [ info %tmp.77 107 25 29 ];
+        %tmp.78 = as %tmp.77 { (interface { var when; }) };
+        symbol [ when %tmp.79 107 30 34 ];
+        %tmp.79 = getv %tmp.78 :when;
+        %tmp.80 = "when";
+        aputv %tmp.76 %tmp.80 %tmp.79;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_106_8_108_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_105_8_108_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_105_8_108_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 110 8 ]
+        %tmp.81 = lgetv %data.1;
+        symbol [ data %tmp.81 110 18 22 ];
+        symbol [ gpsData ? 110 8 15 ];
+        putv self :gpsData %tmp.81;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_56_1_111_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 166; typecheck = false; @symbol_functiondef = [updateSensorInfo,166,13,29]; @symbol_param<0> = [info,166,31,35]; ]
-    function updateSensorInfo(info) {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_167_1_205_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 168 2 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_167_1_205_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_167_1_205_4_stop" ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 114; @symbol_functiondef = [updateActivityInfo,114,10,28]; @symbol_param<0> = [info,114,30,34]; ]
+    function updateActivityInfo(info) {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_115_1_163_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 116 2 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_115_1_163_4_start" "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_115_1_163_4_stop" ]
         %data.1 = local;
-        symbol [ data %data.1 168 6 10 ];
+        symbol [ data %data.1 116 6 10 ];
         %tmp.1 = newd 0;
         lputv %data.1 %tmp.1;
-        symbol [ data %data.1 168 6 10 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 173 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_stmt:
+        symbol [ data %data.1 116 6 10 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 119 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_119_2_122_8_if_stmt:
         %tmp.2 = lgetv %info;
-        symbol [ info %tmp.2 173 6 10 ];
+        symbol [ info %tmp.2 119 6 10 ];
         %tmp.4 = const :altitude;
-        symbol [ altitude %tmp.4 173 16 24 const ];
+        symbol [ altitude %tmp.4 119 16 24 const ];
         %tmp.5 = canhazplz %tmp.2 %tmp.4;
-        bf %tmp.5 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_174_8_176_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 175 9 ]
+        bf %tmp.5 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_119_2_122_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_119_2_122_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_120_8_122_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 121 9 ]
         %tmp.6 = lgetv %data.1;
-        symbol [ data %tmp.6 175 9 13 ];
+        symbol [ data %tmp.6 121 9 13 ];
         %tmp.7 = lgetv %info;
-        symbol [ info %tmp.7 175 29 33 ];
+        symbol [ info %tmp.7 121 29 33 ];
         %tmp.8 = as %tmp.7 { (interface { var altitude; }) };
-        symbol [ altitude %tmp.9 175 34 42 ];
+        symbol [ altitude %tmp.9 121 34 42 ];
         %tmp.9 = getv %tmp.8 :altitude;
         %tmp.10 = "altitude";
         aputv %tmp.6 %tmp.10 %tmp.9;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_174_8_176_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_173_2_176_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 187 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_120_8_122_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_119_2_122_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_119_2_122_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 126 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_2_129_8_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_6_126_61_begin:
         %tmp.11 = lgetv %info;
-        symbol [ info %tmp.11 187 6 10 ];
-        %tmp.13 = const :heartRate;
-        symbol [ heartRate %tmp.13 187 16 25 const ];
+        symbol [ info %tmp.11 126 6 10 ];
+        %tmp.13 = const :currentHeartRate;
+        symbol [ currentHeartRate %tmp.13 126 16 32 const ];
         %tmp.14 = canhazplz %tmp.11 %tmp.13;
-        bf %tmp.14 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_188_8_190_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 189 9 ]
-        %tmp.15 = lgetv %data.1;
-        symbol [ data %tmp.15 189 9 13 ];
-        %tmp.16 = lgetv %info;
-        symbol [ info %tmp.16 189 30 34 ];
-        %tmp.17 = as %tmp.16 { (interface { var heartRate; }) };
-        symbol [ heartRate %tmp.18 189 35 44 ];
-        %tmp.18 = getv %tmp.17 :heartRate;
-        %tmp.19 = "heartRate";
-        aputv %tmp.15 %tmp.19 %tmp.18;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_188_8_190_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_187_2_190_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 193 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_stmt:
-        %tmp.20 = lgetv %info;
-        symbol [ info %tmp.20 193 12 16 ];
-        %tmp.22 = const :speed;
-        symbol [ speed %tmp.22 193 22 27 const ];
-        %tmp.23 = canhazplz %tmp.20 %tmp.22;
-        bf %tmp.23 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_194_8_196_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 195 9 ]
-        %tmp.24 = lgetv %data.1;
-        symbol [ data %tmp.24 195 9 13 ];
-        %tmp.25 = lgetv %info;
-        symbol [ info %tmp.25 195 26 30 ];
-        %tmp.26 = as %tmp.25 { (interface { var speed; }) };
-        symbol [ speed %tmp.27 195 31 36 ];
-        %tmp.27 = getv %tmp.26 :speed;
-        %tmp.28 = "speed";
-        aputv %tmp.24 %tmp.28 %tmp.27;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_194_8_196_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_193_8_196_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 198 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_stmt:
-        %tmp.29 = lgetv %info;
-        symbol [ info %tmp.29 198 12 16 ];
-        %tmp.31 = const :magnetometer;
-        symbol [ magnetometer %tmp.31 198 22 34 const ];
-        %tmp.32 = canhazplz %tmp.29 %tmp.31;
-        bf %tmp.32 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_199_8_201_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 200 12 ]
-        %tmp.33 = lgetv %data.1;
-        symbol [ data %tmp.33 200 12 16 ];
-        %tmp.34 = lgetv %info;
-        symbol [ info %tmp.34 200 35 39 ];
-        %tmp.35 = as %tmp.34 { (interface { var magnetometer; }) };
-        symbol [ magnetometer %tmp.36 200 40 52 ];
-        %tmp.36 = getv %tmp.35 :magnetometer;
-        %tmp.37 = "magnetometer";
-        aputv %tmp.33 %tmp.37 %tmp.36;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_199_8_201_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_198_8_201_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 204 5 ]
-        %tmp.38 = lgetv %data.1;
-        symbol [ data %tmp.38 204 18 22 ];
-        symbol [ sensorData ? 204 5 15 ];
-        putv self :sensorData %tmp.38;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_167_1_205_4_stop:
+        bf %tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_2_129_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_36_126_61_true:
+        %tmp.15 = lgetv %info;
+        symbol [ info %tmp.15 126 36 40 ];
+        %tmp.16 = as %tmp.15 { (interface { var currentHeartRate; }) };
+        symbol [ currentHeartRate %tmp.17 126 41 57 ];
+        %tmp.17 = getv %tmp.16 :currentHeartRate;
+        %tmp.18 = null;
+        %tmp.19 = ne %tmp.17 %tmp.18;
+        push %tmp.19;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_36_126_61_end:
+        %tmp.20 = phi [%tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_6_126_61_begin] [%tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_36_126_61_true] [%tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_36_126_61_end];
+        bf %tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_2_129_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_2_129_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_127_8_129_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 128 9 ]
+        %tmp.21 = lgetv %data.1;
+        symbol [ data %tmp.21 128 9 13 ];
+        %tmp.22 = lgetv %info;
+        symbol [ info %tmp.22 128 30 34 ];
+        %tmp.23 = as %tmp.22 { (interface { var currentHeartRate; }) };
+        symbol [ currentHeartRate %tmp.24 128 35 51 ];
+        %tmp.24 = getv %tmp.23 :currentHeartRate;
+        %tmp.25 = "heartRate";
+        aputv %tmp.21 %tmp.25 %tmp.24;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_127_8_129_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_2_129_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_126_2_129_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 133 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_133_2_136_8_if_stmt:
+        %tmp.26 = lgetv %info;
+        symbol [ info %tmp.26 133 6 10 ];
+        %tmp.28 = const :currentHeading;
+        symbol [ currentHeading %tmp.28 133 16 30 const ];
+        %tmp.29 = canhazplz %tmp.26 %tmp.28;
+        bf %tmp.29 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_133_2_136_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_133_2_136_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_134_8_136_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 135 9 ]
+        %tmp.30 = lgetv %data.1;
+        symbol [ data %tmp.30 135 9 13 ];
+        %tmp.31 = lgetv %info;
+        symbol [ info %tmp.31 135 28 32 ];
+        %tmp.32 = as %tmp.31 { (interface { var currentHeading; }) };
+        symbol [ currentHeading %tmp.33 135 33 47 ];
+        %tmp.33 = getv %tmp.32 :currentHeading;
+        %tmp.34 = "heading";
+        aputv %tmp.30 %tmp.34 %tmp.33;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_134_8_136_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_133_2_136_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_133_2_136_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 139 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_8_142_8_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_12_139_59_begin:
+        %tmp.35 = lgetv %info;
+        symbol [ info %tmp.35 139 12 16 ];
+        %tmp.37 = const :currentSpeed;
+        symbol [ currentSpeed %tmp.37 139 22 34 const ];
+        %tmp.38 = canhazplz %tmp.35 %tmp.37;
+        bf %tmp.38 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_8_142_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_38_139_59_true:
+        %tmp.39 = lgetv %info;
+        symbol [ info %tmp.39 139 38 42 ];
+        %tmp.40 = as %tmp.39 { (interface { var currentSpeed; }) };
+        symbol [ currentSpeed %tmp.41 139 43 55 ];
+        %tmp.41 = getv %tmp.40 :currentSpeed;
+        %tmp.42 = null;
+        %tmp.43 = ne %tmp.41 %tmp.42;
+        push %tmp.43;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_38_139_59_end:
+        %tmp.44 = phi [%tmp.38 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_12_139_59_begin] [%tmp.43 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_38_139_59_true] [%tmp.44 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_38_139_59_end];
+        bf %tmp.44 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_8_142_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_8_142_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_140_8_142_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 141 9 ]
+        %tmp.45 = lgetv %data.1;
+        symbol [ data %tmp.45 141 9 13 ];
+        %tmp.46 = lgetv %info;
+        symbol [ info %tmp.46 141 26 30 ];
+        %tmp.47 = as %tmp.46 { (interface { var currentSpeed; }) };
+        symbol [ currentSpeed %tmp.48 141 31 43 ];
+        %tmp.48 = getv %tmp.47 :currentSpeed;
+        %tmp.49 = "speed";
+        aputv %tmp.45 %tmp.49 %tmp.48;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_140_8_142_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_8_142_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_139_8_142_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 145 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_145_8_148_8_if_stmt:
+        %tmp.50 = lgetv %info;
+        symbol [ info %tmp.50 145 12 16 ];
+        %tmp.52 = const :totalAscent;
+        symbol [ totalAscent %tmp.52 145 22 33 const ];
+        %tmp.53 = canhazplz %tmp.50 %tmp.52;
+        bf %tmp.53 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_145_8_148_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_145_8_148_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_146_8_148_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 147 9 ]
+        %tmp.54 = lgetv %data.1;
+        symbol [ data %tmp.54 147 9 13 ];
+        %tmp.55 = lgetv %info;
+        symbol [ info %tmp.55 147 32 36 ];
+        %tmp.56 = as %tmp.55 { (interface { var totalAscent; }) };
+        symbol [ totalAscent %tmp.57 147 37 48 ];
+        %tmp.57 = getv %tmp.56 :totalAscent;
+        %tmp.58 = "totalAscent";
+        aputv %tmp.54 %tmp.58 %tmp.57;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_146_8_148_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_145_8_148_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_145_8_148_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 151 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_151_8_154_8_if_stmt:
+        %tmp.59 = lgetv %info;
+        symbol [ info %tmp.59 151 12 16 ];
+        %tmp.61 = const :elapsedDistance;
+        symbol [ elapsedDistance %tmp.61 151 22 37 const ];
+        %tmp.62 = canhazplz %tmp.59 %tmp.61;
+        bf %tmp.62 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_151_8_154_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_151_8_154_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_152_8_154_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 153 9 ]
+        %tmp.63 = lgetv %data.1;
+        symbol [ data %tmp.63 153 9 13 ];
+        %tmp.64 = lgetv %info;
+        symbol [ info %tmp.64 153 29 33 ];
+        %tmp.65 = as %tmp.64 { (interface { var elapsedDistance; }) };
+        symbol [ elapsedDistance %tmp.66 153 34 49 ];
+        %tmp.66 = getv %tmp.65 :elapsedDistance;
+        %tmp.67 = "distance";
+        aputv %tmp.63 %tmp.67 %tmp.66;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_152_8_154_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_151_8_154_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_151_8_154_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 157 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_157_8_160_8_if_stmt:
+        %tmp.68 = lgetv %info;
+        symbol [ info %tmp.68 157 12 16 ];
+        %tmp.70 = const :timerTime;
+        symbol [ timerTime %tmp.70 157 22 31 const ];
+        %tmp.71 = canhazplz %tmp.68 %tmp.70;
+        bf %tmp.71 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_157_8_160_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_157_8_160_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_158_8_160_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 159 9 ]
+        %tmp.72 = lgetv %data.1;
+        symbol [ data %tmp.72 159 9 13 ];
+        %tmp.73 = lgetv %info;
+        symbol [ info %tmp.73 159 30 34 ];
+        %tmp.74 = as %tmp.73 { (interface { var timerTime; }) };
+        symbol [ timerTime %tmp.75 159 35 44 ];
+        %tmp.75 = getv %tmp.74 :timerTime;
+        %tmp.76 = "timerTime";
+        aputv %tmp.72 %tmp.76 %tmp.75;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_158_8_160_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_157_8_160_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_157_8_160_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 162 5 ]
+        %tmp.77 = lgetv %data.1;
+        symbol [ data %tmp.77 162 20 24 ];
+        symbol [ activityData ? 162 5 17 ];
+        putv self :activityData %tmp.77;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_115_1_163_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 209; typecheck = false; @symbol_functiondef = [getAltitude,209,13,24]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 169; typecheck = false; @symbol_functiondef = [updateSensorInfo,169,13,29]; @symbol_param<0> = [info,169,31,35]; ]
+    function updateSensorInfo(info) {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_170_1_209_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 171 2 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_170_1_209_4_start" "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_170_1_209_4_stop" ]
+        %data.1 = local;
+        symbol [ data %data.1 171 6 10 ];
+        %tmp.1 = newd 0;
+        lputv %data.1 %tmp.1;
+        symbol [ data %data.1 171 6 10 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 176 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_176_2_179_8_if_stmt:
+        %tmp.2 = lgetv %info;
+        symbol [ info %tmp.2 176 6 10 ];
+        %tmp.4 = const :altitude;
+        symbol [ altitude %tmp.4 176 16 24 const ];
+        %tmp.5 = canhazplz %tmp.2 %tmp.4;
+        bf %tmp.5 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_176_2_179_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_176_2_179_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_177_8_179_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 178 9 ]
+        %tmp.6 = lgetv %data.1;
+        symbol [ data %tmp.6 178 9 13 ];
+        %tmp.7 = lgetv %info;
+        symbol [ info %tmp.7 178 29 33 ];
+        %tmp.8 = as %tmp.7 { (interface { var altitude; }) };
+        symbol [ altitude %tmp.9 178 34 42 ];
+        %tmp.9 = getv %tmp.8 :altitude;
+        %tmp.10 = "altitude";
+        aputv %tmp.6 %tmp.10 %tmp.9;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_177_8_179_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_176_2_179_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_176_2_179_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 190 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_2_193_8_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_6_190_47_begin:
+        %tmp.11 = lgetv %info;
+        symbol [ info %tmp.11 190 6 10 ];
+        %tmp.13 = const :heartRate;
+        symbol [ heartRate %tmp.13 190 16 25 const ];
+        %tmp.14 = canhazplz %tmp.11 %tmp.13;
+        bf %tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_2_193_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_29_190_47_true:
+        %tmp.15 = lgetv %info;
+        symbol [ info %tmp.15 190 29 33 ];
+        %tmp.16 = as %tmp.15 { (interface { var heartRate; }) };
+        symbol [ heartRate %tmp.17 190 34 43 ];
+        %tmp.17 = getv %tmp.16 :heartRate;
+        %tmp.18 = null;
+        %tmp.19 = ne %tmp.17 %tmp.18;
+        push %tmp.19;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_29_190_47_end:
+        %tmp.20 = phi [%tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_6_190_47_begin] [%tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_29_190_47_true] [%tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_29_190_47_end];
+        bf %tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_2_193_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_2_193_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_191_8_193_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 192 9 ]
+        %tmp.21 = lgetv %data.1;
+        symbol [ data %tmp.21 192 9 13 ];
+        %tmp.22 = lgetv %info;
+        symbol [ info %tmp.22 192 30 34 ];
+        %tmp.23 = as %tmp.22 { (interface { var heartRate; }) };
+        symbol [ heartRate %tmp.24 192 35 44 ];
+        %tmp.24 = getv %tmp.23 :heartRate;
+        %tmp.25 = "heartRate";
+        aputv %tmp.21 %tmp.25 %tmp.24;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_191_8_193_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_2_193_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_190_2_193_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 197 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_8_200_8_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_12_197_45_begin:
+        %tmp.26 = lgetv %info;
+        symbol [ info %tmp.26 197 12 16 ];
+        %tmp.28 = const :speed;
+        symbol [ speed %tmp.28 197 22 27 const ];
+        %tmp.29 = canhazplz %tmp.26 %tmp.28;
+        bf %tmp.29 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_8_200_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_31_197_45_true:
+        %tmp.30 = lgetv %info;
+        symbol [ info %tmp.30 197 31 35 ];
+        %tmp.31 = as %tmp.30 { (interface { var speed; }) };
+        symbol [ speed %tmp.32 197 36 41 ];
+        %tmp.32 = getv %tmp.31 :speed;
+        %tmp.33 = null;
+        %tmp.34 = ne %tmp.32 %tmp.33;
+        push %tmp.34;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_31_197_45_end:
+        %tmp.35 = phi [%tmp.29 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_12_197_45_begin] [%tmp.34 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_31_197_45_true] [%tmp.35 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_31_197_45_end];
+        bf %tmp.35 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_8_200_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_8_200_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_198_8_200_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 199 9 ]
+        %tmp.36 = lgetv %data.1;
+        symbol [ data %tmp.36 199 9 13 ];
+        %tmp.37 = lgetv %info;
+        symbol [ info %tmp.37 199 26 30 ];
+        %tmp.38 = as %tmp.37 { (interface { var speed; }) };
+        symbol [ speed %tmp.39 199 31 36 ];
+        %tmp.39 = getv %tmp.38 :speed;
+        %tmp.40 = "speed";
+        aputv %tmp.36 %tmp.40 %tmp.39;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_198_8_200_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_8_200_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_197_8_200_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 202 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_202_8_205_8_if_stmt:
+        %tmp.41 = lgetv %info;
+        symbol [ info %tmp.41 202 12 16 ];
+        %tmp.43 = const :magnetometer;
+        symbol [ magnetometer %tmp.43 202 22 34 const ];
+        %tmp.44 = canhazplz %tmp.41 %tmp.43;
+        bf %tmp.44 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_202_8_205_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_202_8_205_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_203_8_205_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 204 12 ]
+        %tmp.45 = lgetv %data.1;
+        symbol [ data %tmp.45 204 12 16 ];
+        %tmp.46 = lgetv %info;
+        symbol [ info %tmp.46 204 35 39 ];
+        %tmp.47 = as %tmp.46 { (interface { var magnetometer; }) };
+        symbol [ magnetometer %tmp.48 204 40 52 ];
+        %tmp.48 = getv %tmp.47 :magnetometer;
+        %tmp.49 = "magnetometer";
+        aputv %tmp.45 %tmp.49 %tmp.48;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_203_8_205_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_202_8_205_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_202_8_205_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 208 5 ]
+        %tmp.50 = lgetv %data.1;
+        symbol [ data %tmp.50 208 18 22 ];
+        symbol [ sensorData ? 208 5 15 ];
+        putv self :sensorData %tmp.50;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_170_1_209_4_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 213; typecheck = false; @symbol_functiondef = [getAltitude,213,13,24]; ]
     function getAltitude() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_210_4_228_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 211 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_9_211_63_begin:
-        symbol [ activityData %tmp.2 211 9 21 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_214_4_232_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 215 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_5_218_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_9_215_63_begin:
+        symbol [ activityData %tmp.2 215 9 21 ];
         %tmp.2 = getv ? :activityData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_33_211_63_true:
-        symbol [ activityData %tmp.6 211 33 45 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_5_218_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_33_215_63_true:
+        symbol [ activityData %tmp.6 215 33 45 ];
         %tmp.6 = getv ? :activityData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 211 46 52 ];
+        symbol [ hasKey %tmp.8 215 46 52 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "altitude";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_33_211_63_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_9_211_63_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_33_211_63_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_33_211_63_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_212_5_214_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 213 6 ]
-        symbol [ activityData %tmp.13 213 13 25 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_33_215_63_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_9_215_63_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_33_215_63_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_33_215_63_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_5_218_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_5_218_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_216_5_218_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 217 6 ]
+        symbol [ activityData %tmp.13 217 13 25 ];
         %tmp.13 = getv ? :activityData;
         %tmp.14 = "altitude";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_212_5_214_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_211_5_214_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 217 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_9_217_59_begin:
-        symbol [ sensorData %tmp.17 217 9 19 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_216_5_218_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_5_218_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_215_5_218_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 221 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_5_224_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_9_221_59_begin:
+        symbol [ sensorData %tmp.17 221 9 19 ];
         %tmp.17 = getv ? :sensorData;
         %tmp.18 = null;
         %tmp.19 = ne %tmp.17 %tmp.18;
-        bf %tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_31_217_59_true:
-        symbol [ sensorData %tmp.21 217 31 41 ];
+        bf %tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_5_224_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_31_221_59_true:
+        symbol [ sensorData %tmp.21 221 31 41 ];
         %tmp.21 = getv ? :sensorData;
         %tmp.22 = as %tmp.21 { (!Null) };
-        symbol [ hasKey %tmp.23 217 42 48 ];
+        symbol [ hasKey %tmp.23 221 42 48 ];
         %tmp.23 = getv function %tmp.22 :hasKey;
         %tmp.24 = "altitude";
         %tmp.25 = invoke %tmp.22 %tmp.23(%tmp.24);
         push %tmp.25;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_31_217_59_end:
-        %tmp.26 = phi [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_9_217_59_begin] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_31_217_59_true] [%tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_31_217_59_end];
-        bf %tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_218_5_220_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 219 6 ]
-        symbol [ sensorData %tmp.28 219 13 23 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_31_221_59_end:
+        %tmp.26 = phi [%tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_9_221_59_begin] [%tmp.25 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_31_221_59_true] [%tmp.26 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_31_221_59_end];
+        bf %tmp.26 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_5_224_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_5_224_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_222_5_224_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 223 6 ]
+        symbol [ sensorData %tmp.28 223 13 23 ];
         %tmp.28 = getv ? :sensorData;
         %tmp.29 = "altitude";
         %tmp.30 = agetv %tmp.28 %tmp.29;
         ret %tmp.30;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_218_5_220_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_217_5_220_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 222 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_9_222_53_begin:
-        symbol [ gpsData %tmp.32 222 9 16 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_222_5_224_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_5_224_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_221_5_224_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 226 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_5_229_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_9_226_53_begin:
+        symbol [ gpsData %tmp.32 226 9 16 ];
         %tmp.32 = getv ? :gpsData;
         %tmp.33 = null;
         %tmp.34 = ne %tmp.32 %tmp.33;
-        bf %tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_28_222_53_true:
-        symbol [ gpsData %tmp.36 222 28 35 ];
+        bf %tmp.34 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_5_229_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_28_226_53_true:
+        symbol [ gpsData %tmp.36 226 28 35 ];
         %tmp.36 = getv ? :gpsData;
         %tmp.37 = as %tmp.36 { (!Null) };
-        symbol [ hasKey %tmp.38 222 36 42 ];
+        symbol [ hasKey %tmp.38 226 36 42 ];
         %tmp.38 = getv function %tmp.37 :hasKey;
         %tmp.39 = "altitude";
         %tmp.40 = invoke %tmp.37 %tmp.38(%tmp.39);
         push %tmp.40;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_28_222_53_end:
-        %tmp.41 = phi [%tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_9_222_53_begin] [%tmp.40 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_28_222_53_true] [%tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_28_222_53_end];
-        bf %tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_223_5_225_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 224 6 ]
-        symbol [ gpsData %tmp.43 224 13 20 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_28_226_53_end:
+        %tmp.41 = phi [%tmp.34 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_9_226_53_begin] [%tmp.40 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_28_226_53_true] [%tmp.41 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_28_226_53_end];
+        bf %tmp.41 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_5_229_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_5_229_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_227_5_229_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 228 6 ]
+        symbol [ gpsData %tmp.43 228 13 20 ];
         %tmp.43 = getv ? :gpsData;
         %tmp.44 = "altitude";
         %tmp.45 = agetv %tmp.43 %tmp.44;
         ret %tmp.45;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_223_5_225_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_222_5_225_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 227 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_227_5_229_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_5_229_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_226_5_229_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 231 5 ]
         %tmp.46 = null;
         ret %tmp.46;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_210_4_228_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_214_4_232_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 232; typecheck = false; @symbol_functiondef = [getSpeed,232,13,21]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 236; typecheck = false; @symbol_functiondef = [getSpeed,236,13,21]; ]
     function getSpeed() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_233_4_250_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 234 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_9_234_56_begin:
-        symbol [ sensorData %tmp.2 234 9 19 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_237_4_254_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 238 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_5_241_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_9_238_56_begin:
+        symbol [ sensorData %tmp.2 238 9 19 ];
         %tmp.2 = getv ? :sensorData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_31_234_56_true:
-        symbol [ sensorData %tmp.6 234 31 41 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_5_241_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_31_238_56_true:
+        symbol [ sensorData %tmp.6 238 31 41 ];
         %tmp.6 = getv ? :sensorData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 234 42 48 ];
+        symbol [ hasKey %tmp.8 238 42 48 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "speed";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_31_234_56_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_9_234_56_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_31_234_56_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_31_234_56_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_235_5_237_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 236 6 ]
-        symbol [ sensorData %tmp.13 236 13 23 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_31_238_56_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_9_238_56_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_31_238_56_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_31_238_56_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_5_241_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_5_241_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_239_5_241_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 240 6 ]
+        symbol [ sensorData %tmp.13 240 13 23 ];
         %tmp.13 = getv ? :sensorData;
         %tmp.14 = "speed";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_235_5_237_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_234_5_237_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 239 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_9_239_50_begin:
-        symbol [ gpsData %tmp.17 239 9 16 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_239_5_241_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_5_241_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_238_5_241_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 243 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_5_246_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_9_243_50_begin:
+        symbol [ gpsData %tmp.17 243 9 16 ];
         %tmp.17 = getv ? :gpsData;
         %tmp.18 = null;
         %tmp.19 = ne %tmp.17 %tmp.18;
-        bf %tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_28_239_50_true:
-        symbol [ gpsData %tmp.21 239 28 35 ];
+        bf %tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_5_246_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_28_243_50_true:
+        symbol [ gpsData %tmp.21 243 28 35 ];
         %tmp.21 = getv ? :gpsData;
         %tmp.22 = as %tmp.21 { (!Null) };
-        symbol [ hasKey %tmp.23 239 36 42 ];
+        symbol [ hasKey %tmp.23 243 36 42 ];
         %tmp.23 = getv function %tmp.22 :hasKey;
         %tmp.24 = "speed";
         %tmp.25 = invoke %tmp.22 %tmp.23(%tmp.24);
         push %tmp.25;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_28_239_50_end:
-        %tmp.26 = phi [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_9_239_50_begin] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_28_239_50_true] [%tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_28_239_50_end];
-        bf %tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_240_5_242_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 241 6 ]
-        symbol [ gpsData %tmp.28 241 13 20 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_28_243_50_end:
+        %tmp.26 = phi [%tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_9_243_50_begin] [%tmp.25 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_28_243_50_true] [%tmp.26 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_28_243_50_end];
+        bf %tmp.26 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_5_246_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_5_246_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_244_5_246_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 245 6 ]
+        symbol [ gpsData %tmp.28 245 13 20 ];
         %tmp.28 = getv ? :gpsData;
         %tmp.29 = "speed";
         %tmp.30 = agetv %tmp.28 %tmp.29;
         ret %tmp.30;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_240_5_242_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_239_5_242_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 244 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_9_244_60_begin:
-        symbol [ activityData %tmp.32 244 9 21 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_244_5_246_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_5_246_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_243_5_246_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 248 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_5_251_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_9_248_60_begin:
+        symbol [ activityData %tmp.32 248 9 21 ];
         %tmp.32 = getv ? :activityData;
         %tmp.33 = null;
         %tmp.34 = ne %tmp.32 %tmp.33;
-        bf %tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_33_244_60_true:
-        symbol [ activityData %tmp.36 244 33 45 ];
+        bf %tmp.34 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_5_251_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_33_248_60_true:
+        symbol [ activityData %tmp.36 248 33 45 ];
         %tmp.36 = getv ? :activityData;
         %tmp.37 = as %tmp.36 { (!Null) };
-        symbol [ hasKey %tmp.38 244 46 52 ];
+        symbol [ hasKey %tmp.38 248 46 52 ];
         %tmp.38 = getv function %tmp.37 :hasKey;
         %tmp.39 = "speed";
         %tmp.40 = invoke %tmp.37 %tmp.38(%tmp.39);
         push %tmp.40;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_33_244_60_end:
-        %tmp.41 = phi [%tmp.34 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_9_244_60_begin] [%tmp.40 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_33_244_60_true] [%tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_33_244_60_end];
-        bf %tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_245_5_247_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 246 6 ]
-        symbol [ activityData %tmp.43 246 13 25 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_33_248_60_end:
+        %tmp.41 = phi [%tmp.34 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_9_248_60_begin] [%tmp.40 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_33_248_60_true] [%tmp.41 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_33_248_60_end];
+        bf %tmp.41 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_5_251_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_5_251_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_249_5_251_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 250 6 ]
+        symbol [ activityData %tmp.43 250 13 25 ];
         %tmp.43 = getv ? :activityData;
         %tmp.44 = "speed";
         %tmp.45 = agetv %tmp.43 %tmp.44;
         ret %tmp.45;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_245_5_247_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_244_5_247_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 249 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_249_5_251_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_5_251_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_248_5_251_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 253 5 ]
         %tmp.46 = null;
         ret %tmp.46;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_233_4_250_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_237_4_254_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 254; typecheck = false; @symbol_functiondef = [getHeartRate,254,13,25]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 258; typecheck = false; @symbol_functiondef = [getHeartRate,258,13,25]; ]
     function getHeartRate() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_255_4_267_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 256 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_9_256_64_begin:
-        symbol [ activityData %tmp.2 256 9 21 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_259_4_271_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 260 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_5_263_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_9_260_64_begin:
+        symbol [ activityData %tmp.2 260 9 21 ];
         %tmp.2 = getv ? :activityData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_33_256_64_true:
-        symbol [ activityData %tmp.6 256 33 45 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_5_263_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_33_260_64_true:
+        symbol [ activityData %tmp.6 260 33 45 ];
         %tmp.6 = getv ? :activityData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 256 46 52 ];
+        symbol [ hasKey %tmp.8 260 46 52 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "heartRate";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_33_256_64_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_9_256_64_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_33_256_64_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_33_256_64_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_257_5_259_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 258 6 ]
-        symbol [ activityData %tmp.13 258 13 25 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_33_260_64_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_9_260_64_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_33_260_64_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_33_260_64_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_5_263_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_5_263_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_261_5_263_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 262 6 ]
+        symbol [ activityData %tmp.13 262 13 25 ];
         %tmp.13 = getv ? :activityData;
         %tmp.14 = "heartRate";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_257_5_259_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_256_5_259_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 261 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_9_261_60_begin:
-        symbol [ sensorData %tmp.17 261 9 19 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_261_5_263_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_5_263_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_260_5_263_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 265 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_5_268_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_9_265_60_begin:
+        symbol [ sensorData %tmp.17 265 9 19 ];
         %tmp.17 = getv ? :sensorData;
         %tmp.18 = null;
         %tmp.19 = ne %tmp.17 %tmp.18;
-        bf %tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_31_261_60_true:
-        symbol [ sensorData %tmp.21 261 31 41 ];
+        bf %tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_5_268_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_31_265_60_true:
+        symbol [ sensorData %tmp.21 265 31 41 ];
         %tmp.21 = getv ? :sensorData;
         %tmp.22 = as %tmp.21 { (!Null) };
-        symbol [ hasKey %tmp.23 261 42 48 ];
+        symbol [ hasKey %tmp.23 265 42 48 ];
         %tmp.23 = getv function %tmp.22 :hasKey;
         %tmp.24 = "heartRate";
         %tmp.25 = invoke %tmp.22 %tmp.23(%tmp.24);
         push %tmp.25;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_31_261_60_end:
-        %tmp.26 = phi [%tmp.19 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_9_261_60_begin] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_31_261_60_true] [%tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_31_261_60_end];
-        bf %tmp.26 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_262_5_264_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 263 6 ]
-        symbol [ sensorData %tmp.28 263 13 23 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_31_265_60_end:
+        %tmp.26 = phi [%tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_9_265_60_begin] [%tmp.25 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_31_265_60_true] [%tmp.26 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_31_265_60_end];
+        bf %tmp.26 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_5_268_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_5_268_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_266_5_268_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 267 6 ]
+        symbol [ sensorData %tmp.28 267 13 23 ];
         %tmp.28 = getv ? :sensorData;
         %tmp.29 = "heartRate";
         %tmp.30 = agetv %tmp.28 %tmp.29;
         ret %tmp.30;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_262_5_264_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_261_5_264_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 266 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_266_5_268_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_5_268_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_265_5_268_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 270 5 ]
         %tmp.31 = null;
         ret %tmp.31;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_255_4_267_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_259_4_271_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 271; typecheck = false; @symbol_functiondef = [getTotalAscent,271,13,27]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 275; typecheck = false; @symbol_functiondef = [getTotalAscent,275,13,27]; ]
     function getTotalAscent() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_272_4_279_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 273 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_9_273_66_begin:
-        symbol [ activityData %tmp.2 273 9 21 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_276_4_283_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 277 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_5_280_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_9_277_66_begin:
+        symbol [ activityData %tmp.2 277 9 21 ];
         %tmp.2 = getv ? :activityData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_33_273_66_true:
-        symbol [ activityData %tmp.6 273 33 45 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_5_280_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_33_277_66_true:
+        symbol [ activityData %tmp.6 277 33 45 ];
         %tmp.6 = getv ? :activityData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 273 46 52 ];
+        symbol [ hasKey %tmp.8 277 46 52 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "totalAscent";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_33_273_66_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_9_273_66_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_33_273_66_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_33_273_66_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_274_5_276_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 275 6 ]
-        symbol [ activityData %tmp.13 275 13 25 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_33_277_66_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_9_277_66_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_33_277_66_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_33_277_66_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_5_280_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_5_280_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_278_5_280_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 279 6 ]
+        symbol [ activityData %tmp.13 279 13 25 ];
         %tmp.13 = getv ? :activityData;
         %tmp.14 = "totalAscent";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_274_5_276_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_273_5_276_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 278 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_278_5_280_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_5_280_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_277_5_280_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 282 5 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_272_4_279_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_276_4_283_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 283; typecheck = false; @symbol_functiondef = [getDistance,283,13,24]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 287; typecheck = false; @symbol_functiondef = [getDistance,287,13,24]; ]
     function getDistance() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_284_4_291_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 285 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_9_285_63_begin:
-        symbol [ activityData %tmp.2 285 9 21 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_288_4_295_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 289 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_5_292_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_9_289_63_begin:
+        symbol [ activityData %tmp.2 289 9 21 ];
         %tmp.2 = getv ? :activityData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_33_285_63_true:
-        symbol [ activityData %tmp.6 285 33 45 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_5_292_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_33_289_63_true:
+        symbol [ activityData %tmp.6 289 33 45 ];
         %tmp.6 = getv ? :activityData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 285 46 52 ];
+        symbol [ hasKey %tmp.8 289 46 52 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "distance";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_33_285_63_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_9_285_63_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_33_285_63_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_33_285_63_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_286_5_288_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 287 6 ]
-        symbol [ activityData %tmp.13 287 13 25 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_33_289_63_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_9_289_63_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_33_289_63_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_33_289_63_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_5_292_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_5_292_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_290_5_292_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 291 6 ]
+        symbol [ activityData %tmp.13 291 13 25 ];
         %tmp.13 = getv ? :activityData;
         %tmp.14 = "distance";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_286_5_288_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_285_5_288_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 290 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_290_5_292_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_5_292_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_289_5_292_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 294 5 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_284_4_291_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_288_4_295_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 295; typecheck = false; @symbol_functiondef = [getTimerTime,295,13,25]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 299; typecheck = false; @symbol_functiondef = [getTimerTime,299,13,25]; ]
     function getTimerTime() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_296_4_303_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 297 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_9_297_64_begin:
-        symbol [ activityData %tmp.2 297 9 21 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_300_4_307_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 301 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_5_304_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_9_301_64_begin:
+        symbol [ activityData %tmp.2 301 9 21 ];
         %tmp.2 = getv ? :activityData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_33_297_64_true:
-        symbol [ activityData %tmp.6 297 33 45 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_5_304_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_33_301_64_true:
+        symbol [ activityData %tmp.6 301 33 45 ];
         %tmp.6 = getv ? :activityData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 297 46 52 ];
+        symbol [ hasKey %tmp.8 301 46 52 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "timerTime";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_33_297_64_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_9_297_64_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_33_297_64_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_33_297_64_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_298_5_300_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 299 6 ]
-        symbol [ activityData %tmp.13 299 13 25 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_33_301_64_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_9_301_64_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_33_301_64_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_33_301_64_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_5_304_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_5_304_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_302_5_304_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 303 6 ]
+        symbol [ activityData %tmp.13 303 13 25 ];
         %tmp.13 = getv ? :activityData;
         %tmp.14 = "timerTime";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_298_5_300_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_297_5_300_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 302 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_302_5_304_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_5_304_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_301_5_304_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 306 5 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_296_4_303_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_300_4_307_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 307; typecheck = false; @symbol_functiondef = [getHeading,307,13,23]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 311; typecheck = false; @symbol_functiondef = [getHeading,311,13,23]; ]
     function getHeading() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_308_4_327_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 321 5 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_9_321_52_begin:
-        symbol [ gpsData %tmp.2 321 9 16 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_312_4_331_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 325 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_5_328_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_9_325_52_begin:
+        symbol [ gpsData %tmp.2 325 9 16 ];
         %tmp.2 = getv ? :gpsData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_28_321_52_true:
-        symbol [ gpsData %tmp.6 321 28 35 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_5_328_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_28_325_52_true:
+        symbol [ gpsData %tmp.6 325 28 35 ];
         %tmp.6 = getv ? :gpsData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 321 36 42 ];
+        symbol [ hasKey %tmp.8 325 36 42 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "heading";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_28_321_52_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_9_321_52_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_28_321_52_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_28_321_52_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_322_5_324_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 323 6 ]
-        symbol [ gpsData %tmp.13 323 13 20 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_28_325_52_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_9_325_52_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_28_325_52_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_28_325_52_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_5_328_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_5_328_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_326_5_328_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 327 6 ]
+        symbol [ gpsData %tmp.13 327 13 20 ];
         %tmp.13 = getv ? :gpsData;
         %tmp.14 = "heading";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_322_5_324_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_321_5_324_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 326 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_326_5_328_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_5_328_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_325_5_328_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 330 5 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_308_4_327_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_312_4_331_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 329; @symbol_functiondef = [getNorth,329,10,18]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 333; @symbol_functiondef = [getNorth,333,10,18]; ]
     function getNorth() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_329_21_344_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 330 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_6_330_59_begin:
-        symbol [ activityData %tmp.2 330 6 18 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_333_21_348_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 334 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_2_337_5_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_6_334_59_begin:
+        symbol [ activityData %tmp.2 334 6 18 ];
         %tmp.2 = getv ? :activityData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_30_330_59_true:
-        symbol [ activityData %tmp.6 330 30 42 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_2_337_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_30_334_59_true:
+        symbol [ activityData %tmp.6 334 30 42 ];
         %tmp.6 = getv ? :activityData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 330 43 49 ];
+        symbol [ hasKey %tmp.8 334 43 49 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "heading";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_30_330_59_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_6_330_59_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_30_330_59_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_30_330_59_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_331_5_333_5_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 332 6 ]
-        symbol [ activityData %tmp.13 332 13 25 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_30_334_59_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_6_334_59_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_30_334_59_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_30_334_59_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_2_337_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_2_337_5_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_335_5_337_5_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 336 6 ]
+        symbol [ activityData %tmp.13 336 13 25 ];
         %tmp.13 = getv ? :activityData;
         %tmp.14 = "heading";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_331_5_333_5_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_330_2_333_5_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 334 5 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_335_5_337_5_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_2_337_5_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_334_2_337_5_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 338 5 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_329_21_344_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_333_21_348_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 347; @symbol_functiondef = [getLat,347,10,16]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 351; @symbol_functiondef = [getLat,351,10,16]; ]
     function getLat() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_347_19_352_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 348 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_6_348_45_begin:
-        symbol [ gpsData %tmp.2 348 6 13 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_351_19_356_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 352 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_2_354_2_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_6_352_45_begin:
+        symbol [ gpsData %tmp.2 352 6 13 ];
         %tmp.2 = getv ? :gpsData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_25_348_45_true:
-        symbol [ gpsData %tmp.6 348 25 32 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_2_354_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_25_352_45_true:
+        symbol [ gpsData %tmp.6 352 25 32 ];
         %tmp.6 = getv ? :gpsData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 348 33 39 ];
+        symbol [ hasKey %tmp.8 352 33 39 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "lat";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_25_348_45_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_6_348_45_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_25_348_45_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_25_348_45_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_47_350_2_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 349 3 ]
-        symbol [ gpsData %tmp.13 349 10 17 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_25_352_45_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_6_352_45_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_25_352_45_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_25_352_45_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_2_354_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_2_354_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_47_354_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 353 3 ]
+        symbol [ gpsData %tmp.13 353 10 17 ];
         %tmp.13 = getv ? :gpsData;
         %tmp.14 = "lat";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_47_350_2_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_348_2_350_2_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 351 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_47_354_2_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_2_354_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_352_2_354_2_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 355 2 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_347_19_352_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_351_19_356_1_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 355; @symbol_functiondef = [getLon,355,10,16]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 359; @symbol_functiondef = [getLon,359,10,16]; ]
     function getLon() {
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_355_18_360_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 356 2 ]
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_6_356_46_begin:
-        symbol [ gpsData %tmp.2 356 6 13 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_359_18_364_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 360 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_2_362_2_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_6_360_46_begin:
+        symbol [ gpsData %tmp.2 360 6 13 ];
         %tmp.2 = getv ? :gpsData;
         %tmp.3 = null;
         %tmp.4 = ne %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_25_356_46_true:
-        symbol [ gpsData %tmp.6 356 25 32 ];
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_2_362_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_25_360_46_true:
+        symbol [ gpsData %tmp.6 360 25 32 ];
         %tmp.6 = getv ? :gpsData;
         %tmp.7 = as %tmp.6 { (!Null) };
-        symbol [ hasKey %tmp.8 356 33 39 ];
+        symbol [ hasKey %tmp.8 360 33 39 ];
         %tmp.8 = getv function %tmp.7 :hasKey;
         %tmp.9 = "long";
         %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
         push %tmp.10;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_25_356_46_end:
-        %tmp.11 = phi [%tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_6_356_46_begin] [%tmp.10 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_25_356_46_true] [%tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_25_356_46_end];
-        bf %tmp.11 @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_48_358_2_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 357 3 ]
-        symbol [ gpsData %tmp.13 357 10 17 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_25_360_46_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_6_360_46_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_25_360_46_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_25_360_46_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_2_362_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_2_362_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_48_362_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 361 3 ]
+        symbol [ gpsData %tmp.13 361 10 17 ];
         %tmp.13 = getv ? :gpsData;
         %tmp.14 = "long";
         %tmp.15 = agetv %tmp.13 %tmp.14;
         ret %tmp.15;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_48_358_2_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_356_2_358_2_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc" 359 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_48_362_2_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_2_362_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_360_2_362_2_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 363 2 ]
         %tmp.16 = null;
         ret %tmp.16;
-_Users_tk_Desktop_Claude_Glidator2_source_WatchData_mc_355_18_360_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_359_18_364_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 378; @position = 7; @symbol_constdef = [MIN_MAP_QUALITY,378,7,22]; ]
+    const MIN_MAP_QUALITY;
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 383; typecheck = false; @symbol_functiondef = [getAccuracy,383,10,21]; ]
+    function getAccuracy() {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_384_1_390_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 385 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_2_388_2_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_6_385_50_begin:
+        symbol [ gpsData %tmp.2 385 6 13 ];
+        %tmp.2 = getv ? :gpsData;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_2_388_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_25_385_50_true:
+        symbol [ gpsData %tmp.6 385 25 32 ];
+        %tmp.6 = getv ? :gpsData;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ hasKey %tmp.8 385 33 39 ];
+        %tmp.8 = getv function %tmp.7 :hasKey;
+        %tmp.9 = "accuracy";
+        %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
+        push %tmp.10;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_25_385_50_end:
+        %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_6_385_50_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_25_385_50_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_25_385_50_end];
+        bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_2_388_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_2_388_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_386_2_388_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 387 3 ]
+        symbol [ gpsData %tmp.13 387 10 17 ];
+        %tmp.13 = getv ? :gpsData;
+        %tmp.14 = "accuracy";
+        %tmp.15 = agetv %tmp.13 %tmp.14;
+        ret %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_386_2_388_2_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_2_388_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_385_2_388_2_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 389 2 ]
+        %tmp.16 = null;
+        ret %tmp.16;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_384_1_390_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 395; typecheck = false; @symbol_functiondef = [hasUsableFix,395,10,22]; ]
+    function hasUsableFix() {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_396_1_403_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 397 2 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_396_1_403_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_396_1_403_1_stop" ]
+        %acc.1 = local;
+        symbol [ acc %acc.1 397 6 9 ];
+        %tmp.1 = self;
+        symbol [ getAccuracy %tmp.2 397 12 23 ];
+        %tmp.2 = getv function %tmp.1 :getAccuracy;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %acc.1 %tmp.3;
+        symbol [ acc %acc.1 397 6 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 398 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_2_401_2_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_6_398_27_begin:
+        %tmp.4 = lgetv %acc.1;
+        symbol [ acc %tmp.4 398 6 9 ];
+        %tmp.5 = null;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        bt %tmp.6 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_2_401_2_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_21_398_27_false:
+        %tmp.7 = lgetv %acc.1;
+        symbol [ acc %tmp.7 398 21 24 ];
+        %tmp.8 = as %tmp.7 { (!Null) };
+        symbol [ MIN_MAP_QUALITY %tmp.10 398 27 42 ];
+        %tmp.10 = getv ? :MIN_MAP_QUALITY;
+        %tmp.11 = lt %tmp.8 %tmp.10;
+        push %tmp.11;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_21_398_27_end:
+        %tmp.12 = phi [%tmp.6 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_6_398_27_begin] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_21_398_27_false] [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_21_398_27_end];
+        bf %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_2_401_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_2_401_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_399_2_401_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 400 3 ]
+        %tmp.13 = false;
+        ret %tmp.13;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_399_2_401_2_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_2_401_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_398_2_401_2_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 402 2 ]
+        symbol [ $ %tmp.14 402 9 10 ];
+        %tmp.14 = getm $;
+        symbol [ isValidLatLon %tmp.15 402 11 24 ];
+        %tmp.15 = getv function %tmp.14 :isValidLatLon;
+        %tmp.16 = self;
+        symbol [ getLat %tmp.17 402 25 31 ];
+        %tmp.17 = getv function %tmp.16 :getLat;
+        %tmp.18 = invoke %tmp.16 %tmp.17();
+        %tmp.19 = self;
+        symbol [ getLon %tmp.20 402 35 41 ];
+        %tmp.20 = getv function %tmp.19 :getLon;
+        %tmp.21 = invoke %tmp.19 %tmp.20();
+        %tmp.22 = invoke %tmp.14 %tmp.15(%tmp.18, %tmp.21);
+        ret %tmp.22;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_396_1_403_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 415; @position = 7; @symbol_constdef = [HIKE_WINDOW_MS,415,7,21]; ]
+    const HIKE_WINDOW_MS = 60000;
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 417; @position = 5; @symbol_vardef = [hikeHistory,417,5,16]; ]
+    var hikeHistory;
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 422; @position = 5; @symbol_vardef = [hikeVsWindowMs,422,5,19]; ]
+    var hikeVsWindowMs;
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 424; @symbol_functiondef = [setHikeVsWindowMs,424,10,27]; @symbol_param<0> = [ms,424,28,30]; ]
+    function setHikeVsWindowMs(ms) {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_425_1_427_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 426 2 ]
+        symbol [ $ %tmp.1 426 19 20 ];
+        %tmp.1 = getm $;
+        symbol [ sanitizeVsWindowMs %tmp.2 426 21 39 ];
+        %tmp.2 = getv function %tmp.1 :sanitizeVsWindowMs;
+        %tmp.3 = lgetv %ms;
+        symbol [ ms %tmp.3 426 40 42 ];
+        %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
+        symbol [ hikeVsWindowMs ? 426 2 16 ];
+        putv self :hikeVsWindowMs %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_425_1_427_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 429; @symbol_functiondef = [getHikeVsWindowMs,429,10,27]; ]
+    function getHikeVsWindowMs() {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_430_1_432_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 431 2 ]
+        symbol [ hikeVsWindowMs %tmp.2 431 9 23 ];
+        %tmp.2 = getv ? :hikeVsWindowMs;
+        ret %tmp.2;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_430_1_432_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 434; @symbol_functiondef = [recordHikeSample,434,10,26]; ]
+    function recordHikeSample() {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_435_1_437_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 436 2 ]
+        %tmp.1 = self;
+        symbol [ recordHikeSampleAt %tmp.2 436 2 20 ];
+        %tmp.2 = getv function %tmp.1 :recordHikeSampleAt;
+        symbol [ Sys %tmp.3 436 21 24 ];
+        %tmp.3 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.4 436 25 33 ];
+        %tmp.4 = getv function %tmp.3 :getTimer;
+        %tmp.5 = invoke %tmp.3 %tmp.4();
+        invoke %tmp.1 %tmp.2(%tmp.5);
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_435_1_437_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 439; @symbol_functiondef = [recordHikeSampleAt,439,10,28]; @symbol_param<0> = [tMs,439,29,32]; ]
+    function recordHikeSampleAt(tMs) {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_440_1_443_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 442 2 ]
+        symbol [ hikeHistory %tmp.2 442 2 13 ];
+        %tmp.2 = getv ? :hikeHistory;
+        symbol [ add %tmp.3 442 14 17 ];
+        %tmp.3 = getv function %tmp.2 :add;
+        %tmp.4 = lgetv %tMs;
+        symbol [ tMs %tmp.4 442 18 21 ];
+        %tmp.5 = self;
+        symbol [ getAltitude %tmp.6 442 23 34 ];
+        %tmp.6 = getv function %tmp.5 :getAltitude;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        %tmp.8 = self;
+        symbol [ getDistance %tmp.9 442 38 49 ];
+        %tmp.9 = getv function %tmp.8 :getDistance;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        invoke %tmp.2 %tmp.3(%tmp.4, %tmp.7, %tmp.10);
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_440_1_443_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 448; @symbol_functiondef = [getHikeVerticalSpeed,448,10,30]; ]
+    function getHikeVerticalSpeed() {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_449_1_451_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 450 2 ]
+        %tmp.1 = self;
+        symbol [ getHikeVerticalSpeedAt %tmp.2 450 9 31 ];
+        %tmp.2 = getv function %tmp.1 :getHikeVerticalSpeedAt;
+        symbol [ Sys %tmp.3 450 32 35 ];
+        %tmp.3 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.4 450 36 44 ];
+        %tmp.4 = getv function %tmp.3 :getTimer;
+        %tmp.5 = invoke %tmp.3 %tmp.4();
+        %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.5);
+        ret %tmp.6;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_449_1_451_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 453; @symbol_functiondef = [getHikeVerticalSpeedAt,453,10,32]; @symbol_param<0> = [nowMs,453,33,38]; ]
+    function getHikeVerticalSpeedAt(nowMs) {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_454_1_456_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 455 2 ]
+        symbol [ hikeHistory %tmp.2 455 9 20 ];
+        %tmp.2 = getv ? :hikeHistory;
+        symbol [ verticalSpeedMh %tmp.3 455 21 36 ];
+        %tmp.3 = getv function %tmp.2 :verticalSpeedMh;
+        %tmp.4 = lgetv %nowMs;
+        symbol [ nowMs %tmp.4 455 37 42 ];
+        symbol [ hikeVsWindowMs %tmp.6 455 44 58 ];
+        %tmp.6 = getv ? :hikeVsWindowMs;
+        %tmp.7 = invoke %tmp.2 %tmp.3(%tmp.4, %tmp.6);
+        ret %tmp.7;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_454_1_456_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 459; @symbol_functiondef = [getHikeSpeed,459,10,22]; ]
+    function getHikeSpeed() {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_460_1_462_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 461 2 ]
+        %tmp.1 = self;
+        symbol [ getHikeSpeedAt %tmp.2 461 9 23 ];
+        %tmp.2 = getv function %tmp.1 :getHikeSpeedAt;
+        symbol [ Sys %tmp.3 461 24 27 ];
+        %tmp.3 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.4 461 28 36 ];
+        %tmp.4 = getv function %tmp.3 :getTimer;
+        %tmp.5 = invoke %tmp.3 %tmp.4();
+        %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.5);
+        ret %tmp.6;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_460_1_462_1_stop:
+    }
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 464; @symbol_functiondef = [getHikeSpeedAt,464,10,24]; @symbol_param<0> = [nowMs,464,25,30]; ]
+    function getHikeSpeedAt(nowMs) {
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_465_1_467_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 466 2 ]
+        symbol [ hikeHistory %tmp.2 466 9 20 ];
+        %tmp.2 = getv ? :hikeHistory;
+        symbol [ speedMps %tmp.3 466 21 29 ];
+        %tmp.3 = getv function %tmp.2 :speedMps;
+        %tmp.4 = lgetv %nowMs;
+        symbol [ nowMs %tmp.4 466 30 35 ];
+        symbol [ HIKE_WINDOW_MS %tmp.6 466 37 51 ];
+        %tmp.6 = getv ? :HIKE_WINDOW_MS;
+        %tmp.7 = invoke %tmp.2 %tmp.3(%tmp.4, %tmp.6);
+        ret %tmp.7;
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_465_1_467_1_stop:
     }
 }
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/WatchData.mc"; @line = 1; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 1; ]
 <init> {
 }
