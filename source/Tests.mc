@@ -3230,14 +3230,15 @@ function testWatchDataUsableFixFromGpsData(logger)
 	Test.assertEqualMessage(Position.QUALITY_GOOD, 4, "QUALITY_GOOD == 4");
 
 	var data = new WatchData();
-	Test.assertEqualMessage(data.MIN_MAP_QUALITY, Position.QUALITY_USABLE, "map threshold is QUALITY_USABLE (3D fix)");
+	Test.assertEqualMessage(data.MIN_MAP_QUALITY, Position.QUALITY_POOR, "map threshold is QUALITY_POOR (2D fix, decision D6 of 12/10)");
 
 	// No GPS data at all.
 	Test.assertMessage(data.getAccuracy() == null, "no gpsData -> accuracy null");
 	Test.assertMessage(!data.hasUsableFix(), "no gpsData -> no usable fix");
 
-	// Spec case: accuracy 0..4 on a valid position, true only for 3 and 4.
-	var expected = [false, false, false, true, true];
+	// Spec case: accuracy 0..4 on a valid position, true for 2, 3 and 4
+	// (D6: QUALITY_POOR accepted; was 3 and 4 only).
+	var expected = [false, false, true, true, true];
 	for (var acc = 0; acc <= 4; acc++)
 	{
 		data.gpsData = MapTestHelper.gps(46.118, 6.993, acc);
@@ -3281,7 +3282,11 @@ function testWatchDataUsableFixThroughUpdateInfo(logger)
 	data.updateInfo(new FakeFixInfo(46.118d, 6.993d, Position.QUALITY_LAST_KNOWN));
 	Test.assertMessage(!data.hasUsableFix(), "LAST_KNOWN -> not usable");
 	data.updateInfo(new FakeFixInfo(46.118d, 6.993d, Position.QUALITY_POOR));
-	Test.assertMessage(!data.hasUsableFix(), "POOR (2D) -> not usable");
+	Test.assertMessage(data.hasUsableFix(), "POOR (2D) -> usable (decision D6 of 12/10)");
+	data.updateInfo(new FakeFixInfo(180.0d, 180.0d, Position.QUALITY_POOR));
+	Test.assertMessage(!data.hasUsableFix(), "POOR at (180, 180) -> not usable");
+	data.updateInfo(new FakeFixInfo(0.0d, 0.0d, Position.QUALITY_POOR));
+	Test.assertMessage(!data.hasUsableFix(), "POOR at (0, 0) -> not usable");
 	data.updateInfo(new FakeFixInfo(46.118d, 6.993d, Position.QUALITY_USABLE));
 	Test.assertMessage(data.hasUsableFix(), "USABLE (3D) -> usable");
 	data.updateInfo(new FakeFixInfo(46.118d, 6.993d, Position.QUALITY_GOOD));
@@ -3316,7 +3321,9 @@ function testFeedBreadcrumbTrailSkipsTicksWithoutFix(logger)
 	Test.assertMessage(reference.getCount() >= 2, "precondition: the 50 m extract gives several points, got " + reference.getCount());
 
 	// App: no-fix ticks first, then the real points with a 3D fix, with a
-	// short loss of fix (POOR) in the middle.
+	// short loss of fix (POOR at (180, 180)) in the middle. Since D6 (12/10)
+	// a POOR (2D) fix at a valid position is usable, so the no-fix ticks at
+	// POOR are invalid positions only.
 	var data = new WatchData();
 	var trail = new BreadcrumbTrail();
 	var noFix = [
@@ -3324,14 +3331,15 @@ function testFeedBreadcrumbTrailSkipsTicksWithoutFix(logger)
 		MapTestHelper.gps(180.0, 180.0, Position.QUALITY_NOT_AVAILABLE),
 		MapTestHelper.gps(0.0, 0.0, Position.QUALITY_NOT_AVAILABLE),
 		MapTestHelper.gps(45.0, 6.0, Position.QUALITY_LAST_KNOWN),
-		MapTestHelper.gps(46.2, 7.1, Position.QUALITY_POOR)
+		MapTestHelper.gps(180.0, 180.0, Position.QUALITY_POOR),
+		MapTestHelper.gps(0.0, 0.0, Position.QUALITY_POOR)
 	];
 	for (var i = 0; i < noFix.size(); i++)
 	{
 		data.gpsData = noFix[i];
 		$.feedBreadcrumbTrail(trail, data);
 	}
-	Test.assertEqualMessage(trail.getCount(), 0, "no point stored before a 3D fix");
+	Test.assertEqualMessage(trail.getCount(), 0, "no point stored before a fix at a valid position");
 
 	for (var i = 0; i < lats.size(); i++)
 	{
