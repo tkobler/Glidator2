@@ -90,6 +90,14 @@ To develop and build Glidator2, you need the following tools:
   - In VS Code, open a .mc file of the source folder and use the "run and debug" button to build and run the app in the simulator.
 - **Debugging**: Enable `Sys.println` logs in the code for debugging. View logs in the simulator's console or IDE output. Simulate GPS data via the simulator's "Location" settings.
 
+### Trying it in the simulator
+Playing a GPX track in the simulator moves the position along the track, but it does not pass the track's altitude and heart rate on as recorded (observed with SDK 9.2.0 on fenix6pro):
+- **Altitude**: the app receives a transformed value (about 0.2 × the GPX elevation − 622 m, e.g. −257 m for 1826 m). It is outside the −100..6000 m range of the hike pages, so ALTITUDE reads "--"; the vertical speed and the elevation gain are about 5 times too small, and the flight page shows a negative altitude.
+- **Heart rate**: not sent at all, so Heart Rate reads "--".
+- **GPS accuracy**: always 2 (2D fix). The map accepts it, so the trail is drawn.
+
+These "--" come from the simulator, not from the app. To check altitude and heart rate, load the original FIT file of the activity (as recorded by the watch) in the simulator rather than a GPX export, or try the app on a watch.
+
 ### Python tools tests
 The activity analysis script `tools/analyze_activity.py` (Python 3, standard library only) has its own unit tests in `tools/test_analyze_activity.py`. Run them from the repository root with:
 ```bash
