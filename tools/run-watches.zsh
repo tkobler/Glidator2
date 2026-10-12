@@ -13,6 +13,9 @@
 # (default 300). A step that takes longer is killed and reported as
 # "BLOCKED". A test run that prints no test at all within RUN_WATCHES_SILENT
 # seconds (default 120, 0 = no limit) is killed and reported as "SILENT".
+# This delay starts when monkeydo is launched, so it includes the time
+# monkeydo needs to push the .prg and the simulator needs to load the app
+# (a few seconds when the simulator is healthy).
 #
 # `monkeydo -t` exits with 1 even when every test passes, so the result is
 # read from the Toybox.Test output (per-test PASS/FAIL/ERROR lines, the
@@ -52,7 +55,7 @@
 #   RUN_WATCHES_SILENT     limit before the first test line, seconds (120, 0 = none)
 #   RUN_WATCHES_SIM_WAIT   wait for the simulator to answer after a restart (120)
 #   RUN_WATCHES_BATCH      watches per lot (0 = all watches in one lot)
-#   RUN_WATCHES_RESTART    0 to disable the restarts (same as --no-restart)
+#   RUN_WATCHES_RESTART    1 (default) or 0 to disable the restarts (same as --no-restart)
 #   RUN_WATCHES_BUILD_DIR  output directory, must be under /tmp/ (/tmp/glidator-build)
 #
 # Exit status: 0 when every watch was handled (whatever the test results),
@@ -106,8 +109,8 @@ done
 readonly PROBE_LIMIT=$(( SIM_WAIT < 30 ? SIM_WAIT : 30 ))
 
 release=0
-restart=1
-[[ ${RUN_WATCHES_RESTART-1} == 0 ]] && restart=0
+restart=${RUN_WATCHES_RESTART:-1}
+[[ $restart == [01] ]] || usage_error "RUN_WATCHES_RESTART must be 0 or 1: $restart"
 batch=${RUN_WATCHES_BATCH:-0}
 [[ $batch == <-> ]] || usage_error "RUN_WATCHES_BATCH must be a whole number: $batch"
 typeset -a watches
