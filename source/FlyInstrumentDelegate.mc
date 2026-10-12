@@ -195,8 +195,8 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
         var action = $.selectAction($.hasActiveSession(), $.isRecording());
         if (action == :start)
         {
-            $.startRecording();
-            Sys.println("Select pressed, starting recording");
+            var outcome = $.startRecording();
+            Sys.println("Select pressed, starting recording: " + outcome);
         }
         else if (action == :pauseMenu)
         {

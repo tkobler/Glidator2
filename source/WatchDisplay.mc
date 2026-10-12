@@ -404,9 +404,16 @@ class WatchDisplay
     // "Recording started" banner: a green circle with a white play triangle,
     // centered on screen. Shown by every View's onUpdate() for a few seconds
     // right after SELECT starts a session -- see FlyInstrumentApp.mc's
-    // recordFlashStartMs/isRecordFlashActive().
+    // recordFlashStartMs/isRecordFlashActive(). If that start failed
+    // (RecordStart.failed, decision D3 A of 12/10), the short "Recording
+    // failed" message is drawn instead (recordingFailedMessage()).
     function recordingStartIcon()
     {
+        if (RecordStart.failed)
+        {
+            recordingFailedMessage();
+            return;
+        }
         var centerX = dc.getWidth() / 2;
         var centerY = dc.getHeight() / 2;
         var radius = dc.getWidth() / 5;
@@ -424,6 +431,33 @@ class WatchDisplay
             [centerX - triSize * 0.7, centerY + triSize],
             [centerX + triSize, centerY]
         ]);
+    }
+
+    // Fonts tried for the failure message, smallest first (pickFont()).
+    const RECORD_FAILED_FONTS = [Graphics.FONT_XTINY, Graphics.FONT_TINY, Graphics.FONT_SMALL];
+
+    (:typecheck(false))
+    // See https://forums.garmin.com/developer/connect-iq/i/bug-reports/the-type-checker-warns-about-info-field-even-after-checking-field-is-present
+    // RecordStart.FAILED_TEXT centred on screen, in the largest font that
+    // fits 80 % of the width, on a white box with a dark red border
+    // (RecordStart.messageBox()) so that it reads over any page.
+    function recordingFailedMessage()
+    {
+        var w = dc.getWidth();
+        var h = dc.getHeight();
+        var text = RecordStart.FAILED_TEXT;
+        var font = pickFont(RECORD_FAILED_FONTS, [text], w * 0.8, h / 4);
+        var dim = dc.getTextDimensions(text, font);
+        var box = RecordStart.messageBox(w, h, dim[0], dim[1]);
+        if (box != null)
+        {
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(box[0], box[1], box[2], box[3]);
+            dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
+            dc.drawRectangle(box[0], box[1], box[2], box[3]);
+        }
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(w / 2, h / 2, font, text, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
     // Small hand-drawn heart icon (two circles + a triangle), same technique

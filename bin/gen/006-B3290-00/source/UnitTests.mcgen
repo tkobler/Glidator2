@@ -14,14 +14,15 @@ class RunNoEvil extends Test.Test {
     function initialize() {
         Test.Test.initialize();
         logger = new Test.Logger();
-        idToName = new [207];
+        idToName = new [218];
         populate_test_entries_0_to_30();
         populate_test_entries_30_to_60();
         populate_test_entries_60_to_90();
         populate_test_entries_90_to_120();
         populate_test_entries_120_to_150();
         populate_test_entries_150_to_180();
-        populate_test_entries_180_to_207();
+        populate_test_entries_180_to_210();
+        populate_test_entries_210_to_218();
     }
 
     function getIndexOf(name as String) as Number {
@@ -647,7 +648,7 @@ class RunNoEvil extends Test.Test {
         return result;
     }
 
-    function populate_test_entries_180_to_207() as Void {
+    function populate_test_entries_180_to_210() as Void {
         idToName[180] = "LayoutBenchTests.testLayout_HikeMap_Empty";
         idToName[181] = "LayoutBenchTests.testLayout_HikeMap_Normal";
         idToName[182] = "LayoutBenchTests.testLayout_HikeMap_Extreme";
@@ -675,9 +676,12 @@ class RunNoEvil extends Test.Test {
         idToName[204] = "LayoutBenchTests.testLayout_Paused_Extreme";
         idToName[205] = "LayoutBenchTests.testLayout_Paused_Paused";
         idToName[206] = "LayoutBenchTests.testLayout_Paused_Recording";
+        idToName[207] = "LayoutBenchTests.testLayout_RecordFailedMessage";
+        idToName[208] = "RecordStartTests.testRecordStartOutcome";
+        idToName[209] = "RecordStartTests.testRecordStartAlertOnlyWhenStarted";
     }
 
-    function evaluate_test_entries_180_to_207(id as Number, logger as Logger) {
+    function evaluate_test_entries_180_to_210(id as Number, logger as Logger) {
         var result = false;
         if (id == 180) {
             result = $.LayoutBenchTests.testLayout_HikeMap_Empty(logger);
@@ -733,6 +737,46 @@ class RunNoEvil extends Test.Test {
             result = $.LayoutBenchTests.testLayout_Paused_Paused(logger);
         } else if (id == 206) {
             result = $.LayoutBenchTests.testLayout_Paused_Recording(logger);
+        } else if (id == 207) {
+            result = $.LayoutBenchTests.testLayout_RecordFailedMessage(logger);
+        } else if (id == 208) {
+            result = $.RecordStartTests.testRecordStartOutcome(logger);
+        } else if (id == 209) {
+            result = $.RecordStartTests.testRecordStartAlertOnlyWhenStarted(logger);
+        }
+
+        return result;
+    }
+
+    function populate_test_entries_210_to_218() as Void {
+        idToName[210] = "RecordStartTests.testRecordStartBeginStarted";
+        idToName[211] = "RecordStartTests.testRecordStartBeginFailedNoPausedState";
+        idToName[212] = "RecordStartTests.testRecordStartBeginFailedDiscardThrows";
+        idToName[213] = "RecordStartTests.testRecordStartBeginNullSession";
+        idToName[214] = "RecordStartTests.testRecordStartBeginNullResultKeepsSession";
+        idToName[215] = "RecordStartTests.testRecordStartFailedThenRetry";
+        idToName[216] = "RecordStartTests.testRecordStartMessageBox";
+        idToName[217] = "RecordStartTests.testRecordStartFailedMessageOnPages";
+    }
+
+    function evaluate_test_entries_210_to_218(id as Number, logger as Logger) {
+        var result = false;
+        if (id == 210) {
+            result = $.RecordStartTests.testRecordStartBeginStarted(logger);
+        } else if (id == 211) {
+            result = $.RecordStartTests.testRecordStartBeginFailedNoPausedState(logger);
+        } else if (id == 212) {
+            result = $.RecordStartTests.testRecordStartBeginFailedDiscardThrows(logger);
+        } else if (id == 213) {
+            result = $.RecordStartTests.testRecordStartBeginNullSession(logger);
+        } else if (id == 214) {
+            result = $.RecordStartTests.testRecordStartBeginNullResultKeepsSession(logger);
+        } else if (id == 215) {
+            result = $.RecordStartTests.testRecordStartFailedThenRetry(logger);
+        } else if (id == 216) {
+            result = $.RecordStartTests.testRecordStartMessageBox(logger);
+        } else if (id == 217) {
+            result = $.RecordStartTests.testRecordStartFailedMessageOnPages(logger);
         }
 
         return result;
@@ -770,8 +814,12 @@ class RunNoEvil extends Test.Test {
             result = self.evaluate_test_entries_150_to_180(id, logger);
         }
 
-        else if (id < 207) {
-            result = self.evaluate_test_entries_180_to_207(id, logger);
+        else if (id < 210) {
+            result = self.evaluate_test_entries_180_to_210(id, logger);
+        }
+
+        else if (id < 218) {
+            result = self.evaluate_test_entries_210_to_218(id, logger);
         }
 
         if (result instanceof Boolean) {

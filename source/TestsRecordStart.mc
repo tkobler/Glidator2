@@ -280,7 +280,7 @@ function testRecordStartMessageBox(logger)
 	// Edge cases.
 	RS.sameBox(errs, "empty text -> 2 px padding", RecordStart.messageBox(260, 260, 0, 0), [128, 128, 4, 4]);
 	RS.sameBox(errs, "text wider than the screen -> clamped to the width", RecordStart.messageBox(100, 100, 150, 20), [0, 35, 100, 30]);
-	RS.sameBox(errs, "text taller than the screen -> clamped to the height", RecordStart.messageBox(100, 20, 50, 40), [20, 0, 60, 20]);
+	RS.sameBox(errs, "text taller than the screen -> clamped to the height", RecordStart.messageBox(100, 20, 50, 40), [15, 0, 70, 20]);
 	RS.sameBox(errs, "null width", RecordStart.messageBox(null, 260, 140, 26), null);
 	RS.sameBox(errs, "null text height", RecordStart.messageBox(260, 260, 140, null), null);
 	RS.sameBox(errs, "zero screen", RecordStart.messageBox(0, 0, 140, 26), null);

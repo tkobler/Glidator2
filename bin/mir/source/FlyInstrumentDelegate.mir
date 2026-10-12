@@ -797,89 +797,97 @@ _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_196_8_2
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_196_8_211_8_if_true:
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_197_8_200_8_start:
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 198 12 ]
-        symbol [ $ %tmp.14 198 12 13 ];
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_197_8_200_8_start" "_Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_197_8_200_8_stop" ]
+        %outcome.2 = local;
+        symbol [ outcome %outcome.2 198 16 23 ];
+        symbol [ $ %tmp.14 198 26 27 ];
         %tmp.14 = getm $;
-        symbol [ startRecording %tmp.15 198 14 28 ];
+        symbol [ startRecording %tmp.15 198 28 42 ];
         %tmp.15 = getv function %tmp.14 :startRecording;
-        invoke %tmp.14 %tmp.15();
+        %tmp.16 = invoke %tmp.14 %tmp.15();
+        lputv %outcome.2 %tmp.16;
+        symbol [ outcome %outcome.2 198 16 23 ];
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 199 12 ]
-        symbol [ Sys %tmp.16 199 12 15 ];
-        %tmp.16 = getm $.Toybox.System;
-        symbol [ println %tmp.17 199 16 23 ];
-        %tmp.17 = getv function %tmp.16 :println;
-        %tmp.18 = "Select pressed, starting recording";
-        invoke %tmp.16 %tmp.17(%tmp.18);
+        symbol [ Sys %tmp.17 199 12 15 ];
+        %tmp.17 = getm $.Toybox.System;
+        symbol [ println %tmp.18 199 16 23 ];
+        %tmp.18 = getv function %tmp.17 :println;
+        %tmp.19 = "Select pressed, starting recording: ";
+        %tmp.20 = lgetv %outcome.2;
+        symbol [ outcome %tmp.20 199 65 72 ];
+        %tmp.21 = add %tmp.19 %tmp.20;
+        invoke %tmp.17 %tmp.18(%tmp.21);
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_197_8_200_8_stop:
         goto @_Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_196_8_211_8_if_end;
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_196_8_211_8_if_false:
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 201 13 ]
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_201_13_211_8_if_stmt:
-        %tmp.19 = lgetv %action.1;
-        symbol [ action %tmp.19 201 17 23 ];
-        %tmp.21 = const :pauseMenu;
-        symbol [ pauseMenu %tmp.21 201 28 37 const ];
-        %tmp.22 = eq %tmp.19 %tmp.21;
-        bf %tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_201_13_211_8_if_false;
+        %tmp.22 = lgetv %action.1;
+        symbol [ action %tmp.22 201 17 23 ];
+        %tmp.24 = const :pauseMenu;
+        symbol [ pauseMenu %tmp.24 201 28 37 const ];
+        %tmp.25 = eq %tmp.22 %tmp.24;
+        bf %tmp.25 @_Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_201_13_211_8_if_false;
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_201_13_211_8_if_true:
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_202_8_206_8_start:
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 203 12 ]
-        symbol [ $ %tmp.23 203 12 13 ];
-        %tmp.23 = getm $;
-        symbol [ pauseRecording %tmp.24 203 14 28 ];
-        %tmp.24 = getv function %tmp.23 :pauseRecording;
-        invoke %tmp.23 %tmp.24();
+        symbol [ $ %tmp.26 203 12 13 ];
+        %tmp.26 = getm $;
+        symbol [ pauseRecording %tmp.27 203 14 28 ];
+        %tmp.27 = getv function %tmp.26 :pauseRecording;
+        invoke %tmp.26 %tmp.27();
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 204 12 ]
-        symbol [ Sys %tmp.25 204 12 15 ];
-        %tmp.25 = getm $.Toybox.System;
-        symbol [ println %tmp.26 204 16 23 ];
-        %tmp.26 = getv function %tmp.25 :println;
-        %tmp.27 = "Select pressed, pausing recording, showing pause menu";
-        invoke %tmp.25 %tmp.26(%tmp.27);
+        symbol [ Sys %tmp.28 204 12 15 ];
+        %tmp.28 = getm $.Toybox.System;
+        symbol [ println %tmp.29 204 16 23 ];
+        %tmp.29 = getv function %tmp.28 :println;
+        %tmp.30 = "Select pressed, pausing recording, showing pause menu";
+        invoke %tmp.28 %tmp.29(%tmp.30);
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 205 12 ]
-        %tmp.28 = self;
-        symbol [ showQuitMenu %tmp.29 205 12 24 ];
-        %tmp.29 = getv function %tmp.28 :showQuitMenu;
-        invoke %tmp.28 %tmp.29();
+        %tmp.31 = self;
+        symbol [ showQuitMenu %tmp.32 205 12 24 ];
+        %tmp.32 = getv function %tmp.31 :showQuitMenu;
+        invoke %tmp.31 %tmp.32();
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_202_8_206_8_stop:
         goto @_Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_201_13_211_8_if_end;
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_201_13_211_8_if_false:
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 207 13 ]
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_207_13_211_8_if_stmt:
-        %tmp.30 = lgetv %action.1;
-        symbol [ action %tmp.30 207 17 23 ];
-        %tmp.32 = const :resume;
-        symbol [ resume %tmp.32 207 28 34 const ];
-        %tmp.33 = eq %tmp.30 %tmp.32;
-        bf %tmp.33 @_Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_207_13_211_8_if_end;
+        %tmp.33 = lgetv %action.1;
+        symbol [ action %tmp.33 207 17 23 ];
+        %tmp.35 = const :resume;
+        symbol [ resume %tmp.35 207 28 34 const ];
+        %tmp.36 = eq %tmp.33 %tmp.35;
+        bf %tmp.36 @_Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_207_13_211_8_if_end;
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_207_13_211_8_if_true:
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_208_8_211_8_start:
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 209 12 ]
-        symbol [ $ %tmp.34 209 12 13 ];
-        %tmp.34 = getm $;
-        symbol [ resumeRecording %tmp.35 209 14 29 ];
-        %tmp.35 = getv function %tmp.34 :resumeRecording;
-        invoke %tmp.34 %tmp.35();
+        symbol [ $ %tmp.37 209 12 13 ];
+        %tmp.37 = getm $;
+        symbol [ resumeRecording %tmp.38 209 14 29 ];
+        %tmp.38 = getv function %tmp.37 :resumeRecording;
+        invoke %tmp.37 %tmp.38();
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 210 12 ]
-        symbol [ Sys %tmp.36 210 12 15 ];
-        %tmp.36 = getm $.Toybox.System;
-        symbol [ println %tmp.37 210 16 23 ];
-        %tmp.37 = getv function %tmp.36 :println;
-        %tmp.38 = "Select pressed, resuming recording";
-        invoke %tmp.36 %tmp.37(%tmp.38);
+        symbol [ Sys %tmp.39 210 12 15 ];
+        %tmp.39 = getm $.Toybox.System;
+        symbol [ println %tmp.40 210 16 23 ];
+        %tmp.40 = getv function %tmp.39 :println;
+        %tmp.41 = "Select pressed, resuming recording";
+        invoke %tmp.39 %tmp.40(%tmp.41);
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_208_8_211_8_stop:
         goto @_Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_207_13_211_8_if_end;
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_207_13_211_8_if_end:
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_201_13_211_8_if_end:
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_196_8_211_8_if_end:
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 212 8 ]
-        symbol [ WatchUi %tmp.39 212 8 15 ];
-        %tmp.39 = getm $.Toybox.WatchUi;
-        symbol [ requestUpdate %tmp.40 212 16 29 ];
-        %tmp.40 = getv function %tmp.39 :requestUpdate;
-        invoke %tmp.39 %tmp.40();
+        symbol [ WatchUi %tmp.42 212 8 15 ];
+        %tmp.42 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.43 212 16 29 ];
+        %tmp.43 = getv function %tmp.42 :requestUpdate;
+        invoke %tmp.42 %tmp.43();
 [ "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc" 213 8 ]
-        %tmp.41 = true;
-        ret %tmp.41;
+        %tmp.44 = true;
+        ret %tmp.44;
 _Users_sam_claude_hq_worktrees_glidator2_source_FlyInstrumentDelegate_mc_194_4_214_4_stop:
     }
     [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/FlyInstrumentDelegate.mc"; @line = 216; @symbol_functiondef = [showQuitMenu,216,13,25]; ]

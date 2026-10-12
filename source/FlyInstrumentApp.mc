@@ -24,6 +24,8 @@ var session;
 // the System.getTimer() timestamp of that moment, or null when no flash should
 // be showing; every View's onUpdate() checks isRecordFlashActive() and draws
 // the overlay via WatchDisplay.recordingStartIcon() on top of its own content.
+// When the start failed (RecordStart.failed), that overlay is the short
+// RecordStart.FAILED_TEXT message instead of the icon.
 // --------------------------------------------------------------------------------
 
 var recordFlashStartMs = null;
@@ -61,48 +63,104 @@ function pickRecordingSport(hasFlying)
 }
 
 // --------------------------------------------------------------------------------
-// Start of a recording (STUB: current behaviour, Session.start() result ignored).
+// Start of a recording (decision D3 A of 12/10). Session.start() returns false
+// when the watch could not start the FIT recording. The session is then
+// discarded and dropped -- left in place, it would read as a paused session
+// (SELECT resumes, pages show a timer) -- there is no start tone nor
+// vibration, and the start flash shows FAILED_TEXT instead of the start icon
+// (WatchDisplay.recordingStartIcon()), so the user knows to press START again.
+// Only an explicit false is a failure: a null result keeps the old behaviour.
+// In a module: one member of the device-limited 'globals' module.
 // --------------------------------------------------------------------------------
 module RecordStart
 {
     const FAILED_TEXT = "Recording failed";
 
+    // The last start failed: the start flash shows FAILED_TEXT.
     var failed = false;
 
+    // Session.start() result -> :started or :failed (explicit false only:
+    // `0 == false` holds in Monkey C, hence the type check).
     function outcome(startResult)
     {
-        return :started;
+        return (startResult instanceof Toybox.Lang.Boolean && !startResult) ? :failed : :started;
     }
 
+    // Start tone and vibration only for a recording that started.
     function alertWanted(result)
     {
-        return true;
+        return result == :started;
     }
 
+    // Starts `s` (a new ActivityRecording.Session, or null if none could be
+    // created): keeps it in $.session only if it started, otherwise discards
+    // it. Starts the flash at nowMs either way. Returns outcome().
     (:typecheck(false))
     function begin(s, nowMs)
     {
-        $.session = s;
-        if (s != null)
+        var result = (s == null) ? :failed : outcome(s.start());
+        if (result == :started)
         {
-            s.start();
+            $.session = s;
         }
+        else
+        {
+            $.session = null;
+            if (s != null)
+            {
+                try
+                {
+                    s.discard();
+                }
+                catch (e)
+                {
+                    // Nothing more to do: the session is dropped anyway.
+                }
+            }
+        }
+        failed = (result == :failed);
         $.recordFlashStartMs = nowMs;
-        failed = false;
-        return :started;
+        return result;
     }
 
+    // Background box of the message, [x, y, width, height] in whole pixels:
+    // the text plus a padding of a quarter of its height (2 px at least),
+    // centred on the screen and clamped to it. null if a size is missing,
+    // the screen empty or the text size negative.
     function messageBox(w, h, textW, textH)
     {
-        return null;
+        if (w == null || h == null || textW == null || textH == null)
+        {
+            return null;
+        }
+        w = w.toNumber();
+        h = h.toNumber();
+        textW = textW.toNumber();
+        textH = textH.toNumber();
+        if (w <= 0 || h <= 0 || textW < 0 || textH < 0)
+        {
+            return null;
+        }
+        var pad = textH / 4;
+        if (pad < 2)
+        {
+            pad = 2;
+        }
+        var bw = textW + 2 * pad;
+        var bh = textH + 2 * pad;
+        if (bw > w) { bw = w; }
+        if (bh > h) { bh = h; }
+        return [(w - bw) / 2, (h - bh) / 2, bw, bh];
     }
 }
 
+// Returns RecordStart.begin()'s outcome (:started / :failed), or null when
+// nothing was tried (a session already exists, or no ActivityRecording).
 function startRecording()
 {
     if ($.hasActiveSession())
     {
-        return;
+        return null;
     }
 
     if (Toybox has :ActivityRecording)
@@ -113,7 +171,7 @@ function startRecording()
         var outcome = RecordStart.begin(s, Sys.getTimer());
         if (!RecordStart.alertWanted(outcome))
         {
-            return;
+            return outcome; // no tone, no vibration: the message says it all
         }
 
         if (Attention has :playTone)
@@ -128,7 +186,9 @@ function startRecording()
             ];
             Attention.vibrate(vibeData);
         }
+        return outcome;
     }
+    return null;
 }
 
 function pauseRecording()
