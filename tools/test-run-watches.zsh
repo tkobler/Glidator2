@@ -12,7 +12,8 @@
 #   ok*    - two passing tests;
 #   ko*    - build fails (exit 100);
 #   mute*  - first test run prints nothing and hangs, later runs pass;
-#   dead*  - every test run prints nothing and hangs.
+#   dead*  - every test run prints nothing and hangs;
+#   freeze* - the test run hangs and the simulator never answers again.
 # The probe run (test name run_watches_probe) answers unless the file
 # <state>/sim_dead exists; then every monkeydo call fails at once, as when
 # the simulator is unreachable. STUB_RELANCER_EXIT sets the exit status of
@@ -74,6 +75,7 @@ fi
 case $watch in
   mute*) if [[ ! -e $state/muted.$watch ]]; then : >| $state/muted.$watch; sleep 30; fi ;;
   dead*) sleep 30 ;;
+  freeze*) : >| $state/sim_dead; sleep 30 ;;
 esac
 print "Executing test testA..."
 print "PASS"
@@ -212,6 +214,16 @@ count "$calls" relancer
 check "a single restart attempt" equals $REPLY 1
 check "no test run after giving up" lacks "$calls" "monkeydo ok2"
 check "only probes for ok1" lacks "${calls}${nl}" "monkeydo ok1${nl}"
+
+run_case freeze_mid_run -- --batch-size 2 freeze1 ok1 ok2
+check "exit 3" equals $st 3
+check "frozen watch keeps its first result, not marked as retried" contains "$out" \
+  "freeze1: build OK, tests SILENT (no test output after 1s) ["
+check "rest of the lot skipped" contains "$out" "ok1: build OK, tests SKIPPED (simulator not answering)"
+check "next lot skipped, no new restart" contains "$out" "ok2: build OK, tests SKIPPED (simulator not answering)"
+count "$calls" relancer
+check "two restarts only (lot start, after the silent watch)" equals $REPLY 2
+check "ok1 and ok2 never run" lacks "$calls" "monkeydo ok"
 
 run_case relancer_fails STUB_RELANCER_EXIT=1 -- ok1
 check "exit 3" equals $st 3
