@@ -12,6 +12,15 @@ using Toybox.WatchUi;
 //   monkeydo /tmp/glidator-build/Glidator.prg fenix6pro -t
 // (:test) functions are compiled out entirely of normal (non -t) builds.
 
+// The oldest tests of this file (up to testHikeHistorySalvanRealClimb) live in
+// the module CoreTests: the device limits the 'globals' module to 253 members
+// and the suite had reached it. A module is one member however many tests it
+// holds; the runner finds them as CoreTests.<name>. Their bodies are unchanged
+// (not re-indented, so `git diff -w` shows only the module lines).
+(:test)
+module CoreTests
+{
+
 (:test)
 function testFormatDuration(logger)
 {
@@ -1179,6 +1188,8 @@ function testHikeHistorySalvanRealClimb(logger)
 	Test.assertMessage(v60 != null && v60 > 720.0 && v60 < 780.0, "real Salvan last minute should read ~747 m/h, got " + v60);
 	return true;
 }
+
+} // module CoreTests
 
 // ---------------------------------------------------------------------------
 // Hike vertical speed wiring (Marche 1b): display format, pause rule, and
