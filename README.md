@@ -98,6 +98,40 @@ Playing a GPX track in the simulator moves the position along the track, but it 
 
 These "--" come from the simulator, not from the app. To check altitude and heart rate, try the original FIT file of the activity (as recorded by the watch) in the simulator rather than a GPX export (not verified yet), or try the app on a watch.
 
+### Installing on the watch
+This installs a build of the current code on your own watch through a USB cable ("sideloading"), for example for a field test. It does not use the Connect IQ store.
+
+**1. Create your developer key (once).** `monkeyc` signs every build with a private RSA key. Generate a 4096-bit key, then convert it to the unencrypted DER (PKCS#8) format that `monkeyc` expects. Keep the PEM file outside the repository (only `developer_key` is listed in `.gitignore`):
+```bash
+mkdir -p ~/garmin-keys
+openssl genrsa -out ~/garmin-keys/glidator_key.pem 4096
+openssl pkcs8 -topk8 -inform PEM -outform DER -in ~/garmin-keys/glidator_key.pem -out developer_key -nocrypt
+```
+Run the last command from the repository root: it writes the key as `developer_key` at the root, the path used by every command of this README (it replaces any `developer_key` already there). The VS Code extension can also generate a key (>Monkey C: Generate a Developer Key).
+- The key is **private**: never commit it (it is in `.gitignore`), never share it, and keep a backup copy somewhere safe. An app published on the store can only be updated with the key it was first signed with.
+- **AI agents and scripts working on this repository must never open, read, print, copy or overwrite `developer_key`.** They may only pass its path to `monkeyc -y`.
+
+**2. Find your watch id.** Pick the id of your exact model in the `<iq:products>` list of `manifest.xml`, e.g. `fenix6pro`, `fenix7`, `fenix847mm`, `fr265`, `instinct2`. The build is specific to that model: a build for another model may not start or may display badly.
+
+**3. Build the `.prg` for that watch.** Build in release mode, that is without the `-t` (tests) flag:
+```bash
+monkeyc -f monkey.jungle -o /tmp/glidator-build/Glidator2.prg -d fenix6pro -y developer_key
+```
+Replace `fenix6pro` with your watch id. The command prints `BUILD SUCCESSFUL` and writes `Glidator2.prg`. Any output folder works (`/tmp/glidator-build/` here keeps builds out of the repository).
+
+**4. Copy the `.prg` to the watch.** Copy the `.prg` file, not a `.iq` file (the `.iq` package is for the Connect IQ store, the watch does not install it from a USB copy):
+1. Plug the watch into the computer with its USB cable.
+2. Open the watch storage and copy `Glidator2.prg` into the `GARMIN/Apps` folder (the folder name may be shown as `GARMIN/APPS`).
+   - Older models (e.g. fenix 5 and fenix 6) usually show up as a USB drive in Finder or File Explorer.
+   - Many recent models use MTP instead. On Windows they appear in File Explorer; on a Mac, Finder does not show them, so use a tool such as [OpenMTP](https://openmtp.ganeshrvel.com/) or Android File Transfer. Quit Garmin Express first if the tool cannot see the watch, as it may hold the connection.
+3. Eject the watch (or close the MTP tool), then unplug it. The watch may take a few seconds to install the app.
+
+If the store version of Glidator2 is already installed on the watch, removing it first (with the Connect IQ app on the phone or Garmin Express) avoids having two versions of the same app side by side (not verified).
+
+**5. Start it on the watch.** The app is named **Glidator2** (from `resources/strings/strings.xml`). As a watch app, it is usually listed with the activities (press START on Fenix, Forerunner and Instinct watches) or in the Connect IQ apps list; on some models you may need to add it to the activity list first (Settings > Activities & Apps > Add). The exact menu depends on the model and firmware.
+
+**Uninstalling.** Plug the watch in again and delete `Glidator2.prg` from `GARMIN/Apps`.
+
 ### Python tools tests
 The activity analysis script `tools/analyze_activity.py` (Python 3, standard library only) has its own unit tests in `tools/test_analyze_activity.py`. Run them from the repository root with:
 ```bash
@@ -122,7 +156,7 @@ The `-s tools -p 'test_*.py'` arguments are needed: a bare `python3 -m unittest`
    - Log in to the Garmin Developer Portal.
    - Create a new app listing, upload the `.iq` file, and fill in details (description, changelog, supported languages).
    - Submit for review. Garmin typically reviews apps within a few days.
-4. **Sideloading for Testing**: Transfer the `.iq` file to a compatible Garmin device via USB (place in the `GARMIN/Apps` folder) or use the Connect IQ mobile app.
+4. **Sideloading for Testing**: Build a `.prg` for your watch and copy it to the `GARMIN/Apps` folder via USB, as described in [Installing on the watch](#installing-on-the-watch) (a `.iq` file is not installed by a USB copy).
 
 
 ## Credits
