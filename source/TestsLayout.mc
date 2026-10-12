@@ -1287,4 +1287,48 @@ function testLayout_Paused_Paused(logger) { return LayoutBench.run(logger, "Paus
 (:test, :layouttest, :typecheck(false))
 function testLayout_Paused_Recording(logger) { return LayoutBench.run(logger, "Paused", "Recording"); }
 
+// Decision D3 A of 12/10: when Session.start() fails, the start icon is
+// replaced by a short "Recording failed" message (RecordStart.failed). Drawn
+// alone on this device's real fonts: exactly that text, no OFFSCREEN /
+// SUBSCREEN defect, at most 80 % of the width, and its background box
+// (RecordStart.messageBox()) on the screen too (inside the circle on round
+// screens). It is drawn over the page on purpose: no overlap check.
+(:test, :layouttest, :typecheck(false))
+function testLayout_RecordFailedMessage(logger)
+{
+	LayoutBench.reset();
+	var errs = [];
+	var dc = LayoutBench.newDc();
+	RecordStart.failed = true;
+	new WatchDisplay(dc).recordingStartIcon();
+	RecordStart.failed = false;
+	LayoutBench.reset();
+
+	var t = dc.texts;
+	var w = dc.getWidth();
+	var h = dc.getHeight();
+	var head = LayoutBench.header("RecordFailed", "Message");
+	if (t.size() != 1 || !t[0][0].equals(RecordStart.FAILED_TEXT))
+	{
+		errs.add(head + "STATE texts \"" + LayoutBench.join(t) + "\", expected \"" + RecordStart.FAILED_TEXT + "\"");
+		return LayoutBench.finish(errs, logger);
+	}
+	var defects = LayoutBench.findDefects(t, w, h, LayoutBench.isRound(), LayoutBench.subscreen(), LAYOUT_INK_K);
+	for (var i = 0; i < defects.size(); i++)
+	{
+		errs.add(head + defects[i]);
+	}
+	if (t[0][5] > w * 0.8)
+	{
+		errs.add(head + "text " + t[0][5] + " px wide, more than 80 % of " + w);
+	}
+	var b = RecordStart.messageBox(w, h, t[0][5], t[0][6]);
+	if (b == null || !LayoutBench.onScreen([b[0], b[1], b[0] + b[2], b[1] + b[3]], w, h, LayoutBench.isRound()))
+	{
+		errs.add(head + "box " + b + " not on the screen");
+	}
+	logger.debug(head + "calls" + LayoutBench.calls(t) + " box " + b);
+	return LayoutBench.finish(errs, logger);
+}
+
 } // module LayoutBenchTests

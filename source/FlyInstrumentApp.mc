@@ -60,6 +60,44 @@ function pickRecordingSport(hasFlying)
     return (hasFlying == true) ? RECORDING_SPORT_FLYING : RECORDING_SPORT_GENERIC;
 }
 
+// --------------------------------------------------------------------------------
+// Start of a recording (STUB: current behaviour, Session.start() result ignored).
+// --------------------------------------------------------------------------------
+module RecordStart
+{
+    const FAILED_TEXT = "Recording failed";
+
+    var failed = false;
+
+    function outcome(startResult)
+    {
+        return :started;
+    }
+
+    function alertWanted(result)
+    {
+        return true;
+    }
+
+    (:typecheck(false))
+    function begin(s, nowMs)
+    {
+        $.session = s;
+        if (s != null)
+        {
+            s.start();
+        }
+        $.recordFlashStartMs = nowMs;
+        failed = false;
+        return :started;
+    }
+
+    function messageBox(w, h, textW, textH)
+    {
+        return null;
+    }
+}
+
 function startRecording()
 {
     if ($.hasActiveSession())
@@ -69,11 +107,14 @@ function startRecording()
 
     if (Toybox has :ActivityRecording)
     {
-        $.session = ActivityRecording.createSession({
+        var s = ActivityRecording.createSession({
             :name=>"Glide",
             :sport=>$.pickRecordingSport(Activity has :SPORT_FLYING)});
-        $.session.start();
-        $.recordFlashStartMs = Sys.getTimer();
+        var outcome = RecordStart.begin(s, Sys.getTimer());
+        if (!RecordStart.alertWanted(outcome))
+        {
+            return;
+        }
 
         if (Attention has :playTone)
         {
