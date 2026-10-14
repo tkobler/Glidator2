@@ -438,7 +438,8 @@ class WatchData
 
 	function recordHikeSampleAt(tMs)
 	{
-		// HikeHistory ignores a null altitude; a null distance is kept as such.
+		// A null altitude or a null distance is kept as such (PACE without
+		// altitude, D2 A); HikeHistory ignores a sample where both are null.
 		hikeHistory.add(tMs, getAltitude(), getDistance());
 	}
 

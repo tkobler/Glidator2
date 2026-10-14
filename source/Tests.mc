@@ -1607,10 +1607,19 @@ function testWatchDataRecordHikeSample(logger)
 	Test.assertMessage(data.getHikeVerticalSpeedAt(t0) == null, "empty -> vertical speed null");
 	Test.assertMessage(data.getHikeSpeedAt(t0) == null, "empty -> speed null");
 
-	// Altitude key present but null (Activity.Info.altitude can be null).
+	// Altitude key present but null (Activity.Info.altitude can be null):
+	// since D2 A (14/10) the sample is kept for its time and distance (PACE),
+	// without altitude (no vertical speed from it).
 	data.activityData = { "altitude" => null, "distance" => 10.0 };
 	data.recordHikeSampleAt(t0);
-	Test.assertEqualMessage(data.hikeHistory.getCount(), 0, "null altitude -> no sample");
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 1, "null altitude with a distance -> sample kept");
+	Test.assertMessage(data.getHikeVerticalSpeedAt(t0) == null, "null altitude -> vertical speed null");
+
+	// Null altitude and no distance: nothing to keep.
+	data.hikeHistory.reset();
+	data.activityData = { "altitude" => null };
+	data.recordHikeSampleAt(t0);
+	Test.assertEqualMessage(data.hikeHistory.getCount(), 0, "null altitude, no distance -> no sample");
 
 	// 600 m/h climb at 1 m/s, one call per second (like onSensor) for 120 s:
 	// the buffer keeps one sample every 5 s.

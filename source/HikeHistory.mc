@@ -1,5 +1,8 @@
 // Hike-mode history: a fixed ring buffer of (time, altitude, distance)
 // samples, at most one every 5 s, so 60 samples cover about 5 minutes.
+// Altitude or distance may be null in a sample: the vertical speed uses the
+// samples with an altitude, the speed (PACE) those with a distance, so PACE
+// does not depend on the altitude (decision D2 A, 14/10).
 // Pure logic (timestamps are passed in, no System.getTimer() here) so that
 // it can be unit tested with synthetic and recorded data.
 //
@@ -25,11 +28,13 @@ class HikeHistory
 	}
 
 	// tMs: timestamp in ms (System.getTimer() in the app).
-	// alt: altitude in m; the sample is ignored if null.
+	// alt: altitude in m, or null (kept as such: the vertical speed skips it,
+	//      the speed still uses the sample's time and distance, decision D2 A).
 	// dist: elapsed distance in m, or null (no session yet).
+	// The sample is ignored if tMs is null or if both alt and dist are null.
 	function add(tMs, alt, dist)
 	{
-		if (tMs == null || alt == null)
+		if (tMs == null || (alt == null && dist == null))
 		{
 			return;
 		}
@@ -52,7 +57,7 @@ class HikeHistory
 		}
 
 		times[writeIndex] = tMs;
-		alts[writeIndex] = alt.toFloat();
+		alts[writeIndex] = (alt == null) ? null : alt.toFloat();
 		dists[writeIndex] = (dist == null) ? null : dist.toFloat();
 		writeIndex = (writeIndex + 1) % MAX_SAMPLES;
 		if (count < MAX_SAMPLES)
@@ -92,7 +97,8 @@ class HikeHistory
 	// Vertical speed in m/h: least-squares slope of altitude against time over
 	// the samples with nowMs - t <= windowMs. Times are taken relative to nowMs
 	// and both axes are centred on their means, because Float is 32-bit.
-	// Returns null with fewer than 3 samples or less than 20 s covered.
+	// Only the samples that carry an altitude are used. Returns null with
+	// fewer than 3 of them or less than 20 s covered by them.
 	function verticalSpeedMh(nowMs, windowMs)
 	{
 		if (nowMs == null || windowMs == null)
@@ -111,7 +117,7 @@ class HikeHistory
 		for (var k = 0; k < count; k++)
 		{
 			var i = (oldest + k) % MAX_SAMPLES;
-			if (outOfWindow(i, nowMs, windowMs))
+			if (alts[i] == null || outOfWindow(i, nowMs, windowMs))
 			{
 				continue;
 			}
@@ -138,7 +144,7 @@ class HikeHistory
 		for (var k = 0; k < count; k++)
 		{
 			var i = (oldest + k) % MAX_SAMPLES;
-			if (outOfWindow(i, nowMs, windowMs))
+			if (alts[i] == null || outOfWindow(i, nowMs, windowMs))
 			{
 				continue;
 			}
