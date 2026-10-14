@@ -218,7 +218,9 @@ class ReplayData
 //   "noPosition"      Position.getInfo() returns null on every tick;
 //   "noSensor"        Sensor.getInfo() returns null on every tick;
 //   "activityHrNull"  Activity.Info.currentHeartRate is null (Sensor has it);
-//   "activityAltNull" Activity.Info.altitude exists but is null (D1).
+//   "activityAltNull" Activity.Info.altitude exists but is null (D1);
+//   "noAltitude"      altitude null in all three sources, and no Garmin
+//                     totalAscent either (no altitude anywhere).
 (:test, :chaintest, :typecheck(false))
 class Replay
 {
@@ -236,7 +238,7 @@ class Replay
 	static function tick(data, trail, row, tMs, opts)
 	{
 		var sim = on(opts, "sim");
-		var alt = sim ? simAltitude(row[C_ELE]) : row[C_ELE];
+		var alt = on(opts, "noAltitude") ? null : (sim ? simAltitude(row[C_ELE]) : row[C_ELE]);
 		var hr = sim ? null : row[C_HR];
 
 		var pos = null;
@@ -251,7 +253,7 @@ class Replay
 				on(opts, "activityHrNull") ? null : hr, null, row[C_T] * 1000);
 			// Garmin's own D+ is not in the files: the D+ h1 of the reference,
 			// x 0.2 in the simulator world (its altitude is scaled).
-			act.totalAscent = sim ? SIM_SCALE * row[C_DPLUS] : row[C_DPLUS];
+			act.totalAscent = on(opts, "noAltitude") ? null : (sim ? SIM_SCALE * row[C_DPLUS] : row[C_DPLUS]);
 		}
 		var sens = on(opts, "noSensor") ? null : $.ChainHelper.sensor(alt, null, hr);
 
@@ -286,8 +288,11 @@ class Replay
 	static function run(errs, name, rows, opts)
 	{
 		var sim = on(opts, "sim");
-		var noDistance = on(opts, "noActivity") || on(opts, "activityAltNull");
-		var noSample = on(opts, "activityAltNull");
+		var noDistance = on(opts, "noActivity");
+		// No altitude reaches getAltitude(): ALTITUDE and VERT. SPD. "--",
+		// but the samples (time, distance) are kept and PACE is the
+		// reference (decision D2 A, 14/10).
+		var noAltitude = on(opts, "activityAltNull") || on(opts, "noAltitude");
 		var last = rows[rows.size() - 1][C_T];
 		var t0 = Sys.getTimer() + 900 - last * 1000;
 
@@ -301,18 +306,18 @@ class Replay
 			tick(data, trail, row, t, opts);
 			var label = name + " t=" + row[C_T] + "s";
 
-			var altText = (sim || noSample) ? "--" : row[C_ALT_TXT];
+			var altText = (sim || noAltitude) ? "--" : row[C_ALT_TXT];
 			$.ChainHelper.expect(errs, label + " ALTITUDE", $.formatHikeAltitude(data.getAltitude()), altText);
 			$.ChainHelper.expect(errs, label + " Heart Rate", $.formatHeartRate(data.getHeartRate()), sim ? "--" : row[C_HR].toString());
 
-			if (!noSample && row[C_KEPT] == 1)
+			if (row[C_KEPT] == 1)
 			{
 				kept += 1;
 			}
 			$.ChainHelper.expectEq(errs, label + " samples kept", data.hikeHistory.getCount(), kept);
 
 			var vs = data.getHikeVerticalSpeedAt(t);
-			if (noSample)
+			if (noAltitude)
 			{
 				nearOrNull(errs, label + " VS", vs, null, 0);
 				$.ChainHelper.expect(errs, label + " VERT. SPD.", $.formatVerticalSpeed(vs), "--");
@@ -495,18 +500,42 @@ function testReplaySourcePositionNull(logger)
 		"1852|17|0.1|01:32", "132|+670|17:27|01:32");
 }
 
-// KNOWN POINT, NOT FIXED (decision pending): Activity.Info.altitude present
-// but null hides the Sensor altitude (D1, getAltitude() unchanged), and
-// HikeHistory.add() (HikeHistory.mc:32-35) drops the whole sample when the
-// altitude is null, distance included: VERT. SPD. "--" and PACE "--:--" on
-// every row although DISTANCE moves on. See "Defaut de l'app trouve" and
-// "PACE couple a l'altitude" in docs/verifications/2026-10-13-etalon-marche.md.
-// This pins the current behaviour; update it if that decision changes.
+// Decision D2 A (14/10), formerly the known point "PACE couple a
+// l'altitude" (docs/verifications/2026-10-13-etalon-marche.md):
+// Activity.Info.altitude present but null still hides the Sensor altitude
+// (D1, getAltitude() unchanged, not corrected), so ALTITUDE and VERT. SPD.
+// read "--"; but HikeHistory.add() now keeps time and distance, so PACE
+// matches the reference on every row and the samples kept are the same.
 (:test, :chaintest, :typecheck(false))
-function testReplayActivityAltitudeNullDropsPaceKnownPoint(logger)
+function testReplayActivityAltitudeNullKeepsPace(logger)
 {
 	return Replay.check(logger, "regular/Activity altitude null", ReplayData.regularClimb(), { "activityAltNull" => true }, true,
-		"--|17|0.1|01:32", "132|--|--:--|01:32");
+		"--|17|0.1|01:32", "132|--|17:27|01:32");
+}
+
+// No altitude anywhere (Position, Activity and Sensor altitude null, no
+// Garmin totalAscent) on the three Salvan extracts: ALTITUDE, ELEV. GAIN and
+// VERT. SPD. "--", PACE, DISTANCE, TIMER, Heart Rate and the trail as the
+// reference (D2 A).
+(:test, :chaintest, :typecheck(false))
+function testReplayRegularClimbNoAltitudeKeepsPace(logger)
+{
+	return Replay.check(logger, "regular/no altitude", ReplayData.regularClimb(), { "noAltitude" => true }, true,
+		"--|--|0.1|01:32", "132|--|17:27|01:32");
+}
+
+(:test, :chaintest, :typecheck(false))
+function testReplayFlatNoAltitudeKeepsPace(logger)
+{
+	return Replay.check(logger, "flat/no altitude", ReplayData.flat(), { "noAltitude" => true }, true,
+		"--|--|0.1|02:37", "113|--|48:40|02:37");
+}
+
+(:test, :chaintest, :typecheck(false))
+function testReplaySteepClimbNoAltitudeKeepsPace(logger)
+{
+	return Replay.check(logger, "steep/no altitude", ReplayData.steepClimb(), { "noAltitude" => true }, true,
+		"--|--|0.1|01:15", "179|--|18:26|01:15");
 }
 
 // ---------------------------------------------------------------------------

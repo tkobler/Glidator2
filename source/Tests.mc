@@ -847,10 +847,13 @@ function testHikeHistorySampleSpacing(logger)
 	h.add(t0 + 10000, 1502.0, 10.0);
 	Test.assertEqualMessage(h.getCount(), 3, "spacing is measured from the last accepted sample");
 
-	h.add(t0 + 13000, null, 13.0);
-	Test.assertEqualMessage(h.getCount(), 3, "null altitude is ignored (< 5 s anyway)");
-	h.add(t0 + 16000, null, 16.0);
-	Test.assertEqualMessage(h.getCount(), 3, "null altitude is ignored even when due");
+	// A sample with neither altitude nor distance carries nothing: ignored.
+	// (A null altitude alone no longer drops the sample, decision D2 A of
+	// 14/10: see testHikeHistoryNullAltitudeKeepsDistance.)
+	h.add(t0 + 13000, null, null);
+	Test.assertEqualMessage(h.getCount(), 3, "no altitude nor distance is ignored (< 5 s anyway)");
+	h.add(t0 + 16000, null, null);
+	Test.assertEqualMessage(h.getCount(), 3, "no altitude nor distance is ignored even when due");
 
 	h.add(t0 + 25000, 1503.0, 25.0);
 	Test.assertEqualMessage(h.getCount(), 4, "exactly 15000 ms later: accepted without reset");
@@ -858,9 +861,9 @@ function testHikeHistorySampleSpacing(logger)
 	h.add(t0 + 40001, 1504.0, 40.0);
 	Test.assertEqualMessage(h.getCount(), 1, "15001 ms later: reset, then the sample is kept");
 
-	// Null altitude never resets nor feeds the history, even after a long gap.
-	h.add(t0 + 90000, null, 90.0);
-	Test.assertEqualMessage(h.getCount(), 1, "null altitude after a gap: ignored, no reset");
+	// An empty sample never resets nor feeds the history, even after a long gap.
+	h.add(t0 + 90000, null, null);
+	Test.assertEqualMessage(h.getCount(), 1, "no altitude nor distance after a gap: ignored, no reset");
 
 	// Time going backwards (timer restarted) is treated like a gap: reset.
 	h.add(t0 + 45001, 1505.0, 45.0);
@@ -1186,6 +1189,140 @@ function testHikeHistorySalvanRealClimb(logger)
 	var v60 = h.verticalSpeedMh(now, 60000);
 	logger.debug("Salvan 60 s window at 11:09:21 -> " + v60 + " m/h");
 	Test.assertMessage(v60 != null && v60 > 720.0 && v60 < 780.0, "real Salvan last minute should read ~747 m/h, got " + v60);
+	return true;
+}
+
+// Decision D2 A (14/10): PACE no longer depends on the altitude. A sample
+// with a null altitude but a distance is kept (time and distance), the
+// vertical speed only uses the samples that carry an altitude, with the same
+// rules (3 points, 20 s) counted on those samples. A sample with neither
+// altitude nor distance is still ignored.
+(:test)
+function testHikeHistoryNullAltitudeKeepsDistance(logger)
+{
+	var t0 = 3600000;
+
+	// No altitude at all: speed as usual, no vertical speed.
+	var h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, null, 2000.0 + 1.04 * s);
+	}
+	Test.assertEqualMessage(h.getCount(), 25, "null altitude with a distance: every sample kept");
+	var sp = h.speedMps(t0 + 120000, 60000);
+	Test.assertMessage(sp != null && sp > 1.03 && sp < 1.05, "null altitude: speed 1.04 +/- 0.01, got " + sp);
+	Test.assertMessage(h.verticalSpeedMh(t0 + 120000, 60000) == null, "null altitude everywhere -> null vertical speed");
+	Test.assertEqualMessage($.formatPace(sp), "16:02", "null altitude: PACE shown (1.04 m/s -> 961.5 s/km)");
+
+	// An empty sample is ignored and does not move the spacing reference:
+	// 6 s after the last kept sample (1 s after the empty one) is accepted.
+	h.add(t0 + 125000, null, null);
+	Test.assertEqualMessage(h.getCount(), 25, "no altitude nor distance: ignored");
+	h.add(t0 + 126000, null, 2200.0);
+	Test.assertEqualMessage(h.getCount(), 26, "spacing measured from the last kept sample, not the empty one");
+
+	// Altitude on every other sample only, the first sample of the window
+	// (60 s) without altitude: VS over the 6 samples with one (65..115 s,
+	// 50 s), speed over all of them.
+	h = new HikeHistory();
+	for (var i = 0; i <= 24; i++)
+	{
+		var s = i * 5;
+		h.add(t0 + s * 1000, (i % 2 == 1) ? 1500.0 + s / 6.0 : null, 2000.0 + 1.04 * s);
+	}
+	Test.assertEqualMessage(h.getCount(), 25, "mixed altitude: every sample kept");
+	var v = h.verticalSpeedMh(t0 + 120000, 60000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "alternate null altitudes -> 600 m/h, got " + v);
+	sp = h.speedMps(t0 + 120000, 60000);
+	Test.assertMessage(sp != null && sp > 1.03 && sp < 1.05, "alternate null altitudes: speed 1.04, got " + sp);
+
+	// Altitude on the last 2 samples only: < 3 points -> null VS, speed kept.
+	h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, (s >= 115) ? 1500.0 + s / 6.0 : null, 2000.0 + 1.04 * s);
+	}
+	Test.assertMessage(h.verticalSpeedMh(t0 + 120000, 60000) == null, "only 2 samples with altitude -> null VS");
+	sp = h.speedMps(t0 + 120000, 60000);
+	Test.assertMessage(sp != null && sp > 1.03 && sp < 1.05, "only 2 samples with altitude: speed 1.04, got " + sp);
+
+	// Altitude on the last 3 samples (10 s): enough points, not enough time.
+	h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, (s >= 110) ? 1500.0 + s / 6.0 : null, 2000.0 + 1.04 * s);
+	}
+	Test.assertMessage(h.verticalSpeedMh(t0 + 120000, 60000) == null, "altitude over 10 s only -> null VS");
+
+	// Altitude appears 40 s before now: VS over those 40 s.
+	h = new HikeHistory();
+	for (var s = 0; s <= 120; s += 5)
+	{
+		h.add(t0 + s * 1000, (s >= 80) ? 1500.0 + s / 6.0 : null, 2000.0 + 1.04 * s);
+	}
+	v = h.verticalSpeedMh(t0 + 120000, 60000);
+	Test.assertMessage(v != null && v > 599.0 && v < 601.0, "altitude on the last 40 s only -> 600 m/h, got " + v);
+
+	// A kept null-altitude sample follows the gap rule: 20 s later -> reset.
+	h.add(t0 + 140000, null, 2300.0);
+	Test.assertEqualMessage(h.getCount(), 1, "null altitude after a 20 s gap: reset, sample kept");
+	Test.assertMessage(h.speedMps(t0 + 140000, 60000) == null, "right after the reset -> null speed");
+	Test.assertMessage(h.verticalSpeedMh(t0 + 140000, 60000) == null, "right after the reset -> null VS");
+
+	// ... and the spacing rule, and time going backwards resets.
+	h = new HikeHistory();
+	h.add(t0, 1500.0, 0.0);
+	h.add(t0 + 5000, 1501.0, 5.0);
+	h.add(t0 + 9999, null, 9.0);
+	Test.assertEqualMessage(h.getCount(), 2, "null altitude < 5 s after the last kept sample: dropped");
+	h.add(t0 + 1000, null, 10.0);
+	Test.assertEqualMessage(h.getCount(), 1, "null altitude, timestamp going backwards -> reset, sample kept");
+	return true;
+}
+
+// Red test of D2 A on real data: the Salvan climb of testHikePaceSalvanRealClimb
+// (activity_24346302742.tcx, 11:07:11 -> 11:08:48) replayed twice through
+// WatchData, once with its altitude and once with Activity.Info.altitude null
+// (D1: getAltitude() stays null, not corrected). Same samples kept, same
+// speed, PACE "15:12" in both; only the vertical speed goes to "--".
+(:test)
+function testHikePaceSalvanRealClimbWithoutAltitude(logger)
+{
+	var secs = [0, 7, 14, 20, 25, 30, 35, 41, 46, 51, 57, 62,
+		70, 76, 81, 87, 92, 97];
+	var alts = [2249.0, 2249.8, 2251.0, 2251.4, 2251.8, 2253.0, 2253.4, 2254.0,
+		2255.0, 2255.4, 2255.4, 2255.4, 2256.4, 2257.6, 2258.8, 2260.4,
+		2261.4, 2262.6];
+	var dists = [2232.68, 2241.07, 2246.74, 2248.84, 2252.27, 2254.52, 2258.45, 2263.16,
+		2267.93, 2275.91, 2285.28, 2291.61, 2300.57, 2302.97, 2307.71, 2314.88,
+		2318.73, 2324.05];
+
+	var withAlt = new WatchData();
+	var noAlt = new WatchData();
+	var t0 = 3600000;
+	var row = 0;
+	for (var s = 0; s <= 97; s++)
+	{
+		while (row + 1 < secs.size() && secs[row + 1] <= s)
+		{
+			row += 1;
+		}
+		withAlt.activityData = { "altitude" => alts[row], "distance" => dists[row] };
+		noAlt.activityData = { "altitude" => null, "distance" => dists[row] };
+		withAlt.recordHikeSampleAt(t0 + s * 1000);
+		noAlt.recordHikeSampleAt(t0 + s * 1000);
+	}
+	Test.assertMessage(noAlt.getAltitude() == null, "setup: altitude stays null (not corrected)");
+	Test.assertEqualMessage(noAlt.hikeHistory.getCount(), withAlt.hikeHistory.getCount(), "same samples kept without altitude");
+
+	var now = t0 + 97000;
+	var sp = noAlt.getHikeSpeedAt(now);
+	var ref = withAlt.getHikeSpeedAt(now);
+	logger.debug("Salvan without altitude: " + sp + " m/s (with altitude " + ref + ")");
+	Test.assertMessage(sp != null && ref != null && sp == ref, "same speed without altitude, got " + sp + " vs " + ref);
+	Test.assertEqualMessage($.formatPace(sp), "15:12", "PACE without altitude: 15:12 as with it");
+	Test.assertMessage(noAlt.getHikeVerticalSpeedAt(now) == null, "no altitude -> no vertical speed");
+	Test.assertEqualMessage($.formatVerticalSpeed(noAlt.getHikeVerticalSpeedAt(now)), "--", "VERT. SPD. --");
 	return true;
 }
 
