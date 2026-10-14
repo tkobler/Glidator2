@@ -103,16 +103,20 @@ This installs a build of the current code on your own watch through a USB cable 
 
 **1. Create your developer key (once).** `monkeyc` signs every build with a private RSA key. Generate a 4096-bit key, then convert it to the unencrypted DER (PKCS#8) format that `monkeyc` expects. Keep the PEM file outside the repository (only `developer_key` is listed in `.gitignore`).
 
-**Warning: if a `developer_key` already exists (in particular the key that signed the store version of Glidator2), do not redo this step, or write the new key to another name first (e.g. `-out ~/garmin-keys/glidator_key.der`). The last command below overwrites `developer_key`, and a new key cannot update the published app.**
+**Warning: if a `developer_key` already exists (in particular the key that signed the store version of Glidator2), do not redo this step, or write the new key to another name first (e.g. `-out ~/garmin-keys/glidator_key.der`). The commands below overwrite existing files without asking: `openssl genrsa` overwrites `~/garmin-keys/glidator_key.pem` and `openssl pkcs8` overwrites `developer_key`. A new key cannot update the published app.**
 
-Run these commands from the repository root: the last one writes the key as `developer_key` at the root, the path used by every command of this README.
+Run these commands from the repository root. First check that neither file exists: this must print `No such file or directory` for both names. If it lists a file, stop here and keep that key.
+```bash
+ls developer_key ~/garmin-keys/glidator_key.pem
+```
+Then create the key. The `pkcs8` command writes it as `developer_key` at the root, the path used by every command of this README.
 ```bash
 mkdir -p ~/garmin-keys
 openssl genrsa -out ~/garmin-keys/glidator_key.pem 4096
 openssl pkcs8 -topk8 -inform PEM -outform DER -in ~/garmin-keys/glidator_key.pem -out developer_key -nocrypt
 chmod 600 ~/garmin-keys/glidator_key.pem developer_key
 ```
-`chmod 600` makes both files readable by your user only. The VS Code extension can also generate a key (>Monkey C: Generate a Developer Key).
+`chmod 600` makes both files readable by your user only. The commands print nothing when they succeed. They were checked with OpenSSL 3.6 (Homebrew), where `genrsa` already writes a PKCS#8 PEM file; the LibreSSL `openssl` shipped with macOS writes a PKCS#1 PEM file instead, which `pkcs8 -topk8` also accepts (not tested with LibreSSL). Either way, `monkeyc` needs the DER file written by the `pkcs8` command, not the PEM file. The VS Code extension can also generate a key (>Monkey C: Generate a Developer Key).
 - The key is **private**: never commit it (it is in `.gitignore`), never share it, and keep a backup copy somewhere safe. An app published on the store can only be updated with the key it was first signed with.
 - **AI agents and scripts working on this repository must never open, read, print, copy or overwrite `developer_key`.** They may only pass its path to `monkeyc -y`.
 
