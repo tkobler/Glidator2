@@ -14,7 +14,7 @@ class RunNoEvil extends Test.Test {
     function initialize() {
         Test.Test.initialize();
         logger = new Test.Logger();
-        idToName = new [218];
+        idToName = new [223];
         populate_test_entries_0_to_30();
         populate_test_entries_30_to_60();
         populate_test_entries_60_to_90();
@@ -22,7 +22,7 @@ class RunNoEvil extends Test.Test {
         populate_test_entries_120_to_150();
         populate_test_entries_150_to_180();
         populate_test_entries_180_to_210();
-        populate_test_entries_210_to_218();
+        populate_test_entries_210_to_223();
     }
 
     function getIndexOf(name as String) as Number {
@@ -161,24 +161,24 @@ class RunNoEvil extends Test.Test {
         idToName[39] = "CoreTests.testHikeHistoryRingBufferOverflow";
         idToName[40] = "CoreTests.testHikeHistoryWindow300s";
         idToName[41] = "CoreTests.testHikeHistorySalvanRealClimb";
-        idToName[42] = "testFormatVerticalSpeed";
-        idToName[43] = "testFormatVerticalSpeedCap";
-        idToName[44] = "testFormatPace";
-        idToName[45] = "testHikePaceSalvanRealClimb";
-        idToName[46] = "testShouldRecordHikeSample";
-        idToName[47] = "testWatchDataRecordHikeSample";
-        idToName[48] = "testWatchDataRecordHikeSampleWithoutDistance";
-        idToName[49] = "testWatchDataHikeSamplingAcrossPause";
-        idToName[50] = "testWatchDataRecordHikeSampleUsesTimer";
-        idToName[51] = "testWatchDataHikeSalvanRealClimb";
-        idToName[52] = "testVsWindowChoices";
-        idToName[53] = "testSanitizeVsWindowMs";
-        idToName[54] = "testVsWindowMenuLogic";
-        idToName[55] = "testNextVsWindowMs";
-        idToName[56] = "testVsWindowSubLabelAfterPress";
-        idToName[57] = "testCycleVsWindow";
-        idToName[58] = "testSanitizeBeep";
-        idToName[59] = "testSanitizePreference";
+        idToName[42] = "CoreTests.testHikeHistoryNullAltitudeKeepsDistance";
+        idToName[43] = "CoreTests.testHikePaceSalvanRealClimbWithoutAltitude";
+        idToName[44] = "testFormatVerticalSpeed";
+        idToName[45] = "testFormatVerticalSpeedCap";
+        idToName[46] = "testFormatPace";
+        idToName[47] = "testHikePaceSalvanRealClimb";
+        idToName[48] = "testShouldRecordHikeSample";
+        idToName[49] = "testWatchDataRecordHikeSample";
+        idToName[50] = "testWatchDataRecordHikeSampleWithoutDistance";
+        idToName[51] = "testWatchDataHikeSamplingAcrossPause";
+        idToName[52] = "testWatchDataRecordHikeSampleUsesTimer";
+        idToName[53] = "testWatchDataHikeSalvanRealClimb";
+        idToName[54] = "testVsWindowChoices";
+        idToName[55] = "testSanitizeVsWindowMs";
+        idToName[56] = "testVsWindowMenuLogic";
+        idToName[57] = "testNextVsWindowMs";
+        idToName[58] = "testVsWindowSubLabelAfterPress";
+        idToName[59] = "testCycleVsWindow";
     }
 
     function evaluate_test_entries_30_to_60(id as Number, logger as Logger) {
@@ -208,574 +208,589 @@ class RunNoEvil extends Test.Test {
         } else if (id == 41) {
             result = $.CoreTests.testHikeHistorySalvanRealClimb(logger);
         } else if (id == 42) {
-            result = $.testFormatVerticalSpeed(logger);
+            result = $.CoreTests.testHikeHistoryNullAltitudeKeepsDistance(logger);
         } else if (id == 43) {
-            result = $.testFormatVerticalSpeedCap(logger);
+            result = $.CoreTests.testHikePaceSalvanRealClimbWithoutAltitude(logger);
         } else if (id == 44) {
-            result = $.testFormatPace(logger);
+            result = $.testFormatVerticalSpeed(logger);
         } else if (id == 45) {
-            result = $.testHikePaceSalvanRealClimb(logger);
+            result = $.testFormatVerticalSpeedCap(logger);
         } else if (id == 46) {
-            result = $.testShouldRecordHikeSample(logger);
+            result = $.testFormatPace(logger);
         } else if (id == 47) {
-            result = $.testWatchDataRecordHikeSample(logger);
+            result = $.testHikePaceSalvanRealClimb(logger);
         } else if (id == 48) {
-            result = $.testWatchDataRecordHikeSampleWithoutDistance(logger);
+            result = $.testShouldRecordHikeSample(logger);
         } else if (id == 49) {
-            result = $.testWatchDataHikeSamplingAcrossPause(logger);
+            result = $.testWatchDataRecordHikeSample(logger);
         } else if (id == 50) {
-            result = $.testWatchDataRecordHikeSampleUsesTimer(logger);
+            result = $.testWatchDataRecordHikeSampleWithoutDistance(logger);
         } else if (id == 51) {
-            result = $.testWatchDataHikeSalvanRealClimb(logger);
+            result = $.testWatchDataHikeSamplingAcrossPause(logger);
         } else if (id == 52) {
-            result = $.testVsWindowChoices(logger);
+            result = $.testWatchDataRecordHikeSampleUsesTimer(logger);
         } else if (id == 53) {
-            result = $.testSanitizeVsWindowMs(logger);
+            result = $.testWatchDataHikeSalvanRealClimb(logger);
         } else if (id == 54) {
-            result = $.testVsWindowMenuLogic(logger);
+            result = $.testVsWindowChoices(logger);
         } else if (id == 55) {
-            result = $.testNextVsWindowMs(logger);
+            result = $.testSanitizeVsWindowMs(logger);
         } else if (id == 56) {
-            result = $.testVsWindowSubLabelAfterPress(logger);
+            result = $.testVsWindowMenuLogic(logger);
         } else if (id == 57) {
-            result = $.testCycleVsWindow(logger);
+            result = $.testNextVsWindowMs(logger);
         } else if (id == 58) {
-            result = $.testSanitizeBeep(logger);
+            result = $.testVsWindowSubLabelAfterPress(logger);
         } else if (id == 59) {
-            result = $.testSanitizePreference(logger);
+            result = $.testCycleVsWindow(logger);
         }
 
         return result;
     }
 
     function populate_test_entries_60_to_90() as Void {
-        idToName[60] = "testPreferenceToKeep";
-        idToName[61] = "testMigrateLegacyPreferencesRules";
-        idToName[62] = "testMigrateLegacyPreferencesRealStoreAfterUpdate";
-        idToName[63] = "testMigrateLegacyPreferencesToStore";
-        idToName[64] = "testPreferencesStartupMigratesGivenApp";
-        idToName[65] = "testPreferencesBeepStore";
-        idToName[66] = "testPreferencesVsWindowStore";
-        idToName[67] = "testHikeHistoryWindows60180300";
-        idToName[68] = "testHikeHistorySalvanWindows";
-        idToName[69] = "testHikeHistoryWindowLongerThanData";
-        idToName[70] = "testWatchDataHikeVsWindowSwitch";
-        idToName[71] = "testApplyVsWindowChoice";
-        idToName[72] = "testWatchDataSpeedFallsBackToGpsWhenSensorSpeedNull";
-        idToName[73] = "testWatchDataUpdatesSkipNullSpeedOnly";
-        idToName[74] = "testWatchDataSpeedRecoversAfterNullSensorSpeed";
-        idToName[75] = "testWatchDataUpdatesSkipNullHeartRateOnly";
-        idToName[76] = "testWatchDataHeartRateRecoversAfterNull";
-        idToName[77] = "testIsValidLatLon";
-        idToName[78] = "testBreadcrumbTrailRejectsInvalidPositions";
-        idToName[79] = "testWatchDataUsableFixFromGpsData";
-        idToName[80] = "testWatchDataUsableFixThroughUpdateInfo";
-        idToName[81] = "testFeedBreadcrumbTrailSkipsTicksWithoutFix";
-        idToName[82] = "testMapDrawMode";
-        idToName[83] = "testMetersPerPixelFromScale";
-        idToName[84] = "testPickScaleBar";
-        idToName[85] = "testFormatScaleBarLabel";
-        idToName[86] = "testMapProjectionCenter";
-        idToName[87] = "testMapPixelsPerDegree";
-        idToName[88] = "testScaleBarOnSalvanExtract";
-        idToName[89] = "testDiagSimulatorPositionInfo";
+        idToName[60] = "testSanitizeBeep";
+        idToName[61] = "testSanitizePreference";
+        idToName[62] = "testPreferenceToKeep";
+        idToName[63] = "testMigrateLegacyPreferencesRules";
+        idToName[64] = "testMigrateLegacyPreferencesRealStoreAfterUpdate";
+        idToName[65] = "testMigrateLegacyPreferencesToStore";
+        idToName[66] = "testPreferencesStartupMigratesGivenApp";
+        idToName[67] = "testPreferencesBeepStore";
+        idToName[68] = "testPreferencesVsWindowStore";
+        idToName[69] = "testHikeHistoryWindows60180300";
+        idToName[70] = "testHikeHistorySalvanWindows";
+        idToName[71] = "testHikeHistoryWindowLongerThanData";
+        idToName[72] = "testWatchDataHikeVsWindowSwitch";
+        idToName[73] = "testApplyVsWindowChoice";
+        idToName[74] = "testWatchDataSpeedFallsBackToGpsWhenSensorSpeedNull";
+        idToName[75] = "testWatchDataUpdatesSkipNullSpeedOnly";
+        idToName[76] = "testWatchDataSpeedRecoversAfterNullSensorSpeed";
+        idToName[77] = "testWatchDataUpdatesSkipNullHeartRateOnly";
+        idToName[78] = "testWatchDataHeartRateRecoversAfterNull";
+        idToName[79] = "testIsValidLatLon";
+        idToName[80] = "testBreadcrumbTrailRejectsInvalidPositions";
+        idToName[81] = "testWatchDataUsableFixFromGpsData";
+        idToName[82] = "testWatchDataUsableFixThroughUpdateInfo";
+        idToName[83] = "testFeedBreadcrumbTrailSkipsTicksWithoutFix";
+        idToName[84] = "testMapDrawMode";
+        idToName[85] = "testMetersPerPixelFromScale";
+        idToName[86] = "testPickScaleBar";
+        idToName[87] = "testFormatScaleBarLabel";
+        idToName[88] = "testMapProjectionCenter";
+        idToName[89] = "testMapPixelsPerDegree";
     }
 
     function evaluate_test_entries_60_to_90(id as Number, logger as Logger) {
         var result = false;
         if (id == 60) {
-            result = $.testPreferenceToKeep(logger);
+            result = $.testSanitizeBeep(logger);
         } else if (id == 61) {
-            result = $.testMigrateLegacyPreferencesRules(logger);
+            result = $.testSanitizePreference(logger);
         } else if (id == 62) {
-            result = $.testMigrateLegacyPreferencesRealStoreAfterUpdate(logger);
+            result = $.testPreferenceToKeep(logger);
         } else if (id == 63) {
-            result = $.testMigrateLegacyPreferencesToStore(logger);
+            result = $.testMigrateLegacyPreferencesRules(logger);
         } else if (id == 64) {
-            result = $.testPreferencesStartupMigratesGivenApp(logger);
+            result = $.testMigrateLegacyPreferencesRealStoreAfterUpdate(logger);
         } else if (id == 65) {
-            result = $.testPreferencesBeepStore(logger);
+            result = $.testMigrateLegacyPreferencesToStore(logger);
         } else if (id == 66) {
-            result = $.testPreferencesVsWindowStore(logger);
+            result = $.testPreferencesStartupMigratesGivenApp(logger);
         } else if (id == 67) {
-            result = $.testHikeHistoryWindows60180300(logger);
+            result = $.testPreferencesBeepStore(logger);
         } else if (id == 68) {
-            result = $.testHikeHistorySalvanWindows(logger);
+            result = $.testPreferencesVsWindowStore(logger);
         } else if (id == 69) {
-            result = $.testHikeHistoryWindowLongerThanData(logger);
+            result = $.testHikeHistoryWindows60180300(logger);
         } else if (id == 70) {
-            result = $.testWatchDataHikeVsWindowSwitch(logger);
+            result = $.testHikeHistorySalvanWindows(logger);
         } else if (id == 71) {
-            result = $.testApplyVsWindowChoice(logger);
+            result = $.testHikeHistoryWindowLongerThanData(logger);
         } else if (id == 72) {
-            result = $.testWatchDataSpeedFallsBackToGpsWhenSensorSpeedNull(logger);
+            result = $.testWatchDataHikeVsWindowSwitch(logger);
         } else if (id == 73) {
-            result = $.testWatchDataUpdatesSkipNullSpeedOnly(logger);
+            result = $.testApplyVsWindowChoice(logger);
         } else if (id == 74) {
-            result = $.testWatchDataSpeedRecoversAfterNullSensorSpeed(logger);
+            result = $.testWatchDataSpeedFallsBackToGpsWhenSensorSpeedNull(logger);
         } else if (id == 75) {
-            result = $.testWatchDataUpdatesSkipNullHeartRateOnly(logger);
+            result = $.testWatchDataUpdatesSkipNullSpeedOnly(logger);
         } else if (id == 76) {
-            result = $.testWatchDataHeartRateRecoversAfterNull(logger);
+            result = $.testWatchDataSpeedRecoversAfterNullSensorSpeed(logger);
         } else if (id == 77) {
-            result = $.testIsValidLatLon(logger);
+            result = $.testWatchDataUpdatesSkipNullHeartRateOnly(logger);
         } else if (id == 78) {
-            result = $.testBreadcrumbTrailRejectsInvalidPositions(logger);
+            result = $.testWatchDataHeartRateRecoversAfterNull(logger);
         } else if (id == 79) {
-            result = $.testWatchDataUsableFixFromGpsData(logger);
+            result = $.testIsValidLatLon(logger);
         } else if (id == 80) {
-            result = $.testWatchDataUsableFixThroughUpdateInfo(logger);
+            result = $.testBreadcrumbTrailRejectsInvalidPositions(logger);
         } else if (id == 81) {
-            result = $.testFeedBreadcrumbTrailSkipsTicksWithoutFix(logger);
+            result = $.testWatchDataUsableFixFromGpsData(logger);
         } else if (id == 82) {
-            result = $.testMapDrawMode(logger);
+            result = $.testWatchDataUsableFixThroughUpdateInfo(logger);
         } else if (id == 83) {
-            result = $.testMetersPerPixelFromScale(logger);
+            result = $.testFeedBreadcrumbTrailSkipsTicksWithoutFix(logger);
         } else if (id == 84) {
-            result = $.testPickScaleBar(logger);
+            result = $.testMapDrawMode(logger);
         } else if (id == 85) {
-            result = $.testFormatScaleBarLabel(logger);
+            result = $.testMetersPerPixelFromScale(logger);
         } else if (id == 86) {
-            result = $.testMapProjectionCenter(logger);
+            result = $.testPickScaleBar(logger);
         } else if (id == 87) {
-            result = $.testMapPixelsPerDegree(logger);
+            result = $.testFormatScaleBarLabel(logger);
         } else if (id == 88) {
-            result = $.testScaleBarOnSalvanExtract(logger);
+            result = $.testMapProjectionCenter(logger);
         } else if (id == 89) {
-            result = $.testDiagSimulatorPositionInfo(logger);
+            result = $.testMapPixelsPerDegree(logger);
         }
 
         return result;
     }
 
     function populate_test_entries_90_to_120() as Void {
-        idToName[90] = "testAppNameIsGlidator2";
-        idToName[91] = "testChainAltitudeSourcePriority";
-        idToName[92] = "testKnownDefectD1NullActivityAltitudeHidesSensor";
-        idToName[93] = "testChainAltitudeAbsent";
-        idToName[94] = "testChainAltitudeNegativeAndHigh";
-        idToName[95] = "testDefectAltitudeOutOfBounds";
-        idToName[96] = "testDefectAltitudeNonFinite";
-        idToName[97] = "testChainVerticalSpeedSalvanSteepClimb";
-        idToName[98] = "testChainVerticalSpeedSalvanSpiralDescent";
-        idToName[99] = "testChainVerticalSpeedAltitudeJump";
-        idToName[100] = "testChainVerticalSpeedNaNAltitudeRecovers";
-        idToName[101] = "testChainTickSalvanClimb1Hz";
-        idToName[102] = "testChainPaceWhenInstantSpeedZero";
-        idToName[103] = "testChainPositionPageFields";
-        idToName[104] = "testChainPositionAscentGuard";
-        idToName[105] = "testDefectNegativeDistance";
-        idToName[106] = "testChainFlightSpeedKmh";
-        idToName[107] = "testChainFlightSpeedNegativeShown";
-        idToName[108] = "testChainFlightAltitudeGuard";
-        idToName[109] = "testChainHeartRateSources";
-        idToName[110] = "testDefectHeartRateOutOfBounds";
-        idToName[111] = "testChainHeartRateInvalidActivityHidesSensor";
-        idToName[112] = "testChainTimerDisplay";
-        idToName[113] = "testDefectNegativeDuration";
-        idToName[114] = "testChainMapWaitingAndTrailOnly";
-        idToName[115] = "testChainMapScaleBarTwoKmTrail";
-        idToName[116] = "testChainCompassNorthEast";
-        idToName[117] = "testDefectCompassSouthWestSign";
-        idToName[118] = "testDefectCompassSecondsRoundTo60";
-        idToName[119] = "testDefectCompassNullHeading";
+        idToName[90] = "testScaleBarOnSalvanExtract";
+        idToName[91] = "testDiagSimulatorPositionInfo";
+        idToName[92] = "testAppNameIsGlidator2";
+        idToName[93] = "testChainAltitudeSourcePriority";
+        idToName[94] = "testKnownDefectD1NullActivityAltitudeHidesSensor";
+        idToName[95] = "testChainAltitudeAbsent";
+        idToName[96] = "testChainAltitudeNegativeAndHigh";
+        idToName[97] = "testDefectAltitudeOutOfBounds";
+        idToName[98] = "testDefectAltitudeNonFinite";
+        idToName[99] = "testChainVerticalSpeedSalvanSteepClimb";
+        idToName[100] = "testChainVerticalSpeedSalvanSpiralDescent";
+        idToName[101] = "testChainVerticalSpeedAltitudeJump";
+        idToName[102] = "testChainVerticalSpeedNaNAltitudeRecovers";
+        idToName[103] = "testChainTickSalvanClimb1Hz";
+        idToName[104] = "testChainPaceWhenInstantSpeedZero";
+        idToName[105] = "testChainPositionPageFields";
+        idToName[106] = "testChainPositionAscentGuard";
+        idToName[107] = "testDefectNegativeDistance";
+        idToName[108] = "testChainFlightSpeedKmh";
+        idToName[109] = "testChainFlightSpeedNegativeShown";
+        idToName[110] = "testChainFlightAltitudeGuard";
+        idToName[111] = "testChainHeartRateSources";
+        idToName[112] = "testDefectHeartRateOutOfBounds";
+        idToName[113] = "testChainHeartRateInvalidActivityHidesSensor";
+        idToName[114] = "testChainTimerDisplay";
+        idToName[115] = "testDefectNegativeDuration";
+        idToName[116] = "testChainMapWaitingAndTrailOnly";
+        idToName[117] = "testChainMapScaleBarTwoKmTrail";
+        idToName[118] = "testChainCompassNorthEast";
+        idToName[119] = "testDefectCompassSouthWestSign";
     }
 
     function evaluate_test_entries_90_to_120(id as Number, logger as Logger) {
         var result = false;
         if (id == 90) {
-            result = $.testAppNameIsGlidator2(logger);
+            result = $.testScaleBarOnSalvanExtract(logger);
         } else if (id == 91) {
-            result = $.testChainAltitudeSourcePriority(logger);
+            result = $.testDiagSimulatorPositionInfo(logger);
         } else if (id == 92) {
-            result = $.testKnownDefectD1NullActivityAltitudeHidesSensor(logger);
+            result = $.testAppNameIsGlidator2(logger);
         } else if (id == 93) {
-            result = $.testChainAltitudeAbsent(logger);
+            result = $.testChainAltitudeSourcePriority(logger);
         } else if (id == 94) {
-            result = $.testChainAltitudeNegativeAndHigh(logger);
+            result = $.testKnownDefectD1NullActivityAltitudeHidesSensor(logger);
         } else if (id == 95) {
-            result = $.testDefectAltitudeOutOfBounds(logger);
+            result = $.testChainAltitudeAbsent(logger);
         } else if (id == 96) {
-            result = $.testDefectAltitudeNonFinite(logger);
+            result = $.testChainAltitudeNegativeAndHigh(logger);
         } else if (id == 97) {
-            result = $.testChainVerticalSpeedSalvanSteepClimb(logger);
+            result = $.testDefectAltitudeOutOfBounds(logger);
         } else if (id == 98) {
-            result = $.testChainVerticalSpeedSalvanSpiralDescent(logger);
+            result = $.testDefectAltitudeNonFinite(logger);
         } else if (id == 99) {
-            result = $.testChainVerticalSpeedAltitudeJump(logger);
+            result = $.testChainVerticalSpeedSalvanSteepClimb(logger);
         } else if (id == 100) {
-            result = $.testChainVerticalSpeedNaNAltitudeRecovers(logger);
+            result = $.testChainVerticalSpeedSalvanSpiralDescent(logger);
         } else if (id == 101) {
-            result = $.testChainTickSalvanClimb1Hz(logger);
+            result = $.testChainVerticalSpeedAltitudeJump(logger);
         } else if (id == 102) {
-            result = $.testChainPaceWhenInstantSpeedZero(logger);
+            result = $.testChainVerticalSpeedNaNAltitudeRecovers(logger);
         } else if (id == 103) {
-            result = $.testChainPositionPageFields(logger);
+            result = $.testChainTickSalvanClimb1Hz(logger);
         } else if (id == 104) {
-            result = $.testChainPositionAscentGuard(logger);
+            result = $.testChainPaceWhenInstantSpeedZero(logger);
         } else if (id == 105) {
-            result = $.testDefectNegativeDistance(logger);
+            result = $.testChainPositionPageFields(logger);
         } else if (id == 106) {
-            result = $.testChainFlightSpeedKmh(logger);
+            result = $.testChainPositionAscentGuard(logger);
         } else if (id == 107) {
-            result = $.testChainFlightSpeedNegativeShown(logger);
+            result = $.testDefectNegativeDistance(logger);
         } else if (id == 108) {
-            result = $.testChainFlightAltitudeGuard(logger);
+            result = $.testChainFlightSpeedKmh(logger);
         } else if (id == 109) {
-            result = $.testChainHeartRateSources(logger);
+            result = $.testChainFlightSpeedNegativeShown(logger);
         } else if (id == 110) {
-            result = $.testDefectHeartRateOutOfBounds(logger);
+            result = $.testChainFlightAltitudeGuard(logger);
         } else if (id == 111) {
-            result = $.testChainHeartRateInvalidActivityHidesSensor(logger);
+            result = $.testChainHeartRateSources(logger);
         } else if (id == 112) {
-            result = $.testChainTimerDisplay(logger);
+            result = $.testDefectHeartRateOutOfBounds(logger);
         } else if (id == 113) {
-            result = $.testDefectNegativeDuration(logger);
+            result = $.testChainHeartRateInvalidActivityHidesSensor(logger);
         } else if (id == 114) {
-            result = $.testChainMapWaitingAndTrailOnly(logger);
+            result = $.testChainTimerDisplay(logger);
         } else if (id == 115) {
-            result = $.testChainMapScaleBarTwoKmTrail(logger);
+            result = $.testDefectNegativeDuration(logger);
         } else if (id == 116) {
-            result = $.testChainCompassNorthEast(logger);
+            result = $.testChainMapWaitingAndTrailOnly(logger);
         } else if (id == 117) {
-            result = $.testDefectCompassSouthWestSign(logger);
+            result = $.testChainMapScaleBarTwoKmTrail(logger);
         } else if (id == 118) {
-            result = $.testDefectCompassSecondsRoundTo60(logger);
+            result = $.testChainCompassNorthEast(logger);
         } else if (id == 119) {
-            result = $.testDefectCompassNullHeading(logger);
+            result = $.testDefectCompassSouthWestSign(logger);
         }
 
         return result;
     }
 
     function populate_test_entries_120_to_150() as Void {
-        idToName[120] = "testChainPausedViewTexts";
-        idToName[121] = "testChainPauseSensorsOffKeepsGps";
-        idToName[122] = "testVarioEndMeasureSequence";
-        idToName[123] = "testVarioDisplayThresholdsAndText";
-        idToName[124] = "HikeMapLayoutTests.testCompassLetterInsetKeepsTheTunedInset";
-        idToName[125] = "HikeMapLayoutTests.testCompassLetterInsetMovesWhereALetterLeaves";
-        idToName[126] = "HikeMapLayoutTests.testCompassLetterInsetLimits";
-        idToName[127] = "testFormatDurationNegative";
-        idToName[128] = "testFormatDistanceKm";
-        idToName[129] = "testFormatHikeAltitude";
-        idToName[130] = "testFormatHikeAscent";
-        idToName[131] = "testFormatHeartRate";
-        idToName[132] = "testCompassRotation";
-        idToName[133] = "testFormatLatLon";
-        idToName[134] = "testFormatFlightAltitude";
-        idToName[135] = "testFlightAltitudeUnit";
-        idToName[136] = "testFlySpeedLineX";
-        idToName[137] = "testTimeBatteryLayout";
-        idToName[138] = "HikeGridLayoutTests.testHikeGridLayoutApplies";
-        idToName[139] = "HikeGridLayoutTests.testHikeGridLayoutInstinct2";
-        idToName[140] = "HikeGridLayoutTests.testHikeGridLayoutSmallInstincts";
-        idToName[141] = "HikeGridLayoutTests.testHikeGridLayoutLimits";
-        idToName[142] = "HikeGridLayoutTests.testHikeGridInkAndScreenRules";
-        idToName[143] = "HikeGridLayoutTests.testHikeGridPlaceTimerKeepsWhatFits";
-        idToName[144] = "HikeGridLayoutTests.testHikeGridPlaceTimerFixes";
-        idToName[145] = "HikeGridLayoutTests.testHikeGridPlaceColumns";
-        idToName[146] = "HikeGridLayoutTests.testHikeGridPlaceColumnsSpreadsOnRound";
-        idToName[147] = "HikeGridLayoutTests.testHikeGridPlaceColumnsChecksLabels";
-        idToName[148] = "HikeMapLayoutTests.testHikeMapInksOverlap";
-        idToName[149] = "HikeMapLayoutTests.testHikeMapWaitingKeepsTheTunedLines";
+        idToName[120] = "testDefectCompassSecondsRoundTo60";
+        idToName[121] = "testDefectCompassNullHeading";
+        idToName[122] = "testChainPausedViewTexts";
+        idToName[123] = "testChainPauseSensorsOffKeepsGps";
+        idToName[124] = "testVarioEndMeasureSequence";
+        idToName[125] = "testVarioDisplayThresholdsAndText";
+        idToName[126] = "HikeMapLayoutTests.testCompassLetterInsetKeepsTheTunedInset";
+        idToName[127] = "HikeMapLayoutTests.testCompassLetterInsetMovesWhereALetterLeaves";
+        idToName[128] = "HikeMapLayoutTests.testCompassLetterInsetLimits";
+        idToName[129] = "testFormatDurationNegative";
+        idToName[130] = "testFormatDistanceKm";
+        idToName[131] = "testFormatHikeAltitude";
+        idToName[132] = "testFormatHikeAscent";
+        idToName[133] = "testFormatHeartRate";
+        idToName[134] = "testCompassRotation";
+        idToName[135] = "testFormatLatLon";
+        idToName[136] = "testFormatFlightAltitude";
+        idToName[137] = "testFlightAltitudeUnit";
+        idToName[138] = "testFlySpeedLineX";
+        idToName[139] = "testTimeBatteryLayout";
+        idToName[140] = "HikeGridLayoutTests.testHikeGridLayoutApplies";
+        idToName[141] = "HikeGridLayoutTests.testHikeGridLayoutInstinct2";
+        idToName[142] = "HikeGridLayoutTests.testHikeGridLayoutSmallInstincts";
+        idToName[143] = "HikeGridLayoutTests.testHikeGridLayoutLimits";
+        idToName[144] = "HikeGridLayoutTests.testHikeGridInkAndScreenRules";
+        idToName[145] = "HikeGridLayoutTests.testHikeGridPlaceTimerKeepsWhatFits";
+        idToName[146] = "HikeGridLayoutTests.testHikeGridPlaceTimerFixes";
+        idToName[147] = "HikeGridLayoutTests.testHikeGridPlaceColumns";
+        idToName[148] = "HikeGridLayoutTests.testHikeGridPlaceColumnsSpreadsOnRound";
+        idToName[149] = "HikeGridLayoutTests.testHikeGridPlaceColumnsChecksLabels";
     }
 
     function evaluate_test_entries_120_to_150(id as Number, logger as Logger) {
         var result = false;
         if (id == 120) {
-            result = $.testChainPausedViewTexts(logger);
+            result = $.testDefectCompassSecondsRoundTo60(logger);
         } else if (id == 121) {
-            result = $.testChainPauseSensorsOffKeepsGps(logger);
+            result = $.testDefectCompassNullHeading(logger);
         } else if (id == 122) {
-            result = $.testVarioEndMeasureSequence(logger);
+            result = $.testChainPausedViewTexts(logger);
         } else if (id == 123) {
-            result = $.testVarioDisplayThresholdsAndText(logger);
+            result = $.testChainPauseSensorsOffKeepsGps(logger);
         } else if (id == 124) {
-            result = $.HikeMapLayoutTests.testCompassLetterInsetKeepsTheTunedInset(logger);
+            result = $.testVarioEndMeasureSequence(logger);
         } else if (id == 125) {
-            result = $.HikeMapLayoutTests.testCompassLetterInsetMovesWhereALetterLeaves(logger);
+            result = $.testVarioDisplayThresholdsAndText(logger);
         } else if (id == 126) {
-            result = $.HikeMapLayoutTests.testCompassLetterInsetLimits(logger);
+            result = $.HikeMapLayoutTests.testCompassLetterInsetKeepsTheTunedInset(logger);
         } else if (id == 127) {
-            result = $.testFormatDurationNegative(logger);
+            result = $.HikeMapLayoutTests.testCompassLetterInsetMovesWhereALetterLeaves(logger);
         } else if (id == 128) {
-            result = $.testFormatDistanceKm(logger);
+            result = $.HikeMapLayoutTests.testCompassLetterInsetLimits(logger);
         } else if (id == 129) {
-            result = $.testFormatHikeAltitude(logger);
+            result = $.testFormatDurationNegative(logger);
         } else if (id == 130) {
-            result = $.testFormatHikeAscent(logger);
+            result = $.testFormatDistanceKm(logger);
         } else if (id == 131) {
-            result = $.testFormatHeartRate(logger);
+            result = $.testFormatHikeAltitude(logger);
         } else if (id == 132) {
-            result = $.testCompassRotation(logger);
+            result = $.testFormatHikeAscent(logger);
         } else if (id == 133) {
-            result = $.testFormatLatLon(logger);
+            result = $.testFormatHeartRate(logger);
         } else if (id == 134) {
-            result = $.testFormatFlightAltitude(logger);
+            result = $.testCompassRotation(logger);
         } else if (id == 135) {
-            result = $.testFlightAltitudeUnit(logger);
+            result = $.testFormatLatLon(logger);
         } else if (id == 136) {
-            result = $.testFlySpeedLineX(logger);
+            result = $.testFormatFlightAltitude(logger);
         } else if (id == 137) {
-            result = $.testTimeBatteryLayout(logger);
+            result = $.testFlightAltitudeUnit(logger);
         } else if (id == 138) {
-            result = $.HikeGridLayoutTests.testHikeGridLayoutApplies(logger);
+            result = $.testFlySpeedLineX(logger);
         } else if (id == 139) {
-            result = $.HikeGridLayoutTests.testHikeGridLayoutInstinct2(logger);
+            result = $.testTimeBatteryLayout(logger);
         } else if (id == 140) {
-            result = $.HikeGridLayoutTests.testHikeGridLayoutSmallInstincts(logger);
+            result = $.HikeGridLayoutTests.testHikeGridLayoutApplies(logger);
         } else if (id == 141) {
-            result = $.HikeGridLayoutTests.testHikeGridLayoutLimits(logger);
+            result = $.HikeGridLayoutTests.testHikeGridLayoutInstinct2(logger);
         } else if (id == 142) {
-            result = $.HikeGridLayoutTests.testHikeGridInkAndScreenRules(logger);
+            result = $.HikeGridLayoutTests.testHikeGridLayoutSmallInstincts(logger);
         } else if (id == 143) {
-            result = $.HikeGridLayoutTests.testHikeGridPlaceTimerKeepsWhatFits(logger);
+            result = $.HikeGridLayoutTests.testHikeGridLayoutLimits(logger);
         } else if (id == 144) {
-            result = $.HikeGridLayoutTests.testHikeGridPlaceTimerFixes(logger);
+            result = $.HikeGridLayoutTests.testHikeGridInkAndScreenRules(logger);
         } else if (id == 145) {
-            result = $.HikeGridLayoutTests.testHikeGridPlaceColumns(logger);
+            result = $.HikeGridLayoutTests.testHikeGridPlaceTimerKeepsWhatFits(logger);
         } else if (id == 146) {
-            result = $.HikeGridLayoutTests.testHikeGridPlaceColumnsSpreadsOnRound(logger);
+            result = $.HikeGridLayoutTests.testHikeGridPlaceTimerFixes(logger);
         } else if (id == 147) {
-            result = $.HikeGridLayoutTests.testHikeGridPlaceColumnsChecksLabels(logger);
+            result = $.HikeGridLayoutTests.testHikeGridPlaceColumns(logger);
         } else if (id == 148) {
-            result = $.HikeMapLayoutTests.testHikeMapInksOverlap(logger);
+            result = $.HikeGridLayoutTests.testHikeGridPlaceColumnsSpreadsOnRound(logger);
         } else if (id == 149) {
-            result = $.HikeMapLayoutTests.testHikeMapWaitingKeepsTheTunedLines(logger);
+            result = $.HikeGridLayoutTests.testHikeGridPlaceColumnsChecksLabels(logger);
         }
 
         return result;
     }
 
     function populate_test_entries_150_to_180() as Void {
-        idToName[150] = "HikeMapLayoutTests.testHikeMapWaitingSpreadsByFontHeight";
-        idToName[151] = "HikeMapLayoutTests.testHikeMapWaitingLimits";
-        idToName[152] = "HikeReplayTests.testReplayRegularClimbWatch";
-        idToName[153] = "HikeReplayTests.testReplayFlatWatch";
-        idToName[154] = "HikeReplayTests.testReplaySteepClimbWatch";
-        idToName[155] = "HikeReplayTests.testReplayRegularClimbSimulator";
-        idToName[156] = "HikeReplayTests.testReplayFlatSimulator";
-        idToName[157] = "HikeReplayTests.testReplaySteepClimbSimulator";
-        idToName[158] = "HikeReplayTests.testReplaySourceActivityNull";
-        idToName[159] = "HikeReplayTests.testReplaySourceActivityHrNullUsesSensor";
-        idToName[160] = "HikeReplayTests.testReplaySourceSensorNull";
-        idToName[161] = "HikeReplayTests.testReplaySourcePositionNull";
-        idToName[162] = "HikeReplayTests.testReplayActivityAltitudeNullDropsPaceKnownPoint";
-        idToName[163] = "HikeReplayTests.testReplayMapPoorFixRejectsInvalidPoints";
-        idToName[164] = "LayoutBenchTests.testBenchSelfTextBoxes";
-        idToName[165] = "LayoutBenchTests.testBenchSelfOverlapRule";
-        idToName[166] = "LayoutBenchTests.testBenchSelfScreenShapeRule";
-        idToName[167] = "LayoutBenchTests.testBenchSelfSubscreenSource";
-        idToName[168] = "LayoutBenchTests.testBenchSelfExemptions";
-        idToName[169] = "LayoutBenchTests.testLayout_HikePosition_Empty";
-        idToName[170] = "LayoutBenchTests.testLayout_HikePosition_Normal";
-        idToName[171] = "LayoutBenchTests.testLayout_HikePosition_Extreme";
-        idToName[172] = "LayoutBenchTests.testLayout_HikePosition_Paused";
-        idToName[173] = "LayoutBenchTests.testLayout_HikePosition_Recording";
-        idToName[174] = "LayoutBenchTests.testLayout_HikePace_Empty";
-        idToName[175] = "LayoutBenchTests.testLayout_HikePace_Normal";
-        idToName[176] = "LayoutBenchTests.testLayout_HikePace_Extreme";
-        idToName[177] = "LayoutBenchTests.testLayout_HikePace_Paused";
-        idToName[178] = "LayoutBenchTests.testLayout_HikePace_Recording";
-        idToName[179] = "LayoutBenchTests.testLayout_HikeMiddleColumns";
+        idToName[150] = "HikeMapLayoutTests.testHikeMapInksOverlap";
+        idToName[151] = "HikeMapLayoutTests.testHikeMapWaitingKeepsTheTunedLines";
+        idToName[152] = "HikeMapLayoutTests.testHikeMapWaitingSpreadsByFontHeight";
+        idToName[153] = "HikeMapLayoutTests.testHikeMapWaitingLimits";
+        idToName[154] = "HikeReplayTests.testReplayRegularClimbWatch";
+        idToName[155] = "HikeReplayTests.testReplayFlatWatch";
+        idToName[156] = "HikeReplayTests.testReplaySteepClimbWatch";
+        idToName[157] = "HikeReplayTests.testReplayRegularClimbSimulator";
+        idToName[158] = "HikeReplayTests.testReplayFlatSimulator";
+        idToName[159] = "HikeReplayTests.testReplaySteepClimbSimulator";
+        idToName[160] = "HikeReplayTests.testReplaySourceActivityNull";
+        idToName[161] = "HikeReplayTests.testReplaySourceActivityHrNullUsesSensor";
+        idToName[162] = "HikeReplayTests.testReplaySourceSensorNull";
+        idToName[163] = "HikeReplayTests.testReplaySourcePositionNull";
+        idToName[164] = "HikeReplayTests.testReplayActivityAltitudeNullKeepsPace";
+        idToName[165] = "HikeReplayTests.testReplayRegularClimbNoAltitudeKeepsPace";
+        idToName[166] = "HikeReplayTests.testReplayFlatNoAltitudeKeepsPace";
+        idToName[167] = "HikeReplayTests.testReplaySteepClimbNoAltitudeKeepsPace";
+        idToName[168] = "HikeReplayTests.testReplayMapPoorFixRejectsInvalidPoints";
+        idToName[169] = "LayoutBenchTests.testBenchSelfTextBoxes";
+        idToName[170] = "LayoutBenchTests.testBenchSelfOverlapRule";
+        idToName[171] = "LayoutBenchTests.testBenchSelfScreenShapeRule";
+        idToName[172] = "LayoutBenchTests.testBenchSelfSubscreenSource";
+        idToName[173] = "LayoutBenchTests.testBenchSelfExemptions";
+        idToName[174] = "LayoutBenchTests.testLayout_HikePosition_Empty";
+        idToName[175] = "LayoutBenchTests.testLayout_HikePosition_Normal";
+        idToName[176] = "LayoutBenchTests.testLayout_HikePosition_Extreme";
+        idToName[177] = "LayoutBenchTests.testLayout_HikePosition_Paused";
+        idToName[178] = "LayoutBenchTests.testLayout_HikePosition_Recording";
+        idToName[179] = "LayoutBenchTests.testLayout_HikePace_Empty";
     }
 
     function evaluate_test_entries_150_to_180(id as Number, logger as Logger) {
         var result = false;
         if (id == 150) {
-            result = $.HikeMapLayoutTests.testHikeMapWaitingSpreadsByFontHeight(logger);
+            result = $.HikeMapLayoutTests.testHikeMapInksOverlap(logger);
         } else if (id == 151) {
-            result = $.HikeMapLayoutTests.testHikeMapWaitingLimits(logger);
+            result = $.HikeMapLayoutTests.testHikeMapWaitingKeepsTheTunedLines(logger);
         } else if (id == 152) {
-            result = $.HikeReplayTests.testReplayRegularClimbWatch(logger);
+            result = $.HikeMapLayoutTests.testHikeMapWaitingSpreadsByFontHeight(logger);
         } else if (id == 153) {
-            result = $.HikeReplayTests.testReplayFlatWatch(logger);
+            result = $.HikeMapLayoutTests.testHikeMapWaitingLimits(logger);
         } else if (id == 154) {
-            result = $.HikeReplayTests.testReplaySteepClimbWatch(logger);
+            result = $.HikeReplayTests.testReplayRegularClimbWatch(logger);
         } else if (id == 155) {
-            result = $.HikeReplayTests.testReplayRegularClimbSimulator(logger);
+            result = $.HikeReplayTests.testReplayFlatWatch(logger);
         } else if (id == 156) {
-            result = $.HikeReplayTests.testReplayFlatSimulator(logger);
+            result = $.HikeReplayTests.testReplaySteepClimbWatch(logger);
         } else if (id == 157) {
-            result = $.HikeReplayTests.testReplaySteepClimbSimulator(logger);
+            result = $.HikeReplayTests.testReplayRegularClimbSimulator(logger);
         } else if (id == 158) {
-            result = $.HikeReplayTests.testReplaySourceActivityNull(logger);
+            result = $.HikeReplayTests.testReplayFlatSimulator(logger);
         } else if (id == 159) {
-            result = $.HikeReplayTests.testReplaySourceActivityHrNullUsesSensor(logger);
+            result = $.HikeReplayTests.testReplaySteepClimbSimulator(logger);
         } else if (id == 160) {
-            result = $.HikeReplayTests.testReplaySourceSensorNull(logger);
+            result = $.HikeReplayTests.testReplaySourceActivityNull(logger);
         } else if (id == 161) {
-            result = $.HikeReplayTests.testReplaySourcePositionNull(logger);
+            result = $.HikeReplayTests.testReplaySourceActivityHrNullUsesSensor(logger);
         } else if (id == 162) {
-            result = $.HikeReplayTests.testReplayActivityAltitudeNullDropsPaceKnownPoint(logger);
+            result = $.HikeReplayTests.testReplaySourceSensorNull(logger);
         } else if (id == 163) {
-            result = $.HikeReplayTests.testReplayMapPoorFixRejectsInvalidPoints(logger);
+            result = $.HikeReplayTests.testReplaySourcePositionNull(logger);
         } else if (id == 164) {
-            result = $.LayoutBenchTests.testBenchSelfTextBoxes(logger);
+            result = $.HikeReplayTests.testReplayActivityAltitudeNullKeepsPace(logger);
         } else if (id == 165) {
-            result = $.LayoutBenchTests.testBenchSelfOverlapRule(logger);
+            result = $.HikeReplayTests.testReplayRegularClimbNoAltitudeKeepsPace(logger);
         } else if (id == 166) {
-            result = $.LayoutBenchTests.testBenchSelfScreenShapeRule(logger);
+            result = $.HikeReplayTests.testReplayFlatNoAltitudeKeepsPace(logger);
         } else if (id == 167) {
-            result = $.LayoutBenchTests.testBenchSelfSubscreenSource(logger);
+            result = $.HikeReplayTests.testReplaySteepClimbNoAltitudeKeepsPace(logger);
         } else if (id == 168) {
-            result = $.LayoutBenchTests.testBenchSelfExemptions(logger);
+            result = $.HikeReplayTests.testReplayMapPoorFixRejectsInvalidPoints(logger);
         } else if (id == 169) {
-            result = $.LayoutBenchTests.testLayout_HikePosition_Empty(logger);
+            result = $.LayoutBenchTests.testBenchSelfTextBoxes(logger);
         } else if (id == 170) {
-            result = $.LayoutBenchTests.testLayout_HikePosition_Normal(logger);
+            result = $.LayoutBenchTests.testBenchSelfOverlapRule(logger);
         } else if (id == 171) {
-            result = $.LayoutBenchTests.testLayout_HikePosition_Extreme(logger);
+            result = $.LayoutBenchTests.testBenchSelfScreenShapeRule(logger);
         } else if (id == 172) {
-            result = $.LayoutBenchTests.testLayout_HikePosition_Paused(logger);
+            result = $.LayoutBenchTests.testBenchSelfSubscreenSource(logger);
         } else if (id == 173) {
-            result = $.LayoutBenchTests.testLayout_HikePosition_Recording(logger);
+            result = $.LayoutBenchTests.testBenchSelfExemptions(logger);
         } else if (id == 174) {
-            result = $.LayoutBenchTests.testLayout_HikePace_Empty(logger);
+            result = $.LayoutBenchTests.testLayout_HikePosition_Empty(logger);
         } else if (id == 175) {
-            result = $.LayoutBenchTests.testLayout_HikePace_Normal(logger);
+            result = $.LayoutBenchTests.testLayout_HikePosition_Normal(logger);
         } else if (id == 176) {
-            result = $.LayoutBenchTests.testLayout_HikePace_Extreme(logger);
+            result = $.LayoutBenchTests.testLayout_HikePosition_Extreme(logger);
         } else if (id == 177) {
-            result = $.LayoutBenchTests.testLayout_HikePace_Paused(logger);
+            result = $.LayoutBenchTests.testLayout_HikePosition_Paused(logger);
         } else if (id == 178) {
-            result = $.LayoutBenchTests.testLayout_HikePace_Recording(logger);
+            result = $.LayoutBenchTests.testLayout_HikePosition_Recording(logger);
         } else if (id == 179) {
-            result = $.LayoutBenchTests.testLayout_HikeMiddleColumns(logger);
+            result = $.LayoutBenchTests.testLayout_HikePace_Empty(logger);
         }
 
         return result;
     }
 
     function populate_test_entries_180_to_210() as Void {
-        idToName[180] = "LayoutBenchTests.testLayout_HikeMap_Empty";
-        idToName[181] = "LayoutBenchTests.testLayout_HikeMap_Normal";
-        idToName[182] = "LayoutBenchTests.testLayout_HikeMap_Extreme";
-        idToName[183] = "LayoutBenchTests.testLayout_HikeMap_Paused";
-        idToName[184] = "LayoutBenchTests.testLayout_HikeMap_Recording";
-        idToName[185] = "LayoutBenchTests.testLayout_Time_Empty";
-        idToName[186] = "LayoutBenchTests.testLayout_Time_Normal";
-        idToName[187] = "LayoutBenchTests.testLayout_Time_Extreme";
-        idToName[188] = "LayoutBenchTests.testLayout_Time_Paused";
-        idToName[189] = "LayoutBenchTests.testLayout_Time_Recording";
-        idToName[190] = "LayoutBenchTests.testLayout_Fly_Empty";
-        idToName[191] = "LayoutBenchTests.testLayout_Fly_Normal";
-        idToName[192] = "LayoutBenchTests.testLayout_Fly_Extreme";
-        idToName[193] = "LayoutBenchTests.testLayout_Fly_Paused";
-        idToName[194] = "LayoutBenchTests.testLayout_Fly_Recording";
-        idToName[195] = "LayoutBenchTests.testLayout_Fly_InvalidAltitude";
-        idToName[196] = "LayoutBenchTests.testLayout_Compass_Empty";
-        idToName[197] = "LayoutBenchTests.testLayout_Compass_Normal";
-        idToName[198] = "LayoutBenchTests.testLayout_Compass_Extreme";
-        idToName[199] = "LayoutBenchTests.testLayout_Compass_Paused";
-        idToName[200] = "LayoutBenchTests.testLayout_Compass_Recording";
-        idToName[201] = "LayoutBenchTests.testLayout_Compass_Placement";
-        idToName[202] = "LayoutBenchTests.testLayout_Paused_Empty";
-        idToName[203] = "LayoutBenchTests.testLayout_Paused_Normal";
-        idToName[204] = "LayoutBenchTests.testLayout_Paused_Extreme";
-        idToName[205] = "LayoutBenchTests.testLayout_Paused_Paused";
-        idToName[206] = "LayoutBenchTests.testLayout_Paused_Recording";
-        idToName[207] = "LayoutBenchTests.testLayout_RecordFailedMessage";
-        idToName[208] = "RecordStartTests.testRecordStartOutcome";
-        idToName[209] = "RecordStartTests.testRecordStartAlertOnlyWhenStarted";
+        idToName[180] = "LayoutBenchTests.testLayout_HikePace_Normal";
+        idToName[181] = "LayoutBenchTests.testLayout_HikePace_Extreme";
+        idToName[182] = "LayoutBenchTests.testLayout_HikePace_Paused";
+        idToName[183] = "LayoutBenchTests.testLayout_HikePace_Recording";
+        idToName[184] = "LayoutBenchTests.testLayout_HikeMiddleColumns";
+        idToName[185] = "LayoutBenchTests.testLayout_HikeMap_Empty";
+        idToName[186] = "LayoutBenchTests.testLayout_HikeMap_Normal";
+        idToName[187] = "LayoutBenchTests.testLayout_HikeMap_Extreme";
+        idToName[188] = "LayoutBenchTests.testLayout_HikeMap_Paused";
+        idToName[189] = "LayoutBenchTests.testLayout_HikeMap_Recording";
+        idToName[190] = "LayoutBenchTests.testLayout_Time_Empty";
+        idToName[191] = "LayoutBenchTests.testLayout_Time_Normal";
+        idToName[192] = "LayoutBenchTests.testLayout_Time_Extreme";
+        idToName[193] = "LayoutBenchTests.testLayout_Time_Paused";
+        idToName[194] = "LayoutBenchTests.testLayout_Time_Recording";
+        idToName[195] = "LayoutBenchTests.testLayout_Fly_Empty";
+        idToName[196] = "LayoutBenchTests.testLayout_Fly_Normal";
+        idToName[197] = "LayoutBenchTests.testLayout_Fly_Extreme";
+        idToName[198] = "LayoutBenchTests.testLayout_Fly_Paused";
+        idToName[199] = "LayoutBenchTests.testLayout_Fly_Recording";
+        idToName[200] = "LayoutBenchTests.testLayout_Fly_InvalidAltitude";
+        idToName[201] = "LayoutBenchTests.testLayout_Compass_Empty";
+        idToName[202] = "LayoutBenchTests.testLayout_Compass_Normal";
+        idToName[203] = "LayoutBenchTests.testLayout_Compass_Extreme";
+        idToName[204] = "LayoutBenchTests.testLayout_Compass_Paused";
+        idToName[205] = "LayoutBenchTests.testLayout_Compass_Recording";
+        idToName[206] = "LayoutBenchTests.testLayout_Compass_Placement";
+        idToName[207] = "LayoutBenchTests.testLayout_Paused_Empty";
+        idToName[208] = "LayoutBenchTests.testLayout_Paused_Normal";
+        idToName[209] = "LayoutBenchTests.testLayout_Paused_Extreme";
     }
 
     function evaluate_test_entries_180_to_210(id as Number, logger as Logger) {
         var result = false;
         if (id == 180) {
-            result = $.LayoutBenchTests.testLayout_HikeMap_Empty(logger);
+            result = $.LayoutBenchTests.testLayout_HikePace_Normal(logger);
         } else if (id == 181) {
-            result = $.LayoutBenchTests.testLayout_HikeMap_Normal(logger);
+            result = $.LayoutBenchTests.testLayout_HikePace_Extreme(logger);
         } else if (id == 182) {
-            result = $.LayoutBenchTests.testLayout_HikeMap_Extreme(logger);
+            result = $.LayoutBenchTests.testLayout_HikePace_Paused(logger);
         } else if (id == 183) {
-            result = $.LayoutBenchTests.testLayout_HikeMap_Paused(logger);
+            result = $.LayoutBenchTests.testLayout_HikePace_Recording(logger);
         } else if (id == 184) {
-            result = $.LayoutBenchTests.testLayout_HikeMap_Recording(logger);
+            result = $.LayoutBenchTests.testLayout_HikeMiddleColumns(logger);
         } else if (id == 185) {
-            result = $.LayoutBenchTests.testLayout_Time_Empty(logger);
+            result = $.LayoutBenchTests.testLayout_HikeMap_Empty(logger);
         } else if (id == 186) {
-            result = $.LayoutBenchTests.testLayout_Time_Normal(logger);
+            result = $.LayoutBenchTests.testLayout_HikeMap_Normal(logger);
         } else if (id == 187) {
-            result = $.LayoutBenchTests.testLayout_Time_Extreme(logger);
+            result = $.LayoutBenchTests.testLayout_HikeMap_Extreme(logger);
         } else if (id == 188) {
-            result = $.LayoutBenchTests.testLayout_Time_Paused(logger);
+            result = $.LayoutBenchTests.testLayout_HikeMap_Paused(logger);
         } else if (id == 189) {
-            result = $.LayoutBenchTests.testLayout_Time_Recording(logger);
+            result = $.LayoutBenchTests.testLayout_HikeMap_Recording(logger);
         } else if (id == 190) {
-            result = $.LayoutBenchTests.testLayout_Fly_Empty(logger);
+            result = $.LayoutBenchTests.testLayout_Time_Empty(logger);
         } else if (id == 191) {
-            result = $.LayoutBenchTests.testLayout_Fly_Normal(logger);
+            result = $.LayoutBenchTests.testLayout_Time_Normal(logger);
         } else if (id == 192) {
-            result = $.LayoutBenchTests.testLayout_Fly_Extreme(logger);
+            result = $.LayoutBenchTests.testLayout_Time_Extreme(logger);
         } else if (id == 193) {
-            result = $.LayoutBenchTests.testLayout_Fly_Paused(logger);
+            result = $.LayoutBenchTests.testLayout_Time_Paused(logger);
         } else if (id == 194) {
-            result = $.LayoutBenchTests.testLayout_Fly_Recording(logger);
+            result = $.LayoutBenchTests.testLayout_Time_Recording(logger);
         } else if (id == 195) {
-            result = $.LayoutBenchTests.testLayout_Fly_InvalidAltitude(logger);
+            result = $.LayoutBenchTests.testLayout_Fly_Empty(logger);
         } else if (id == 196) {
-            result = $.LayoutBenchTests.testLayout_Compass_Empty(logger);
+            result = $.LayoutBenchTests.testLayout_Fly_Normal(logger);
         } else if (id == 197) {
-            result = $.LayoutBenchTests.testLayout_Compass_Normal(logger);
+            result = $.LayoutBenchTests.testLayout_Fly_Extreme(logger);
         } else if (id == 198) {
-            result = $.LayoutBenchTests.testLayout_Compass_Extreme(logger);
+            result = $.LayoutBenchTests.testLayout_Fly_Paused(logger);
         } else if (id == 199) {
-            result = $.LayoutBenchTests.testLayout_Compass_Paused(logger);
+            result = $.LayoutBenchTests.testLayout_Fly_Recording(logger);
         } else if (id == 200) {
-            result = $.LayoutBenchTests.testLayout_Compass_Recording(logger);
+            result = $.LayoutBenchTests.testLayout_Fly_InvalidAltitude(logger);
         } else if (id == 201) {
-            result = $.LayoutBenchTests.testLayout_Compass_Placement(logger);
+            result = $.LayoutBenchTests.testLayout_Compass_Empty(logger);
         } else if (id == 202) {
-            result = $.LayoutBenchTests.testLayout_Paused_Empty(logger);
+            result = $.LayoutBenchTests.testLayout_Compass_Normal(logger);
         } else if (id == 203) {
-            result = $.LayoutBenchTests.testLayout_Paused_Normal(logger);
+            result = $.LayoutBenchTests.testLayout_Compass_Extreme(logger);
         } else if (id == 204) {
-            result = $.LayoutBenchTests.testLayout_Paused_Extreme(logger);
+            result = $.LayoutBenchTests.testLayout_Compass_Paused(logger);
         } else if (id == 205) {
-            result = $.LayoutBenchTests.testLayout_Paused_Paused(logger);
+            result = $.LayoutBenchTests.testLayout_Compass_Recording(logger);
         } else if (id == 206) {
-            result = $.LayoutBenchTests.testLayout_Paused_Recording(logger);
+            result = $.LayoutBenchTests.testLayout_Compass_Placement(logger);
         } else if (id == 207) {
-            result = $.LayoutBenchTests.testLayout_RecordFailedMessage(logger);
+            result = $.LayoutBenchTests.testLayout_Paused_Empty(logger);
         } else if (id == 208) {
-            result = $.RecordStartTests.testRecordStartOutcome(logger);
+            result = $.LayoutBenchTests.testLayout_Paused_Normal(logger);
         } else if (id == 209) {
-            result = $.RecordStartTests.testRecordStartAlertOnlyWhenStarted(logger);
+            result = $.LayoutBenchTests.testLayout_Paused_Extreme(logger);
         }
 
         return result;
     }
 
-    function populate_test_entries_210_to_218() as Void {
-        idToName[210] = "RecordStartTests.testRecordStartBeginStarted";
-        idToName[211] = "RecordStartTests.testRecordStartBeginFailedNoPausedState";
-        idToName[212] = "RecordStartTests.testRecordStartBeginFailedDiscardThrows";
-        idToName[213] = "RecordStartTests.testRecordStartBeginNullSession";
-        idToName[214] = "RecordStartTests.testRecordStartBeginNullResultKeepsSession";
-        idToName[215] = "RecordStartTests.testRecordStartFailedThenRetry";
-        idToName[216] = "RecordStartTests.testRecordStartMessageBox";
-        idToName[217] = "RecordStartTests.testRecordStartFailedMessageOnPages";
+    function populate_test_entries_210_to_223() as Void {
+        idToName[210] = "LayoutBenchTests.testLayout_Paused_Paused";
+        idToName[211] = "LayoutBenchTests.testLayout_Paused_Recording";
+        idToName[212] = "LayoutBenchTests.testLayout_RecordFailedMessage";
+        idToName[213] = "RecordStartTests.testRecordStartOutcome";
+        idToName[214] = "RecordStartTests.testRecordStartAlertOnlyWhenStarted";
+        idToName[215] = "RecordStartTests.testRecordStartBeginStarted";
+        idToName[216] = "RecordStartTests.testRecordStartBeginFailedNoPausedState";
+        idToName[217] = "RecordStartTests.testRecordStartBeginFailedDiscardThrows";
+        idToName[218] = "RecordStartTests.testRecordStartBeginNullSession";
+        idToName[219] = "RecordStartTests.testRecordStartBeginNullResultKeepsSession";
+        idToName[220] = "RecordStartTests.testRecordStartFailedThenRetry";
+        idToName[221] = "RecordStartTests.testRecordStartMessageBox";
+        idToName[222] = "RecordStartTests.testRecordStartFailedMessageOnPages";
     }
 
-    function evaluate_test_entries_210_to_218(id as Number, logger as Logger) {
+    function evaluate_test_entries_210_to_223(id as Number, logger as Logger) {
         var result = false;
         if (id == 210) {
-            result = $.RecordStartTests.testRecordStartBeginStarted(logger);
+            result = $.LayoutBenchTests.testLayout_Paused_Paused(logger);
         } else if (id == 211) {
-            result = $.RecordStartTests.testRecordStartBeginFailedNoPausedState(logger);
+            result = $.LayoutBenchTests.testLayout_Paused_Recording(logger);
         } else if (id == 212) {
-            result = $.RecordStartTests.testRecordStartBeginFailedDiscardThrows(logger);
+            result = $.LayoutBenchTests.testLayout_RecordFailedMessage(logger);
         } else if (id == 213) {
-            result = $.RecordStartTests.testRecordStartBeginNullSession(logger);
+            result = $.RecordStartTests.testRecordStartOutcome(logger);
         } else if (id == 214) {
-            result = $.RecordStartTests.testRecordStartBeginNullResultKeepsSession(logger);
+            result = $.RecordStartTests.testRecordStartAlertOnlyWhenStarted(logger);
         } else if (id == 215) {
-            result = $.RecordStartTests.testRecordStartFailedThenRetry(logger);
+            result = $.RecordStartTests.testRecordStartBeginStarted(logger);
         } else if (id == 216) {
-            result = $.RecordStartTests.testRecordStartMessageBox(logger);
+            result = $.RecordStartTests.testRecordStartBeginFailedNoPausedState(logger);
         } else if (id == 217) {
+            result = $.RecordStartTests.testRecordStartBeginFailedDiscardThrows(logger);
+        } else if (id == 218) {
+            result = $.RecordStartTests.testRecordStartBeginNullSession(logger);
+        } else if (id == 219) {
+            result = $.RecordStartTests.testRecordStartBeginNullResultKeepsSession(logger);
+        } else if (id == 220) {
+            result = $.RecordStartTests.testRecordStartFailedThenRetry(logger);
+        } else if (id == 221) {
+            result = $.RecordStartTests.testRecordStartMessageBox(logger);
+        } else if (id == 222) {
             result = $.RecordStartTests.testRecordStartFailedMessageOnPages(logger);
         }
 
@@ -818,8 +833,8 @@ class RunNoEvil extends Test.Test {
             result = self.evaluate_test_entries_180_to_210(id, logger);
         }
 
-        else if (id < 218) {
-            result = self.evaluate_test_entries_210_to_218(id, logger);
+        else if (id < 223) {
+            result = self.evaluate_test_entries_210_to_223(id, logger);
         }
 
         if (result instanceof Boolean) {

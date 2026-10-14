@@ -1353,88 +1353,88 @@ _Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_435_1_437_1_stop:
     }
     [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 439; @symbol_functiondef = [recordHikeSampleAt,439,10,28]; @symbol_param<0> = [tMs,439,29,32]; ]
     function recordHikeSampleAt(tMs) {
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_440_1_443_1_start:
-[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 442 2 ]
-        symbol [ hikeHistory %tmp.2 442 2 13 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_440_1_444_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 443 2 ]
+        symbol [ hikeHistory %tmp.2 443 2 13 ];
         %tmp.2 = getv ? :hikeHistory;
-        symbol [ add %tmp.3 442 14 17 ];
+        symbol [ add %tmp.3 443 14 17 ];
         %tmp.3 = getv function %tmp.2 :add;
         %tmp.4 = lgetv %tMs;
-        symbol [ tMs %tmp.4 442 18 21 ];
+        symbol [ tMs %tmp.4 443 18 21 ];
         %tmp.5 = self;
-        symbol [ getAltitude %tmp.6 442 23 34 ];
+        symbol [ getAltitude %tmp.6 443 23 34 ];
         %tmp.6 = getv function %tmp.5 :getAltitude;
         %tmp.7 = invoke %tmp.5 %tmp.6();
         %tmp.8 = self;
-        symbol [ getDistance %tmp.9 442 38 49 ];
+        symbol [ getDistance %tmp.9 443 38 49 ];
         %tmp.9 = getv function %tmp.8 :getDistance;
         %tmp.10 = invoke %tmp.8 %tmp.9();
         invoke %tmp.2 %tmp.3(%tmp.4, %tmp.7, %tmp.10);
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_440_1_443_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_440_1_444_1_stop:
     }
-    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 448; @symbol_functiondef = [getHikeVerticalSpeed,448,10,30]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 449; @symbol_functiondef = [getHikeVerticalSpeed,449,10,30]; ]
     function getHikeVerticalSpeed() {
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_449_1_451_1_start:
-[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 450 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_450_1_452_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 451 2 ]
         %tmp.1 = self;
-        symbol [ getHikeVerticalSpeedAt %tmp.2 450 9 31 ];
+        symbol [ getHikeVerticalSpeedAt %tmp.2 451 9 31 ];
         %tmp.2 = getv function %tmp.1 :getHikeVerticalSpeedAt;
-        symbol [ Sys %tmp.3 450 32 35 ];
+        symbol [ Sys %tmp.3 451 32 35 ];
         %tmp.3 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.4 450 36 44 ];
+        symbol [ getTimer %tmp.4 451 36 44 ];
         %tmp.4 = getv function %tmp.3 :getTimer;
         %tmp.5 = invoke %tmp.3 %tmp.4();
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.5);
         ret %tmp.6;
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_449_1_451_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_450_1_452_1_stop:
     }
-    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 453; @symbol_functiondef = [getHikeVerticalSpeedAt,453,10,32]; @symbol_param<0> = [nowMs,453,33,38]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 454; @symbol_functiondef = [getHikeVerticalSpeedAt,454,10,32]; @symbol_param<0> = [nowMs,454,33,38]; ]
     function getHikeVerticalSpeedAt(nowMs) {
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_454_1_456_1_start:
-[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 455 2 ]
-        symbol [ hikeHistory %tmp.2 455 9 20 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_455_1_457_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 456 2 ]
+        symbol [ hikeHistory %tmp.2 456 9 20 ];
         %tmp.2 = getv ? :hikeHistory;
-        symbol [ verticalSpeedMh %tmp.3 455 21 36 ];
+        symbol [ verticalSpeedMh %tmp.3 456 21 36 ];
         %tmp.3 = getv function %tmp.2 :verticalSpeedMh;
         %tmp.4 = lgetv %nowMs;
-        symbol [ nowMs %tmp.4 455 37 42 ];
-        symbol [ hikeVsWindowMs %tmp.6 455 44 58 ];
+        symbol [ nowMs %tmp.4 456 37 42 ];
+        symbol [ hikeVsWindowMs %tmp.6 456 44 58 ];
         %tmp.6 = getv ? :hikeVsWindowMs;
         %tmp.7 = invoke %tmp.2 %tmp.3(%tmp.4, %tmp.6);
         ret %tmp.7;
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_454_1_456_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_455_1_457_1_stop:
     }
-    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 459; @symbol_functiondef = [getHikeSpeed,459,10,22]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 460; @symbol_functiondef = [getHikeSpeed,460,10,22]; ]
     function getHikeSpeed() {
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_460_1_462_1_start:
-[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 461 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_461_1_463_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 462 2 ]
         %tmp.1 = self;
-        symbol [ getHikeSpeedAt %tmp.2 461 9 23 ];
+        symbol [ getHikeSpeedAt %tmp.2 462 9 23 ];
         %tmp.2 = getv function %tmp.1 :getHikeSpeedAt;
-        symbol [ Sys %tmp.3 461 24 27 ];
+        symbol [ Sys %tmp.3 462 24 27 ];
         %tmp.3 = getm $.Toybox.System;
-        symbol [ getTimer %tmp.4 461 28 36 ];
+        symbol [ getTimer %tmp.4 462 28 36 ];
         %tmp.4 = getv function %tmp.3 :getTimer;
         %tmp.5 = invoke %tmp.3 %tmp.4();
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.5);
         ret %tmp.6;
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_460_1_462_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_461_1_463_1_stop:
     }
-    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 464; @symbol_functiondef = [getHikeSpeedAt,464,10,24]; @symbol_param<0> = [nowMs,464,25,30]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 465; @symbol_functiondef = [getHikeSpeedAt,465,10,24]; @symbol_param<0> = [nowMs,465,25,30]; ]
     function getHikeSpeedAt(nowMs) {
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_465_1_467_1_start:
-[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 466 2 ]
-        symbol [ hikeHistory %tmp.2 466 9 20 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_466_1_468_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc" 467 2 ]
+        symbol [ hikeHistory %tmp.2 467 9 20 ];
         %tmp.2 = getv ? :hikeHistory;
-        symbol [ speedMps %tmp.3 466 21 29 ];
+        symbol [ speedMps %tmp.3 467 21 29 ];
         %tmp.3 = getv function %tmp.2 :speedMps;
         %tmp.4 = lgetv %nowMs;
-        symbol [ nowMs %tmp.4 466 30 35 ];
-        symbol [ HIKE_WINDOW_MS %tmp.6 466 37 51 ];
+        symbol [ nowMs %tmp.4 467 30 35 ];
+        symbol [ HIKE_WINDOW_MS %tmp.6 467 37 51 ];
         %tmp.6 = getv ? :HIKE_WINDOW_MS;
         %tmp.7 = invoke %tmp.2 %tmp.3(%tmp.4, %tmp.6);
         ret %tmp.7;
-_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_465_1_467_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_WatchData_mc_466_1_468_1_stop:
     }
 }
 [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/WatchData.mc"; @line = 1; ]
