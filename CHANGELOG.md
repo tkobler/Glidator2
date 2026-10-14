@@ -7,6 +7,7 @@ All notable changes to Glidator2 are listed here, newest first.
 ### Hiking: vertical speed and pace
 - The vertical speed on the Pace page is now averaged over the last minute of data by default (or 3 or 5 minutes, see "VS window" below) instead of being read second by second, so it stays steady while walking. It is rounded to 10 m/h and shows "--" for the first 20 seconds or so, and beyond ±3000 m/h (altitude glitch or flight phase). The flight vario is unchanged.
 - Pace is now computed from the distance covered over the last minute, so it keeps updating when the instant speed drops to zero. Values such as "5:60" can no longer appear; a pace slower than 60:00 /km shows "--:--".
+- Pace no longer needs the altitude: when the watch gives no altitude, pace is still shown from the distance and time; only the vertical speed shows "--".
 
 ### Hiking: map
 - New scale bar at the bottom of the Map page (50 m up to 5 km), hidden when no round length fits the current zoom.
