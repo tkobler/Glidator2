@@ -26,7 +26,7 @@
 - [ ] **Version du store déjà installée ?** La retirer d'abord (app Connect IQ du téléphone), pour ne pas avoir deux Glidator2. Noter : `__________`.
 - [ ] **Retrouver l'app** sur la montre : START, liste des activités, ou liste des applications Connect IQ (menu exact selon le modèle). Noté : `__________`.
 - [ ] **Lancer l'app** : elle démarre sur la page ALTITUDE (mode marche). Noter les « -- » éventuels : `__________`.
-- [ ] **Réglages (MENU)** : bips audio activés pour le vario ; fenêtre « VS window » à 1 min (valeur par défaut) pour comparer avec la montre. Noter les autres choix : `__________`.
+- [ ] **Réglages (MENU)** : bips audio activés pour le vario ; fenêtre « Climb rate avg » (ex-« VS window ») à « over 1 min » (valeur par défaut) pour comparer avec la montre. Noter les autres choix : `__________`.
 - [ ] **Batterie** : au moins 80 %. Noter : `____ %`. Noter aussi l'état GPS réglé sur la montre (GPS seul, multi-bandes, etc.) : `__________`.
 - [ ] **Appli de comparaison** : démarrer la montre Garmin (ou l'activité native) en même temps que Glidator2, au même point de départ, et noter l'heure : `__:__`.
 
@@ -77,7 +77,7 @@ Ce qu'il faut vérifier (et ce qui est attendu d'après l'étalon de Salvan, 13/
 
 - [ ] **Pause** : pendant la marche, appuyer sur SELECT. Le TIMER s'arrête, deux courtes vibrations, le menu **Paused** s'ouvre (Resume, Pause, Save, Ignore).
 - [ ] **Reprise par BACK** dans ce menu : le chronomètre repart, une longue vibration. Même chose après 30 s sans choix (reprise automatique).
-- [ ] **Pause longue** : choisir « Pause » dans le menu. L'écran Paused (chronomètre figé) reste jusqu'à SELECT. BACK ne fait rien. SELECT reprend. Durée de l'essai : `____ min`.
+- [ ] **Pause longue** : choisir « Pause » dans le menu. L'écran Paused (heure actuelle) reste jusqu'à SELECT. BACK ne fait rien. SELECT reprend. Durée de l'essai : `____ min`.
 - [ ] **Capteurs en pause** : pendant la pause, FC « -- » (capteur coupé, déduit du code, non encore vu sur montre) : noter ce qu'on voit : `__________`. Après reprise : FC revient en quelques secondes, VERT. SPD. et PACE en « -- » environ 20 à 25 s.
 - [ ] **Fin** : SELECT, puis **Save**. L'app se ferme. Vérifier sur la montre que l'activité apparaît dans l'historique, nom « Glide » : oui / non.
 - [ ] **Si l'app est fermée par la montre** pendant une session (manque de batterie, etc.) : l'activité doit être sauvegardée, pas perdue. Noter tout arrêt inattendu : `__________`.

@@ -4,7 +4,7 @@ WARNING: The app is intended only as an in-flight aid and should not be used as 
 What's new in 2.1.2
 - Steadier hiking vertical speed: averaged over the last minute by default instead of second by second, rounded to 10 m/h, and shown as "--" beyond ±3000 m/h. The flight vario is unchanged.
 - More reliable hiking pace, computed from the distance covered over the last minute (no more "5:60").
-- New "VS window" preference: average the hiking vertical speed over 1, 3 or 5 minutes.
+- New "Climb rate avg" preference: average the hiking climb rate (vertical speed) over 1, 3 or 5 minutes.
 - Map: new scale bar, only good GPS fixes are added to the trail, and the trail stays visible when the GPS fix is lost.
 - Real pause: the Paused menu now offers Resume, Pause, Save and Ignore. Pause keeps the activity paused, with the frozen timer on screen, until you press the select key. Without a choice, the menu resumes the activity after 30 seconds.
 - Heart rate and temperature sensors are turned off while paused (GPS stays on).
@@ -27,7 +27,7 @@ The source code of Glidator2 is accessible via github : https://github.com/tkobl
 Navigation:
 - The app starts in Hiking mode. Hold the back/lap button for 1.5 seconds to switch between Hiking and Flying mode.
 - Press up or down to cycle through the pages of the current mode (Hiking: Position, Pace, Time, Map. Flying: Flight Instrument, Time, Compass).
-- Press the menu key for the preferences: audio beeps and VS window.
+- Press the menu key for the preferences: audio beeps and climb rate average.
 - Press back to exit the app when no activity is recorded.
 
 Recording:
@@ -45,4 +45,4 @@ Hiking mode:
 - Map page: live breadcrumb trail with your position, heading and a scale bar.
 Both modes:
 - Time page: current time and battery level.
-- Preferences: audio beeps for climbing, and the VS window (1, 3 or 5 minutes; each press moves to the next value).
+- Preferences: audio beeps for climbing, and the climb rate average (over 1, 3 or 5 minutes; each press moves to the next value).

@@ -5,7 +5,7 @@ All notable changes to Glidator2 are listed here, newest first.
 ## 2.1.2
 
 ### Hiking: vertical speed and pace
-- The vertical speed on the Pace page is now averaged over the last minute of data by default (or 3 or 5 minutes, see "VS window" below) instead of being read second by second, so it stays steady while walking. It is rounded to 10 m/h and shows "--" for the first 20 seconds or so, and beyond ±3000 m/h (altitude glitch or flight phase). The flight vario is unchanged.
+- The vertical speed on the Pace page is now averaged over the last minute of data by default (or 3 or 5 minutes, see "Climb rate avg" below) instead of being read second by second, so it stays steady while walking. It is rounded to 10 m/h and shows "--" for the first 20 seconds or so, and beyond ±3000 m/h (altitude glitch or flight phase). The flight vario is unchanged.
 - Pace is now computed from the distance covered over the last minute, so it keeps updating when the instant speed drops to zero. Values such as "5:60" can no longer appear; a pace slower than 60:00 /km shows "--:--".
 - Pace no longer needs the altitude: when the watch gives no altitude, pace is still shown from the distance and time; only the vertical speed shows "--".
 
@@ -20,7 +20,7 @@ All notable changes to Glidator2 are listed here, newest first.
 - If the app is closed by the watch while an activity is recording or paused, the activity is now saved instead of being lost.
 
 ### Preferences
-- New "VS window" item in the MENU preferences: the time over which the hiking vertical speed is averaged, 1, 3 or 5 minutes (default 1 minute). Each press moves to the next value; the choice applies at once and is kept when the app restarts.
+- New "Climb rate avg" item in the MENU preferences (shown as "over 1 min", "over 3 min" or "over 5 min"): the time over which the hiking vertical speed is averaged, 1, 3 or 5 minutes (default 1 minute). Each press moves to the next value; the choice applies at once and is kept when the app restarts.
 - Preferences are now stored with the current Connect IQ storage; the audio setting of the previous version is carried over on the first launch.
 
 ### Display
