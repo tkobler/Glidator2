@@ -1850,12 +1850,21 @@ function testSanitizeVsWindowMs(logger)
 (:test)
 function testVsWindowMenuLogic(logger)
 {
-	Test.assertEqualMessage($.vsWindowLabel(60000), "1 min", "label 1 min");
-	Test.assertEqualMessage($.vsWindowLabel(180000), "3 min", "label 3 min");
-	Test.assertEqualMessage($.vsWindowLabel(300000), "5 min", "label 5 min");
-	Test.assertEqualMessage($.vsWindowLabel(null), "1 min", "null -> label of the default");
-	Test.assertEqualMessage($.vsWindowLabel(120000), "1 min", "unknown -> label of the default");
-	Test.assertEqualMessage($.vsWindowLabel("x"), "1 min", "corrupted -> label of the default");
+	Test.assertEqualMessage($.vsWindowTitle(), "Climb rate avg", "menu item title");
+	Test.assertMessage($.vsWindowTitle().find("VS") == null, "no VS abbreviation in the title");
+	Test.assertEqualMessage($.vsWindowLabel(60000), "over 1 min", "label 1 min");
+	Test.assertEqualMessage($.vsWindowLabel(180000), "over 3 min", "label 3 min");
+	Test.assertEqualMessage($.vsWindowLabel(300000), "over 5 min", "label 5 min");
+	Test.assertEqualMessage($.vsWindowLabel(null), "over 1 min", "null -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel(120000), "over 1 min", "unknown -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel("x"), "over 1 min", "corrupted -> label of the default");
+	// Short enough for the menu of the smallest screens (Instinct, 176 px):
+	// the title is no longer than the existing "Set audio on/off" sub-label.
+	Test.assertMessage($.vsWindowTitle().length() <= 16, "title length");
+	for (var i = 0; i < 3; i++)
+	{
+		Test.assertMessage($.vsWindowLabel($.vsWindowChoicesMs()[i]).length() <= 16, "label length " + i);
+	}
 
 	Test.assertEqualMessage($.vsWindowFocusIndex(60000), 0, "index of 1 min");
 	Test.assertEqualMessage($.vsWindowFocusIndex(180000), 1, "index of 3 min");
@@ -1923,23 +1932,23 @@ function testNextVsWindowMs(logger)
 (:test)
 function testVsWindowSubLabelAfterPress(logger)
 {
-	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(60000)), "3 min", "1 min pressed -> 3 min shown");
-	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(180000)), "5 min", "3 min pressed -> 5 min shown");
-	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(300000)), "1 min", "5 min pressed -> 1 min shown");
-	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(null)), "1 min", "absent -> 1 min shown");
-	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs("abc")), "1 min", "String -> 1 min shown");
-	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(180000.0)), "1 min", "Float -> 1 min shown");
-	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(120000)), "1 min", "outside the list -> 1 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(60000)), "over 3 min", "1 min pressed -> 3 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(180000)), "over 5 min", "3 min pressed -> 5 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(300000)), "over 1 min", "5 min pressed -> 1 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(null)), "over 1 min", "absent -> 1 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs("abc")), "over 1 min", "String -> 1 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(180000.0)), "over 1 min", "Float -> 1 min shown");
+	Test.assertEqualMessage($.vsWindowLabel($.nextVsWindowMs(120000)), "over 1 min", "outside the list -> 1 min shown");
 
 	// Sub-label of the window itself (menu opening) for odd values.
-	Test.assertEqualMessage($.vsWindowLabel(180000.0), "1 min", "Float -> label of the default");
-	Test.assertEqualMessage($.vsWindowLabel("180000"), "1 min", "String -> label of the default");
-	Test.assertEqualMessage($.vsWindowLabel(180000l), "1 min", "Long -> label of the default");
-	Test.assertEqualMessage($.vsWindowLabel(0), "1 min", "zero -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel(180000.0), "over 1 min", "Float -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel("180000"), "over 1 min", "String -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel(180000l), "over 1 min", "Long -> label of the default");
+	Test.assertEqualMessage($.vsWindowLabel(0), "over 1 min", "zero -> label of the default");
 
 	// A full cycle shows the three labels in order.
 	var w = 60000;
-	var shown = ["3 min", "5 min", "1 min", "3 min"];
+	var shown = ["over 3 min", "over 5 min", "over 1 min", "over 3 min"];
 	for (var i = 0; i < shown.size(); i++)
 	{
 		w = $.nextVsWindowMs(w);

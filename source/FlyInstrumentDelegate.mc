@@ -310,7 +310,7 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
         menu.addItem(beepTM);
 
         var vsWindow = $.preferences.getVsWindowMs();
-        menu.addItem(new WatchUi.MenuItem("VS window", $.vsWindowLabel(vsWindow), "vsWindow", null));
+        menu.addItem(new WatchUi.MenuItem($.vsWindowTitle(),$.vsWindowLabel(vsWindow), "vsWindow", null));
 
         var delegate = new MyMenu2PreferencesDelegate(beepTM, app, menu);
             

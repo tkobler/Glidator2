@@ -49,10 +49,16 @@ function vsWindowFocusIndex(ms)
 	return 0;
 }
 
-// Sub-label of the "VS window" item.
+// Title of the menu item (no "VS" abbreviation for the user).
+function vsWindowTitle()
+{
+	return "Climb rate avg";
+}
+
+// Sub-label of the "Climb rate avg" item.
 function vsWindowLabel(ms)
 {
-	return ["1 min", "3 min", "5 min"][vsWindowFocusIndex(ms)];
+	return ["over 1 min", "over 3 min", "over 5 min"][vsWindowFocusIndex(ms)];
 }
 
 // Decision R6 (07/10): each press on "VS window" goes to the next window,
