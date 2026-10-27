@@ -29,13 +29,13 @@ You can find the app in the Garmin IQ store under Glidator2
 - **Recording** (SELECT / START button):
   - No session: SELECT starts recording.
   - Recording: SELECT pauses (the timer stops) and opens the **Paused** menu: Resume, Pause, Save, Ignore. BACK in this menu means Resume, and the activity also resumes on its own after 30 seconds without a choice.
-  - **Pause** opens the Paused screen (the frozen timer). The activity stays paused there, with no automatic resume, until you press SELECT, which resumes and returns to the activity pages. BACK does nothing on this screen.
+  - **Pause** opens the Paused screen (it shows the current time, in the 12/24 h format of the watch; the recording timer is stopped). The activity stays paused there, with no automatic resume, until you press SELECT, which resumes and returns to the activity pages. BACK does nothing on this screen.
   - **Save** / **Ignore** end the activity (saved or discarded) and close the app.
   - Feedback: pausing vibrates two short pulses, resuming one long pulse.
   - While paused, the heart rate and temperature sensors are turned off (GPS stays on) and turned back on when you resume. The hike vertical speed and pace show "--" for about 20 seconds after resuming, until enough new data is collected.
 - **What gets recorded**: The whole outing is recorded as a single SPORT_FLYING activity (shown as Sport="Other" in TCX exports; on watches whose firmware has no SPORT_FLYING, i.e. Connect IQ below 3.2 such as the fenix 5 and fenix 5X, it falls back to a SPORT_GENERIC activity), with the hike and the flight separated by a lap at each mode switch made while recording (a switch made while paused is not marked). If the app is closed by the system while a session is recording or paused, the session is saved rather than discarded.
 - **Exit**: Press BACK while idle (no active session) to exit the app. While a session exists (recording or paused), a short BACK press on the activity pages does nothing; end the activity with SELECT, then Save or Ignore.
-- **Preferences**: Press MENU to open preferences and enable/disable audio beeps, or set the **VS window** (1, 3 or 5 min, default 1 min): the time over which the hike vertical speed (Pace View) is averaged. Each press on "VS window" moves to the next value (1 → 3 → 5 → 1 min), shown under the item. The choice is saved and applies at once, without losing the data already collected, and is kept when the app restarts. Until the window is filled, the value is computed over the data available (shown after about 20 seconds); pace always uses 1 minute.
+- **Preferences**: Press MENU to open preferences and enable/disable audio beeps, or set **Climb rate avg** (over 1, 3 or 5 min, default 1 min): the time over which the climb rate (vertical speed) shown on the hiking Pace page is averaged. 1 min follows changes of slope quickly but fluctuates more; 3 or 5 min gives a steadier value that reacts more slowly. Each press on "Climb rate avg" moves to the next value (1 → 3 → 5 → 1 min), shown under the item ("over 1 min", "over 3 min", "over 5 min"). This setting only affects the hiking climb rate display: it does not change the flight vario nor what is recorded in the activity. The choice is saved and applies at once, without losing the data already collected, and is kept when the app restarts. Until the window is filled, the value is computed over the data available (shown after about 20 seconds); pace always uses 1 minute.
 
 ## Technical Details
 - **Language**: Monkey C
@@ -50,7 +50,7 @@ You can find the app in the Garmin IQ store under Glidator2
   - `HikeMapView.mc`: Hiking mode's live breadcrumb map.
   - `BreadcrumbTrail.mc`: Ring buffer that records the live GPS trail for the Map view.
   - `TimeView.mc`: Time and battery display, shared by both modes.
-  - `PausedView.mc`: Paused screen (frozen timer, SELECT to resume).
+  - `PausedView.mc`: Paused screen (current time, SELECT to resume).
   - `WatchData.mc`: Manages GPS, activity, and sensor data.
   - `WatchDisplay.mc`: Handles rendering of metrics, compass, and the adaptive hiking grid layout.
   - `Preferences.mc`: Manages user settings.
