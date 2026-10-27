@@ -597,6 +597,10 @@ class LayoutBench
 		else if (view.equals("Paused"))
 		{
 			var v = new PausedView(new BenchApp(dataFor(state, 6000.0, 360000000), null));
+			// Fixed clock (worst case: widest 12 h text on Extreme).
+			if (state.equals("Empty")) { v.clockOverride = [0, 0, true]; }
+			else if (state.equals("Extreme")) { v.clockOverride = [12, 58, false]; }
+			else { v.clockOverride = [10, 51, true]; }
 			v.onUpdate(dc);
 		}
 		else if (view.equals("Time"))
@@ -652,9 +656,10 @@ class LayoutBench
 		}
 		if (view.equals("Paused"))
 		{
-			if (state.equals("Empty")) { return "Paused|--:--|START: resume"; }
-			if (state.equals("Extreme")) { return "Paused|100:00:00|START: resume"; }
-			return "Paused|32:45|START: resume";
+			// The clock fixed in draw() (no session needed to show the time).
+			if (state.equals("Empty")) { return "Paused|00:00|START: resume"; }
+			if (state.equals("Extreme")) { return "Paused|12:58 PM|START: resume"; }
+			return "Paused|10:51|START: resume";
 		}
 		if (view.equals("Time"))
 		{

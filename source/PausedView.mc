@@ -5,8 +5,8 @@ using Toybox.System as Sys;
 // --------------------------------------------------------------------------------
 // "Paused" screen, opened by the Pause item of the pause menu (it replaces the
 // menu, so the view stack is: activity page, then this screen). Shows the
-// frozen session timer. The decisions live in FlyInstrumentApp.mc
-// (pausedSelectAction, pausedBackAction, pausedScreenTimerText):
+// current local time (12/24 h as set on the watch). The decisions live in
+// FlyInstrumentApp.mc (pausedSelectAction, pausedBackAction, pausedClockText):
 // - SELECT (START) resumes and pops this screen, back to the activity page;
 // - BACK does nothing (no resume, no pop: popping more views would quit);
 // - no automatic resume, no BACK-hold mode switch, no preferences menu here.
@@ -16,11 +16,14 @@ using Toybox.System as Sys;
 class PausedView extends WatchUi.View
 {
     var app;
+    // Tests only: [hour, minute, is24Hour] shown instead of the system clock.
+    var clockOverride;
 
     function initialize(appInstance)
     {
         View.initialize();
         app = appInstance;
+        clockOverride = null;
     }
 
     function onUpdate(dc)
@@ -35,19 +38,41 @@ class PausedView extends WatchUi.View
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(w / 2, (h * 35) / 100, Graphics.FONT_MEDIUM, "Paused", center);
 
-        var timerMs = null;
-        if (app != null && app.mainView != null)
+        var hour = null;
+        var minute = null;
+        var is24 = true;
+        if (clockOverride != null)
         {
-            timerMs = app.mainView.data.getTimerTime();
+            hour = clockOverride[0];
+            minute = clockOverride[1];
+            is24 = clockOverride[2];
         }
-        var timerStr = $.pausedScreenTimerText($.hasActiveSession(), timerMs);
-        // Larger digits when they fit (h:mm:ss on the smallest screens may not).
+        else
+        {
+            var now = Sys.getClockTime();
+            if (now != null)
+            {
+                hour = now.hour;
+                minute = now.min;
+            }
+            var settings = Sys.getDeviceSettings();
+            if (settings != null && settings.is24Hour != null)
+            {
+                is24 = settings.is24Hour;
+            }
+        }
+        var timeStr = $.pausedClockText(hour, minute, is24);
+        // Larger digits when they fit ("12:58 PM" on the smallest screens may not).
         var font = Graphics.FONT_NUMBER_MEDIUM;
-        if (dc.getTextWidthInPixels(timerStr, font) > (w * 80) / 100)
+        if (dc.getTextWidthInPixels(timeStr, font) > (w * 80) / 100)
         {
             font = Graphics.FONT_NUMBER_MILD;
         }
-        dc.drawText(w / 2, (h * 57) / 100, font, timerStr, center);
+        if (dc.getTextWidthInPixels(timeStr, font) > (w * 80) / 100)
+        {
+            font = Graphics.FONT_MEDIUM;
+        }
+        dc.drawText(w / 2, (h * 57) / 100, font, timeStr, center);
 
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(w / 2, (h * 80) / 100, Graphics.FONT_XTINY, "START: resume", center);

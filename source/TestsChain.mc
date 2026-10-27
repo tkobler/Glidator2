@@ -222,10 +222,13 @@ class ChainHelper
 		return join(render(view));
 	}
 
-	static function paused(app)
+	// `clock` is [hour, minute, is24Hour] injected in the view, or null.
+	static function paused(app, clock)
 	{
 		var dc = newDc();
-		new PausedView(app).onUpdate(dc);
+		var v = new PausedView(app);
+		v.clockOverride = clock;
+		v.onUpdate(dc);
 		return join(dc.texts);
 	}
 
@@ -906,7 +909,7 @@ function testChainTimerDisplay(logger)
 	$.session = new FakeSession(false);
 	ChainHelper.expect(errs, "paused, position", ChainHelper.position(data), "2149|--|--|32:45");
 	ChainHelper.expect(errs, "paused, pace", ChainHelper.pace(data), "--|--|--:--|32:45");
-	ChainHelper.expect(errs, "paused, Paused screen", ChainHelper.paused(new ChainApp(data, null)), "Paused|32:45|START: resume");
+	ChainHelper.expect(errs, "paused, Paused screen shows the clock, not the timer", ChainHelper.paused(new ChainApp(data, null), [8, 3, true]), "Paused|08:03|START: resume");
 	return ChainHelper.finish(errs, logger);
 }
 
@@ -921,7 +924,6 @@ function testDefectNegativeDuration(logger)
 	{
 		ChainHelper.expect(errs, "formatDuration(" + ms[i] + ")", $.formatDuration(ms[i]), "--:--");
 	}
-	ChainHelper.expect(errs, "Paused screen text", $.pausedScreenTimerText(true, -65000), "--:--");
 	var data = new WatchData();
 	$.session = new FakeSession(true);
 	ChainHelper.actTick(data, 2149.4, null, null, -65000);
@@ -1051,13 +1053,16 @@ function testChainPausedViewTexts(logger)
 	ChainHelper.actTick(data, 2149.4, null, null, 1965000);
 	var app = new ChainApp(data, null);
 
+	// The current time replaces the timer (1965000 ms = 32:45 must NOT show).
 	$.session = new FakeSession(false);
-	ChainHelper.expect(errs, "paused", ChainHelper.paused(app), "Paused|32:45|START: resume");
+	ChainHelper.expect(errs, "paused, 24h", ChainHelper.paused(app, [14, 5, true]), "Paused|14:05|START: resume");
+	ChainHelper.expect(errs, "paused, 12h", ChainHelper.paused(app, [14, 5, false]), "Paused|2:05 PM|START: resume");
 	$.session = new FakeSession(true);
-	ChainHelper.expect(errs, "recording", ChainHelper.paused(app), "Paused|32:45|START: resume");
+	ChainHelper.expect(errs, "recording", ChainHelper.paused(app, [9, 30, true]), "Paused|09:30|START: resume");
 	$.session = null;
-	ChainHelper.expect(errs, "no session", ChainHelper.paused(app), "Paused|--:--|START: resume");
-	ChainHelper.expect(errs, "no app", ChainHelper.paused(null), "Paused|--:--|START: resume");
+	ChainHelper.expect(errs, "no session: time still shown", ChainHelper.paused(app, [9, 30, true]), "Paused|09:30|START: resume");
+	ChainHelper.expect(errs, "no app: time still shown", ChainHelper.paused(null, [23, 59, false]), "Paused|11:59 PM|START: resume");
+	ChainHelper.expect(errs, "unknown time", ChainHelper.paused(app, [null, null, true]), "Paused|--:--|START: resume");
 	return ChainHelper.finish(errs, logger);
 }
 

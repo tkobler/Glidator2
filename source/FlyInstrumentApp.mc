@@ -328,7 +328,7 @@ function menuBackAction()
 
 // --------------------------------------------------------------------------------
 // "Paused" screen (PausedView.mc), opened by the menu's Pause item: shows the
-// frozen timer; SELECT resumes and goes back to the activity page. No automatic
+// current time; SELECT resumes and goes back to the activity page. No automatic
 // resume there, and BACK does nothing (popping the last view would quit the app).
 // --------------------------------------------------------------------------------
 
@@ -356,10 +356,25 @@ function pausedBackAction()
     return :none;
 }
 
-// Timer text of the Paused screen; "--:--" without a session or timer value.
-function pausedScreenTimerText(hasSession, timerMs)
+// Current time shown on the Paused screen, in the watch's 12/24 h setting:
+// "14:05" or "2:05 PM". "--:--" for a missing or out-of-range hour/minute;
+// an unknown setting means 24 h.
+function pausedClockText(hour, minute, is24Hour)
 {
-    return (hasSession == true) ? $.formatDuration(timerMs) : "--:--";
+    if (hour == null || minute == null || hour < 0 || hour > 23 || minute < 0 || minute > 59)
+    {
+        return "--:--";
+    }
+    if (is24Hour != false)
+    {
+        return hour.format("%02d") + ":" + minute.format("%02d");
+    }
+    var h12 = hour % 12;
+    if (h12 == 0)
+    {
+        h12 = 12;
+    }
+    return h12.format("%d") + ":" + minute.format("%02d") + ((hour < 12) ? " AM" : " PM");
 }
 
 // --------------------------------------------------------------------------------

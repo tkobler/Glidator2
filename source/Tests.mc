@@ -395,19 +395,33 @@ function testPausedBackAction(logger)
 	return true;
 }
 
-// Frozen timer shown on the Paused screen.
+// Current time shown on the Paused screen (replaces the frozen timer).
 (:test)
-function testPausedScreenTimerText(logger)
+function testPausedClockText(logger)
 {
-	Test.assertEqualMessage($.pausedScreenTimerText(true, 0), "00:00", "session, 0 ms");
-	Test.assertEqualMessage($.pausedScreenTimerText(true, 65000), "01:05", "session, 65 s");
-	Test.assertEqualMessage($.pausedScreenTimerText(true, 3661000), "1:01:01", "session, over an hour");
-	Test.assertEqualMessage($.pausedScreenTimerText(true, 65999), "01:05", "milliseconds are truncated, like the hike pages");
+	// 24 h watch setting.
+	Test.assertEqualMessage($.pausedClockText(0, 0, true), "00:00", "24h midnight");
+	Test.assertEqualMessage($.pausedClockText(9, 5, true), "09:05", "24h, zero padded");
+	Test.assertEqualMessage($.pausedClockText(13, 7, true), "13:07", "24h afternoon");
+	Test.assertEqualMessage($.pausedClockText(23, 59, true), "23:59", "24h last minute of the day");
 
-	// Edge cases.
-	Test.assertEqualMessage($.pausedScreenTimerText(true, null), "--:--", "session, unknown timer -> placeholder");
-	Test.assertEqualMessage($.pausedScreenTimerText(false, 65000), "--:--", "no session -> placeholder (stale timer not shown)");
-	Test.assertEqualMessage($.pausedScreenTimerText(null, 65000), "--:--", "unknown session -> placeholder");
+	// 12 h watch setting.
+	Test.assertEqualMessage($.pausedClockText(0, 0, false), "12:00 AM", "12h midnight -> 12 AM");
+	Test.assertEqualMessage($.pausedClockText(0, 30, false), "12:30 AM", "12h 00:30 -> 12:30 AM");
+	Test.assertEqualMessage($.pausedClockText(9, 5, false), "9:05 AM", "12h morning, no hour padding");
+	Test.assertEqualMessage($.pausedClockText(11, 59, false), "11:59 AM", "12h last minute before noon");
+	Test.assertEqualMessage($.pausedClockText(12, 0, false), "12:00 PM", "12h noon -> 12 PM");
+	Test.assertEqualMessage($.pausedClockText(13, 7, false), "1:07 PM", "12h afternoon");
+	Test.assertEqualMessage($.pausedClockText(23, 59, false), "11:59 PM", "12h last minute of the day");
+
+	// Unknown or absurd values -> placeholder, never a wrong time.
+	Test.assertEqualMessage($.pausedClockText(null, 5, true), "--:--", "unknown hour");
+	Test.assertEqualMessage($.pausedClockText(5, null, true), "--:--", "unknown minute");
+	Test.assertEqualMessage($.pausedClockText(24, 0, true), "--:--", "hour out of range");
+	Test.assertEqualMessage($.pausedClockText(-1, 0, false), "--:--", "negative hour");
+	Test.assertEqualMessage($.pausedClockText(10, 60, true), "--:--", "minute out of range");
+	// Unknown setting: 24 h (no AM/PM guessed).
+	Test.assertEqualMessage($.pausedClockText(15, 4, null), "15:04", "unknown 12/24 h setting -> 24 h");
 	return true;
 }
 
