@@ -14,7 +14,6 @@ You can find the app in the Garmin IQ store under Glidator2
 - **Hiking Mode**:
   - **Position View**: Altitude, elevation gain, distance, and elapsed timer in a 4-field grid.
   - **Pace View**: Heart rate, vertical speed, pace (min/km), and elapsed timer. The vertical speed reads "--" beyond ±3000 m/h (altitude glitch or flight phase); the flight vario is not capped.
-  - **Map View**: Live breadcrumb trail of the current track with a heading-oriented position marker.
   - **Time & Battery View**: Shared with Flying mode.
 - **Activity Recording**: Start, pause/resume, and save/ignore flight or hike sessions using Garmin's ActivityRecording API, with audio/vibration feedback and a start-recording confirmation icon.
 - **Preferences**: Toggle audio beeps for climbing and pick the hike vertical-speed window (1, 3 or 5 min), both stored with `Application.Storage`; values saved by older versions are carried over on the first launch after the update.
@@ -47,8 +46,7 @@ You can find the app in the Garmin IQ store under Glidator2
   - `PositionView.mc`: Flying mode's compass with GPS coordinates.
   - `HikePositionView.mc`: Hiking mode's altitude/elevation gain/distance/timer grid.
   - `HikePaceView.mc`: Hiking mode's heart rate/vertical speed/pace/timer grid.
-  - `HikeMapView.mc`: Hiking mode's live breadcrumb map.
-  - `BreadcrumbTrail.mc`: Ring buffer that records the live GPS trail for the Map view.
+  - `HikePages.mc`: The list of Hiking pages and the up/down page wrap-around.
   - `TimeView.mc`: Time and battery display, shared by both modes.
   - `PausedView.mc`: Paused screen (current time, SELECT to resume).
   - `WatchData.mc`: Manages GPS, activity, and sensor data.
@@ -94,7 +92,7 @@ To develop and build Glidator2, you need the following tools:
 Playing a GPX track in the simulator moves the position along the track, but it does not pass the track's altitude and heart rate on as recorded (observed with SDK 9.2.0 on fenix6pro):
 - **Altitude**: the app receives a transformed value (about 0.2 × the GPX elevation − 622 m, e.g. −257 m for 1826 m). Below about 2610 m of GPX elevation it is outside the −100..6000 m range of the hike pages, so ALTITUDE reads "--"; above, it shows a wrong negative value (about −100 to −86 m on the Salvan track). The vertical speed and the elevation gain are about 5 times too small, and the flight page shows a negative altitude.
 - **Heart rate**: not sent at all, so Heart Rate reads "--".
-- **GPS accuracy**: always 2 (2D fix). The map accepts it, so the trail is drawn.
+- **GPS accuracy**: always 2 (2D fix).
 
 These "--" come from the simulator, not from the app. To check altitude and heart rate, try the original FIT file of the activity (as recorded by the watch) in the simulator rather than a GPX export (not verified yet), or try the app on a watch.
 

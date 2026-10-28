@@ -9,10 +9,6 @@ All notable changes to Glidator2 are listed here, newest first.
 - Pace is now computed from the distance covered over the last minute, so it keeps updating when the instant speed drops to zero. Values such as "5:60" can no longer appear; a pace slower than 60:00 /km shows "--:--".
 - Pace no longer needs the altitude: when the watch gives no altitude, pace is still shown from the distance and time; only the vertical speed shows "--".
 
-### Hiking: map
-- New scale bar at the bottom of the Map page (50 m up to 5 km), hidden when no round length fits the current zoom.
-- Only GPS points with a good fix are added to the trail, and the trail stays on screen when the GPS fix is lost.
-
 ### Recording: pause, save on close
 - Pressing SELECT while recording pauses the activity (the timer stops) and opens the Paused menu, which now offers Resume, Pause, Save and Ignore. BACK in this menu resumes, and the activity also resumes on its own after 30 seconds without a choice.
 - New Pause choice: it opens a Paused screen with the frozen timer. The activity stays paused, with no automatic resume, until you press SELECT.
@@ -24,7 +20,7 @@ All notable changes to Glidator2 are listed here, newest first.
 - Preferences are now stored with the current Connect IQ storage; the audio setting of the previous version is carried over on the first launch.
 
 ### Display
-- Layout fixes on large round screens, checked on the Forerunner 265S, epix (Gen 2), epix Pro (Gen 2) 42 mm and fenix 8 43 mm: the timer and the middle values of the Hiking Position and Pace pages now fit inside the screen, the "Waiting for" / "GPS" lines of the Map page no longer overlap, and the battery line of the Time page sits below the time.
+- Layout fixes on large round screens, checked on the Forerunner 265S, epix (Gen 2), epix Pro (Gen 2) 42 mm and fenix 8 43 mm: the timer and the middle values of the Hiking Position and Pace pages now fit inside the screen and the battery line of the Time page sits below the time.
 - Instinct 2: the Hiking Position and Pace pages are laid out around the round sub-window, and the speed line of the Flight Instrument page no longer runs into it.
 - Missing or out-of-range readings now show "--" instead of odd numbers: hiking altitude (outside -100 to 6000 m), elevation gain, distance, heart rate (outside 25 to 250 bpm), and flight altitude (outside -500 to 9000 m, shown as "--" alone, without the "m" unit).
 
