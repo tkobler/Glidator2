@@ -623,15 +623,15 @@ function testVibeProfilesFromPattern(logger)
 }
 
 // ---------------------------------------------------------------------------
-// Recording sport: SPORT_FLYING where the device has it, SPORT_GENERIC
-// otherwise (fenix5 / fenix5x, CIQ 3.1.6, have no Activity.SPORT_* at all).
+// Recording sport: always hiking (any mode, Walk or Fly), SPORT_GENERIC
+// when the device does not know the hiking type.
 // ---------------------------------------------------------------------------
 
 (:test)
 function testPickRecordingSport(logger)
 {
-	Test.assertEqualMessage($.pickRecordingSport(true), 20, "device has SPORT_FLYING -> FIT sport 20 (flying)");
-	Test.assertEqualMessage($.pickRecordingSport(false), 0, "device without SPORT_FLYING -> FIT sport 0 (generic)");
+	Test.assertEqualMessage($.pickRecordingSport(true), 17, "device knows hiking -> FIT sport 17 (hiking)");
+	Test.assertEqualMessage($.pickRecordingSport(false), 0, "device without hiking -> FIT sport 0 (generic)");
 
 	// Edge case: an unknown capability must fall back to the sport every device has.
 	Test.assertEqualMessage($.pickRecordingSport(null), 0, "null capability -> generic");
@@ -645,12 +645,16 @@ function testPickRecordingSport(logger)
 (:test)
 function testRecordingSportCodesMatchApi(logger)
 {
-	var hasFlying = Activity has :SPORT_FLYING;
-	logger.debug("Activity has :SPORT_FLYING -> " + hasFlying + ", recording sport " + $.pickRecordingSport(hasFlying));
+	var hasHiking = $.deviceKnowsHiking();
+	logger.debug("device knows hiking -> " + hasHiking + ", recording sport " + $.pickRecordingSport(hasHiking));
 
-	if (hasFlying)
+	if (Activity has :SPORT_HIKING)
 	{
-		Test.assertEqualMessage(Activity.SPORT_FLYING, $.RECORDING_SPORT_FLYING, "flying code must match Activity.SPORT_FLYING");
+		Test.assertEqualMessage(Activity.SPORT_HIKING, $.RECORDING_SPORT_HIKING, "hiking code must match Activity.SPORT_HIKING");
+	}
+	if (ActivityRecording has :SPORT_HIKING)
+	{
+		Test.assertEqualMessage(ActivityRecording.SPORT_HIKING, $.RECORDING_SPORT_HIKING, "hiking code must match ActivityRecording.SPORT_HIKING");
 	}
 	if (Activity has :SPORT_GENERIC)
 	{
@@ -664,7 +668,7 @@ function testRecordingSportCodesMatchApi(logger)
 	}
 
 	// The two codes must differ, otherwise the fallback would be invisible.
-	Test.assertMessage($.RECORDING_SPORT_FLYING != $.RECORDING_SPORT_GENERIC, "flying and generic codes differ");
+	Test.assertMessage($.RECORDING_SPORT_HIKING != $.RECORDING_SPORT_GENERIC, "hiking and generic codes differ");
 
 	return true;
 }

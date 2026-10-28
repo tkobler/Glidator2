@@ -48,18 +48,32 @@ function isRecording()
 
 // --------------------------------------------------------------------------------
 // Recording sport. Activity.SPORT_* only exist from Connect IQ 3.2.0: on fenix5 /
-// fenix5x (CIQ 3.1.6) reading Activity.SPORT_FLYING -- and even
+// fenix5x (CIQ 3.1.6) reading Activity.SPORT_HIKING -- and even
 // Activity.SPORT_GENERIC -- throws "Symbol Not Found" at runtime. So the sport is
-// chosen at runtime with `Activity has :SPORT_FLYING`, and passed as its FIT sport
-// code (the very values of Activity.SPORT_*, pinned by testRecordingSportCodesMatchApi).
+// passed as its FIT sport code (the very values of Activity.SPORT_*, pinned by
+// testRecordingSportCodesMatchApi).
+// Every outing is recorded as hiking, in Walk and in Fly mode alike (choice of
+// 28/10: a flight alone also shows as Hiking in Garmin Connect). Generic is kept
+// as the fallback for a watch that does not know the hiking type.
 // --------------------------------------------------------------------------------
 
 const RECORDING_SPORT_GENERIC = 0; // FIT sport "generic" == Activity.SPORT_GENERIC
-const RECORDING_SPORT_FLYING = 20; // FIT sport "flying"  == Activity.SPORT_FLYING
+const RECORDING_SPORT_HIKING = 17; // FIT sport "hiking"  == Activity.SPORT_HIKING
 
-function pickRecordingSport(hasFlying)
+// True when the watch exposes the hiking sport, in Activity (CIQ >= 3.2.0) or in
+// ActivityRecording (older devices, fenix5 included).
+function deviceKnowsHiking()
 {
-    return (hasFlying == true) ? RECORDING_SPORT_FLYING : RECORDING_SPORT_GENERIC;
+    if (Activity has :SPORT_HIKING)
+    {
+        return true;
+    }
+    return (Toybox has :ActivityRecording) && (ActivityRecording has :SPORT_HIKING);
+}
+
+function pickRecordingSport(knowsHiking)
+{
+    return (knowsHiking == true) ? RECORDING_SPORT_HIKING : RECORDING_SPORT_GENERIC;
 }
 
 // --------------------------------------------------------------------------------
@@ -167,7 +181,7 @@ function startRecording()
     {
         var s = ActivityRecording.createSession({
             :name=>"Glide",
-            :sport=>$.pickRecordingSport(Activity has :SPORT_FLYING)});
+            :sport=>$.pickRecordingSport($.deviceKnowsHiking())});
         var outcome = RecordStart.begin(s, Sys.getTimer());
         if (!RecordStart.alertWanted(outcome))
         {
