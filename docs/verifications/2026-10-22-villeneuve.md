@@ -17,10 +17,12 @@ Données (hors dépôt sauf le GPX de la montre) :
 
 Fait important : les 17 photos montrent toutes le mode Marche (écrans altitude/D+/distance, FC/VS/allure, heure, carte, pause). Aucune photo du mode Vol : le vol ne peut être comparé qu'aux valeurs enregistrées et recalculées, pas à un affichage.
 
+Précision sur la vitesse verticale (VS) : l'app n'enregistre aucune VS dans le fichier d'activité. Toutes les valeurs de VS « rejeu » de cette note sont rejouées par `tools/analyze_activity.py` (colonne « VS rejeu (HikeHistory) »). Voir `docs/recherches/2026-10-28-vs-enregistree.md`.
+
 ## Réponse courte (confiance : élevée pour la marche, moyenne pour le vol et le minuteur)
 
-- Marche : altitude, D+, distance, FC et VS affichés sont conformes aux valeurs enregistrées et recalculées (écarts de 0 à 2 %). L'allure affichée est 1 à 5 % plus rapide que la fenêtre de 60 s de référence : écart acceptable.
-- Vol : valeurs enregistrées cohérentes avec le recalcul (VS médiane +1,6 %, p95 +1,0 %, p5 6,9 %). Pas de photo, donc pas de vérification de l'affichage.
+- Marche : altitude, D+, distance, FC et VS affichés sont conformes aux valeurs enregistrées (pour la VS : rejouée par `tools/analyze_activity.py`) et recalculées (écarts de 0 à 2 %). L'allure affichée est 1 à 5 % plus rapide que la fenêtre de 60 s de référence : écart acceptable.
+- Vol : valeurs enregistrées cohérentes avec le recalcul ; la VS rejouée par `tools/analyze_activity.py` l'est aussi (médiane +1,6 %, p95 +1,0 %, p5 6,9 %). Pas de photo, donc pas de vérification de l'affichage.
 - À revoir (mineur) : le minuteur affiché retarde d'environ 32 s sur l'horodatage des points avant la pause ; cause non localisée.
 - À savoir : le décollage a eu lieu à 11:27 en mode Marche, le passage en Vol (tour 2) à 11:31:40, déjà en l'air.
 - Écart d'altitude avec SportsTrackLive : la montre est plus haute de 104 m au départ et de 180 m à 1600 m (voir plus bas), cause non tranchée.
@@ -45,7 +47,7 @@ Contrôle : timer après reprise = 5950 s (pause affichée) + 382 s (11:25:17 à
 
 ## Comparaison montre (photos) / recalcul
 
-Méthode d'appariement : temps du tour t = valeur du minuteur affiché (photo), sauf mention. Références : colonnes du CSV 60 s (`--csv`), `--at` de l'étalon (D+ hystérésis 1 et 3 m, distance TCX).
+Méthode d'appariement : temps du tour t = valeur du minuteur affiché (photo), sauf mention. Références : colonnes du CSV 60 s (`--csv`), `--at` de l'étalon (D+ hystérésis 1 et 3 m, distance TCX). Les valeurs de VS « rejeu » viennent de la colonne « VS rejeu (HikeHistory) » de `tools/analyze_activity.py`.
 
 | Photo | t (s) | Valeur | Affichée | Recalculée / enregistrée | Écart | Verdict |
 |---|---|---|---|---|---|---|
@@ -53,9 +55,9 @@ Méthode d'appariement : temps du tour t = valeur du minuteur affiché (photo), 
 | 9371 | 1079 | D+ | 152 m | 153,4 m (h1 = h3) | -1,4 m (-0,9 %) | OK |
 | 9371 | 1079 | Distance | 1,6 km | 1,641 km (TCX) ; 1,721 km (GPS) | -0,04 km | OK (suit la distance enregistrée) |
 | 9372 | 1084 | FC | 117 | 117 (point t=1079) | 0 | OK |
-| 9372 | 1084 | VS | +450 m/h | 445,3 (montre, t=1087) ; 455,3 (t=1079) ; réf. 448 | +1 % | OK |
+| 9372 | 1084 | VS | +450 m/h | 445,3 (rejeu, t=1087) ; 455,3 (t=1079) ; réf. 448 | +1 % | OK |
 | 9372 | 1084 | Allure | 10:13 | 10:34 (t=1081) ; 10:56 (t=1087) | environ -31 s (-5 %) | Écart acceptable |
-| 9376 | 2605 | VS | +880 m/h | 874,6 (montre) ; réf. 879,3 | +0,6 % | OK |
+| 9376 | 2605 | VS | +880 m/h | 874,6 (rejeu) ; réf. 879,3 | +0,6 % | OK |
 | 9376 | 2605 | Allure | 17:02 | 17:41 (t=2605) | -39 s (-3,7 %) | Écart acceptable |
 | 9376 | 2605 | FC | 96 | 97 (t=2612) | -1 | OK |
 | 9377 | 2612 | Altitude | 946 m | 945,8 m | +0,2 m | OK |
@@ -65,13 +67,13 @@ Méthode d'appariement : temps du tour t = valeur du minuteur affiché (photo), 
 | 9380 | 4020 | D+ | 758 m | 762,0 m | -4,0 m (-0,5 %) | OK |
 | 9380 | 4020 | Distance | 4,6 km | 4,608 km (TCX) ; 5,072 km (GPS) | 0 (arrondi) | OK |
 | 9381 | 4025 | FC | 101 | 102 (t=4020) | -1 | OK |
-| 9381 | 4025 | VS | +600 m/h | 597,1 (montre, t=4024) | +0,5 % | OK |
+| 9381 | 4025 | VS | +600 m/h | 597,1 (rejeu, t=4024) | +0,5 % | OK |
 | 9381 | 4025 | Allure | 16:57 | 17:07 (t=4024) | -10 s (-1 %) | OK |
 | 9384 | 5932 | Altitude | 1607 m | 1601,8 m (t=5932) ; 1606,8 m (t=5963) | +5,2 m à t=5932 ; +0,2 m à t=5963 | OK avec le décalage du minuteur (voir ci-dessous) |
 | 9384 | 5932 | D+ | 1118 m | 1125,0 m (t=5932) ; 1130,0 m (t=5966) | -7 m (-0,6 %) ; -12 m (-1,1 %) | OK |
 | 9384 | 5932 | Distance | 7,2 km | 7,178 km (TCX) ; 7,197 km (t=5963) | 0 (arrondi) | OK |
 | 9385 | 5937 | FC | 106 | 111 (t=5932) ; 105 (t=5966) | -5 ; +1 | OK avec décalage |
-| 9385 | 5937 | VS | +590 m/h | 643,6 (montre, t=5934) ; 620,0 (t=5963) ; réf. interpolée vers t=5969 : environ 584 | -8 % (sans décalage) ; +1 % (avec) | OK avec décalage |
+| 9385 | 5937 | VS | +590 m/h | 643,6 (rejeu, t=5934) ; 620,0 (t=5963) ; réf. interpolée vers t=5969 : environ 584 | -8 % (sans décalage) ; +1 % (avec) | OK avec décalage |
 | 9385 | 5937 | Allure | 18:20 | 12:06 (t=5938) ; 14:18 (t=5957) ; 16:13 (t=5963) ; 31:11 (t=5980) | -34 % sans décalage ; cohérent vers t=5969 | OK avec décalage |
 | 9388 | - | Pause | « Paused 1:39:10 », « START: resume » | Trou de 2698 s dans les points | - | OK |
 | 9373, 9382, 9386 | - | Heure locale | 11:18, 12:07, 12:40 | 09:18Z, 10:07Z, 10:40Z | - | OK (UTC + 2 h) |
@@ -106,21 +108,21 @@ La trace SportsTrackLive couvre uniquement la marche (09:00:50Z à 10:42:43Z, 11
 
 Gain net début à 10:39:29 : montre +1122,6 m, SportsTrackLive +1046,8 m, soit +7,2 % pour la montre. Le D+ affiché (1118 m, photo 9384) est donc proche du D+ recalculé de la montre (1125 m) mais environ 7 % au-dessus du gain net de SportsTrackLive. Sans MNT de référence, on ne sait pas quelle altitude est juste : le départ est près d'un lac dont l'altitude ne dépasse pas 380 m environ, ce qui rend plausible le 375 m de SportsTrackLive et suggère une montre non calibrée au départ (+104 m). Verdict : à revoir (hors périmètre du code de l'app si c'est le capteur ; l'app lit l'altitude Garmin). Le D+ final de SportsTrackLive n'a pas pu être calculé (voir plus bas).
 
-### Mode Vol (tour 2) : valeurs enregistrées contre recalcul
+### Mode Vol (tour 2) : valeurs de la montre contre recalcul
 
-Source : `python3 tools/analyze_activity.py <tcx>` (VS montre = champ enregistré par l'app, n = 196 ; référence = régression sur 60 s, n = 853).
+Source : `python3 tools/analyze_activity.py <tcx>` (colonne « VS rejeu (HikeHistory) » : VS rejouée par `tools/analyze_activity.py` à partir de HikeHistory, l'app n'enregistre aucune VS, voir `docs/recherches/2026-10-28-vs-enregistree.md` ; n = 196 ; référence = régression sur 60 s, n = 853).
 
-| Indicateur | Montre (enregistré) | Recalcul | Écart | Verdict |
+| Indicateur | Montre (VS : rejeu ; autres : enregistré) | Recalcul | Écart | Verdict |
 |---|---|---|---|---|
 | VS médiane | -5121 m/h | -5205 m/h (régression) ; -5244 (dalt/dt) | +84 m/h (+1,6 %) | OK |
 | VS p95 | +4508 m/h | +4463 m/h | +45 m/h (+1,0 %) | OK |
-| VS p5 | -10547 m/h | -11326 m/h | +779 m/h (6,9 % moins négatif) | Écart acceptable (la montre a moins de points, 196 contre 853, et lisse) |
+| VS p5 | -10547 m/h | -11326 m/h | +779 m/h (6,9 % moins négatif) | Écart acceptable (le rejeu a moins de points, 196 contre 853, et lisse) |
 | Distance enregistrée / GPS | 9802,1 m | 9913,9 m | -1,1 % | OK |
 | Vitesse médiane | 8,76 m/s (31,5 km/h) | - | - | Plausible |
 | FC | 81 à 114 bpm | - | - | Plausible |
 | Altitude (début, fin) | 1538,8 m, 495,2 m | - | - | Dans les bornes de vol (-500 à 9000 m) |
 
-Sur le tour 1, 20 valeurs de VS montre dépassent ±3000 m/h (minimum -4737,6 m/h), toutes après 11:25Z, c'est-à-dire pendant la phase aérienne enregistrée en mode Marche ; aucune pendant la marche (compte Grep sur le CSV 60 s). Sur le tour 2, 163 des 196 valeurs de VS dépassent ±3000 m/h, ce qui est normal en vol. La borne de ±3000 m/h est une borne d'affichage de la Marche : l'enregistrement n'est pas borné. Verdict : OK, à confirmer par la spec si l'enregistrement doit aussi être borné.
+Sur le tour 1, 20 valeurs de VS rejouée dépassent ±3000 m/h (minimum -4737,6 m/h), toutes après 11:25Z, c'est-à-dire pendant la phase aérienne enregistrée en mode Marche ; aucune pendant la marche (compte Grep sur le CSV 60 s). Sur le tour 2, 163 des 196 valeurs de VS rejouée dépassent ±3000 m/h, ce qui est normal en vol. La borne de ±3000 m/h est une borne d'affichage de la Marche : le rejeu de HikeHistory n'est pas borné (l'app n'enregistre aucune VS, donc rien à borner dans le fichier). Verdict : OK, à confirmer par la spec si l'affichage doit aussi être borné en phase aérienne.
 
 Le D+ du tour 1 (1221,0 m) inclut les 91 m environ gagnés ou comptés pendant la phase aérienne en mode Marche (D+ étalon à t=5982 : 1130,0 m ; thermiques et turbulences après 11:25Z). Ce n'est pas une anomalie de l'app, c'est une conséquence du décollage en mode Marche.
 
@@ -138,7 +140,7 @@ python3 tools/etalon_marche.py <GPX SportsTrackLive> <même TCX> --lap 1   (éch
 ```
 - Fenêtre VS et allure : 60 s glissantes, au moins 3 points et 20 s couverts (sortie du script). D+ : hystérésis 1 m (script) ; l'étalon donne aussi 3 m.
 - Appariement photo/fichier : minuteur affiché = t du tour, tolérance de lecture de 1 à 5 s. Les photos ne portent pas d'horodatage lu ici ; l'heure de la montre sur 9373, 9382 et 9386 sert de contrôle.
-- Les comptes de VS hors ±3000 m/h : Grep avec expression régulière sur la 8e colonne du CSV 60 s.
+- Les comptes de VS rejouée hors ±3000 m/h : Grep avec expression régulière sur la 8e colonne du CSV 60 s.
 - Les altitudes SportsTrackLive sont lues dans le fichier au même horodatage (Grep sur l'heure), sans interpolation.
 
 ## Ce qui reste incertain
@@ -156,6 +158,6 @@ python3 tools/etalon_marche.py <GPX SportsTrackLive> <même TCX> --lap 1   (éch
 - [ ] `etalon_marche.py` : ne plus planter (`ZeroDivisionError` dans `totals_report`, ligne 650) quand le GPX n'a aucune FC (cas SportsTrackLive). Critère : la commande sur la trace SportsTrackLive imprime distance, D+ et durée sans FC.
 - [ ] `etalon_marche.py` ou `analyze_activity.py` : option qui liste les intervalles > N s (instant de début, durée), pour localiser le décalage de minuteur. Critère : la liste donne les 8 intervalles > 15 s du tour 1 de Villeneuve.
 - [ ] Enquête sur le minuteur : relire la spec de pause (reprise auto après 30 s) et vérifier si une pause courte arrête le minuteur sans arrêter l'enregistrement des points. Critère : explication écrite et, si c'est un défaut, test de reproduction.
-- [ ] Spec : trancher si la VS enregistrée doit être bornée à ±3000 m/h en mode Marche, y compris en phase aérienne. Critère : décision notée dans la spec.
+- [ ] Spec : trancher si la VS affichée (rejouée par `tools/analyze_activity.py` ; l'app n'en enregistre aucune, voir `docs/recherches/2026-10-28-vs-enregistree.md`) doit être bornée à ±3000 m/h en mode Marche, y compris en phase aérienne. Critère : décision notée dans la spec.
 - [ ] Test terrain suivant : photographier les écrans du mode Vol (vario, altitude, vitesse, compas) et passer en Vol avant le décollage. Critère : au moins 3 photos du mode Vol avec le minuteur visible.
 - [ ] Suivi altitude : relever l'altitude réelle du point de départ (carte) avant la sortie et la noter, pour trancher montre contre SportsTrackLive. Critère : une valeur de référence dans les notes du test.
