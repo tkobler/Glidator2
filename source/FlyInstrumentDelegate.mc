@@ -90,7 +90,7 @@ class MyMenu2QuitDelegate extends WatchUi.Menu2InputDelegate
 
 // --------------------------------------------------------------------------------
 
-// Preferences menu (MENU): Beep toggle, saved on BACK, and "VS window": each
+// Preferences menu (MENU): Beep toggle, saved on BACK, and "Climb rate avg": each
 // press goes to the next window, 1 -> 3 -> 5 -> 1 min (decision R6, 07/10, no
 // sub-menu). The new window is stored at once, applied to the WatchData read by
 // HikePaceView (no buffer reset) and shown as the item's sub-label. The rules
@@ -126,7 +126,7 @@ class MyMenu2PreferencesDelegate extends WatchUi.Menu2InputDelegate
     {
         var data = (app != null && app.mainView != null) ? app.mainView.data : null;
         var applied = $.cycleVsWindow($.preferences, data);
-        Sys.println("VS window set to " + applied + " ms");
+        Sys.println("Climb rate avg set to " + applied + " ms");
 
         item.setSubLabel($.vsWindowLabel(applied));
         if (prefsMenu != null)
@@ -310,7 +310,7 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
         menu.addItem(beepTM);
 
         var vsWindow = $.preferences.getVsWindowMs();
-        menu.addItem(new WatchUi.MenuItem($.vsWindowTitle(),$.vsWindowLabel(vsWindow), "vsWindow", null));
+        menu.addItem(new WatchUi.MenuItem($.vsWindowTitle(), $.vsWindowLabel(vsWindow), "vsWindow", null));
 
         var delegate = new MyMenu2PreferencesDelegate(beepTM, app, menu);
             

@@ -2,8 +2,8 @@ using Toybox.Application;
 using Toybox.Lang;
 
 // --------------------------------------------------------------------------------
-// Hike vertical-speed window (MENU -> "VS window", each press goes to the next
-// one): 1, 3 or 5 min. 5 min is the
+// Hike vertical-speed window (MENU -> "Climb rate avg", each press goes to the
+// next one): 1, 3 or 5 min. 5 min is the
 // whole HikeHistory buffer (60 samples at most 5 s apart). Pace keeps its own
 // 60 s window; the flight vario does not use any of this.
 // --------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ function vsWindowLabel(ms)
 	return ["over 1 min", "over 3 min", "over 5 min"][vsWindowFocusIndex(ms)];
 }
 
-// Decision R6 (07/10): each press on "VS window" goes to the next window,
+// Decision R6 (07/10): each press on "Climb rate avg" goes to the next window,
 // 1 -> 3 -> 5 -> 1 min. Anything that is not one of the three windows (null,
 // another Number, a Float, a String...) restarts the cycle at 1 min.
 function nextVsWindowMs(ms)
@@ -81,7 +81,7 @@ function nextVsWindowMs(ms)
 	return VS_WINDOW_DEFAULT_MS;
 }
 
-// Preferences menu (MENU) item id -> :cycleVsWindow for "VS window", :none
+// Preferences menu (MENU) item id -> :cycleVsWindow for "Climb rate avg", :none
 // otherwise (the Beep toggle is saved on BACK, as before).
 function preferencesMenuAction(id)
 {
@@ -92,7 +92,7 @@ function preferencesMenuAction(id)
 	return :none;
 }
 
-// One press on "VS window": the current window (from the store, else from the
+// One press on "Climb rate avg": the current window (from the store, else from the
 // WatchData, else the default) goes to the next one, which is stored at once
 // and pushed to the WatchData. Either may be null. Returns the new window,
 // to show as the item's sub-label.

@@ -40,7 +40,7 @@ class HikePaceView extends WatchUi.View {
         var hrStr = $.formatHeartRate(heartRate); // bpm, "--" outside 25..250
 
         // Vertical speed (m/h): regression over the last 1, 3 or 5 min of hike
-        // samples (MENU -> "VS window", default 1 min;
+        // samples (MENU -> "Climb rate avg", default 1 min;
         // WatchData.getHikeVerticalSpeed), not the 1 s flight vario, whose
         // 0.2 m altitude steps read as +/-720 m/h jumps when walking.
         var vPaceStr = $.formatVerticalSpeed(data.getHikeVerticalSpeed()); // m/h

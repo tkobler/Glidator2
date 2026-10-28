@@ -418,7 +418,7 @@ class WatchData
 
 	// Vertical-speed window in ms, one of vsWindowChoicesMs() (Preferences.mc).
 	// Set by the app from the stored preference at start and by the MENU
-	// "VS window" choice; changing it never resets hikeHistory.
+	// "Climb rate avg" choice; changing it never resets hikeHistory.
 	var hikeVsWindowMs = $.VS_WINDOW_DEFAULT_MS;
 
 	function setHikeVsWindowMs(ms)
