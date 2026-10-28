@@ -15,6 +15,8 @@ All notable changes to Glidator2 are listed here, newest first.
 - While paused, the heart rate and temperature sensors are turned off (GPS stays on) and are turned back on when you resume. Pausing vibrates two short pulses, resuming one long pulse.
 - If the app is closed by the watch while an activity is recording or paused, the activity is now saved instead of being lost.
 
+- The activity is now always recorded as Hiking (it was Aviation), in Hiking and Flying mode alike: an outing, even a flight alone, appears as Hiking in Garmin Connect. A watch that does not know the hiking type keeps the Generic fallback.
+
 ### Preferences
 - New "Climb rate avg" item in the MENU preferences (shown as "over 1 min", "over 3 min" or "over 5 min"): the time over which the hiking vertical speed is averaged, 1, 3 or 5 minutes (default 1 minute). Each press moves to the next value; the choice applies at once and is kept when the app restarts.
 - Preferences are now stored with the current Connect IQ storage; the audio setting of the previous version is carried over on the first launch.
