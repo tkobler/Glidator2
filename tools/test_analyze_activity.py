@@ -632,8 +632,15 @@ class SummaryTest(unittest.TestCase):
         self.assertEqual(len(vs_lines), 3)
         self.assertTrue(vs_lines[0].startswith("VS 60 s (regression, reference)"), vs_lines[0])
         self.assertTrue(vs_lines[1].startswith("VS 60 s dalt/dt"), vs_lines[1])
-        self.assertTrue(vs_lines[2].startswith("VS montre (HikeHistory)"), vs_lines[2])
+        self.assertTrue(vs_lines[2].startswith("VS rejeu (HikeHistory)"), vs_lines[2])
         self.assertEqual(sum("reference" in l for l in vs_lines), 1)
+
+    def test_replay_column_is_never_called_recorded(self):
+        # D2 A: the app records no vertical speed; the column is a replay.
+        lap = aa.parse_tcx_string(make_tcx([{"points": climb_points(120)}]))[0]
+        report = aa.format_report([aa.summarize_lap(lap)])
+        self.assertNotIn("VS montre", report)
+        self.assertIn("rejeu", report)
 
     def test_recorded_distance_fallback_to_points(self):
         lap = aa.parse_tcx_string(make_tcx([{"points": climb_points(100, horizontal_mps=1.0)}]))[0]

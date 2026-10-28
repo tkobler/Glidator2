@@ -506,7 +506,7 @@ def format_report(summaries):
         # decision); the two other methods are kept for comparison.
         lines.append(_row("VS 60 s (regression, reference)", _fmt_vs(s["vs_regression"])))
         lines.append(_row("VS 60 s dalt/dt", _fmt_vs(s["vs_diff"])))
-        lines.append(_row("VS montre (HikeHistory)", _fmt_vs(s["vs_watch"])))
+        lines.append(_row("VS rejeu (HikeHistory)", _fmt_vs(s["vs_watch"])))
         sp = s["speed60_median_mps"]
         lines.append(_row("Pace 60 s", "mediane %s min/km (vitesse %s)"
                           % (format_pace(sp), _fmt(sp, "%.2f", " m/s"))))
