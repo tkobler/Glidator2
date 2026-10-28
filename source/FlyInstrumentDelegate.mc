@@ -244,8 +244,8 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
 
         if (!$.hasActiveSession())
         {
-            System.exit();
             Sys.println("Back pressed, exiting app");
+            System.exit();
         }
         return true;
     }
