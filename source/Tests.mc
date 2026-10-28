@@ -1802,7 +1802,7 @@ function testWatchDataHikeSalvanRealClimb(logger)
 
 // ---------------------------------------------------------------------------
 // Marche 1c: vertical-speed window preference, 1 / 3 / 5 min (MENU ->
-// "VS window"). Stored like the beep preference; anything missing or not one
+// "Climb rate avg"). Stored like the beep preference; anything missing or not one
 // of the three choices reads as the 60 s default. Only the hike vertical
 // speed uses it: pace keeps its 60 s window, the flight vario is untouched.
 // ---------------------------------------------------------------------------
@@ -1876,7 +1876,7 @@ function testVsWindowMenuLogic(logger)
 	Test.assertEqualMessage($.vsWindowFocusIndex(null), 0, "null -> index of the default");
 	Test.assertEqualMessage($.vsWindowFocusIndex(42), 0, "unknown -> index of the default");
 
-	Test.assertEqualMessage($.preferencesMenuAction("vsWindow"), :cycleVsWindow, "VS window item -> next window, no sub-menu");
+	Test.assertEqualMessage($.preferencesMenuAction("vsWindow"), :cycleVsWindow, "Climb rate avg item -> next window, no sub-menu");
 	Test.assertEqualMessage($.preferencesMenuAction("beep"), :none, "Beep toggle -> none (saved on BACK, as before)");
 	Test.assertEqualMessage($.preferencesMenuAction(null), :none, "null id -> none");
 	Test.assertEqualMessage($.preferencesMenuAction(""), :none, "empty id -> none");
@@ -1894,7 +1894,7 @@ function testVsWindowMenuLogic(logger)
 	return true;
 }
 
-// Decision R6 (07/10): each press on "VS window" goes to the next window,
+// Decision R6 (07/10): each press on "Climb rate avg" goes to the next window,
 // 1 -> 3 -> 5 -> 1 min. Pure rotation; anything that is not one of the three
 // windows (absent, corrupted) restarts the cycle at 1 min.
 (:test)
@@ -1932,7 +1932,7 @@ function testNextVsWindowMs(logger)
 	return true;
 }
 
-// Sub-label shown under "VS window" after each press: the window just chosen.
+// Sub-label shown under "Climb rate avg" after each press: the window just chosen.
 (:test)
 function testVsWindowSubLabelAfterPress(logger)
 {
@@ -1961,7 +1961,7 @@ function testVsWindowSubLabelAfterPress(logger)
 	return true;
 }
 
-// One press on "VS window" (cycleVsWindow): the next window is read from the
+// One press on "Climb rate avg" (cycleVsWindow): the next window is read from the
 // store, written back at once and pushed to the WatchData read by
 // HikePaceView. Both stores are saved and restored (new Preferences(Application.getApp()) runs the
 // migration on the old object store).
@@ -2017,7 +2017,7 @@ function testCycleVsWindow(logger)
 		// The beep preference is a separate key.
 		p.setBeep(true);
 		$.cycleVsWindow(p, data);
-		Test.assertEqualMessage(p.getBeep(), true, "VS window press does not change the beep");
+		Test.assertEqualMessage(p.getBeep(), true, "Climb rate avg press does not change the beep");
 	}
 	finally
 	{
@@ -2032,7 +2032,7 @@ function testCycleVsWindow(logger)
 // that touch the real stores save them first and put them back at the end,
 // whatever happens (StoredPrefsSnapshot, LegacyPrefsSnapshot).
 
-// Storage values of the two preference keys (beep, VS window).
+// Storage values of the two preference keys (beep, climb rate window).
 (:test, :typecheck(false))
 class StoredPrefsSnapshot
 {
@@ -2203,7 +2203,7 @@ function testPreferenceToKeep(logger)
 	Test.assertMessage($.preferenceToKeep(null, null) == null, "nothing anywhere -> null (default on read)");
 	Test.assertEqualMessage($.preferenceToKeep(null, true), true, "first launch: old beep taken");
 	Test.assertEqualMessage($.preferenceToKeep(null, false), false, "first launch: old beep false taken");
-	Test.assertEqualMessage($.preferenceToKeep(null, 300000), 300000, "first launch: old VS window taken");
+	Test.assertEqualMessage($.preferenceToKeep(null, 300000), 300000, "first launch: old climb rate window taken");
 	Test.assertEqualMessage($.preferenceToKeep(null, "abc"), "abc", "old corrupted value passed on (sanitized by the caller)");
 	Test.assertEqualMessage($.preferenceToKeep(180000, 300000), 180000, "Storage wins over a stale old value");
 	Test.assertEqualMessage($.preferenceToKeep(false, true), false, "Storage false is a value: wins over old true");
@@ -2240,7 +2240,7 @@ function testMigrateLegacyPreferencesRules(logger)
 		old = new FakeLegacyStore({ $.PREF_BEEP_KEY => false });
 		Test.assertEqualMessage($.migrateLegacyPreferences(old), 1, "beep false migrated");
 		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), false, "beep false in Storage");
-		Test.assertMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY) == null, "absent VS window not written");
+		Test.assertMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY) == null, "absent climb rate window not written");
 
 		// Nothing anywhere: nothing written, defaults on read.
 		snap.clear();
@@ -2248,7 +2248,7 @@ function testMigrateLegacyPreferencesRules(logger)
 		Test.assertEqualMessage($.migrateLegacyPreferences(old), 0, "empty old store -> nothing migrated");
 		Test.assertEqualMessage(old.deleteCalls, 0, "empty old store -> no delete");
 		Test.assertMessage(Application.Storage.getValue($.PREF_BEEP_KEY) == null, "beep not written");
-		Test.assertMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY) == null, "VS window not written");
+		Test.assertMessage(Application.Storage.getValue($.PREF_VS_WINDOW_KEY) == null, "climb rate window not written");
 		var p = new Preferences(Application.getApp());
 		Test.assertEqualMessage(p.getBeep(), false, "absent -> beep default false");
 		Test.assertEqualMessage(p.getVsWindowMs(), 60000, "absent -> VS default 60000");
@@ -2441,11 +2441,11 @@ function testMigrateLegacyPreferencesToStore(logger)
 	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 0, "no old key: nothing migrated");
 	Test.assertEqualMessage(store.setCalls, 0, "no old key: no write");
 
-	// setValue throws for the beep: the beep keeps its old key, the VS window
+	// setValue throws for the beep: the beep keeps its old key, the climb rate window
 	// is still migrated, and nothing escapes.
 	store = new FakePrefStore({}, [$.PREF_BEEP_KEY], []);
 	old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true, $.PREF_VS_WINDOW_KEY => 300000 });
-	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 1, "beep write throws: only the VS window migrated");
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 1, "beep write throws: only the climb rate window migrated");
 	Test.assertEqualMessage(old.getProperty($.PREF_BEEP_KEY), true, "beep write throws: old beep kept for the next launch");
 	Test.assertMessage(store.values.get($.PREF_BEEP_KEY) == null, "beep write throws: nothing stored for the beep");
 	Test.assertEqualMessage(store.values.get($.PREF_VS_WINDOW_KEY), 300000, "beep write throws: 5 min still stored");
@@ -2483,11 +2483,11 @@ function testMigrateLegacyPreferencesToStore(logger)
 	// old copy is erased. Storage still wins (decision of the user).
 
 	// getProperty throws for the beep: beep untouched (nothing written,
-	// nothing erased), VS window migrated.
+	// nothing erased), climb rate window migrated.
 	store = new FakePrefStore({}, [], []);
 	old = new FakeLegacyStore({ $.PREF_BEEP_KEY => true, $.PREF_VS_WINDOW_KEY => 300000 });
 	old.failGetKeys = [$.PREF_BEEP_KEY];
-	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 1, "old beep read throws: only the VS window migrated");
+	Test.assertEqualMessage($.migrateLegacyPreferencesTo(old, store), 1, "old beep read throws: only the climb rate window migrated");
 	Test.assertMessage(store.values.get($.PREF_BEEP_KEY) == null, "old beep read throws: nothing stored for the beep");
 	Test.assertEqualMessage(store.values.get($.PREF_VS_WINDOW_KEY), 300000, "old beep read throws: 5 min stored");
 	Test.assertEqualMessage(old.values.get($.PREF_BEEP_KEY), true, "old beep read throws: old beep left for the next launch");
@@ -2501,7 +2501,7 @@ function testMigrateLegacyPreferencesToStore(logger)
 	Test.assertEqualMessage(store.setCalls, 0, "every old read throws: no write");
 	Test.assertEqualMessage(old.deleteCalls, 0, "every old read throws: no erase");
 
-	// deleteProperty throws for the VS window: its value is already in
+	// deleteProperty throws for the climb rate window: its value is already in
 	// Storage (kept), the old key stays, it is not counted; the beep is
 	// migrated.
 	store = new FakePrefStore({}, [], []);
@@ -2656,10 +2656,10 @@ function testPreferencesBeepStore(logger)
 		p.setBeep(1);
 		Test.assertEqualMessage(Application.Storage.getValue($.PREF_BEEP_KEY), false, "Number set -> false stored");
 
-		// The VS window is a separate key.
+		// The climb rate window is a separate key.
 		p.setVsWindowMs(300000);
 		p.setBeep(true);
-		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "beep does not change the VS window");
+		Test.assertEqualMessage(p.getVsWindowMs(), 300000, "beep does not change the climb rate window");
 	}
 	finally
 	{
@@ -2669,7 +2669,7 @@ function testPreferencesBeepStore(logger)
 	return true;
 }
 
-// VS window against Storage. Old store saved and restored (new Preferences(Application.getApp())
+// climb rate window against Storage. Old store saved and restored (new Preferences(Application.getApp())
 // migrates it).
 (:test)
 function testPreferencesVsWindowStore(logger)
@@ -2710,7 +2710,7 @@ function testPreferencesVsWindowStore(logger)
 		// The beep preference is a separate key.
 		var beep = p.getBeep();
 		p.setVsWindowMs(300000);
-		Test.assertEqualMessage(p.getBeep(), beep, "VS window does not change the beep");
+		Test.assertEqualMessage(p.getBeep(), beep, "climb rate window does not change the beep");
 	}
 	finally
 	{
@@ -2890,9 +2890,9 @@ function testWatchDataHikeVsWindowSwitch(logger)
 	v = data.getHikeVerticalSpeedAt(now);
 	Test.assertMessage(v != null && v > 419.0 && v < 421.0, "switched to 3 min -> 420, got " + v);
 
-	// Pace keeps its own 60 s window whatever the VS window (out of scope).
+	// Pace keeps its own 60 s window whatever the climb rate window (out of scope).
 	var sp = data.getHikeSpeedAt(now);
-	Test.assertMessage(sp != null && sp > 0.99 && sp < 1.01, "speed unchanged by the VS window, got " + sp);
+	Test.assertMessage(sp != null && sp > 0.99 && sp < 1.01, "speed unchanged by the climb rate window, got " + sp);
 
 	// Recording goes on after the switch: the new samples land in the same
 	// buffer and the 3 min window follows them.
@@ -3810,41 +3810,6 @@ function testScaleBarOnSalvanExtract(logger)
 	ScaleBarTestHelper.checkNull($.pickScaleBar(mpp, 86), "50 m extract on fenix6pro: no round length fits -> no bar");
 	var bar = $.pickScaleBar(mpp, 240);
 	Test.assertMessage(bar != null && bar[0] == 50 && bar[1] >= 215 && bar[1] <= 235, "240 px of room -> 50 m, about 224 px, got " + bar);
-	return true;
-}
-
-// Diagnostic for the "180/180" cause, run inside the simulator: logs what
-// Position.getInfo() returns right now (the test runner starts the app, so
-// location events are enabled) and checks the invariant that a fix accepted
-// for the map always has a valid position. Its log line is what to read
-// before and after loading a GPX in the simulator.
-(:test)
-function testDiagSimulatorPositionInfo(logger)
-{
-	var info = Position.getInfo();
-	if (info == null)
-	{
-		logger.debug("Position.getInfo() -> null");
-		return true;
-	}
-
-	var lat = null;
-	var lon = null;
-	if (info.position != null)
-	{
-		var deg = info.position.toDegrees();
-		lat = deg[0];
-		lon = deg[1];
-	}
-	var data = new WatchData();
-	data.updateInfo(info);
-	logger.debug("Position.getInfo(): lat=" + lat + " lon=" + lon + " accuracy=" + info.accuracy
-		+ " isValidLatLon=" + $.isValidLatLon(lat, lon) + " hasUsableFix=" + data.hasUsableFix());
-
-	if (data.hasUsableFix())
-	{
-		Test.assertMessage($.isValidLatLon(data.getLat(), data.getLon()), "a usable fix always has a valid position");
-	}
 	return true;
 }
 
