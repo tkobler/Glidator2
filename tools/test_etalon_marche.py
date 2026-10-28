@@ -68,5 +68,41 @@ class FormatTest(unittest.TestCase):
         self.assertEqual(em.fmt_pace(1000.0 / 359.6), "6:00")
 
 
+def _fake_lap(hrs):
+    """Synthetic lap (no real coordinates): 5 points, 10 s apart."""
+    from types import SimpleNamespace as NS
+    pts = [em.GpxPoint(i, 10 + i, 1000.0 + 10 * i, 46.0, 7.0, 1500.0 + i, hr)
+           for i, hr in enumerate(hrs)]
+    n = len(pts)
+    lap = NS(pts=pts, dist_gps=[10.0 * i for i in range(n)],
+             gain_raw=[float(i) for i in range(n)],
+             gain_h1=[float(i) for i in range(n)],
+             gain_h3=[float(i) for i in range(n)])
+    tcx_lap = NS(start="2026-01-01T00:00:00Z", total_time_s=40.0, distance_m=40.0,
+                 points=[NS(speed=1.0, dist=10.0 * i) for i in range(n)])
+    return lap, tcx_lap
+
+
+class TotalsReportHrTest(unittest.TestCase):
+    def setUp(self):
+        em._TCX_HR.clear()
+
+    def test_without_heart_rate_does_not_crash(self):
+        lap, tcx_lap = _fake_lap([None] * 5)
+        text = "\n".join(em.totals_report(lap, tcx_lap))
+        self.assertIn("FC : aucune", text)
+
+    def test_with_heart_rate_unchanged(self):
+        lap, tcx_lap = _fake_lap([100, 110, 120, 130, 140])
+        text = "\n".join(em.totals_report(lap, tcx_lap))
+        self.assertIn("max 140 bpm", text)
+        self.assertIn("min 100", text)
+
+    def test_partial_heart_rate(self):
+        lap, tcx_lap = _fake_lap([None, 100, None, 120, None])
+        text = "\n".join(em.totals_report(lap, tcx_lap))
+        self.assertIn("max 120 bpm", text)
+
+
 if __name__ == "__main__":
     unittest.main()

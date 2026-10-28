@@ -629,6 +629,13 @@ def totals_report(lap, tcx_lap):
     speeds = [p.speed for p in tcx_lap.points if p.speed is not None]
     tcx_d = [p.dist for p in tcx_lap.points if p.dist is not None]
     elev = [p.ele for p in pts]
+    if hrs:
+        hr_line = (
+            "  FC : moyenne des points %.1f, moyenne ponderee par le temps %.1f, max %d bpm (TCX : moyenne %s, max %s) ; min %d"
+            % (sum(hrs) / len(hrs), tw / tw_d if tw_d else float("nan"), max(hrs),
+               _TCX_HR.get((tcx_lap.start, "avg"), "?"), _TCX_HR.get((tcx_lap.start, "max"), "?"), min(hrs)))
+    else:
+        hr_line = "  FC : aucune (trace sans frequence cardiaque)"
     return [
         "Tour %s : %d points GPX (index %d..%d, lignes %s..%s), %s -> %s"
         % (tcx_lap.start, len(pts), pts[0].index, pts[-1].index, pts[0].line, pts[-1].line,
@@ -646,9 +653,7 @@ def totals_report(lap, tcx_lap):
         % (min(elev), max(elev), elev[0], elev[-1], elev[-1] - elev[0]),
         "  D+ : brut %.1f m ; hysteresis 1 m %.1f m ; hysteresis 3 m %.1f m ; hysteresis 5 m %.1f m (aucun total dans le TCX)"
         % (lap.gain_raw[-1], lap.gain_h1[-1], lap.gain_h3[-1], gain_series(elev, 5.0)[-1]),
-        "  FC : moyenne des points %.1f, moyenne ponderee par le temps %.1f, max %d bpm (TCX : moyenne %s, max %s) ; min %d"
-        % (sum(hrs) / len(hrs), tw / tw_d if tw_d else float("nan"), max(hrs),
-           _TCX_HR.get((tcx_lap.start, "avg"), "?"), _TCX_HR.get((tcx_lap.start, "max"), "?"), min(hrs)),
+        hr_line,
         "  vitesse : max du champ Speed %.3f m/s ; moyenne distance/duree %.4f m/s"
         % (max(speeds), tcx_lap.distance_m / tcx_lap.total_time_s),
     ]
