@@ -330,13 +330,13 @@ class BaseInputDelegate extends WatchUi.BehaviorDelegate
         }
         var listSize = app.activeViewList().size();
         if (key == WatchUi.KEY_UP) {
-            var nextIndex = (app.currentViewIndex - 1 + listSize) % listSize;
+            var nextIndex = HikePages.step(app.currentViewIndex, -1, listSize);
             Sys.println("UP pressed, switching to previous view, index: " + nextIndex);
             app.switchToView(nextIndex);
             return true;
         }
         else if (key == WatchUi.KEY_DOWN) {
-            var nextIndex = (app.currentViewIndex + 1) % listSize;
+            var nextIndex = HikePages.step(app.currentViewIndex, 1, listSize);
             Sys.println("DOWN pressed, switching to next view, index: " + nextIndex);
             app.switchToView(nextIndex);
             return true;

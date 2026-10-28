@@ -583,7 +583,9 @@ class FlyInstrumentApp extends Application.AppBase
         flyingViews = [mainView, timeView, positionView];
 
         breadcrumbTrail = new BreadcrumbTrail();
-        hikingViews = [new HikePositionView(self), new HikePaceView(self), timeView, new HikeMapView(self)];
+        // The Map page is only built when HikePages.MAP_ENABLED is true.
+        var mapView = HikePages.MAP_ENABLED ? new HikeMapView(self) : null;
+        hikingViews = HikePages.list([new HikePositionView(self), new HikePaceView(self), timeView], mapView, HikePages.MAP_ENABLED);
 
         delegate = new BaseInputDelegate(self);
         mode = MODE_HIKE;
