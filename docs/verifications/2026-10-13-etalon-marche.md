@@ -1,11 +1,11 @@
 # Étalon du tour de marche de Salvan et données de test du mode marche
 
 - **Date** : 13/10/2026 (analyse faite le 12/10 au soir), branche `claude/corrections-marche`.
-- **Données** : `garmin_data/activity_24346302742.gpx` et `.tcx` (sortie « Salvan Glide » du 13/09/2026, montre fenix 6 Pro Solar, firmware 28.2 : TCX lignes 73341-73349), journal du manageur `claude-lab/rapports/2026-10-12/diagnostic-simulateur/journal-diag-lecture-gpx.log` (lecture du GPX au simulateur fenix6pro).
+- **Données** : `garmin_data/activity_24346302742.gpx` et `.tcx` (sortie « Salvan Glide » du 13/09/2026, montre fenix 6 Pro Solar, firmware 28.2 : TCX lignes 73341-73349), journal du manageur `journal-diag-lecture-gpx.log` (diagnostic du simulateur du 12/10, chemin local retiré ; lecture du GPX au simulateur fenix6pro).
 - **Outil** : `tools/etalon_marche.py` (Python stdlib, commit `39136c9`), qui réutilise `tools/analyze_activity.py`. Commande exacte en fin de note.
 - **Fichiers produits** (dossier `docs/verifications/data/`) :
   - `2026-10-13-etalon-marche-minutes.csv` : table minute par minute du tour de marche (123 lignes) ;
-  - `2026-10-13-etalon-marche-extrait-montee-reguliere.csv`, `-replat.csv`, `-montee-raide.csv` : 3 extraits de 40 points avec les valeurs attendues.
+  - `2026-10-13-etalon-marche-extrait-montee-reguliere.csv`, `-replat.csv`, `-montee-raide.csv` : 3 extraits de 40 points avec les valeurs attendues (colonnes `lat` et `lon` retirées le 29/10, voir « Colonnes des CSV »).
 
 ## Questions
 
@@ -177,7 +177,7 @@ Notes :
 Colonnes des CSV :
 - `i_gpx`, `ligne_gpx` : index (base 0) et ligne du point dans le GPX.
 - `t_s` : secondes depuis le 1er point de l'extrait ; `t_tour_s` : secondes depuis le début du tour.
-- `lat`, `lon` (6 décimales), `ele`, `hr` : valeurs du GPX.
+- `ele`, `hr` : valeurs du GPX. Les colonnes `lat` et `lon` (positions GPS) existaient à l'origine ; elles ont été retirées de ces trois CSV le 29/10/2026 (dépôt public). L'outil les écrit encore si on le relance avec `--extracts-prefix` : ne pas recommiter ces colonnes.
 - `dist_m` : distance TCX depuis le 1er point de l'extrait.
 - `hh_garde` : 1 si `HikeHistory.add()` garde l'échantillon.
 - `dplus_brut_m`, `dplus_h1_m` : D+ cumulé depuis le début de l'extrait.
@@ -189,10 +189,12 @@ Pour un test Monkey C : appeler `h.add(t0 + t_s * 1000, ele, dist_m)` pour chaqu
 ## Méthode (reproductible)
 
 ```
-python3 tools/etalon_marche.py garmin_data/activity_24346302742.gpx garmin_data/activity_24346302742.tcx --at 253 --minutes-csv docs/verifications/data/2026-10-13-etalon-marche-minutes.csv --extracts-prefix docs/verifications/data/2026-10-13-etalon-marche-extrait --sim-log /Users/sam/claude-hq/claude-lab/rapports/2026-10-12/diagnostic-simulateur/journal-diag-lecture-gpx.log
+python3 tools/etalon_marche.py garmin_data/activity_24346302742.gpx garmin_data/activity_24346302742.tcx --at 253 --minutes-csv docs/verifications/data/2026-10-13-etalon-marche-minutes.csv --extracts-prefix docs/verifications/data/2026-10-13-etalon-marche-extrait --sim-log <journal-diag-lecture-gpx.log>
 python3 tools/analyze_activity.py garmin_data/activity_24346302742.tcx
 python3 -m unittest tools/test_etalon_marche.py tools/test_analyze_activity.py   # 112 tests, OK
 ```
+
+`<journal-diag-lecture-gpx.log>` : journal du diagnostic du simulateur du 12/10 (chemin local retiré de la note).
 
 - Le tour 1 regroupe les points dont l'heure est ≥ 10:18:43 (`StartTime` du tour 1) et < 12:20:25 (`StartTime` du tour 2).
 - VS 60 s : régression des moindres carrés sur les points des 60 s précédentes, avec au moins 3 points et 20 s couvertes. Pace 60 s : Δ distance / Δt sur la même fenêtre.
@@ -227,3 +229,7 @@ python3 -m unittest tools/test_etalon_marche.py tools/test_analyze_activity.py  
   Critère de fin : seuil documenté et colonne `dplus_h3_m` renommée ou recalculée.
 - **[testeur-connectiq] FC pendant la pause sur montre réelle**
   Objectif : constater si Heart Rate passe à « -- » pendant une pause, puis faire décider l'utilisateur.
+  Critère de fin : constat consigné, décision demandée à l'utilisateur.
+- **[dev-python] Ne plus écrire lat/lon dans les CSV d'extraits**
+  Objectif : `tools/etalon_marche.py` ne doit plus écrire `lat` et `lon` avec `--extracts-prefix`.
+  Critère de fin : un test vérifie l'absence de ces colonnes ; les CSV régénérés sont identiques à ceux du dépôt.
