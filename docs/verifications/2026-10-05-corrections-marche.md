@@ -61,7 +61,7 @@ Total : 5 tests existants + 32 nouveaux = 37.
 
 ## Compilation
 
-SDK présent : `/Users/sam/.local/bin/monkeyc`, `monkeydo`, `connectiq`. Toutes les sorties vont dans `/tmp/glidator-build/`.
+SDK présent : `monkeyc`, `monkeydo`, `connectiq` dans le dossier `.local/bin/` du répertoire personnel (chemin complet retiré). Toutes les sorties vont dans `/tmp/glidator-build/`.
 
 | Appareil | Commande | Résultat |
 |---|---|---|
