@@ -18,7 +18,7 @@ Le plan sert de base à trois tâches qui doivent pouvoir s'exécuter telles que
 | Suite complète à `f306659` | **166** tests par montre = 88 (`Tests.mc`) + 7 (`TestsFormat.mc`) + 32 (`TestsChain.mc`) + 39 (`TestsLayout.mc`) |
 | Données réelles | `garmin_data/activity_24346302742.tcx` : 2 tours, 4311 points. Tour 1 (montée) : 10:18:43 → 12:20:25 UTC, 2211 points, D+ 908 m. Tour 2 (vol) : 12:20:25 → 13:14:35, 2100 points |
 | Profils des montres | `~/Library/Application Support/Garmin/ConnectIQ/Devices/<id>/compiler.json` (résolution, `deviceFamily`, `displayType`, `bitsPerPixel`) et `simulator.json` (`isTouch`, emplacement de la sous-fenêtre) |
-| SDK | `monkeyc`, `monkeydo` et `connectiq` présents dans `/Users/sam/.local/bin/` (SDK 9.2.0 ; non utilisés pour rédiger le plan, utilisés pour les tâches a, b et c) |
+| SDK | `monkeyc`, `monkeydo` et `connectiq` présents dans `~/.local/bin/` (SDK 9.2.0 ; non utilisés pour rédiger le plan, utilisés pour les tâches a, b et c) |
 
 ### Nouveautés du round à couvrir
 - L'écran **PausedView** (`source/PausedView.mc`) affiche « Paused », l'heure actuelle (12/24 h de la montre) et « START: resume ». SELECT reprend l'activité ; BACK ne fait rien.
@@ -214,8 +214,8 @@ Les fonctions d'aide (boîtes, contrôles, états) vont dans une **classe `(:tes
 | État | Session | Icône | Données |
 |---|---|---|---|
 | **vide** | `$.session = null` | non | `new WatchData()` sans donnée, trace vide, pas de fix. Vario null. TimeView `"00:00"`, batterie 0. Boussole (0.0, null, null) : **cap 0.0** (le cap null relève de D9, testé en F25) |
-| **normal** | enregistrement (fausse session, `isRecording() = true`) | non | Tick réel 10:51:28 (§ 3.1, F10) : altitude 2149.4, distance 1692.49, FC 139, D+ 335.0 (synthétique), chrono 1 965 000 ms, vitesse 0.0, cap 0.785 rad, fix (46.12446558661759, 6.985453460365534, accuracy 4), HikeHistory = extrait réel M (§ 3.1, F06) → `+940` / `26:48` (banc écrit le 07/10 ; le plan prévoyait l'extrait T, `+950` / `26:00`, de même largeur), trace = 20 points Salvan (`MapTestHelper`) avec le fix sur le dernier point, vario +0.4. TimeView `"10:51"`, 76 %. Boussole : mêmes coordonnées |
-| **extrême** | enregistrement | non | altitude 8849 en vol, **6000** sur la page Position de marche (borne haute décidée le 06/10 ; D2 étant corrigé, 8849 y donnerait `--`), D+ **20 000** (`20000`, borne haute de la garde du 07/10), distance 999 900 m (`999.9`), chrono 359 999 000 ms (`99:59:59`), FC **250** (`250`, borne haute), vitesse verticale −2998 m/h (12 échantillons sur 55 s → `-3000`, borne du plafond marche, décision du 07/10 (plafond VS) ; la spirale réelle −14 420 m/h lit `--`), pace `60:00` (0.2778 m/s). Vol : 33.3 m/s (`120` km/h), vario −10.0. TimeView `"23:59"`, 100 %. Boussole cap 0.785, (−89.999972, −179.999972) → `89°59'59.9"S` / `179°59'59.9"W` (chaînes les plus longues depuis la correction de D7/D8 : plus de signe moins ni de `60.0"`). Paused : heure actuelle, `12:58 PM` (le plus long texte d'heure) |
+| **normal** | enregistrement (fausse session, `isRecording() = true`) | non | Tick réel 10:51:28 (§ 3.1, F10) : altitude 2149.4, distance 1692.49, FC 139, D+ 335.0 (synthétique), chrono 1 965 000 ms, vitesse 0.0, cap 0.785 rad, fix (coordonnées de test retirées de cette note, voir `source/TestsChain.mc` ; accuracy 4), HikeHistory = extrait réel M (§ 3.1, F06) → `+940` / `26:48` (banc écrit le 07/10 ; le plan prévoyait l'extrait T, `+950` / `26:00`, de même largeur), trace = 20 points Salvan (`MapTestHelper`) avec le fix sur le dernier point, vario +0.4. TimeView `"10:51"`, 76 %. Boussole : mêmes coordonnées |
+| **extrême** | enregistrement | non | altitude 8849 en vol, **6000** sur la page Position de marche (borne haute décidée le 06/10 ; D2 étant corrigé, 8849 y donnerait `--`), D+ **20 000** (`20000`, borne haute de la garde du 07/10), distance 999 900 m (`999.9`), chrono 359 999 000 ms (`99:59:59`), FC **250** (`250`, borne haute), vitesse verticale −2998 m/h (12 échantillons sur 55 s → `-3000`, borne du plafond marche, décision du 07/10 (plafond VS) ; la spirale réelle −14 420 m/h lit `--`), pace `60:00` (0.28 m/s, arrondi dans cette note). Vol : 33.3 m/s (`120` km/h), vario −10.0. TimeView `"23:59"`, 100 %. Boussole cap 0.785, latitude et longitude à 0,00003° des limites (−90 et −180, valeurs exactes dans `source/TestsLayout.mc`) → `89°59'59.9"S` / `179°59'59.9"W` (chaînes les plus longues depuis la correction de D7/D8 : plus de signe moins ni de `60.0"`). Paused : heure actuelle, `12:58 PM` (le plus long texte d'heure) |
 | **pause** | fausse session, `isRecording() = false` | non | données « normal » ; pour PausedView : chrono `32:45` |
 | **enregistrement** | enregistrement | oui (`$.recordFlashStartMs = System.getTimer()`) | données « normal ». En vol, `record = true` élargit l'unité de l'altitude (×1,5) |
 
@@ -329,10 +329,10 @@ HikeHistory accepte 13 échantillons, aux ticks 10:50:28 + 5k s. Altitudes reten
 | F18 | `testChainTimerDisplay` | session ; `timerTime` 1 965 000, 359 999 000, 360 000 000, 0 ; session avec `timerTime` null ; sans session avec 1 965 000 ; session en pause avec 1 965 000 | `32:45`, `99:59:59`, `100:00:00`, `00:00` ; `--:--` ; `--:--` ; en pause, `32:45` sur Position et Pace ; l'écran Paused affiche l'heure actuelle (`08:03` pour l'heure injectée 8 h 03, 24 h), pas le chrono |
 | F19 | `testDefectNegativeDuration` (**D6**, corrigé) | `formatDuration` de −65 000, −1000, −1, −3 600 000 ; page Position, chrono −65 000 | **correct** `--:--` partout ; au 06/10 : `-1:-5`, `00:-1`, `00:00`, `00:00`, `-1:-5` (FAIL ; un sixième contrôle, `pausedScreenTimerText`, a disparu avec le chrono de l'écran Paused). PASS depuis `bc34950` |
 | F20 | `testChainMapWaitingAndTrailOnly` | HikeMapView : (a) trace vide, pas de fix ; (b) 20 points Salvan (`MapTestHelper.salvanLats/Lons`, accuracy 4) puis un tick sans fix (accuracy 0) ; (c) même trace avec un fix au dernier point | (a) textes `["Waiting for", "GPS"]` ; (b) aucun texte, `getCount()` = **3** (et non 20 : décimation à 15 m, comme dans `testFeedBreadcrumbTrailSkipsTicksWithoutFix`), inchangé par le tick sans fix ; (c) aucun texte : la trace fait environ 50 m, donc pas de barre d'échelle |
-| F21 | `testChainMapScaleBarTwoKmTrail` | trace nord-sud de 2 km : lat 46.1000 + 0.0005·k (k = 0…35), puis 46.1179662 ; lon 7.0 (37 points) ; position courante = dernier point, cap 0.0 | `getCount()` = 37 ; le libellé dessiné est **`500 m`** sur les 62 montres (1000 m = 0,85·r px > w/3 et 500 m ≤ w/3 pour toutes les tailles). Sur fenix6pro : m/px = 10,79, barre de 46 px |
-| F22 | `testChainCompassNorthEast` | `compass(0.0, 46.12446558661759d, 6.985453460365534d)` (Doubles, comme `toDegrees()`), la même en Float avec cap 0.785, puis `compass(0.0, null, null)` | `N S E W 46°07'28.1"N 6°59'7.6"E` (deux fois : `%02d` donne bien `07` sur Float et Double) ; puis `N S E W Waiting for GPS`. PASS |
-| F23 | `testDefectCompassSouthWestSign` (**D7**, corrigé) | `compass(0.0, -22.9519d, -43.2105d)` ; `compass(0.0, -0.5d, -0.5d)` | **correct** `22°57'6.8"S` / `43°12'37.8"W` ; `0°30'0.0"S` / `0°30'0.0"W`. Au 06/10 : `-22°57'6.8"S` / `-43°12'37.8"W` (FAIL). PASS depuis `2f1e05f` |
-| F24 | `testDefectCompassSecondsRoundTo60` (**D8**, corrigé) | `compass(0.0, 45.99999d, 6.99999d)` ; `compass(0.0, 46.4999999d, 7.0d)` | **correct** `46°00'0.0"N` / `7°00'0.0"E` ; `46°30'0.0"N`. Au 06/10 : `45°59'60.0"N` / `6°59'60.0"E` ; `46°29'60.0"N` (FAIL). PASS depuis `2f1e05f` |
+| F21 | `testChainMapScaleBarTwoKmTrail` | trace nord-sud de 2 km : latitude de départ + 0,0005°·k (k = 0…35), puis un dernier point à 2 km du départ ; longitude constante (37 points ; valeurs exactes dans le test, retirées de cette note) ; position courante = dernier point, cap 0.0 | `getCount()` = 37 ; le libellé dessiné est **`500 m`** sur les 62 montres (1000 m = 0,85·r px > w/3 et 500 m ≤ w/3 pour toutes les tailles). Sur fenix6pro : m/px = 10,79, barre de 46 px |
+| F22 | `testChainCompassNorthEast` | `compass(0.0, lat, lon)` avec un point de test du massif de Salvan (valeurs exactes dans `source/TestsChain.mc`, retirées de cette note ; Doubles, comme `toDegrees()`), la même en Float avec cap 0.785, puis `compass(0.0, null, null)` | `N S E W 46°07'28.1"N 6°59'7.6"E` (deux fois : `%02d` donne bien `07` sur Float et Double) ; puis `N S E W Waiting for GPS`. PASS |
+| F23 | `testDefectCompassSouthWestSign` (**D7**, corrigé) | `compass(0.0, lat, lon)` avec un point des hémisphères sud et ouest (valeurs exactes dans le test) ; `compass(0.0, -0.5d, -0.5d)` | **correct** `22°57'6.8"S` / `43°12'37.8"W` ; `0°30'0.0"S` / `0°30'0.0"W`. Au 06/10 : `-22°57'6.8"S` / `-43°12'37.8"W` (FAIL). PASS depuis `2f1e05f` |
+| F24 | `testDefectCompassSecondsRoundTo60` (**D8**, corrigé) | `compass(0.0, lat, lon)` à 0,00001° sous un degré entier (46 N / 7 E) ; `compass(0.0, lat, 7.0d)` à 1e-7° sous 46°30' (valeurs exactes dans le test) | **correct** `46°00'0.0"N` / `7°00'0.0"E` ; `46°30'0.0"N`. Au 06/10 : `45°59'60.0"N` / `6°59'60.0"E` ; `46°29'60.0"N` (FAIL). PASS depuis `2f1e05f` |
 | F25 | `testDefectCompassNullHeading` (**D9**, corrigé) | `compass(null, null, null)` puis `compass(null, lat, lon)` (point réel) | **correct** : aucune exception, `N S E W Waiting for GPS`, puis les coordonnées. Au 06/10 : exception à `WatchDisplay.mc:238` (ERROR). PASS depuis `6295a70` |
 | F26 | `testChainPausedViewTexts` | PausedView avec `FakeApp` ; fausse session en pause ; chrono 1 965 000 ; puis sans session | `["Paused", "32:45", "START: resume"]`, puis `["Paused", "--:--", "START: resume"]` ; police du chrono `FONT_NUMBER_MEDIUM` si `32:45` tient dans 80 % de la largeur, sinon `FONT_NUMBER_MILD` (valeur journalisée) |
 | F27 | `testChainPauseSensorsOffKeepsGps` | session en pause : `sensorsForState(true, activeSensorList())` ; tick FC null (Activity et Sensor) ; 2 fix GPS (accuracy 4) à 20 m d'écart ; puis reprise avec FC 139 | `[]` (plus aucun capteur) ; HikePaceView haut `--` ; `getCount()` de la trace passe de 1 à 2 (le GPS continue) ; aucun échantillon HikeHistory pendant la pause ; après la reprise : `139` |
@@ -430,21 +430,21 @@ Ne pas modifier `monkey.jungle`. Écrire un jungle temporaire dans `/tmp/glidato
 
 **Banc écrit (07/10, `source/TestsLayout.mc`)** : annotation `(:test, :layouttest)` (et non `:layoutbench`), tout le banc dans le module `LayoutBenchTests`, car le module `globals` est limité à 253 membres et les 39 tests n'y tenaient pas (274). Le lanceur trouve les tests du module (`LayoutBenchTests.testLayout_…`). Le banc ne dépend que de `Tests.mc` (`MapTestHelper`), pas de `TestsChain.mc`.
 
-Deux jungles temporaires, **à créer dans `/tmp/glidator-build/` et à ne jamais versionner** (surtout pas à la racine, à côté de `monkey.jungle`). Chemins absolus du worktree ; les adapter si le dépôt est ailleurs.
+Deux jungles temporaires, **à créer dans `/tmp/glidator-build/` et à ne jamais versionner** (surtout pas à la racine, à côté de `monkey.jungle`). Chemins absolus du worktree (`<worktree>` ci-dessous : à remplacer par le chemin du dépôt sur la machine) ; les adapter si le dépôt est ailleurs.
 
 `/tmp/glidator-build/no-layout.jungle` : la suite fonctionnelle seule (`Tests.mc`, `TestsFormat.mc`, `TestsChain.mc`), sans le banc :
 ```
-project.manifest = /Users/sam/claude-hq/worktrees/glidator2/manifest.xml
-base.sourcePath = /Users/sam/claude-hq/worktrees/glidator2/source
-base.resourcePath = /Users/sam/claude-hq/worktrees/glidator2/resources
+project.manifest = <worktree>/manifest.xml
+base.sourcePath = <worktree>/source
+base.resourcePath = <worktree>/resources
 base.excludeAnnotations = layouttest
 ```
 
 `/tmp/glidator-build/layout-only.jungle` : malgré son nom, ce n'est **pas** le banc seul. Il exclut seulement les tests de chaîne, et garde donc le banc **et** tous les tests de `Tests.mc` et `TestsFormat.mc` (non annotés). En toute rigueur, c'est un jungle « no-chain » :
 ```
-project.manifest = /Users/sam/claude-hq/worktrees/glidator2/manifest.xml
-base.sourcePath = /Users/sam/claude-hq/worktrees/glidator2/source
-base.resourcePath = /Users/sam/claude-hq/worktrees/glidator2/resources
+project.manifest = <worktree>/manifest.xml
+base.sourcePath = <worktree>/source
+base.resourcePath = <worktree>/resources
 base.excludeAnnotations = chaintest
 ```
 
@@ -538,3 +538,6 @@ Sur la montre (si disponible) : refaire M01, M03 et M05 pendant une vraie monté
 10. Décisions de l'utilisateur du 07/10 (menu Paused inchangé, FC sans repli, pas d'indication de fenêtre) et du 06/10 (tactile, sport générique fenix5) ajoutées là où le plan en parle (§ 0, 1.1, 2.2, 2.3, 5, 8).
 11. Numéro de ligne de `getAltitude()` (l. 213 à `f306659`) ; exception connue au contrôle « tests non affaiblis » (plafond VS).
 12. Protocole manuel : fenêtre VS précisée pour M01 ; ajout de M13 (fenêtre VS 1/3/5 min), seule fonction livrée sans étape manuelle.
+
+## Relecture du 29/10 (données personnelles)
+Coordonnées GPS de test et chemins locaux retirés de ce plan (dépôt public) : F21 à F24, états « normal » et « extrême » du § 2.4, chemin du SDK (§ 0) et jungles temporaires (§ 4.3, `<worktree>`). Les résultats attendus (textes affichés) sont inchangés ; les valeurs d'entrée exactes sont dans `source/TestsChain.mc` et `source/TestsLayout.mc`.
