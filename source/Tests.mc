@@ -648,6 +648,18 @@ function testRecordingSportCodesMatchApi(logger)
 	var hasHiking = $.deviceKnowsHiking();
 	logger.debug("device knows hiking -> " + hasHiking + ", recording sport " + $.pickRecordingSport(hasHiking));
 
+	// deviceKnowsHiking() must be a strict boolean and agree with the raw `has` probes.
+	Test.assertEqualMessage(hasHiking == true || hasHiking == false, true, "deviceKnowsHiking() must return a boolean");
+	if (Activity has :SPORT_HIKING)
+	{
+		Test.assertEqualMessage(hasHiking, true, "Activity.SPORT_HIKING present -> device knows hiking");
+	}
+	else
+	{
+		var viaRecording = (Toybox has :ActivityRecording) && (ActivityRecording has :SPORT_HIKING);
+		Test.assertEqualMessage(hasHiking, viaRecording, "without Activity.SPORT_HIKING, the answer follows ActivityRecording");
+	}
+
 	if (Activity has :SPORT_HIKING)
 	{
 		Test.assertEqualMessage(Activity.SPORT_HIKING, $.RECORDING_SPORT_HIKING, "hiking code must match Activity.SPORT_HIKING");

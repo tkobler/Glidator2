@@ -50,8 +50,10 @@ function isRecording()
 // Recording sport. Activity.SPORT_* only exist from Connect IQ 3.2.0: on fenix5 /
 // fenix5x (CIQ 3.1.6) reading Activity.SPORT_HIKING -- and even
 // Activity.SPORT_GENERIC -- throws "Symbol Not Found" at runtime. So the sport is
-// passed as its FIT sport code (the very values of Activity.SPORT_*, pinned by
-// testRecordingSportCodesMatchApi).
+// not read from the API: it is passed as a plain FIT sport code (0 generic, 17
+// hiking), the very values of Activity.SPORT_* pinned by
+// testRecordingSportCodesMatchApi. The API is only probed with `has`, in
+// deviceKnowsHiking(), to choose between the two codes.
 // Every outing is recorded as hiking, in Walk and in Fly mode alike (choice of
 // 28/10: a flight alone also shows as Hiking in Garmin Connect). Generic is kept
 // as the fallback for a watch that does not know the hiking type.
