@@ -11,10 +11,9 @@ All notable changes to Glidator2 are listed here, newest first.
 
 ### Recording: pause, save on close
 - Pressing SELECT while recording pauses the activity (the timer stops) and opens the Paused menu, which now offers Resume, Pause, Save and Ignore. BACK in this menu resumes, and the activity also resumes on its own after 30 seconds without a choice.
-- New Pause choice: it opens a Paused screen with the frozen timer. The activity stays paused, with no automatic resume, until you press SELECT.
+- New Pause choice: it opens a Paused screen showing the current time. The activity stays paused, with no automatic resume, until you press SELECT.
 - While paused, the heart rate and temperature sensors are turned off (GPS stays on) and are turned back on when you resume. Pausing vibrates two short pulses, resuming one long pulse.
 - If the app is closed by the watch while an activity is recording or paused, the activity is now saved instead of being lost.
-
 - The activity is now always recorded as Hiking (it was Aviation), in Hiking and Flying mode alike: an outing, even a flight alone, appears as Hiking in Garmin Connect. A watch that does not know the hiking type keeps the Generic fallback.
 
 ### Preferences

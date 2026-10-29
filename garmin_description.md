@@ -5,7 +5,7 @@ What's new in 2.1.2
 - Steadier hiking vertical speed: averaged over the last minute by default instead of second by second, rounded to 10 m/h, and shown as "--" beyond ±3000 m/h. The flight vario is unchanged.
 - More reliable hiking pace, computed from the distance covered over the last minute (no more "5:60").
 - New "Climb rate avg" preference: average the hiking climb rate (vertical speed) over 1, 3 or 5 minutes.
-- Real pause: the Paused menu now offers Resume, Pause, Save and Ignore. Pause keeps the activity paused, with the frozen timer on screen, until you press the select key. Without a choice, the menu resumes the activity after 30 seconds.
+- Real pause: the Paused menu now offers Resume, Pause, Save and Ignore. Pause keeps the activity paused, with the current time on screen, until you press the select key. Without a choice, the menu resumes the activity after 30 seconds.
 - Heart rate and temperature sensors are turned off while paused (GPS stays on).
 - If the watch closes the app during an activity (recording or paused), the activity is now saved instead of being lost.
 - Layout fixes on several large round screens (Hiking Position and Pace pages, Time page) and on Instinct 2 (Hiking pages and Flight Instrument page clear of the sub-window).
@@ -32,7 +32,7 @@ Navigation:
 Recording:
 - Press select to start recording (tone, vibration if supported, and a start icon).
 - Press select again to pause (the timer stops) and open the Paused menu: Resume, Pause, Save or Ignore. Back, or 30 seconds without a choice, resumes.
-- Pause shows the frozen timer; the activity stays paused until you press select.
+- Pause shows the current time; the activity stays paused until you press select.
 
 Monitoring:
 Flying mode:
