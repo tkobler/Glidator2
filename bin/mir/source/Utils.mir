@@ -1,122 +1,2822 @@
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc"; @line = 6; @symbol_functiondef = [formatDuration,6,9,23]; @symbol_param<0> = [ms,6,24,26]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 7; @symbol_functiondef = [formatDuration,7,9,23]; @symbol_param<0> = [ms,7,24,26]; ]
 function formatDuration(ms) {
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 8 1 ]
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 9 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_1_12_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_5_9_24_begin:
     %tmp.1 = lgetv %ms;
-    symbol [ ms %tmp.1 8 5 7 ];
+    symbol [ ms %tmp.1 9 5 7 ];
     %tmp.2 = null;
     %tmp.3 = eq %tmp.1 %tmp.2;
-    bf %tmp.3 @_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_9_1_11_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 10 2 ]
-    %tmp.4 = "--:--";
-    ret %tmp.4;
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_9_1_11_1_stop:
-    goto @_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_8_1_11_1_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 13 1 ]
-    [ "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop" ]
+    bt %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_1_12_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_19_9_24_false:
+    %tmp.4 = lgetv %ms;
+    symbol [ ms %tmp.4 9 19 21 ];
+    %tmp.5 = as %tmp.4 { (!Null) };
+    %tmp.6 = 0;
+    %tmp.7 = lt %tmp.5 %tmp.6;
+    push %tmp.7;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_19_9_24_end:
+    %tmp.8 = phi [%tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_5_9_24_begin] [%tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_19_9_24_false] [%tmp.8 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_19_9_24_end];
+    bf %tmp.8 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_1_12_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_1_12_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_10_1_12_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 11 2 ]
+    %tmp.9 = "--:--";
+    ret %tmp.9;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_10_1_12_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_1_12_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_9_1_12_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 14 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_stop" ]
     %totalSeconds.1 = local;
-    symbol [ totalSeconds %totalSeconds.1 13 5 17 ];
-    %tmp.5 = lgetv %ms;
-    symbol [ ms %tmp.5 13 21 23 ];
-    %tmp.6 = 1000;
-    %tmp.7 = div %tmp.5 %tmp.6;
-    symbol [ toNumber %tmp.8 13 32 40 ];
-    %tmp.8 = getv function %tmp.7 :toNumber;
-    %tmp.9 = invoke %tmp.7 %tmp.8();
-    lputv %totalSeconds.1 %tmp.9;
-    symbol [ totalSeconds %totalSeconds.1 13 5 17 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 14 1 ]
-    [ "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop" ]
-    %hours.2 = local;
-    symbol [ hours %hours.2 14 5 10 ];
-    %tmp.10 = lgetv %totalSeconds.1;
-    symbol [ totalSeconds %tmp.10 14 13 25 ];
-    %tmp.11 = 3600;
+    symbol [ totalSeconds %totalSeconds.1 14 5 17 ];
+    %tmp.10 = lgetv %ms;
+    symbol [ ms %tmp.10 14 21 23 ];
+    %tmp.11 = 1000;
     %tmp.12 = div %tmp.10 %tmp.11;
-    lputv %hours.2 %tmp.12;
-    symbol [ hours %hours.2 14 5 10 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 15 1 ]
-    [ "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop" ]
-    %minutes.3 = local;
-    symbol [ minutes %minutes.3 15 5 12 ];
-    %tmp.13 = lgetv %totalSeconds.1;
-    symbol [ totalSeconds %tmp.13 15 16 28 ];
-    %tmp.14 = 3600;
-    %tmp.15 = mod %tmp.13 %tmp.14;
-    %tmp.16 = 60;
+    symbol [ toNumber %tmp.13 14 32 40 ];
+    %tmp.13 = getv function %tmp.12 :toNumber;
+    %tmp.14 = invoke %tmp.12 %tmp.13();
+    lputv %totalSeconds.1 %tmp.14;
+    symbol [ totalSeconds %totalSeconds.1 14 5 17 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 15 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_stop" ]
+    %hours.2 = local;
+    symbol [ hours %hours.2 15 5 10 ];
+    %tmp.15 = lgetv %totalSeconds.1;
+    symbol [ totalSeconds %tmp.15 15 13 25 ];
+    %tmp.16 = 3600;
     %tmp.17 = div %tmp.15 %tmp.16;
-    lputv %minutes.3 %tmp.17;
-    symbol [ minutes %minutes.3 15 5 12 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 16 1 ]
-    [ "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_start" "_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop" ]
-    %seconds.4 = local;
-    symbol [ seconds %seconds.4 16 5 12 ];
+    lputv %hours.2 %tmp.17;
+    symbol [ hours %hours.2 15 5 10 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 16 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_stop" ]
+    %minutes.3 = local;
+    symbol [ minutes %minutes.3 16 5 12 ];
     %tmp.18 = lgetv %totalSeconds.1;
-    symbol [ totalSeconds %tmp.18 16 15 27 ];
-    %tmp.19 = 60;
+    symbol [ totalSeconds %tmp.18 16 16 28 ];
+    %tmp.19 = 3600;
     %tmp.20 = mod %tmp.18 %tmp.19;
-    lputv %seconds.4 %tmp.20;
-    symbol [ seconds %seconds.4 16 5 12 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 18 1 ]
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_stmt:
-    %tmp.21 = lgetv %hours.2;
-    symbol [ hours %tmp.21 18 5 10 ];
-    %tmp.22 = 0;
-    %tmp.23 = gt %tmp.21 %tmp.22;
-    bf %tmp.23 @_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_19_1_21_1_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 20 2 ]
-    %tmp.24 = lgetv %hours.2;
-    symbol [ hours %tmp.24 20 9 14 ];
-    symbol [ toString %tmp.25 20 15 23 ];
-    %tmp.25 = getv function %tmp.24 :toString;
-    %tmp.26 = invoke %tmp.24 %tmp.25();
-    %tmp.27 = ":";
-    %tmp.28 = add %tmp.26 %tmp.27;
-    %tmp.29 = lgetv %minutes.3;
-    symbol [ minutes %tmp.29 20 34 41 ];
-    symbol [ format %tmp.30 20 42 48 ];
-    %tmp.30 = getv function %tmp.29 :format;
-    %tmp.31 = "%02d";
-    %tmp.32 = invoke %tmp.29 %tmp.30(%tmp.31);
-    %tmp.33 = add %tmp.28 %tmp.32;
-    %tmp.34 = ":";
-    %tmp.35 = add %tmp.33 %tmp.34;
-    %tmp.36 = lgetv %seconds.4;
-    symbol [ seconds %tmp.36 20 65 72 ];
-    symbol [ format %tmp.37 20 73 79 ];
-    %tmp.37 = getv function %tmp.36 :format;
-    %tmp.38 = "%02d";
-    %tmp.39 = invoke %tmp.36 %tmp.37(%tmp.38);
-    %tmp.40 = add %tmp.35 %tmp.39;
-    ret %tmp.40;
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_19_1_21_1_stop:
-    goto @_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_18_1_21_1_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc" 23 1 ]
-    %tmp.41 = lgetv %minutes.3;
-    symbol [ minutes %tmp.41 23 8 15 ];
-    symbol [ format %tmp.42 23 16 22 ];
+    %tmp.21 = 60;
+    %tmp.22 = div %tmp.20 %tmp.21;
+    lputv %minutes.3 %tmp.22;
+    symbol [ minutes %minutes.3 16 5 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 17 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_stop" ]
+    %seconds.4 = local;
+    symbol [ seconds %seconds.4 17 5 12 ];
+    %tmp.23 = lgetv %totalSeconds.1;
+    symbol [ totalSeconds %tmp.23 17 15 27 ];
+    %tmp.24 = 60;
+    %tmp.25 = mod %tmp.23 %tmp.24;
+    lputv %seconds.4 %tmp.25;
+    symbol [ seconds %seconds.4 17 5 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 19 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_19_1_22_1_if_stmt:
+    %tmp.26 = lgetv %hours.2;
+    symbol [ hours %tmp.26 19 5 10 ];
+    %tmp.27 = 0;
+    %tmp.28 = gt %tmp.26 %tmp.27;
+    bf %tmp.28 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_19_1_22_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_19_1_22_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_20_1_22_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 21 2 ]
+    %tmp.29 = lgetv %hours.2;
+    symbol [ hours %tmp.29 21 9 14 ];
+    symbol [ toString %tmp.30 21 15 23 ];
+    %tmp.30 = getv function %tmp.29 :toString;
+    %tmp.31 = invoke %tmp.29 %tmp.30();
+    %tmp.32 = ":";
+    %tmp.33 = add %tmp.31 %tmp.32;
+    %tmp.34 = lgetv %minutes.3;
+    symbol [ minutes %tmp.34 21 34 41 ];
+    symbol [ format %tmp.35 21 42 48 ];
+    %tmp.35 = getv function %tmp.34 :format;
+    %tmp.36 = "%02d";
+    %tmp.37 = invoke %tmp.34 %tmp.35(%tmp.36);
+    %tmp.38 = add %tmp.33 %tmp.37;
+    %tmp.39 = ":";
+    %tmp.40 = add %tmp.38 %tmp.39;
+    %tmp.41 = lgetv %seconds.4;
+    symbol [ seconds %tmp.41 21 65 72 ];
+    symbol [ format %tmp.42 21 73 79 ];
     %tmp.42 = getv function %tmp.41 :format;
     %tmp.43 = "%02d";
     %tmp.44 = invoke %tmp.41 %tmp.42(%tmp.43);
-    %tmp.45 = ":";
-    %tmp.46 = add %tmp.44 %tmp.45;
-    %tmp.47 = lgetv %seconds.4;
-    symbol [ seconds %tmp.47 23 39 46 ];
-    symbol [ format %tmp.48 23 47 53 ];
-    %tmp.48 = getv function %tmp.47 :format;
-    %tmp.49 = "%02d";
-    %tmp.50 = invoke %tmp.47 %tmp.48(%tmp.49);
-    %tmp.51 = add %tmp.46 %tmp.50;
-    ret %tmp.51;
-_Users_tk_Desktop_Claude_Glidator2_source_Utils_mc_7_0_24_0_stop:
+    %tmp.45 = add %tmp.40 %tmp.44;
+    ret %tmp.45;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_20_1_22_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_19_1_22_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_19_1_22_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 24 1 ]
+    %tmp.46 = lgetv %minutes.3;
+    symbol [ minutes %tmp.46 24 8 15 ];
+    symbol [ format %tmp.47 24 16 22 ];
+    %tmp.47 = getv function %tmp.46 :format;
+    %tmp.48 = "%02d";
+    %tmp.49 = invoke %tmp.46 %tmp.47(%tmp.48);
+    %tmp.50 = ":";
+    %tmp.51 = add %tmp.49 %tmp.50;
+    %tmp.52 = lgetv %seconds.4;
+    symbol [ seconds %tmp.52 24 39 46 ];
+    symbol [ format %tmp.53 24 47 53 ];
+    %tmp.53 = getv function %tmp.52 :format;
+    %tmp.54 = "%02d";
+    %tmp.55 = invoke %tmp.52 %tmp.53(%tmp.54);
+    %tmp.56 = add %tmp.51 %tmp.55;
+    ret %tmp.56;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_8_0_25_0_stop:
 }
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/Utils.mc"; @line = 6; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 29; @position = 6; @symbol_constdef = [HIKE_ALTITUDE_MIN_M,29,6,25]; ]
+const HIKE_ALTITUDE_MIN_M = -100.0;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 30; @position = 6; @symbol_constdef = [HIKE_ALTITUDE_MAX_M,30,6,25]; ]
+const HIKE_ALTITUDE_MAX_M = 6000.0;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 36; @symbol_functiondef = [formatHikeAltitude,36,9,27]; @symbol_param<0> = [alt,36,28,31]; ]
+function formatHikeAltitude(alt) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_37_0_48_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 38 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_38_1_41_1_if_stmt:
+    %tmp.1 = lgetv %alt;
+    symbol [ alt %tmp.1 38 5 8 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_38_1_41_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_38_1_41_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_39_1_41_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 40 2 ]
+    %tmp.4 = "--";
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_39_1_41_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_38_1_41_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_38_1_41_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 42 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_37_0_48_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_37_0_48_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 42 5 6 ];
+    %tmp.5 = lgetv %alt;
+    symbol [ alt %tmp.5 42 9 12 ];
+    symbol [ toFloat %tmp.6 42 13 20 ];
+    %tmp.6 = getv function %tmp.5 :toFloat;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 42 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 43 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_1_46_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_5_43_57_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_5_43_30_begin:
+    %tmp.8 = self;
+    symbol [ isFiniteFloat %tmp.9 43 6 19 ];
+    %tmp.9 = getv function %tmp.8 :isFiniteFloat;
+    %tmp.10 = lgetv %v.1;
+    symbol [ v %tmp.10 43 20 21 ];
+    %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
+    %tmp.12 = not %tmp.11;
+    bt %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_1_46_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_26_43_30_false:
+    %tmp.13 = lgetv %v.1;
+    symbol [ v %tmp.13 43 26 27 ];
+    symbol [ HIKE_ALTITUDE_MIN_M %tmp.15 43 30 49 ];
+    %tmp.15 = getv ? :HIKE_ALTITUDE_MIN_M;
+    %tmp.16 = lt %tmp.13 %tmp.15;
+    push %tmp.16;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_26_43_30_end:
+    %tmp.17 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_5_43_30_begin] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_26_43_30_false] [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_26_43_30_end];
+    bt %tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_1_46_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_53_43_57_false:
+    %tmp.18 = lgetv %v.1;
+    symbol [ v %tmp.18 43 53 54 ];
+    symbol [ HIKE_ALTITUDE_MAX_M %tmp.20 43 57 76 ];
+    %tmp.20 = getv ? :HIKE_ALTITUDE_MAX_M;
+    %tmp.21 = gt %tmp.18 %tmp.20;
+    push %tmp.21;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_53_43_57_end:
+    %tmp.22 = phi [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_5_43_57_begin] [%tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_53_43_57_false] [%tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_53_43_57_end];
+    bf %tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_1_46_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_1_46_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_44_1_46_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 45 2 ]
+    %tmp.23 = "--";
+    ret %tmp.23;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_44_1_46_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_1_46_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_43_1_46_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 47 1 ]
+    symbol [ Toybox %tmp.25 47 8 14 ];
+    %tmp.25 = getv ? :Toybox;
+    symbol [ Math %tmp.26 47 15 19 ];
+    %tmp.26 = getv %tmp.25 :Math;
+    symbol [ round %tmp.27 47 20 25 ];
+    %tmp.27 = getv function %tmp.26 :round;
+    %tmp.28 = lgetv %v.1;
+    symbol [ v %tmp.28 47 26 27 ];
+    %tmp.29 = invoke %tmp.26 %tmp.27(%tmp.28);
+    symbol [ toNumber %tmp.30 47 29 37 ];
+    %tmp.30 = getv function %tmp.29 :toNumber;
+    %tmp.31 = invoke %tmp.29 %tmp.30();
+    symbol [ toString %tmp.32 47 40 48 ];
+    %tmp.32 = getv function %tmp.31 :toString;
+    %tmp.33 = invoke %tmp.31 %tmp.32();
+    ret %tmp.33;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_37_0_48_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 52; @position = 6; @symbol_constdef = [FLIGHT_ALTITUDE_MIN_M,52,6,27]; ]
+const FLIGHT_ALTITUDE_MIN_M = -500.0d;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 53; @position = 6; @symbol_constdef = [FLIGHT_ALTITUDE_MAX_M,53,6,27]; ]
+const FLIGHT_ALTITUDE_MAX_M = 9000.0d;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 61; @symbol_functiondef = [formatFlightAltitude,61,9,29]; @symbol_param<0> = [alt,61,30,33]; ]
+function formatFlightAltitude(alt) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_62_0_73_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 63 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_63_1_66_1_if_stmt:
+    %tmp.1 = lgetv %alt;
+    symbol [ alt %tmp.1 63 5 8 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_63_1_66_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_63_1_66_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_64_1_66_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 65 2 ]
+    %tmp.4 = "--";
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_64_1_66_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_63_1_66_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_63_1_66_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 67 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_62_0_73_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_62_0_73_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 67 5 6 ];
+    %tmp.5 = lgetv %alt;
+    symbol [ alt %tmp.5 67 9 12 ];
+    symbol [ toDouble %tmp.6 67 13 21 ];
+    %tmp.6 = getv function %tmp.5 :toDouble;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 67 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 68 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_1_71_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_5_68_59_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_5_68_30_begin:
+    %tmp.8 = self;
+    symbol [ isFiniteFloat %tmp.9 68 6 19 ];
+    %tmp.9 = getv function %tmp.8 :isFiniteFloat;
+    %tmp.10 = lgetv %v.1;
+    symbol [ v %tmp.10 68 20 21 ];
+    %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
+    %tmp.12 = not %tmp.11;
+    bt %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_1_71_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_26_68_30_false:
+    %tmp.13 = lgetv %v.1;
+    symbol [ v %tmp.13 68 26 27 ];
+    symbol [ FLIGHT_ALTITUDE_MIN_M %tmp.15 68 30 51 ];
+    %tmp.15 = getv ? :FLIGHT_ALTITUDE_MIN_M;
+    %tmp.16 = lt %tmp.13 %tmp.15;
+    push %tmp.16;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_26_68_30_end:
+    %tmp.17 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_5_68_30_begin] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_26_68_30_false] [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_26_68_30_end];
+    bt %tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_1_71_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_55_68_59_false:
+    %tmp.18 = lgetv %v.1;
+    symbol [ v %tmp.18 68 55 56 ];
+    symbol [ FLIGHT_ALTITUDE_MAX_M %tmp.20 68 59 80 ];
+    %tmp.20 = getv ? :FLIGHT_ALTITUDE_MAX_M;
+    %tmp.21 = gt %tmp.18 %tmp.20;
+    push %tmp.21;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_55_68_59_end:
+    %tmp.22 = phi [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_5_68_59_begin] [%tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_55_68_59_false] [%tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_55_68_59_end];
+    bf %tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_1_71_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_1_71_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_69_1_71_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 70 2 ]
+    %tmp.23 = "--";
+    ret %tmp.23;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_69_1_71_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_1_71_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_68_1_71_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 72 1 ]
+    symbol [ Toybox %tmp.25 72 8 14 ];
+    %tmp.25 = getv ? :Toybox;
+    symbol [ Math %tmp.26 72 15 19 ];
+    %tmp.26 = getv %tmp.25 :Math;
+    symbol [ round %tmp.27 72 20 25 ];
+    %tmp.27 = getv function %tmp.26 :round;
+    %tmp.28 = lgetv %alt;
+    symbol [ alt %tmp.28 72 26 29 ];
+    %tmp.29 = invoke %tmp.26 %tmp.27(%tmp.28);
+    symbol [ toNumber %tmp.30 72 31 39 ];
+    %tmp.30 = getv function %tmp.29 :toNumber;
+    %tmp.31 = invoke %tmp.29 %tmp.30();
+    symbol [ toString %tmp.32 72 42 50 ];
+    %tmp.32 = getv function %tmp.31 :toString;
+    %tmp.33 = invoke %tmp.31 %tmp.32();
+    ret %tmp.33;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_62_0_73_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 78; @symbol_functiondef = [flightAltitudeUnit,78,9,27]; @symbol_param<0> = [altText,78,28,35]; ]
+function flightAltitudeUnit(altText) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_79_0_85_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 80 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_1_83_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_5_80_68_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_5_80_44_begin:
+    %tmp.1 = lgetv %altText;
+    symbol [ altText %tmp.1 80 5 12 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bt %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_1_83_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_24_80_44_false:
+    %tmp.4 = lgetv %altText;
+    symbol [ altText %tmp.4 80 24 31 ];
+    %tmp.5 = as %tmp.4 { (!Null) };
+    symbol [ length %tmp.6 80 32 38 ];
+    %tmp.6 = getv function %tmp.5 :length;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    %tmp.8 = 0;
+    %tmp.9 = eq %tmp.7 %tmp.8;
+    push %tmp.9;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_24_80_44_end:
+    %tmp.10 = phi [%tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_5_80_44_begin] [%tmp.9 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_24_80_44_false] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_24_80_44_end];
+    bt %tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_1_83_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_49_80_68_false:
+    %tmp.11 = lgetv %altText;
+    symbol [ altText %tmp.11 80 49 56 ];
+    %tmp.12 = as %tmp.11 { (!Null) };
+    symbol [ equals %tmp.13 80 57 63 ];
+    %tmp.13 = getv function %tmp.12 :equals;
+    %tmp.14 = "--";
+    %tmp.15 = invoke %tmp.12 %tmp.13(%tmp.14);
+    push %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_49_80_68_end:
+    %tmp.16 = phi [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_5_80_68_begin] [%tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_49_80_68_false] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_49_80_68_end];
+    bf %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_1_83_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_1_83_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_81_1_83_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 82 2 ]
+    %tmp.17 = "";
+    ret %tmp.17;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_81_1_83_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_1_83_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_80_1_83_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 84 1 ]
+    %tmp.18 = " m";
+    ret %tmp.18;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_79_0_85_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 94; @symbol_functiondef = [flySpeedLineX,94,9,22]; @symbol_param<0> = [centeredX,94,23,32]; @symbol_param<1> = [lineWidth,94,34,43]; @symbol_param<2> = [lineTop,94,45,52]; @symbol_param<3> = [lineBottom,94,54,64]; @symbol_param<4> = [sub,94,66,69]; ]
+function flySpeedLineX(centeredX, lineWidth, lineTop, lineBottom, sub) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_95_0_106_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 96 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_1_99_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_5_96_69_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_5_96_39_begin:
+    %tmp.1 = lgetv %sub;
+    symbol [ sub %tmp.1 96 5 8 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bt %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_1_99_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_20_96_39_false:
+    %tmp.4 = lgetv %lineBottom;
+    symbol [ lineBottom %tmp.4 96 20 30 ];
+    %tmp.5 = lgetv %sub;
+    symbol [ sub %tmp.5 96 34 37 ];
+    %tmp.6 = as %tmp.5 { (!Null) };
+    %tmp.7 = 1;
+    %tmp.8 = agetv %tmp.6 %tmp.7;
+    %tmp.9 = lte %tmp.4 %tmp.8;
+    push %tmp.9;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_20_96_39_end:
+    %tmp.10 = phi [%tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_5_96_39_begin] [%tmp.9 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_20_96_39_false] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_20_96_39_end];
+    bt %tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_1_99_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_44_96_69_false:
+    %tmp.11 = lgetv %lineTop;
+    symbol [ lineTop %tmp.11 96 44 51 ];
+    %tmp.12 = lgetv %sub;
+    symbol [ sub %tmp.12 96 55 58 ];
+    %tmp.13 = as %tmp.12 { (!Null) };
+    %tmp.14 = 1;
+    %tmp.15 = agetv %tmp.13 %tmp.14;
+    %tmp.16 = lgetv %sub;
+    symbol [ sub %tmp.16 96 64 67 ];
+    %tmp.17 = as %tmp.16 { (!Null) };
+    %tmp.18 = 3;
+    %tmp.19 = agetv %tmp.17 %tmp.18;
+    %tmp.20 = add %tmp.15 %tmp.19;
+    %tmp.21 = gte %tmp.11 %tmp.20;
+    push %tmp.21;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_44_96_69_end:
+    %tmp.22 = phi [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_5_96_69_begin] [%tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_44_96_69_false] [%tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_44_96_69_end];
+    bf %tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_1_99_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_1_99_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_97_1_99_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 98 2 ]
+    %tmp.23 = lgetv %centeredX;
+    symbol [ centeredX %tmp.23 98 9 18 ];
+    ret %tmp.23;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_97_1_99_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_1_99_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_96_1_99_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 100 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_95_0_106_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_95_0_106_0_stop" ]
+    %maxX.1 = local;
+    symbol [ maxX %maxX.1 100 5 9 ];
+    %tmp.24 = lgetv %sub;
+    symbol [ sub %tmp.24 100 12 15 ];
+    %tmp.25 = 0;
+    %tmp.26 = agetv %tmp.24 %tmp.25;
+    %tmp.27 = lgetv %lineWidth;
+    symbol [ lineWidth %tmp.27 100 21 30 ];
+    %tmp.28 = sub %tmp.26 %tmp.27;
+    lputv %maxX.1 %tmp.28;
+    symbol [ maxX %maxX.1 100 5 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 101 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_101_1_104_1_if_stmt:
+    %tmp.29 = lgetv %centeredX;
+    symbol [ centeredX %tmp.29 101 5 14 ];
+    %tmp.30 = lgetv %maxX.1;
+    symbol [ maxX %tmp.30 101 18 22 ];
+    %tmp.31 = lte %tmp.29 %tmp.30;
+    bf %tmp.31 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_101_1_104_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_101_1_104_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_102_1_104_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 103 2 ]
+    %tmp.32 = lgetv %centeredX;
+    symbol [ centeredX %tmp.32 103 9 18 ];
+    ret %tmp.32;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_102_1_104_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_101_1_104_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_101_1_104_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 105 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_begin:
+    %tmp.33 = lgetv %maxX.1;
+    symbol [ maxX %tmp.33 105 8 12 ];
+    %tmp.34 = 0;
+    %tmp.35 = lt %tmp.33 %tmp.34;
+    bf %tmp.35 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_true:
+    %tmp.36 = 0;
+    push %tmp.36;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_else_false:
+    %tmp.37 = lgetv %maxX.1;
+    symbol [ maxX %tmp.37 105 23 27 ];
+    push %tmp.37;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_end:
+    %tmp.38 = phi [%tmp.35 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_begin] [%tmp.36 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_true] [%tmp.37 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_else_false] [%tmp.38 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_105_8_105_23_end];
+    ret %tmp.38;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_95_0_106_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 112; @position = 6; @symbol_constdef = [TIME_INK_MARGIN,112,6,21]; ]
+const TIME_INK_MARGIN = 0.16;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 130; @symbol_functiondef = [timeBatteryLayout,130,9,26]; @symbol_param<0> = [w,130,27,28]; @symbol_param<1> = [h,130,30,31]; @symbol_param<2> = [hotHeight,130,33,42]; @symbol_param<3> = [tinyHeight,130,44,54]; @symbol_param<4> = [textWidth,130,56,65]; ]
+function timeBatteryLayout(w, h, hotHeight, tinyHeight, textWidth) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_131_0_155_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 132 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_131_0_155_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_131_0_155_0_stop" ]
+    %centerX.1 = local;
+    symbol [ centerX %centerX.1 132 5 12 ];
+    %tmp.1 = lgetv %w;
+    symbol [ w %tmp.1 132 15 16 ];
+    %tmp.2 = 2;
+    %tmp.3 = div %tmp.1 %tmp.2;
+    lputv %centerX.1 %tmp.3;
+    symbol [ centerX %centerX.1 132 5 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 133 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_131_0_155_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_131_0_155_0_stop" ]
+    %y.2 = local;
+    symbol [ y %y.2 133 5 6 ];
+    %tmp.4 = lgetv %h;
+    symbol [ h %tmp.4 133 9 10 ];
+    %tmp.5 = 2;
+    %tmp.6 = div %tmp.4 %tmp.5;
+    %tmp.7 = 50;
+    %tmp.8 = add %tmp.6 %tmp.7;
+    lputv %y.2 %tmp.8;
+    symbol [ y %y.2 133 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 134 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_1_153_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_5_134_78_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_5_134_60_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_5_134_40_begin:
+    %tmp.9 = lgetv %hotHeight;
+    symbol [ hotHeight %tmp.9 134 5 14 ];
+    %tmp.10 = null;
+    %tmp.11 = ne %tmp.9 %tmp.10;
+    bf %tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_1_153_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_26_134_40_true:
+    %tmp.12 = lgetv %tinyHeight;
+    symbol [ tinyHeight %tmp.12 134 26 36 ];
+    %tmp.13 = null;
+    %tmp.14 = ne %tmp.12 %tmp.13;
+    push %tmp.14;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_26_134_40_end:
+    %tmp.15 = phi [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_5_134_40_begin] [%tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_26_134_40_true] [%tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_26_134_40_end];
+    bf %tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_1_153_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_48_134_60_true:
+    %tmp.16 = lgetv %hotHeight;
+    symbol [ hotHeight %tmp.16 134 48 57 ];
+    %tmp.17 = as %tmp.16 { (!Null) };
+    %tmp.18 = 0;
+    %tmp.19 = gt %tmp.17 %tmp.18;
+    push %tmp.19;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_48_134_60_end:
+    %tmp.20 = phi [%tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_5_134_60_begin] [%tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_48_134_60_true] [%tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_48_134_60_end];
+    bf %tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_1_153_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_65_134_78_true:
+    %tmp.21 = lgetv %tinyHeight;
+    symbol [ tinyHeight %tmp.21 134 65 75 ];
+    %tmp.22 = as %tmp.21 { (!Null) };
+    %tmp.23 = 0;
+    %tmp.24 = gt %tmp.22 %tmp.23;
+    push %tmp.24;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_65_134_78_end:
+    %tmp.25 = phi [%tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_5_134_78_begin] [%tmp.24 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_65_134_78_true] [%tmp.25 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_65_134_78_end];
+    bf %tmp.25 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_1_153_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_1_153_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_135_1_153_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 138 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_135_1_153_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_135_1_153_1_stop" ]
+    %clearY.3 = local;
+    symbol [ clearY %clearY.3 138 6 12 ];
+    %tmp.26 = lgetv %h;
+    symbol [ h %tmp.26 138 15 16 ];
+    %tmp.27 = 2;
+    %tmp.28 = div %tmp.26 %tmp.27;
+    %tmp.29 = lgetv %hotHeight;
+    symbol [ hotHeight %tmp.29 139 5 14 ];
+    %tmp.30 = as %tmp.29 { (!Null) };
+    %tmp.31 = 2.0;
+    %tmp.32 = div %tmp.30 %tmp.31;
+    %tmp.33 = add %tmp.28 %tmp.32;
+    symbol [ TIME_INK_MARGIN %tmp.35 139 24 39 ];
+    %tmp.35 = getv ? :TIME_INK_MARGIN;
+    %tmp.36 = lgetv %hotHeight;
+    symbol [ hotHeight %tmp.36 139 42 51 ];
+    %tmp.37 = as %tmp.36 { (!Null) };
+    %tmp.38 = mul %tmp.35 %tmp.37;
+    symbol [ toNumber %tmp.39 139 53 61 ];
+    %tmp.39 = getv function %tmp.38 :toNumber;
+    %tmp.40 = invoke %tmp.38 %tmp.39();
+    %tmp.41 = sub %tmp.33 %tmp.40;
+    %tmp.42 = lgetv %tinyHeight;
+    symbol [ tinyHeight %tmp.42 140 5 15 ];
+    %tmp.43 = as %tmp.42 { (!Null) };
+    %tmp.44 = 2.0;
+    %tmp.45 = div %tmp.43 %tmp.44;
+    %tmp.46 = add %tmp.41 %tmp.45;
+    symbol [ TIME_INK_MARGIN %tmp.48 140 25 40 ];
+    %tmp.48 = getv ? :TIME_INK_MARGIN;
+    %tmp.49 = lgetv %tinyHeight;
+    symbol [ tinyHeight %tmp.49 140 43 53 ];
+    %tmp.50 = as %tmp.49 { (!Null) };
+    %tmp.51 = mul %tmp.48 %tmp.50;
+    symbol [ toNumber %tmp.52 140 55 63 ];
+    %tmp.52 = getv function %tmp.51 :toNumber;
+    %tmp.53 = invoke %tmp.51 %tmp.52();
+    %tmp.54 = sub %tmp.46 %tmp.53;
+    lputv %clearY.3 %tmp.54;
+    symbol [ clearY %clearY.3 138 6 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 141 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_141_2_152_2_if_stmt:
+    %tmp.55 = lgetv %y.2;
+    symbol [ y %tmp.55 141 6 7 ];
+    %tmp.56 = lgetv %clearY.3;
+    symbol [ clearY %tmp.56 141 10 16 ];
+    %tmp.57 = lt %tmp.55 %tmp.56;
+    bf %tmp.57 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_141_2_152_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_141_2_152_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_142_2_152_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 143 3 ]
+    %tmp.58 = lgetv %h;
+    symbol [ h %tmp.58 143 7 8 ];
+    %tmp.59 = 2;
+    %tmp.60 = div %tmp.58 %tmp.59;
+    %tmp.61 = lgetv %hotHeight;
+    symbol [ hotHeight %tmp.61 143 16 25 ];
+    %tmp.62 = as %tmp.61 { (!Null) };
+    %tmp.63 = 1;
+    %tmp.64 = add %tmp.62 %tmp.63;
+    %tmp.65 = 2;
+    %tmp.66 = div %tmp.64 %tmp.65;
+    %tmp.67 = add %tmp.60 %tmp.66;
+    lputv %y.2 %tmp.67;
+    symbol [ y %y.2 143 3 4 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 144 3 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_144_3_151_3_if_stmt:
+    %tmp.68 = lgetv %y.2;
+    symbol [ y %tmp.68 144 7 8 ];
+    %tmp.69 = lgetv %clearY.3;
+    symbol [ clearY %tmp.69 144 11 17 ];
+    %tmp.70 = lt %tmp.68 %tmp.69;
+    bf %tmp.70 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_144_3_151_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_144_3_151_3_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_145_3_151_3_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 146 4 ]
+    %tmp.71 = lgetv %clearY.3;
+    symbol [ clearY %tmp.71 146 8 14 ];
+    symbol [ toNumber %tmp.72 146 15 23 ];
+    %tmp.72 = getv function %tmp.71 :toNumber;
+    %tmp.73 = invoke %tmp.71 %tmp.72();
+    lputv %y.2 %tmp.73;
+    symbol [ y %y.2 146 4 5 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 147 4 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_147_4_150_4_if_stmt:
+    %tmp.74 = lgetv %y.2;
+    symbol [ y %tmp.74 147 8 9 ];
+    %tmp.75 = lgetv %clearY.3;
+    symbol [ clearY %tmp.75 147 12 18 ];
+    %tmp.76 = lt %tmp.74 %tmp.75;
+    bf %tmp.76 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_147_4_150_4_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_147_4_150_4_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_148_4_150_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 149 5 ]
+    %tmp.77 = lgetv %y.2;
+    symbol [ y %tmp.77 149 5 6 ];
+    %tmp.78 = 1;
+    %tmp.79 = add %tmp.77 %tmp.78;
+    lputv %y.2 %tmp.79;
+    symbol [ y %y.2 149 5 6 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_148_4_150_4_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_147_4_150_4_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_147_4_150_4_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_145_3_151_3_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_144_3_151_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_144_3_151_3_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_142_2_152_2_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_141_2_152_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_141_2_152_2_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_135_1_153_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_1_153_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_134_1_153_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 154 1 ]
+    %tmp.80 = newa 4;
+    %tmp.81 = lgetv %centerX.1;
+    symbol [ centerX %tmp.81 154 9 16 ];
+    %tmp.82 = 10;
+    %tmp.83 = add %tmp.81 %tmp.82;
+    %tmp.84 = dup %tmp.80;
+    %tmp.85 = aputv %tmp.84 0 %tmp.83;
+    %tmp.86 = lgetv %y.2;
+    symbol [ y %tmp.86 154 23 24 ];
+    %tmp.87 = dup %tmp.85;
+    %tmp.88 = aputv %tmp.87 1 %tmp.86;
+    %tmp.89 = lgetv %centerX.1;
+    symbol [ centerX %tmp.89 154 26 33 ];
+    %tmp.90 = lgetv %textWidth;
+    symbol [ textWidth %tmp.90 154 37 46 ];
+    %tmp.91 = 2;
+    %tmp.92 = div %tmp.90 %tmp.91;
+    %tmp.93 = sub %tmp.89 %tmp.92;
+    %tmp.94 = 10;
+    %tmp.95 = sub %tmp.93 %tmp.94;
+    %tmp.96 = dup %tmp.88;
+    %tmp.97 = aputv %tmp.96 2 %tmp.95;
+    %tmp.98 = lgetv %y.2;
+    symbol [ y %tmp.98 154 58 59 ];
+    %tmp.99 = 2;
+    %tmp.100 = sub %tmp.98 %tmp.99;
+    %tmp.101 = dup %tmp.97;
+    %tmp.102 = aputv %tmp.101 3 %tmp.100;
+    ret %tmp.102;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_131_0_155_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 160; @position = 6; @symbol_constdef = [HIKE_ASCENT_MAX_M,160,6,23]; ]
+const HIKE_ASCENT_MAX_M = 20000.0d;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 168; @symbol_functiondef = [formatHikeAscent,168,9,25]; @symbol_param<0> = [ascent,168,26,32]; ]
+function formatHikeAscent(ascent) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_169_0_180_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 170 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_170_1_173_1_if_stmt:
+    %tmp.1 = lgetv %ascent;
+    symbol [ ascent %tmp.1 170 5 11 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_170_1_173_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_170_1_173_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_171_1_173_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 172 2 ]
+    %tmp.4 = "--";
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_171_1_173_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_170_1_173_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_170_1_173_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 174 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_169_0_180_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_169_0_180_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 174 5 6 ];
+    %tmp.5 = lgetv %ascent;
+    symbol [ ascent %tmp.5 174 9 15 ];
+    symbol [ toDouble %tmp.6 174 16 24 ];
+    %tmp.6 = getv function %tmp.5 :toDouble;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 174 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 175 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_1_178_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_5_175_42_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_5_175_30_begin:
+    %tmp.8 = self;
+    symbol [ isFiniteFloat %tmp.9 175 6 19 ];
+    %tmp.9 = getv function %tmp.8 :isFiniteFloat;
+    %tmp.10 = lgetv %v.1;
+    symbol [ v %tmp.10 175 20 21 ];
+    %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
+    %tmp.12 = not %tmp.11;
+    bt %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_1_178_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_26_175_30_false:
+    %tmp.13 = lgetv %v.1;
+    symbol [ v %tmp.13 175 26 27 ];
+    %tmp.14 = 0.0d;
+    %tmp.15 = lt %tmp.13 %tmp.14;
+    push %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_26_175_30_end:
+    %tmp.16 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_5_175_30_begin] [%tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_26_175_30_false] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_26_175_30_end];
+    bt %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_1_178_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_38_175_42_false:
+    %tmp.17 = lgetv %v.1;
+    symbol [ v %tmp.17 175 38 39 ];
+    symbol [ HIKE_ASCENT_MAX_M %tmp.19 175 42 59 ];
+    %tmp.19 = getv ? :HIKE_ASCENT_MAX_M;
+    %tmp.20 = gt %tmp.17 %tmp.19;
+    push %tmp.20;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_38_175_42_end:
+    %tmp.21 = phi [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_5_175_42_begin] [%tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_38_175_42_false] [%tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_38_175_42_end];
+    bf %tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_1_178_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_1_178_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_176_1_178_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 177 2 ]
+    %tmp.22 = "--";
+    ret %tmp.22;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_176_1_178_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_1_178_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_175_1_178_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 179 1 ]
+    %tmp.23 = lgetv %v.1;
+    symbol [ v %tmp.23 179 9 10 ];
+    %tmp.24 = 0.5d;
+    %tmp.25 = add %tmp.23 %tmp.24;
+    symbol [ toNumber %tmp.26 179 19 27 ];
+    %tmp.26 = getv function %tmp.25 :toNumber;
+    %tmp.27 = invoke %tmp.25 %tmp.26();
+    symbol [ toString %tmp.28 179 30 38 ];
+    %tmp.28 = getv function %tmp.27 :toString;
+    %tmp.29 = invoke %tmp.27 %tmp.28();
+    ret %tmp.29;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_169_0_180_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 183; @position = 6; @symbol_constdef = [HEART_RATE_MIN_BPM,183,6,24]; ]
+const HEART_RATE_MIN_BPM = 25.0;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 184; @position = 6; @symbol_constdef = [HEART_RATE_MAX_BPM,184,6,24]; ]
+const HEART_RATE_MAX_BPM = 250.0;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 192; @symbol_functiondef = [formatHeartRate,192,9,24]; @symbol_param<0> = [bpm,192,25,28]; ]
+function formatHeartRate(bpm) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_193_0_204_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 194 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_194_1_197_1_if_stmt:
+    %tmp.1 = lgetv %bpm;
+    symbol [ bpm %tmp.1 194 5 8 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_194_1_197_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_194_1_197_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_195_1_197_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 196 2 ]
+    %tmp.4 = "--";
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_195_1_197_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_194_1_197_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_194_1_197_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 198 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_193_0_204_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_193_0_204_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 198 5 6 ];
+    %tmp.5 = lgetv %bpm;
+    symbol [ bpm %tmp.5 198 9 12 ];
+    symbol [ toFloat %tmp.6 198 13 20 ];
+    %tmp.6 = getv function %tmp.5 :toFloat;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 198 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 199 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_1_202_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_5_199_56_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_5_199_30_begin:
+    %tmp.8 = self;
+    symbol [ isFiniteFloat %tmp.9 199 6 19 ];
+    %tmp.9 = getv function %tmp.8 :isFiniteFloat;
+    %tmp.10 = lgetv %v.1;
+    symbol [ v %tmp.10 199 20 21 ];
+    %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
+    %tmp.12 = not %tmp.11;
+    bt %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_1_202_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_26_199_30_false:
+    %tmp.13 = lgetv %v.1;
+    symbol [ v %tmp.13 199 26 27 ];
+    symbol [ HEART_RATE_MIN_BPM %tmp.15 199 30 48 ];
+    %tmp.15 = getv ? :HEART_RATE_MIN_BPM;
+    %tmp.16 = lt %tmp.13 %tmp.15;
+    push %tmp.16;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_26_199_30_end:
+    %tmp.17 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_5_199_30_begin] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_26_199_30_false] [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_26_199_30_end];
+    bt %tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_1_202_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_52_199_56_false:
+    %tmp.18 = lgetv %v.1;
+    symbol [ v %tmp.18 199 52 53 ];
+    symbol [ HEART_RATE_MAX_BPM %tmp.20 199 56 74 ];
+    %tmp.20 = getv ? :HEART_RATE_MAX_BPM;
+    %tmp.21 = gt %tmp.18 %tmp.20;
+    push %tmp.21;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_52_199_56_end:
+    %tmp.22 = phi [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_5_199_56_begin] [%tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_52_199_56_false] [%tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_52_199_56_end];
+    bf %tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_1_202_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_1_202_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_200_1_202_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 201 2 ]
+    %tmp.23 = "--";
+    ret %tmp.23;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_200_1_202_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_1_202_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_199_1_202_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 203 1 ]
+    symbol [ Toybox %tmp.25 203 8 14 ];
+    %tmp.25 = getv ? :Toybox;
+    symbol [ Math %tmp.26 203 15 19 ];
+    %tmp.26 = getv %tmp.25 :Math;
+    symbol [ round %tmp.27 203 20 25 ];
+    %tmp.27 = getv function %tmp.26 :round;
+    %tmp.28 = lgetv %v.1;
+    symbol [ v %tmp.28 203 26 27 ];
+    %tmp.29 = invoke %tmp.26 %tmp.27(%tmp.28);
+    symbol [ toNumber %tmp.30 203 29 37 ];
+    %tmp.30 = getv function %tmp.29 :toNumber;
+    %tmp.31 = invoke %tmp.29 %tmp.30();
+    symbol [ toString %tmp.32 203 40 48 ];
+    %tmp.32 = getv function %tmp.31 :toString;
+    %tmp.33 = invoke %tmp.31 %tmp.32();
+    ret %tmp.33;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_193_0_204_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 210; @symbol_functiondef = [compassRotation,210,9,24]; @symbol_param<0> = [heading,210,25,32]; ]
+function compassRotation(heading) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_211_0_222_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 212 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_212_1_215_1_if_stmt:
+    %tmp.1 = lgetv %heading;
+    symbol [ heading %tmp.1 212 5 12 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_212_1_215_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_212_1_215_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_213_1_215_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 214 2 ]
+    %tmp.4 = 0.0;
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_213_1_215_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_212_1_215_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_212_1_215_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 216 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_211_0_222_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_211_0_222_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 216 5 6 ];
+    %tmp.5 = lgetv %heading;
+    symbol [ heading %tmp.5 216 9 16 ];
+    symbol [ toFloat %tmp.6 216 17 24 ];
+    %tmp.6 = getv function %tmp.5 :toFloat;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 216 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 217 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_1_220_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_5_217_31_begin:
+    %tmp.8 = self;
+    symbol [ isFiniteFloat %tmp.9 217 6 19 ];
+    %tmp.9 = getv function %tmp.8 :isFiniteFloat;
+    %tmp.10 = lgetv %v.1;
+    symbol [ v %tmp.10 217 20 21 ];
+    %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
+    %tmp.12 = not %tmp.11;
+    bt %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_1_220_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_26_217_31_false:
+    %tmp.13 = lgetv %v.1;
+    symbol [ v %tmp.13 217 26 27 ];
+    %tmp.14 = 0.0;
+    %tmp.15 = eq %tmp.13 %tmp.14;
+    push %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_26_217_31_end:
+    %tmp.16 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_5_217_31_begin] [%tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_26_217_31_false] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_26_217_31_end];
+    bf %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_1_220_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_1_220_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_218_1_220_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 219 2 ]
+    %tmp.17 = 0.0;
+    ret %tmp.17;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_218_1_220_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_1_220_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_217_1_220_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 221 1 ]
+    %tmp.18 = lgetv %v.1;
+    symbol [ v %tmp.18 221 9 10 ];
+    %tmp.19 = sub 0 %tmp.18;
+    ret %tmp.19;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_211_0_222_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 231; @symbol_functiondef = [formatLatLon,231,9,21]; @symbol_param<0> = [value,231,22,27]; @symbol_param<1> = [isLat,231,29,34]; ]
+function formatLatLon(value, isLat) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 233 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_233_1_236_1_if_stmt:
+    %tmp.1 = lgetv %value;
+    symbol [ value %tmp.1 233 5 10 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_233_1_236_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_233_1_236_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_234_1_236_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 235 2 ]
+    %tmp.4 = "--";
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_234_1_236_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_233_1_236_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_233_1_236_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 237 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 237 5 6 ];
+    %tmp.5 = lgetv %value;
+    symbol [ value %tmp.5 237 9 14 ];
+    symbol [ toDouble %tmp.6 237 15 23 ];
+    %tmp.6 = getv function %tmp.5 :toDouble;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 237 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 238 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_238_1_241_1_if_stmt:
+    %tmp.8 = self;
+    symbol [ isFiniteFloat %tmp.9 238 6 19 ];
+    %tmp.9 = getv function %tmp.8 :isFiniteFloat;
+    %tmp.10 = lgetv %v.1;
+    symbol [ v %tmp.10 238 20 21 ];
+    %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
+    %tmp.12 = not %tmp.11;
+    bf %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_238_1_241_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_238_1_241_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_239_1_241_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 240 2 ]
+    %tmp.13 = "--";
+    ret %tmp.13;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_239_1_241_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_238_1_241_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_238_1_241_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 242 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop" ]
+    %negative.2 = local;
+    symbol [ negative %negative.2 242 5 13 ];
+    %tmp.14 = lgetv %v.1;
+    symbol [ v %tmp.14 242 16 17 ];
+    %tmp.15 = 0.0d;
+    %tmp.16 = lt %tmp.14 %tmp.15;
+    lputv %negative.2 %tmp.16;
+    symbol [ negative %negative.2 242 5 13 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 243 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop" ]
+    %a.3 = local;
+    symbol [ a %a.3 243 5 6 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_begin:
+    %tmp.17 = lgetv %negative.2;
+    symbol [ negative %tmp.17 243 9 17 ];
+    bf %tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_true:
+    %tmp.18 = lgetv %v.1;
+    symbol [ v %tmp.18 243 21 22 ];
+    %tmp.19 = sub 0 %tmp.18;
+    push %tmp.19;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_else_false:
+    %tmp.20 = lgetv %v.1;
+    symbol [ v %tmp.20 243 25 26 ];
+    push %tmp.20;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_end:
+    %tmp.21 = phi [%tmp.17 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_begin] [%tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_true] [%tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_else_false] [%tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_243_9_243_25_end];
+    lputv %a.3 %tmp.21;
+    symbol [ a %a.3 243 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 244 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_1_247_1_if_stmt:
+    %tmp.22 = lgetv %a.3;
+    symbol [ a %tmp.22 244 5 6 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_begin:
+    %tmp.23 = lgetv %isLat;
+    symbol [ isLat %tmp.23 244 10 15 ];
+    bf %tmp.23 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_true:
+    %tmp.24 = 90.0d;
+    push %tmp.24;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_else_false:
+    %tmp.25 = 180.0d;
+    push %tmp.25;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_end:
+    %tmp.26 = phi [%tmp.23 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_begin] [%tmp.24 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_true] [%tmp.25 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_else_false] [%tmp.26 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_10_244_26_end];
+    %tmp.27 = gt %tmp.22 %tmp.26;
+    bf %tmp.27 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_1_247_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_1_247_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_245_1_247_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 246 2 ]
+    %tmp.28 = "--";
+    ret %tmp.28;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_245_1_247_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_1_247_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_244_1_247_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 249 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop" ]
+    %tenths.4 = local;
+    symbol [ tenths %tenths.4 249 5 11 ];
+    %tmp.29 = lgetv %a.3;
+    symbol [ a %tmp.29 249 15 16 ];
+    %tmp.30 = 36000.0d;
+    %tmp.31 = mul %tmp.29 %tmp.30;
+    %tmp.32 = 0.5d;
+    %tmp.33 = add %tmp.31 %tmp.32;
+    symbol [ toLong %tmp.34 249 36 42 ];
+    %tmp.34 = getv function %tmp.33 :toLong;
+    %tmp.35 = invoke %tmp.33 %tmp.34();
+    lputv %tenths.4 %tmp.35;
+    symbol [ tenths %tenths.4 249 5 11 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 250 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop" ]
+    %deg.5 = local;
+    symbol [ deg %deg.5 250 5 8 ];
+    %tmp.36 = lgetv %tenths.4;
+    symbol [ tenths %tmp.36 250 12 18 ];
+    %tmp.37 = 36000;
+    %tmp.38 = div %tmp.36 %tmp.37;
+    symbol [ toNumber %tmp.39 250 28 36 ];
+    %tmp.39 = getv function %tmp.38 :toNumber;
+    %tmp.40 = invoke %tmp.38 %tmp.39();
+    lputv %deg.5 %tmp.40;
+    symbol [ deg %deg.5 250 5 8 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 251 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop" ]
+    %rest.6 = local;
+    symbol [ rest %rest.6 251 5 9 ];
+    %tmp.41 = lgetv %tenths.4;
+    symbol [ tenths %tmp.41 251 13 19 ];
+    %tmp.42 = 36000;
+    %tmp.43 = mod %tmp.41 %tmp.42;
+    symbol [ toNumber %tmp.44 251 29 37 ];
+    %tmp.44 = getv function %tmp.43 :toNumber;
+    %tmp.45 = invoke %tmp.43 %tmp.44();
+    lputv %rest.6 %tmp.45;
+    symbol [ rest %rest.6 251 5 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 252 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop" ]
+    %min.7 = local;
+    symbol [ min %min.7 252 5 8 ];
+    %tmp.46 = lgetv %rest.6;
+    symbol [ rest %tmp.46 252 11 15 ];
+    %tmp.47 = 600;
+    %tmp.48 = div %tmp.46 %tmp.47;
+    lputv %min.7 %tmp.48;
+    symbol [ min %min.7 252 5 8 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 253 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop" ]
+    %sec.8 = local;
+    symbol [ sec %sec.8 253 5 8 ];
+    %tmp.49 = lgetv %rest.6;
+    symbol [ rest %tmp.49 253 11 15 ];
+    %tmp.50 = 600;
+    %tmp.51 = mod %tmp.49 %tmp.50;
+    lputv %sec.8 %tmp.51;
+    symbol [ sec %sec.8 253 5 8 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 255 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop" ]
+    %letter.9 = local;
+    symbol [ letter %letter.9 255 5 11 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 256 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_256_1_263_1_if_stmt:
+    %tmp.52 = lgetv %isLat;
+    symbol [ isLat %tmp.52 256 5 10 ];
+    bf %tmp.52 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_256_1_263_1_if_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_256_1_263_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_257_1_259_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 258 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_12_258_33_begin:
+    %tmp.53 = lgetv %negative.2;
+    symbol [ negative %tmp.53 258 12 20 ];
+    bf %tmp.53 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_24_258_33_true:
+    %tmp.54 = lgetv %tenths.4;
+    symbol [ tenths %tmp.54 258 24 30 ];
+    %tmp.55 = 0;
+    %tmp.56 = gt %tmp.54 %tmp.55;
+    push %tmp.56;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_24_258_33_end:
+    %tmp.57 = phi [%tmp.53 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_12_258_33_begin] [%tmp.56 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_24_258_33_true] [%tmp.57 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_24_258_33_end];
+    bf %tmp.57 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_true:
+    %tmp.58 = "S";
+    push %tmp.58;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_else_false:
+    %tmp.59 = "N";
+    push %tmp.59;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_end:
+    %tmp.60 = phi [%tmp.57 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_begin] [%tmp.58 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_true] [%tmp.59 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_else_false] [%tmp.60 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_258_11_258_44_end];
+    lputv %letter.9 %tmp.60;
+    symbol [ letter %letter.9 258 2 8 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_257_1_259_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_256_1_263_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_256_1_263_1_if_else_false:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_261_1_263_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 262 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_12_262_33_begin:
+    %tmp.61 = lgetv %negative.2;
+    symbol [ negative %tmp.61 262 12 20 ];
+    bf %tmp.61 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_24_262_33_true:
+    %tmp.62 = lgetv %tenths.4;
+    symbol [ tenths %tmp.62 262 24 30 ];
+    %tmp.63 = 0;
+    %tmp.64 = gt %tmp.62 %tmp.63;
+    push %tmp.64;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_24_262_33_end:
+    %tmp.65 = phi [%tmp.61 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_12_262_33_begin] [%tmp.64 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_24_262_33_true] [%tmp.65 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_24_262_33_end];
+    bf %tmp.65 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_true:
+    %tmp.66 = "W";
+    push %tmp.66;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_else_false:
+    %tmp.67 = "E";
+    push %tmp.67;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_end:
+    %tmp.68 = phi [%tmp.65 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_begin] [%tmp.66 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_true] [%tmp.67 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_else_false] [%tmp.68 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_262_11_262_44_end];
+    lputv %letter.9 %tmp.68;
+    symbol [ letter %letter.9 262 2 8 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_261_1_263_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_256_1_263_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 264 1 ]
+    %tmp.69 = lgetv %deg.5;
+    symbol [ deg %tmp.69 264 8 11 ];
+    symbol [ toString %tmp.70 264 12 20 ];
+    %tmp.70 = getv function %tmp.69 :toString;
+    %tmp.71 = invoke %tmp.69 %tmp.70();
+    %tmp.72 = "°";
+    %tmp.73 = add %tmp.71 %tmp.72;
+    %tmp.74 = lgetv %min.7;
+    symbol [ min %tmp.74 264 31 34 ];
+    symbol [ format %tmp.75 264 35 41 ];
+    %tmp.75 = getv function %tmp.74 :format;
+    %tmp.76 = "%02d";
+    %tmp.77 = invoke %tmp.74 %tmp.75(%tmp.76);
+    %tmp.78 = add %tmp.73 %tmp.77;
+    %tmp.79 = "'";
+    %tmp.80 = add %tmp.78 %tmp.79;
+    %tmp.81 = lgetv %sec.8;
+    symbol [ sec %tmp.81 264 59 62 ];
+    %tmp.82 = 10;
+    %tmp.83 = div %tmp.81 %tmp.82;
+    symbol [ toString %tmp.84 264 69 77 ];
+    %tmp.84 = getv function %tmp.83 :toString;
+    %tmp.85 = invoke %tmp.83 %tmp.84();
+    %tmp.86 = add %tmp.80 %tmp.85;
+    %tmp.87 = ".";
+    %tmp.88 = add %tmp.86 %tmp.87;
+    %tmp.89 = lgetv %sec.8;
+    symbol [ sec %tmp.89 264 89 92 ];
+    %tmp.90 = 10;
+    %tmp.91 = mod %tmp.89 %tmp.90;
+    symbol [ toString %tmp.92 264 99 107 ];
+    %tmp.92 = getv function %tmp.91 :toString;
+    %tmp.93 = invoke %tmp.91 %tmp.92();
+    %tmp.94 = add %tmp.88 %tmp.93;
+    %tmp.95 = "\"";
+    %tmp.96 = add %tmp.94 %tmp.95;
+    %tmp.97 = lgetv %letter.9;
+    symbol [ letter %tmp.97 264 119 125 ];
+    %tmp.98 = add %tmp.96 %tmp.97;
+    ret %tmp.98;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_232_0_265_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 270; @symbol_functiondef = [formatDistanceKm,270,9,25]; @symbol_param<0> = [meters,270,26,32]; ]
+function formatDistanceKm(meters) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_271_0_286_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 272 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_272_1_275_1_if_stmt:
+    %tmp.1 = lgetv %meters;
+    symbol [ meters %tmp.1 272 5 11 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_272_1_275_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_272_1_275_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_273_1_275_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 274 2 ]
+    %tmp.4 = "--";
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_273_1_275_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_272_1_275_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_272_1_275_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 276 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_271_0_286_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_271_0_286_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 276 5 6 ];
+    %tmp.5 = lgetv %meters;
+    symbol [ meters %tmp.5 276 9 15 ];
+    symbol [ toFloat %tmp.6 276 16 23 ];
+    %tmp.6 = getv function %tmp.5 :toFloat;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 276 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 277 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_1_280_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_5_277_30_begin:
+    %tmp.8 = self;
+    symbol [ isFiniteFloat %tmp.9 277 6 19 ];
+    %tmp.9 = getv function %tmp.8 :isFiniteFloat;
+    %tmp.10 = lgetv %v.1;
+    symbol [ v %tmp.10 277 20 21 ];
+    %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
+    %tmp.12 = not %tmp.11;
+    bt %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_1_280_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_26_277_30_false:
+    %tmp.13 = lgetv %v.1;
+    symbol [ v %tmp.13 277 26 27 ];
+    %tmp.14 = 0.0;
+    %tmp.15 = lt %tmp.13 %tmp.14;
+    push %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_26_277_30_end:
+    %tmp.16 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_5_277_30_begin] [%tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_26_277_30_false] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_26_277_30_end];
+    bf %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_1_280_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_1_280_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_278_1_280_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 279 2 ]
+    %tmp.17 = "--";
+    ret %tmp.17;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_278_1_280_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_1_280_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_277_1_280_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 281 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_281_1_284_1_if_stmt:
+    %tmp.18 = lgetv %v.1;
+    symbol [ v %tmp.18 281 5 6 ];
+    %tmp.19 = 0.0;
+    %tmp.20 = eq %tmp.18 %tmp.19;
+    bf %tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_281_1_284_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_281_1_284_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_282_1_284_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 283 2 ]
+    %tmp.21 = "0.0";
+    ret %tmp.21;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_282_1_284_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_281_1_284_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_281_1_284_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 285 1 ]
+    %tmp.22 = lgetv %v.1;
+    symbol [ v %tmp.22 285 9 10 ];
+    %tmp.23 = 1000.0;
+    %tmp.24 = div %tmp.22 %tmp.23;
+    symbol [ format %tmp.25 285 21 27 ];
+    %tmp.25 = getv function %tmp.24 :format;
+    %tmp.26 = "%.1f";
+    %tmp.27 = invoke %tmp.24 %tmp.25(%tmp.26);
+    ret %tmp.27;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_271_0_286_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 295; @position = 6; @symbol_constdef = [VERTICAL_SPEED_MAX_MH,295,6,27]; ]
+const VERTICAL_SPEED_MAX_MH = 3000.0;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 304; @symbol_functiondef = [formatVerticalSpeed,304,9,28]; @symbol_param<0> = [mh,304,29,31]; ]
+function formatVerticalSpeed(mh) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 306 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_306_1_309_1_if_stmt:
+    %tmp.1 = lgetv %mh;
+    symbol [ mh %tmp.1 306 5 7 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_306_1_309_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_306_1_309_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_307_1_309_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 308 2 ]
+    %tmp.4 = "--";
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_307_1_309_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_306_1_309_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_306_1_309_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 310 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 310 5 6 ];
+    %tmp.5 = lgetv %mh;
+    symbol [ mh %tmp.5 310 9 11 ];
+    symbol [ toFloat %tmp.6 310 12 19 ];
+    %tmp.6 = getv function %tmp.5 :toFloat;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 310 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 311 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_311_1_314_1_if_stmt:
+    %tmp.8 = lgetv %v.1;
+    symbol [ v %tmp.8 311 5 6 ];
+    %tmp.9 = lgetv %v.1;
+    symbol [ v %tmp.9 311 10 11 ];
+    %tmp.10 = ne %tmp.8 %tmp.9;
+    bf %tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_311_1_314_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_311_1_314_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_312_1_314_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 313 2 ]
+    %tmp.11 = "--";
+    ret %tmp.11;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_312_1_314_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_311_1_314_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_311_1_314_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 315 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_315_1_318_1_if_stmt:
+    %tmp.12 = lgetv %v.1;
+    symbol [ v %tmp.12 315 5 6 ];
+    %tmp.13 = lgetv %v.1;
+    symbol [ v %tmp.13 315 9 10 ];
+    %tmp.14 = sub %tmp.12 %tmp.13;
+    %tmp.15 = 0.0;
+    %tmp.16 = ne %tmp.14 %tmp.15;
+    bf %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_315_1_318_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_315_1_318_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_316_1_318_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 317 2 ]
+    %tmp.17 = "--";
+    ret %tmp.17;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_316_1_318_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_315_1_318_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_315_1_318_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 320 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_stop" ]
+    %negative.2 = local;
+    symbol [ negative %negative.2 320 5 13 ];
+    %tmp.18 = lgetv %v.1;
+    symbol [ v %tmp.18 320 16 17 ];
+    %tmp.19 = 0.0;
+    %tmp.20 = lt %tmp.18 %tmp.19;
+    lputv %negative.2 %tmp.20;
+    symbol [ negative %negative.2 320 5 13 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 321 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_stop" ]
+    %magnitude.3 = local;
+    symbol [ magnitude %magnitude.3 321 5 14 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_begin:
+    %tmp.21 = lgetv %negative.2;
+    symbol [ negative %tmp.21 321 17 25 ];
+    bf %tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_true:
+    %tmp.22 = lgetv %v.1;
+    symbol [ v %tmp.22 321 29 30 ];
+    %tmp.23 = sub 0 %tmp.22;
+    push %tmp.23;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_else_false:
+    %tmp.24 = lgetv %v.1;
+    symbol [ v %tmp.24 321 33 34 ];
+    push %tmp.24;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_end:
+    %tmp.25 = phi [%tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_begin] [%tmp.23 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_true] [%tmp.24 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_else_false] [%tmp.25 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_321_17_321_33_end];
+    lputv %magnitude.3 %tmp.25;
+    symbol [ magnitude %magnitude.3 321 5 14 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 322 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_322_1_325_1_if_stmt:
+    %tmp.26 = lgetv %magnitude.3;
+    symbol [ magnitude %tmp.26 322 5 14 ];
+    symbol [ VERTICAL_SPEED_MAX_MH %tmp.28 322 17 38 ];
+    %tmp.28 = getv ? :VERTICAL_SPEED_MAX_MH;
+    %tmp.29 = gt %tmp.26 %tmp.28;
+    bf %tmp.29 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_322_1_325_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_322_1_325_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_323_1_325_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 324 2 ]
+    %tmp.30 = "--";
+    ret %tmp.30;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_323_1_325_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_322_1_325_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_322_1_325_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 326 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_stop" ]
+    %tens.4 = local;
+    symbol [ tens %tens.4 326 5 9 ];
+    %tmp.31 = lgetv %magnitude.3;
+    symbol [ magnitude %tmp.31 326 13 22 ];
+    %tmp.32 = 10.0;
+    %tmp.33 = div %tmp.31 %tmp.32;
+    %tmp.34 = 0.5;
+    %tmp.35 = add %tmp.33 %tmp.34;
+    symbol [ toLong %tmp.36 326 37 43 ];
+    %tmp.36 = getv function %tmp.35 :toLong;
+    %tmp.37 = invoke %tmp.35 %tmp.36();
+    lputv %tens.4 %tmp.37;
+    symbol [ tens %tens.4 326 5 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 327 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_327_1_330_1_if_stmt:
+    %tmp.38 = lgetv %tens.4;
+    symbol [ tens %tmp.38 327 5 9 ];
+    %tmp.39 = 0;
+    %tmp.40 = eq %tmp.38 %tmp.39;
+    bf %tmp.40 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_327_1_330_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_327_1_330_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_328_1_330_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 329 2 ]
+    %tmp.41 = "0";
+    ret %tmp.41;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_328_1_330_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_327_1_330_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_327_1_330_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 331 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_begin:
+    %tmp.42 = lgetv %negative.2;
+    symbol [ negative %tmp.42 331 9 17 ];
+    bf %tmp.42 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_true:
+    %tmp.43 = "-";
+    push %tmp.43;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_else_false:
+    %tmp.44 = "+";
+    push %tmp.44;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_end:
+    %tmp.45 = phi [%tmp.42 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_begin] [%tmp.43 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_true] [%tmp.44 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_else_false] [%tmp.45 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_331_9_331_26_end];
+    %tmp.46 = lgetv %tens.4;
+    symbol [ tens %tmp.46 331 34 38 ];
+    %tmp.47 = 10;
+    %tmp.48 = mul %tmp.46 %tmp.47;
+    symbol [ toString %tmp.49 331 45 53 ];
+    %tmp.49 = getv function %tmp.48 :toString;
+    %tmp.50 = invoke %tmp.48 %tmp.49();
+    %tmp.51 = add %tmp.45 %tmp.50;
+    ret %tmp.51;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_305_0_332_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 340; @symbol_functiondef = [mapDrawMode,340,9,20]; @symbol_param<0> = [count,340,21,26]; @symbol_param<1> = [hasCurrent,340,28,38]; ]
+function mapDrawMode(count, hasCurrent) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_341_0_351_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 342 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_342_1_345_1_if_stmt:
+    %tmp.1 = lgetv %hasCurrent;
+    symbol [ hasCurrent %tmp.1 342 5 15 ];
+    %tmp.2 = true;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_342_1_345_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_342_1_345_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_343_1_345_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 344 2 ]
+    %tmp.5 = const :trailAndMarker;
+    symbol [ trailAndMarker %tmp.5 344 10 24 const ];
+    ret %tmp.5;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_343_1_345_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_342_1_345_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_342_1_345_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 346 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_1_349_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_5_346_30_begin:
+    %tmp.6 = lgetv %count;
+    symbol [ count %tmp.6 346 5 10 ];
+    %tmp.7 = null;
+    %tmp.8 = ne %tmp.6 %tmp.7;
+    bf %tmp.8 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_1_349_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_22_346_30_true:
+    %tmp.9 = lgetv %count;
+    symbol [ count %tmp.9 346 22 27 ];
+    %tmp.10 = as %tmp.9 { (!Null) };
+    %tmp.11 = 0;
+    %tmp.12 = gt %tmp.10 %tmp.11;
+    push %tmp.12;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_22_346_30_end:
+    %tmp.13 = phi [%tmp.8 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_5_346_30_begin] [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_22_346_30_true] [%tmp.13 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_22_346_30_end];
+    bf %tmp.13 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_1_349_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_1_349_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_347_1_349_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 348 2 ]
+    %tmp.15 = const :trailOnly;
+    symbol [ trailOnly %tmp.15 348 10 19 const ];
+    ret %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_347_1_349_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_1_349_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_346_1_349_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 350 1 ]
+    %tmp.17 = const :waiting;
+    symbol [ waiting %tmp.17 350 9 16 const ];
+    ret %tmp.17;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_341_0_351_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 361; @symbol_functiondef = [mapProjectionCenter,361,9,28]; @symbol_param<0> = [lats,361,29,33]; @symbol_param<1> = [lons,361,35,39]; @symbol_param<2> = [count,361,41,46]; @symbol_param<3> = [writeIndex,361,48,58]; @symbol_param<4> = [curLat,361,60,66]; @symbol_param<5> = [curLon,361,68,74]; ]
+function mapProjectionCenter(lats, lons, count, writeIndex, curLat, curLon) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 363 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %n.1 = local;
+    symbol [ n %n.1 363 5 6 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_10_363_35_begin:
+    %tmp.1 = lgetv %count;
+    symbol [ count %tmp.1 363 10 15 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bt %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_27_363_35_false:
+    %tmp.4 = lgetv %count;
+    symbol [ count %tmp.4 363 27 32 ];
+    %tmp.5 = as %tmp.4 { (!Null) };
+    %tmp.6 = 0;
+    %tmp.7 = lt %tmp.5 %tmp.6;
+    push %tmp.7;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_27_363_35_end:
+    %tmp.8 = phi [%tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_10_363_35_begin] [%tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_27_363_35_false] [%tmp.8 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_27_363_35_end];
+    bf %tmp.8 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_true:
+    %tmp.9 = 0;
+    push %tmp.9;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_else_false:
+    %tmp.10 = lgetv %count;
+    symbol [ count %tmp.10 363 44 49 ];
+    %tmp.11 = as %tmp.10 { (!Null) };
+    push %tmp.11;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_end:
+    %tmp.12 = phi [%tmp.8 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_begin] [%tmp.9 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_else_false] [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_363_9_363_44_end];
+    lputv %n.1 %tmp.12;
+    symbol [ n %n.1 363 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 364 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %hasCurrent.2 = local;
+    symbol [ hasCurrent %hasCurrent.2 364 5 15 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_364_19_364_47_begin:
+    %tmp.13 = lgetv %curLat;
+    symbol [ curLat %tmp.13 364 19 25 ];
+    %tmp.14 = null;
+    %tmp.15 = ne %tmp.13 %tmp.14;
+    %tmp.16 = dup %tmp.15;
+    bf %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_364_37_364_47_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_364_37_364_47_true:
+    %tmp.17 = lgetv %curLon;
+    symbol [ curLon %tmp.17 364 37 43 ];
+    %tmp.18 = null;
+    %tmp.19 = ne %tmp.17 %tmp.18;
+    %tmp.20 = and %tmp.15 %tmp.19;
+    push %tmp.20;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_364_37_364_47_end:
+    %tmp.21 = phi [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_364_19_364_47_begin] [%tmp.20 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_364_37_364_47_true] [%tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_364_37_364_47_end];
+    lputv %hasCurrent.2 %tmp.21;
+    symbol [ hasCurrent %hasCurrent.2 364 5 15 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 365 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_1_368_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_5_365_25_begin:
+    %tmp.22 = lgetv %hasCurrent.2;
+    symbol [ hasCurrent %tmp.22 365 6 16 ];
+    %tmp.23 = not %tmp.22;
+    bf %tmp.23 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_1_368_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_20_365_25_true:
+    %tmp.24 = lgetv %n.1;
+    symbol [ n %tmp.24 365 20 21 ];
+    %tmp.25 = 0;
+    %tmp.26 = eq %tmp.24 %tmp.25;
+    push %tmp.26;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_20_365_25_end:
+    %tmp.27 = phi [%tmp.23 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_5_365_25_begin] [%tmp.26 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_20_365_25_true] [%tmp.27 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_20_365_25_end];
+    bf %tmp.27 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_1_368_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_1_368_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_366_1_368_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 367 2 ]
+    %tmp.28 = null;
+    ret %tmp.28;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_366_1_368_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_1_368_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_365_1_368_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 370 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %capacity.3 = local;
+    symbol [ capacity %capacity.3 370 5 13 ];
+    %tmp.29 = lgetv %lats;
+    symbol [ lats %tmp.29 370 16 20 ];
+    symbol [ size %tmp.30 370 21 25 ];
+    %tmp.30 = getv function %tmp.29 :size;
+    %tmp.31 = invoke %tmp.29 %tmp.30();
+    lputv %capacity.3 %tmp.31;
+    symbol [ capacity %capacity.3 370 5 13 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 371 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %seedLat.4 = local;
+    symbol [ seedLat %seedLat.4 371 5 12 ];
+    %tmp.32 = lgetv %curLat;
+    symbol [ curLat %tmp.32 371 15 21 ];
+    lputv %seedLat.4 %tmp.32;
+    symbol [ seedLat %seedLat.4 371 5 12 ];
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %seedLon.5 = local;
+    symbol [ seedLon %seedLon.5 371 23 30 ];
+    %tmp.33 = lgetv %curLon;
+    symbol [ curLon %tmp.33 371 33 39 ];
+    lputv %seedLon.5 %tmp.33;
+    symbol [ seedLon %seedLon.5 371 23 30 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 372 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_372_1_377_1_if_stmt:
+    %tmp.34 = lgetv %hasCurrent.2;
+    symbol [ hasCurrent %tmp.34 372 6 16 ];
+    %tmp.35 = not %tmp.34;
+    bf %tmp.35 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_372_1_377_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_372_1_377_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_373_1_377_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 374 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_373_1_377_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_373_1_377_1_stop" ]
+    %oldest.6 = local;
+    symbol [ oldest %oldest.6 374 6 12 ];
+    %tmp.36 = lgetv %writeIndex;
+    symbol [ writeIndex %tmp.36 374 16 26 ];
+    %tmp.37 = lgetv %n.1;
+    symbol [ n %tmp.37 374 29 30 ];
+    %tmp.38 = sub %tmp.36 %tmp.37;
+    %tmp.39 = lgetv %capacity.3;
+    symbol [ capacity %tmp.39 374 33 41 ];
+    %tmp.40 = add %tmp.38 %tmp.39;
+    %tmp.41 = lgetv %capacity.3;
+    symbol [ capacity %tmp.41 374 45 53 ];
+    %tmp.42 = mod %tmp.40 %tmp.41;
+    lputv %oldest.6 %tmp.42;
+    symbol [ oldest %oldest.6 374 6 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 375 2 ]
+    %tmp.43 = lgetv %lats;
+    symbol [ lats %tmp.43 375 12 16 ];
+    %tmp.44 = lgetv %oldest.6;
+    symbol [ oldest %tmp.44 375 17 23 ];
+    %tmp.45 = agetv %tmp.43 %tmp.44;
+    lputv %seedLat.4 %tmp.45;
+    symbol [ seedLat %seedLat.4 375 2 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 376 2 ]
+    %tmp.46 = lgetv %lons;
+    symbol [ lons %tmp.46 376 12 16 ];
+    %tmp.47 = lgetv %oldest.6;
+    symbol [ oldest %tmp.47 376 17 23 ];
+    %tmp.48 = agetv %tmp.46 %tmp.47;
+    lputv %seedLon.5 %tmp.48;
+    symbol [ seedLon %seedLon.5 376 2 9 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_373_1_377_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_372_1_377_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_372_1_377_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 378 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %minLat.7 = local;
+    symbol [ minLat %minLat.7 378 5 11 ];
+    %tmp.49 = lgetv %seedLat.4;
+    symbol [ seedLat %tmp.49 378 14 21 ];
+    lputv %minLat.7 %tmp.49;
+    symbol [ minLat %minLat.7 378 5 11 ];
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %maxLat.8 = local;
+    symbol [ maxLat %maxLat.8 378 23 29 ];
+    %tmp.50 = lgetv %seedLat.4;
+    symbol [ seedLat %tmp.50 378 32 39 ];
+    lputv %maxLat.8 %tmp.50;
+    symbol [ maxLat %maxLat.8 378 23 29 ];
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %minLon.9 = local;
+    symbol [ minLon %minLon.9 378 41 47 ];
+    %tmp.51 = lgetv %seedLon.5;
+    symbol [ seedLon %tmp.51 378 50 57 ];
+    lputv %minLon.9 %tmp.51;
+    symbol [ minLon %minLon.9 378 41 47 ];
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %maxLon.10 = local;
+    symbol [ maxLon %maxLon.10 378 59 65 ];
+    %tmp.52 = lgetv %seedLon.5;
+    symbol [ seedLon %tmp.52 378 68 75 ];
+    lputv %maxLon.10 %tmp.52;
+    symbol [ maxLon %maxLon.10 378 59 65 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 379 1 ]
+    for @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_test @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_incr @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_init:
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_begin" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_end" ]
+    %i.11 = local;
+    symbol [ i %i.11 379 10 11 ];
+    %tmp.53 = 0;
+    lputv %i.11 %tmp.53;
+    symbol [ i %i.11 379 10 11 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_test:
+    %tmp.54 = lgetv %i.11;
+    symbol [ i %tmp.54 379 17 18 ];
+    %tmp.55 = lgetv %n.1;
+    symbol [ n %tmp.55 379 21 22 ];
+    %tmp.56 = lt %tmp.54 %tmp.55;
+    bf %tmp.56 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_380_1_388_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 381 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_380_1_388_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_380_1_388_1_stop" ]
+    %idx.12 = local;
+    symbol [ idx %idx.12 381 6 9 ];
+    %tmp.57 = lgetv %writeIndex;
+    symbol [ writeIndex %tmp.57 381 13 23 ];
+    %tmp.58 = lgetv %n.1;
+    symbol [ n %tmp.58 381 26 27 ];
+    %tmp.59 = sub %tmp.57 %tmp.58;
+    %tmp.60 = lgetv %i.11;
+    symbol [ i %tmp.60 381 30 31 ];
+    %tmp.61 = add %tmp.59 %tmp.60;
+    %tmp.62 = lgetv %capacity.3;
+    symbol [ capacity %tmp.62 381 34 42 ];
+    %tmp.63 = add %tmp.61 %tmp.62;
+    %tmp.64 = lgetv %capacity.3;
+    symbol [ capacity %tmp.64 381 46 54 ];
+    %tmp.65 = mod %tmp.63 %tmp.64;
+    lputv %idx.12 %tmp.65;
+    symbol [ idx %idx.12 381 6 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 382 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_380_1_388_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_380_1_388_1_stop" ]
+    %lat.13 = local;
+    symbol [ lat %lat.13 382 6 9 ];
+    %tmp.66 = lgetv %lats;
+    symbol [ lats %tmp.66 382 12 16 ];
+    %tmp.67 = lgetv %idx.12;
+    symbol [ idx %tmp.67 382 17 20 ];
+    %tmp.68 = agetv %tmp.66 %tmp.67;
+    lputv %lat.13 %tmp.68;
+    symbol [ lat %lat.13 382 6 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 383 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_380_1_388_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_380_1_388_1_stop" ]
+    %lon.14 = local;
+    symbol [ lon %lon.14 383 6 9 ];
+    %tmp.69 = lgetv %lons;
+    symbol [ lons %tmp.69 383 12 16 ];
+    %tmp.70 = lgetv %idx.12;
+    symbol [ idx %tmp.70 383 17 20 ];
+    %tmp.71 = agetv %tmp.69 %tmp.70;
+    lputv %lon.14 %tmp.71;
+    symbol [ lon %lon.14 383 6 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 384 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_384_2_384_36_if_stmt:
+    %tmp.72 = lgetv %lat.13;
+    symbol [ lat %tmp.72 384 6 9 ];
+    %tmp.73 = lgetv %minLat.7;
+    symbol [ minLat %tmp.73 384 12 18 ];
+    %tmp.74 = lt %tmp.72 %tmp.73;
+    bf %tmp.74 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_384_2_384_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_384_2_384_36_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_384_20_384_36_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 384 22 ]
+    %tmp.75 = lgetv %lat.13;
+    symbol [ lat %tmp.75 384 31 34 ];
+    lputv %minLat.7 %tmp.75;
+    symbol [ minLat %minLat.7 384 22 28 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_384_20_384_36_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_384_2_384_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_384_2_384_36_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 385 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_385_2_385_36_if_stmt:
+    %tmp.76 = lgetv %lat.13;
+    symbol [ lat %tmp.76 385 6 9 ];
+    %tmp.77 = lgetv %maxLat.8;
+    symbol [ maxLat %tmp.77 385 12 18 ];
+    %tmp.78 = gt %tmp.76 %tmp.77;
+    bf %tmp.78 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_385_2_385_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_385_2_385_36_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_385_20_385_36_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 385 22 ]
+    %tmp.79 = lgetv %lat.13;
+    symbol [ lat %tmp.79 385 31 34 ];
+    lputv %maxLat.8 %tmp.79;
+    symbol [ maxLat %maxLat.8 385 22 28 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_385_20_385_36_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_385_2_385_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_385_2_385_36_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 386 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_386_2_386_36_if_stmt:
+    %tmp.80 = lgetv %lon.14;
+    symbol [ lon %tmp.80 386 6 9 ];
+    %tmp.81 = lgetv %minLon.9;
+    symbol [ minLon %tmp.81 386 12 18 ];
+    %tmp.82 = lt %tmp.80 %tmp.81;
+    bf %tmp.82 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_386_2_386_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_386_2_386_36_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_386_20_386_36_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 386 22 ]
+    %tmp.83 = lgetv %lon.14;
+    symbol [ lon %tmp.83 386 31 34 ];
+    lputv %minLon.9 %tmp.83;
+    symbol [ minLon %minLon.9 386 22 28 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_386_20_386_36_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_386_2_386_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_386_2_386_36_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 387 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_387_2_387_36_if_stmt:
+    %tmp.84 = lgetv %lon.14;
+    symbol [ lon %tmp.84 387 6 9 ];
+    %tmp.85 = lgetv %maxLon.10;
+    symbol [ maxLon %tmp.85 387 12 18 ];
+    %tmp.86 = gt %tmp.84 %tmp.85;
+    bf %tmp.86 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_387_2_387_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_387_2_387_36_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_387_20_387_36_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 387 22 ]
+    %tmp.87 = lgetv %lon.14;
+    symbol [ lon %tmp.87 387 31 34 ];
+    lputv %maxLon.10 %tmp.87;
+    symbol [ maxLon %maxLon.10 387 22 28 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_387_20_387_36_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_387_2_387_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_387_2_387_36_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_380_1_388_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_incr:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 379 ]
+    %tmp.90 = lgetv %i.11;
+    symbol [ i %tmp.90 379 24 25 ];
+    %tmp.91 = add %tmp.90 1;
+    lputv %i.11 %tmp.91;
+    symbol [ i %i.11 379 24 25 ];
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_test;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_379_1_388_1_for_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 390 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %centerLat.15 = local;
+    symbol [ centerLat %centerLat.15 390 5 14 ];
+    %tmp.92 = lgetv %minLat.7;
+    symbol [ minLat %tmp.92 390 18 24 ];
+    %tmp.93 = lgetv %maxLat.8;
+    symbol [ maxLat %tmp.93 390 27 33 ];
+    %tmp.94 = add %tmp.92 %tmp.93;
+    %tmp.95 = 2.0;
+    %tmp.96 = div %tmp.94 %tmp.95;
+    lputv %centerLat.15 %tmp.96;
+    symbol [ centerLat %centerLat.15 390 5 14 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 391 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop" ]
+    %centerLon.16 = local;
+    symbol [ centerLon %centerLon.16 391 5 14 ];
+    %tmp.97 = lgetv %minLon.9;
+    symbol [ minLon %tmp.97 391 18 24 ];
+    %tmp.98 = lgetv %maxLon.10;
+    symbol [ maxLon %tmp.98 391 27 33 ];
+    %tmp.99 = add %tmp.97 %tmp.98;
+    %tmp.100 = 2.0;
+    %tmp.101 = div %tmp.99 %tmp.100;
+    lputv %centerLon.16 %tmp.101;
+    symbol [ centerLon %centerLon.16 391 5 14 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 392 1 ]
+    %tmp.102 = newa 3;
+    %tmp.103 = lgetv %centerLat.15;
+    symbol [ centerLat %tmp.103 392 9 18 ];
+    %tmp.104 = dup %tmp.102;
+    %tmp.105 = aputv %tmp.104 0 %tmp.103;
+    %tmp.106 = lgetv %centerLon.16;
+    symbol [ centerLon %tmp.106 392 20 29 ];
+    %tmp.107 = dup %tmp.105;
+    %tmp.108 = aputv %tmp.107 1 %tmp.106;
+    symbol [ Toybox %tmp.110 392 31 37 ];
+    %tmp.110 = getv ? :Toybox;
+    symbol [ Math %tmp.111 392 38 42 ];
+    %tmp.111 = getv %tmp.110 :Math;
+    symbol [ cos %tmp.112 392 43 46 ];
+    %tmp.112 = getv function %tmp.111 :cos;
+    symbol [ Toybox %tmp.114 392 47 53 ];
+    %tmp.114 = getv ? :Toybox;
+    symbol [ Math %tmp.115 392 54 58 ];
+    %tmp.115 = getv %tmp.114 :Math;
+    symbol [ toRadians %tmp.116 392 59 68 ];
+    %tmp.116 = getv function %tmp.115 :toRadians;
+    %tmp.117 = lgetv %centerLat.15;
+    symbol [ centerLat %tmp.117 392 69 78 ];
+    %tmp.118 = invoke %tmp.115 %tmp.116(%tmp.117);
+    %tmp.119 = invoke %tmp.111 %tmp.112(%tmp.118);
+    %tmp.120 = dup %tmp.108;
+    %tmp.121 = aputv %tmp.120 2 %tmp.119;
+    ret %tmp.121;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_362_0_393_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 404; @symbol_functiondef = [mapPixelsPerDegree,404,9,27]; @symbol_param<0> = [lats,404,28,32]; @symbol_param<1> = [lons,404,34,38]; @symbol_param<2> = [count,404,40,45]; @symbol_param<3> = [writeIndex,404,47,57]; @symbol_param<4> = [curLat,404,59,65]; @symbol_param<5> = [curLon,404,67,73]; @symbol_param<6> = [center,404,75,81]; @symbol_param<7> = [screenRadius,404,83,95]; ]
+function mapPixelsPerDegree(lats, lons, count, writeIndex, curLat, curLon, center, screenRadius) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 406 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_406_1_409_1_if_stmt:
+    %tmp.1 = lgetv %center;
+    symbol [ center %tmp.1 406 5 11 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_406_1_409_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_406_1_409_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_407_1_409_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 408 2 ]
+    %tmp.4 = null;
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_407_1_409_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_406_1_409_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_406_1_409_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 410 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_stop" ]
+    %n.1 = local;
+    symbol [ n %n.1 410 5 6 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_10_410_35_begin:
+    %tmp.5 = lgetv %count;
+    symbol [ count %tmp.5 410 10 15 ];
+    %tmp.6 = null;
+    %tmp.7 = eq %tmp.5 %tmp.6;
+    bt %tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_27_410_35_false:
+    %tmp.8 = lgetv %count;
+    symbol [ count %tmp.8 410 27 32 ];
+    %tmp.9 = as %tmp.8 { (!Null) };
+    %tmp.10 = 0;
+    %tmp.11 = lt %tmp.9 %tmp.10;
+    push %tmp.11;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_27_410_35_end:
+    %tmp.12 = phi [%tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_10_410_35_begin] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_27_410_35_false] [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_27_410_35_end];
+    bf %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_true:
+    %tmp.13 = 0;
+    push %tmp.13;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_else_false:
+    %tmp.14 = lgetv %count;
+    symbol [ count %tmp.14 410 44 49 ];
+    %tmp.15 = as %tmp.14 { (!Null) };
+    push %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_end:
+    %tmp.16 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_begin] [%tmp.13 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_true] [%tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_else_false] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_410_9_410_44_end];
+    lputv %n.1 %tmp.16;
+    symbol [ n %n.1 410 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 411 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_stop" ]
+    %capacity.2 = local;
+    symbol [ capacity %capacity.2 411 5 13 ];
+    %tmp.17 = lgetv %lats;
+    symbol [ lats %tmp.17 411 16 20 ];
+    symbol [ size %tmp.18 411 21 25 ];
+    %tmp.18 = getv function %tmp.17 :size;
+    %tmp.19 = invoke %tmp.17 %tmp.18();
+    lputv %capacity.2 %tmp.19;
+    symbol [ capacity %capacity.2 411 5 13 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 412 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_stop" ]
+    %centerLat.3 = local;
+    symbol [ centerLat %centerLat.3 412 5 14 ];
+    %tmp.20 = lgetv %center;
+    symbol [ center %tmp.20 412 17 23 ];
+    %tmp.21 = 0;
+    %tmp.22 = agetv %tmp.20 %tmp.21;
+    lputv %centerLat.3 %tmp.22;
+    symbol [ centerLat %centerLat.3 412 5 14 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 413 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_stop" ]
+    %centerLon.4 = local;
+    symbol [ centerLon %centerLon.4 413 5 14 ];
+    %tmp.23 = lgetv %center;
+    symbol [ center %tmp.23 413 17 23 ];
+    %tmp.24 = 1;
+    %tmp.25 = agetv %tmp.23 %tmp.24;
+    lputv %centerLon.4 %tmp.25;
+    symbol [ centerLon %centerLon.4 413 5 14 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 414 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_stop" ]
+    %cosLat.5 = local;
+    symbol [ cosLat %cosLat.5 414 5 11 ];
+    %tmp.26 = lgetv %center;
+    symbol [ center %tmp.26 414 14 20 ];
+    %tmp.27 = 2;
+    %tmp.28 = agetv %tmp.26 %tmp.27;
+    lputv %cosLat.5 %tmp.28;
+    symbol [ cosLat %cosLat.5 414 5 11 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 416 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_stop" ]
+    %maxRange.6 = local;
+    symbol [ maxRange %maxRange.6 416 5 13 ];
+    %tmp.29 = 0.0001;
+    lputv %maxRange.6 %tmp.29;
+    symbol [ maxRange %maxRange.6 416 5 13 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 417 1 ]
+    for @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_test @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_incr @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_init:
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_begin" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_end" ]
+    %i.7 = local;
+    symbol [ i %i.7 417 10 11 ];
+    %tmp.30 = 0;
+    lputv %i.7 %tmp.30;
+    symbol [ i %i.7 417 10 11 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_test:
+    %tmp.31 = lgetv %i.7;
+    symbol [ i %tmp.31 417 17 18 ];
+    %tmp.32 = lgetv %n.1;
+    symbol [ n %tmp.32 417 21 22 ];
+    %tmp.33 = lt %tmp.31 %tmp.32;
+    bf %tmp.33 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 419 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_stop" ]
+    %idx.8 = local;
+    symbol [ idx %idx.8 419 6 9 ];
+    %tmp.34 = lgetv %writeIndex;
+    symbol [ writeIndex %tmp.34 419 13 23 ];
+    %tmp.35 = lgetv %n.1;
+    symbol [ n %tmp.35 419 26 27 ];
+    %tmp.36 = sub %tmp.34 %tmp.35;
+    %tmp.37 = lgetv %i.7;
+    symbol [ i %tmp.37 419 30 31 ];
+    %tmp.38 = add %tmp.36 %tmp.37;
+    %tmp.39 = lgetv %capacity.2;
+    symbol [ capacity %tmp.39 419 34 42 ];
+    %tmp.40 = add %tmp.38 %tmp.39;
+    %tmp.41 = lgetv %capacity.2;
+    symbol [ capacity %tmp.41 419 46 54 ];
+    %tmp.42 = mod %tmp.40 %tmp.41;
+    lputv %idx.8 %tmp.42;
+    symbol [ idx %idx.8 419 6 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 420 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_stop" ]
+    %dx.9 = local;
+    symbol [ dx %dx.9 420 6 8 ];
+    %tmp.43 = lgetv %lons;
+    symbol [ lons %tmp.43 420 12 16 ];
+    %tmp.44 = lgetv %idx.8;
+    symbol [ idx %tmp.44 420 17 20 ];
+    %tmp.45 = agetv %tmp.43 %tmp.44;
+    %tmp.46 = lgetv %centerLon.4;
+    symbol [ centerLon %tmp.46 420 24 33 ];
+    %tmp.47 = sub %tmp.45 %tmp.46;
+    %tmp.48 = lgetv %cosLat.5;
+    symbol [ cosLat %tmp.48 420 37 43 ];
+    %tmp.49 = mul %tmp.47 %tmp.48;
+    lputv %dx.9 %tmp.49;
+    symbol [ dx %dx.9 420 6 8 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 421 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_stop" ]
+    %dy.10 = local;
+    symbol [ dy %dy.10 421 6 8 ];
+    %tmp.50 = lgetv %lats;
+    symbol [ lats %tmp.50 421 11 15 ];
+    %tmp.51 = lgetv %idx.8;
+    symbol [ idx %tmp.51 421 16 19 ];
+    %tmp.52 = agetv %tmp.50 %tmp.51;
+    %tmp.53 = lgetv %centerLat.3;
+    symbol [ centerLat %tmp.53 421 23 32 ];
+    %tmp.54 = sub %tmp.52 %tmp.53;
+    lputv %dy.10 %tmp.54;
+    symbol [ dy %dy.10 421 6 8 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 422 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_stop" ]
+    %r.11 = local;
+    symbol [ r %r.11 422 6 7 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_begin:
+    %tmp.55 = lgetv %dx.9;
+    symbol [ dx %tmp.55 422 11 13 ];
+    symbol [ abs %tmp.56 422 14 17 ];
+    %tmp.56 = getv function %tmp.55 :abs;
+    %tmp.57 = invoke %tmp.55 %tmp.56();
+    %tmp.58 = lgetv %dy.10;
+    symbol [ dy %tmp.58 422 22 24 ];
+    symbol [ abs %tmp.59 422 25 28 ];
+    %tmp.59 = getv function %tmp.58 :abs;
+    %tmp.60 = invoke %tmp.58 %tmp.59();
+    %tmp.61 = gt %tmp.57 %tmp.60;
+    bf %tmp.61 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_true:
+    %tmp.62 = lgetv %dx.9;
+    symbol [ dx %tmp.62 422 34 36 ];
+    symbol [ abs %tmp.63 422 37 40 ];
+    %tmp.63 = getv function %tmp.62 :abs;
+    %tmp.64 = invoke %tmp.62 %tmp.63();
+    push %tmp.64;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_else_false:
+    %tmp.65 = lgetv %dy.10;
+    symbol [ dy %tmp.65 422 45 47 ];
+    symbol [ abs %tmp.66 422 48 51 ];
+    %tmp.66 = getv function %tmp.65 :abs;
+    %tmp.67 = invoke %tmp.65 %tmp.66();
+    push %tmp.67;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_end:
+    %tmp.68 = phi [%tmp.61 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_begin] [%tmp.64 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_true] [%tmp.67 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_else_false] [%tmp.68 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_422_10_422_52_end];
+    lputv %r.11 %tmp.68;
+    symbol [ r %r.11 422 6 7 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 423 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_423_2_423_36_if_stmt:
+    %tmp.69 = lgetv %r.11;
+    symbol [ r %tmp.69 423 6 7 ];
+    %tmp.70 = lgetv %maxRange.6;
+    symbol [ maxRange %tmp.70 423 10 18 ];
+    %tmp.71 = gt %tmp.69 %tmp.70;
+    bf %tmp.71 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_423_2_423_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_423_2_423_36_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_423_20_423_36_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 423 22 ]
+    %tmp.72 = lgetv %r.11;
+    symbol [ r %tmp.72 423 33 34 ];
+    lputv %maxRange.6 %tmp.72;
+    symbol [ maxRange %maxRange.6 423 22 30 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_423_20_423_36_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_423_2_423_36_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_423_2_423_36_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_418_1_424_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_incr:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 417 ]
+    %tmp.75 = lgetv %i.7;
+    symbol [ i %tmp.75 417 24 25 ];
+    %tmp.76 = add %tmp.75 1;
+    lputv %i.7 %tmp.76;
+    symbol [ i %i.7 417 24 25 ];
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_test;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_417_1_424_1_for_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 425 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_1_431_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_5_425_33_begin:
+    %tmp.77 = lgetv %curLat;
+    symbol [ curLat %tmp.77 425 5 11 ];
+    %tmp.78 = null;
+    %tmp.79 = ne %tmp.77 %tmp.78;
+    bf %tmp.79 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_1_431_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_23_425_33_true:
+    %tmp.80 = lgetv %curLon;
+    symbol [ curLon %tmp.80 425 23 29 ];
+    %tmp.81 = null;
+    %tmp.82 = ne %tmp.80 %tmp.81;
+    push %tmp.82;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_23_425_33_end:
+    %tmp.83 = phi [%tmp.79 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_5_425_33_begin] [%tmp.82 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_23_425_33_true] [%tmp.83 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_23_425_33_end];
+    bf %tmp.83 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_1_431_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_1_431_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_426_1_431_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 427 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_426_1_431_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_426_1_431_1_stop" ]
+    %curDx.12 = local;
+    symbol [ curDx %curDx.12 427 6 11 ];
+    %tmp.84 = lgetv %curLon;
+    symbol [ curLon %tmp.84 427 15 21 ];
+    %tmp.85 = as %tmp.84 { (!Null) };
+    %tmp.86 = lgetv %centerLon.4;
+    symbol [ centerLon %tmp.86 427 24 33 ];
+    %tmp.87 = sub %tmp.85 %tmp.86;
+    %tmp.88 = lgetv %cosLat.5;
+    symbol [ cosLat %tmp.88 427 37 43 ];
+    %tmp.89 = mul %tmp.87 %tmp.88;
+    lputv %curDx.12 %tmp.89;
+    symbol [ curDx %curDx.12 427 6 11 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 428 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_426_1_431_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_426_1_431_1_stop" ]
+    %curDy.13 = local;
+    symbol [ curDy %curDy.13 428 6 11 ];
+    %tmp.90 = lgetv %curLat;
+    symbol [ curLat %tmp.90 428 14 20 ];
+    %tmp.91 = as %tmp.90 { (!Null) };
+    %tmp.92 = lgetv %centerLat.3;
+    symbol [ centerLat %tmp.92 428 23 32 ];
+    %tmp.93 = sub %tmp.91 %tmp.92;
+    lputv %curDy.13 %tmp.93;
+    symbol [ curDy %curDy.13 428 6 11 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 429 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_426_1_431_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_426_1_431_1_stop" ]
+    %curR.14 = local;
+    symbol [ curR %curR.14 429 6 10 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_begin:
+    %tmp.94 = lgetv %curDx.12;
+    symbol [ curDx %tmp.94 429 14 19 ];
+    symbol [ abs %tmp.95 429 20 23 ];
+    %tmp.95 = getv function %tmp.94 :abs;
+    %tmp.96 = invoke %tmp.94 %tmp.95();
+    %tmp.97 = lgetv %curDy.13;
+    symbol [ curDy %tmp.97 429 28 33 ];
+    symbol [ abs %tmp.98 429 34 37 ];
+    %tmp.98 = getv function %tmp.97 :abs;
+    %tmp.99 = invoke %tmp.97 %tmp.98();
+    %tmp.100 = gt %tmp.96 %tmp.99;
+    bf %tmp.100 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_true:
+    %tmp.101 = lgetv %curDx.12;
+    symbol [ curDx %tmp.101 429 43 48 ];
+    symbol [ abs %tmp.102 429 49 52 ];
+    %tmp.102 = getv function %tmp.101 :abs;
+    %tmp.103 = invoke %tmp.101 %tmp.102();
+    push %tmp.103;
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_else_false:
+    %tmp.104 = lgetv %curDy.13;
+    symbol [ curDy %tmp.104 429 57 62 ];
+    symbol [ abs %tmp.105 429 63 66 ];
+    %tmp.105 = getv function %tmp.104 :abs;
+    %tmp.106 = invoke %tmp.104 %tmp.105();
+    push %tmp.106;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_end:
+    %tmp.107 = phi [%tmp.100 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_begin] [%tmp.103 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_true] [%tmp.106 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_else_false] [%tmp.107 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_429_13_429_67_end];
+    lputv %curR.14 %tmp.107;
+    symbol [ curR %curR.14 429 6 10 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 430 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_430_2_430_42_if_stmt:
+    %tmp.108 = lgetv %curR.14;
+    symbol [ curR %tmp.108 430 6 10 ];
+    %tmp.109 = lgetv %maxRange.6;
+    symbol [ maxRange %tmp.109 430 13 21 ];
+    %tmp.110 = gt %tmp.108 %tmp.109;
+    bf %tmp.110 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_430_2_430_42_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_430_2_430_42_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_430_23_430_42_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 430 25 ]
+    %tmp.111 = lgetv %curR.14;
+    symbol [ curR %tmp.111 430 36 40 ];
+    lputv %maxRange.6 %tmp.111;
+    symbol [ maxRange %maxRange.6 430 25 33 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_430_23_430_42_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_430_2_430_42_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_430_2_430_42_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_426_1_431_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_1_431_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_425_1_431_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 433 1 ]
+    %tmp.112 = lgetv %screenRadius;
+    symbol [ screenRadius %tmp.112 433 9 21 ];
+    %tmp.113 = 0.85;
+    %tmp.114 = mul %tmp.112 %tmp.113;
+    %tmp.115 = lgetv %maxRange.6;
+    symbol [ maxRange %tmp.115 433 32 40 ];
+    %tmp.116 = div %tmp.114 %tmp.115;
+    ret %tmp.116;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_405_0_434_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 438; @symbol_functiondef = [isFiniteFloat,438,9,22]; @symbol_param<0> = [v,438,23,24]; ]
+function isFiniteFloat(v) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_439_0_441_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 440 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_440_8_440_27_begin:
+    %tmp.1 = lgetv %v;
+    symbol [ v %tmp.1 440 8 9 ];
+    %tmp.2 = lgetv %v;
+    symbol [ v %tmp.2 440 13 14 ];
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    %tmp.4 = dup %tmp.3;
+    bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_440_18_440_27_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_440_18_440_27_true:
+    %tmp.5 = lgetv %v;
+    symbol [ v %tmp.5 440 18 19 ];
+    %tmp.6 = lgetv %v;
+    symbol [ v %tmp.6 440 22 23 ];
+    %tmp.7 = sub %tmp.5 %tmp.6;
+    %tmp.8 = 0.0;
+    %tmp.9 = eq %tmp.7 %tmp.8;
+    %tmp.10 = and %tmp.3 %tmp.9;
+    push %tmp.10;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_440_18_440_27_end:
+    %tmp.11 = phi [%tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_440_8_440_27_begin] [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_440_18_440_27_true] [%tmp.11 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_440_18_440_27_end];
+    ret %tmp.11;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_439_0_441_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 445; @position = 6; @symbol_constdef = [METERS_PER_DEGREE,445,6,23]; ]
+const METERS_PER_DEGREE = 111320.0;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 449; @symbol_functiondef = [metersPerPixelFromScale,449,9,32]; @symbol_param<0> = [pixelsPerDegree,449,33,48]; ]
+function metersPerPixelFromScale(pixelsPerDegree) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_450_0_461_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 451 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_451_1_454_1_if_stmt:
+    %tmp.1 = lgetv %pixelsPerDegree;
+    symbol [ pixelsPerDegree %tmp.1 451 5 20 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_451_1_454_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_451_1_454_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_452_1_454_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 453 2 ]
+    %tmp.4 = null;
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_452_1_454_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_451_1_454_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_451_1_454_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 455 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_450_0_461_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_450_0_461_0_stop" ]
+    %p.1 = local;
+    symbol [ p %p.1 455 5 6 ];
+    %tmp.5 = lgetv %pixelsPerDegree;
+    symbol [ pixelsPerDegree %tmp.5 455 9 24 ];
+    symbol [ toFloat %tmp.6 455 25 32 ];
+    %tmp.6 = getv function %tmp.5 :toFloat;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %p.1 %tmp.7;
+    symbol [ p %p.1 455 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 456 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_1_459_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_5_456_31_begin:
+    %tmp.8 = self;
+    symbol [ isFiniteFloat %tmp.9 456 6 19 ];
+    %tmp.9 = getv function %tmp.8 :isFiniteFloat;
+    %tmp.10 = lgetv %p.1;
+    symbol [ p %tmp.10 456 20 21 ];
+    %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
+    %tmp.12 = not %tmp.11;
+    bt %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_1_459_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_26_456_31_false:
+    %tmp.13 = lgetv %p.1;
+    symbol [ p %tmp.13 456 26 27 ];
+    %tmp.14 = 0.0;
+    %tmp.15 = lte %tmp.13 %tmp.14;
+    push %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_26_456_31_end:
+    %tmp.16 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_5_456_31_begin] [%tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_26_456_31_false] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_26_456_31_end];
+    bf %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_1_459_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_1_459_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_457_1_459_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 458 2 ]
+    %tmp.17 = null;
+    ret %tmp.17;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_457_1_459_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_1_459_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_456_1_459_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 460 1 ]
+    symbol [ METERS_PER_DEGREE %tmp.19 460 8 25 ];
+    %tmp.19 = getv ? :METERS_PER_DEGREE;
+    %tmp.20 = lgetv %p.1;
+    symbol [ p %tmp.20 460 28 29 ];
+    %tmp.21 = div %tmp.19 %tmp.20;
+    ret %tmp.21;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_450_0_461_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 464; @position = 6; @symbol_constdef = [SCALE_BAR_LENGTHS_M,464,6,25]; ]
+const SCALE_BAR_LENGTHS_M;
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 474; @symbol_functiondef = [pickScaleBar,474,9,21]; @symbol_param<0> = [metersPerPixel,474,22,36]; @symbol_param<1> = [maxPixels,474,38,47]; ]
+function pickScaleBar(metersPerPixel, maxPixels) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_475_0_501_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 476 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_1_479_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_5_476_44_begin:
+    %tmp.1 = lgetv %metersPerPixel;
+    symbol [ metersPerPixel %tmp.1 476 5 19 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bt %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_1_479_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_31_476_44_false:
+    %tmp.4 = lgetv %maxPixels;
+    symbol [ maxPixels %tmp.4 476 31 40 ];
+    %tmp.5 = null;
+    %tmp.6 = eq %tmp.4 %tmp.5;
+    push %tmp.6;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_31_476_44_end:
+    %tmp.7 = phi [%tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_5_476_44_begin] [%tmp.6 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_31_476_44_false] [%tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_31_476_44_end];
+    bf %tmp.7 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_1_479_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_1_479_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_477_1_479_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 478 2 ]
+    %tmp.8 = null;
+    ret %tmp.8;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_477_1_479_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_1_479_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_476_1_479_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 480 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_475_0_501_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_475_0_501_0_stop" ]
+    %mpp.1 = local;
+    symbol [ mpp %mpp.1 480 5 8 ];
+    %tmp.9 = lgetv %metersPerPixel;
+    symbol [ metersPerPixel %tmp.9 480 11 25 ];
+    symbol [ toFloat %tmp.10 480 26 33 ];
+    %tmp.10 = getv function %tmp.9 :toFloat;
+    %tmp.11 = invoke %tmp.9 %tmp.10();
+    lputv %mpp.1 %tmp.11;
+    symbol [ mpp %mpp.1 480 5 8 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 481 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_475_0_501_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_475_0_501_0_stop" ]
+    %room.2 = local;
+    symbol [ room %room.2 481 5 9 ];
+    %tmp.12 = lgetv %maxPixels;
+    symbol [ maxPixels %tmp.12 481 12 21 ];
+    symbol [ toFloat %tmp.13 481 22 29 ];
+    %tmp.13 = getv function %tmp.12 :toFloat;
+    %tmp.14 = invoke %tmp.12 %tmp.13();
+    lputv %room.2 %tmp.14;
+    symbol [ room %room.2 481 5 9 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 482 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_1_485_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_5_482_74_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_5_482_61_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_5_482_35_begin:
+    %tmp.15 = self;
+    symbol [ isFiniteFloat %tmp.16 482 6 19 ];
+    %tmp.16 = getv function %tmp.15 :isFiniteFloat;
+    %tmp.17 = lgetv %mpp.1;
+    symbol [ mpp %tmp.17 482 20 23 ];
+    %tmp.18 = invoke %tmp.15 %tmp.16(%tmp.17);
+    %tmp.19 = not %tmp.18;
+    bt %tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_1_485_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_28_482_35_false:
+    %tmp.20 = lgetv %mpp.1;
+    symbol [ mpp %tmp.20 482 28 31 ];
+    %tmp.21 = 0.0;
+    %tmp.22 = lte %tmp.20 %tmp.21;
+    push %tmp.22;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_28_482_35_end:
+    %tmp.23 = phi [%tmp.19 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_5_482_35_begin] [%tmp.22 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_28_482_35_false] [%tmp.23 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_28_482_35_end];
+    bt %tmp.23 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_1_485_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_42_482_61_false:
+    %tmp.24 = self;
+    symbol [ isFiniteFloat %tmp.25 482 43 56 ];
+    %tmp.25 = getv function %tmp.24 :isFiniteFloat;
+    %tmp.26 = lgetv %room.2;
+    symbol [ room %tmp.26 482 57 61 ];
+    %tmp.27 = invoke %tmp.24 %tmp.25(%tmp.26);
+    %tmp.28 = not %tmp.27;
+    push %tmp.28;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_42_482_61_end:
+    %tmp.29 = phi [%tmp.23 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_5_482_61_begin] [%tmp.28 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_42_482_61_false] [%tmp.29 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_42_482_61_end];
+    bt %tmp.29 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_1_485_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_66_482_74_false:
+    %tmp.30 = lgetv %room.2;
+    symbol [ room %tmp.30 482 66 70 ];
+    %tmp.31 = 0.0;
+    %tmp.32 = lte %tmp.30 %tmp.31;
+    push %tmp.32;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_66_482_74_end:
+    %tmp.33 = phi [%tmp.29 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_5_482_74_begin] [%tmp.32 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_66_482_74_false] [%tmp.33 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_66_482_74_end];
+    bf %tmp.33 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_1_485_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_1_485_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_483_1_485_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 484 2 ]
+    %tmp.34 = null;
+    ret %tmp.34;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_483_1_485_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_1_485_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_482_1_485_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 487 1 ]
+    for @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_test @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_incr @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_init:
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_begin" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_end" ]
+    %i.3 = local;
+    symbol [ i %i.3 487 10 11 ];
+    %tmp.35 = 0;
+    lputv %i.3 %tmp.35;
+    symbol [ i %i.3 487 10 11 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_test:
+    %tmp.36 = lgetv %i.3;
+    symbol [ i %tmp.36 487 17 18 ];
+    symbol [ SCALE_BAR_LENGTHS_M %tmp.38 487 21 40 ];
+    %tmp.38 = getv ? :SCALE_BAR_LENGTHS_M;
+    symbol [ size %tmp.39 487 41 45 ];
+    %tmp.39 = getv function %tmp.38 :size;
+    %tmp.40 = invoke %tmp.38 %tmp.39();
+    %tmp.41 = lt %tmp.36 %tmp.40;
+    bf %tmp.41 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_begin:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_488_1_499_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 489 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_488_1_499_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_488_1_499_1_stop" ]
+    %meters.4 = local;
+    symbol [ meters %meters.4 489 6 12 ];
+    symbol [ SCALE_BAR_LENGTHS_M %tmp.43 489 15 34 ];
+    %tmp.43 = getv ? :SCALE_BAR_LENGTHS_M;
+    %tmp.44 = lgetv %i.3;
+    symbol [ i %tmp.44 489 35 36 ];
+    %tmp.45 = agetv %tmp.43 %tmp.44;
+    lputv %meters.4 %tmp.45;
+    symbol [ meters %meters.4 489 6 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 490 2 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_488_1_499_1_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_488_1_499_1_stop" ]
+    %pixels.5 = local;
+    symbol [ pixels %pixels.5 490 6 12 ];
+    %tmp.46 = lgetv %meters.4;
+    symbol [ meters %tmp.46 490 15 21 ];
+    %tmp.47 = lgetv %mpp.1;
+    symbol [ mpp %tmp.47 490 24 27 ];
+    %tmp.48 = div %tmp.46 %tmp.47;
+    lputv %pixels.5 %tmp.48;
+    symbol [ pixels %pixels.5 490 6 12 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 491 2 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_491_2_498_2_if_stmt:
+    %tmp.49 = lgetv %pixels.5;
+    symbol [ pixels %tmp.49 491 6 12 ];
+    %tmp.50 = lgetv %room.2;
+    symbol [ room %tmp.50 491 16 20 ];
+    %tmp.51 = lte %tmp.49 %tmp.50;
+    bf %tmp.51 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_491_2_498_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_491_2_498_2_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_492_2_498_2_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 493 3 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_493_3_496_3_if_stmt:
+    %tmp.52 = lgetv %pixels.5;
+    symbol [ pixels %tmp.52 493 7 13 ];
+    %tmp.53 = lgetv %room.2;
+    symbol [ room %tmp.53 493 16 20 ];
+    %tmp.54 = 4.0;
+    %tmp.55 = div %tmp.53 %tmp.54;
+    %tmp.56 = lt %tmp.52 %tmp.55;
+    bf %tmp.56 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_493_3_496_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_493_3_496_3_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_494_3_496_3_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 495 4 ]
+    %tmp.57 = null;
+    ret %tmp.57;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_494_3_496_3_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_493_3_496_3_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_493_3_496_3_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 497 3 ]
+    %tmp.58 = newa 2;
+    %tmp.59 = lgetv %meters.4;
+    symbol [ meters %tmp.59 497 11 17 ];
+    %tmp.60 = dup %tmp.58;
+    %tmp.61 = aputv %tmp.60 0 %tmp.59;
+    %tmp.62 = lgetv %pixels.5;
+    symbol [ pixels %tmp.62 497 20 26 ];
+    %tmp.63 = 0.5;
+    %tmp.64 = add %tmp.62 %tmp.63;
+    symbol [ toNumber %tmp.65 497 34 42 ];
+    %tmp.65 = getv function %tmp.64 :toNumber;
+    %tmp.66 = invoke %tmp.64 %tmp.65();
+    %tmp.67 = dup %tmp.61;
+    %tmp.68 = aputv %tmp.67 1 %tmp.66;
+    ret %tmp.68;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_492_2_498_2_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_491_2_498_2_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_491_2_498_2_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_488_1_499_1_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_incr:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 487 ]
+    %tmp.71 = lgetv %i.3;
+    symbol [ i %tmp.71 487 49 50 ];
+    %tmp.72 = add %tmp.71 1;
+    lputv %i.3 %tmp.72;
+    symbol [ i %i.3 487 49 50 ];
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_test;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_487_1_499_1_for_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 500 1 ]
+    %tmp.73 = null;
+    ret %tmp.73;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_475_0_501_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 506; @symbol_functiondef = [formatScaleBarLabel,506,9,28]; @symbol_param<0> = [meters,506,29,35]; ]
+function formatScaleBarLabel(meters) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_507_0_527_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 508 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_508_1_511_1_if_stmt:
+    %tmp.1 = lgetv %meters;
+    symbol [ meters %tmp.1 508 5 11 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_508_1_511_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_508_1_511_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_509_1_511_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 510 2 ]
+    %tmp.4 = "";
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_509_1_511_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_508_1_511_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_508_1_511_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 512 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_507_0_527_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_507_0_527_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 512 5 6 ];
+    %tmp.5 = lgetv %meters;
+    symbol [ meters %tmp.5 512 9 15 ];
+    symbol [ toFloat %tmp.6 512 16 23 ];
+    %tmp.6 = getv function %tmp.5 :toFloat;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 512 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 513 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_1_516_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_5_513_31_begin:
+    %tmp.8 = self;
+    symbol [ isFiniteFloat %tmp.9 513 6 19 ];
+    %tmp.9 = getv function %tmp.8 :isFiniteFloat;
+    %tmp.10 = lgetv %v.1;
+    symbol [ v %tmp.10 513 20 21 ];
+    %tmp.11 = invoke %tmp.8 %tmp.9(%tmp.10);
+    %tmp.12 = not %tmp.11;
+    bt %tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_1_516_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_26_513_31_false:
+    %tmp.13 = lgetv %v.1;
+    symbol [ v %tmp.13 513 26 27 ];
+    %tmp.14 = 0.0;
+    %tmp.15 = lte %tmp.13 %tmp.14;
+    push %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_26_513_31_end:
+    %tmp.16 = phi [%tmp.12 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_5_513_31_begin] [%tmp.15 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_26_513_31_false] [%tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_26_513_31_end];
+    bf %tmp.16 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_1_516_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_1_516_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_514_1_516_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 515 2 ]
+    %tmp.17 = "";
+    ret %tmp.17;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_514_1_516_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_1_516_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_513_1_516_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 517 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_507_0_527_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_507_0_527_0_stop" ]
+    %m.2 = local;
+    symbol [ m %m.2 517 5 6 ];
+    %tmp.18 = lgetv %v.1;
+    symbol [ v %tmp.18 517 10 11 ];
+    %tmp.19 = 0.5;
+    %tmp.20 = add %tmp.18 %tmp.19;
+    symbol [ toLong %tmp.21 517 19 25 ];
+    %tmp.21 = getv function %tmp.20 :toLong;
+    %tmp.22 = invoke %tmp.20 %tmp.21();
+    lputv %m.2 %tmp.22;
+    symbol [ m %m.2 517 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 518 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_518_1_521_1_if_stmt:
+    %tmp.23 = lgetv %m.2;
+    symbol [ m %tmp.23 518 5 6 ];
+    %tmp.24 = 1000;
+    %tmp.25 = lt %tmp.23 %tmp.24;
+    bf %tmp.25 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_518_1_521_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_518_1_521_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_519_1_521_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 520 2 ]
+    %tmp.26 = lgetv %m.2;
+    symbol [ m %tmp.26 520 9 10 ];
+    symbol [ toString %tmp.27 520 11 19 ];
+    %tmp.27 = getv function %tmp.26 :toString;
+    %tmp.28 = invoke %tmp.26 %tmp.27();
+    %tmp.29 = " m";
+    %tmp.30 = add %tmp.28 %tmp.29;
+    ret %tmp.30;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_519_1_521_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_518_1_521_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_518_1_521_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 522 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_522_1_525_1_if_stmt:
+    %tmp.31 = lgetv %m.2;
+    symbol [ m %tmp.31 522 5 6 ];
+    %tmp.32 = 1000;
+    %tmp.33 = mod %tmp.31 %tmp.32;
+    %tmp.34 = 0;
+    %tmp.35 = eq %tmp.33 %tmp.34;
+    bf %tmp.35 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_522_1_525_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_522_1_525_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_523_1_525_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 524 2 ]
+    %tmp.36 = lgetv %m.2;
+    symbol [ m %tmp.36 524 10 11 ];
+    %tmp.37 = 1000;
+    %tmp.38 = div %tmp.36 %tmp.37;
+    symbol [ toString %tmp.39 524 20 28 ];
+    %tmp.39 = getv function %tmp.38 :toString;
+    %tmp.40 = invoke %tmp.38 %tmp.39();
+    %tmp.41 = " km";
+    %tmp.42 = add %tmp.40 %tmp.41;
+    ret %tmp.42;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_523_1_525_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_522_1_525_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_522_1_525_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 526 1 ]
+    %tmp.43 = lgetv %m.2;
+    symbol [ m %tmp.43 526 9 10 ];
+    %tmp.44 = 1000.0;
+    %tmp.45 = div %tmp.43 %tmp.44;
+    symbol [ format %tmp.46 526 21 27 ];
+    %tmp.46 = getv function %tmp.45 :format;
+    %tmp.47 = "%.1f";
+    %tmp.48 = invoke %tmp.45 %tmp.46(%tmp.47);
+    %tmp.49 = " km";
+    %tmp.50 = add %tmp.48 %tmp.49;
+    ret %tmp.50;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_507_0_527_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 538; @symbol_functiondef = [formatPace,538,9,19]; @symbol_param<0> = [speedMps,538,20,28]; ]
+function formatPace(speedMps) {
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_539_0_561_0_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 540 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_540_1_543_1_if_stmt:
+    %tmp.1 = lgetv %speedMps;
+    symbol [ speedMps %tmp.1 540 5 13 ];
+    %tmp.2 = null;
+    %tmp.3 = eq %tmp.1 %tmp.2;
+    bf %tmp.3 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_540_1_543_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_540_1_543_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_541_1_543_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 542 2 ]
+    %tmp.4 = "--:--";
+    ret %tmp.4;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_541_1_543_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_540_1_543_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_540_1_543_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 544 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_539_0_561_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_539_0_561_0_stop" ]
+    %v.1 = local;
+    symbol [ v %v.1 544 5 6 ];
+    %tmp.5 = lgetv %speedMps;
+    symbol [ speedMps %tmp.5 544 9 17 ];
+    symbol [ toFloat %tmp.6 544 18 25 ];
+    %tmp.6 = getv function %tmp.5 :toFloat;
+    %tmp.7 = invoke %tmp.5 %tmp.6();
+    lputv %v.1 %tmp.7;
+    symbol [ v %v.1 544 5 6 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 545 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_1_548_1_if_stmt:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_5_545_20_begin:
+    %tmp.8 = lgetv %v.1;
+    symbol [ v %tmp.8 545 5 6 ];
+    %tmp.9 = lgetv %v.1;
+    symbol [ v %tmp.9 545 10 11 ];
+    %tmp.10 = ne %tmp.8 %tmp.9;
+    bt %tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_1_548_1_if_true;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_15_545_20_false:
+    %tmp.11 = lgetv %v.1;
+    symbol [ v %tmp.11 545 15 16 ];
+    %tmp.12 = 0.0;
+    %tmp.13 = lte %tmp.11 %tmp.12;
+    push %tmp.13;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_15_545_20_end:
+    %tmp.14 = phi [%tmp.10 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_5_545_20_begin] [%tmp.13 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_15_545_20_false] [%tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_15_545_20_end];
+    bf %tmp.14 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_1_548_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_1_548_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_546_1_548_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 547 2 ]
+    %tmp.15 = "--:--";
+    ret %tmp.15;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_546_1_548_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_1_548_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_545_1_548_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 550 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_539_0_561_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_539_0_561_0_stop" ]
+    %paceSeconds.2 = local;
+    symbol [ paceSeconds %paceSeconds.2 550 5 16 ];
+    %tmp.16 = 1000.0;
+    %tmp.17 = lgetv %v.1;
+    symbol [ v %tmp.17 550 28 29 ];
+    %tmp.18 = div %tmp.16 %tmp.17;
+    lputv %paceSeconds.2 %tmp.18;
+    symbol [ paceSeconds %paceSeconds.2 550 5 16 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 551 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_551_1_554_1_if_stmt:
+    %tmp.19 = lgetv %paceSeconds.2;
+    symbol [ paceSeconds %tmp.19 551 5 16 ];
+    %tmp.20 = 3600.5;
+    %tmp.21 = gte %tmp.19 %tmp.20;
+    bf %tmp.21 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_551_1_554_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_551_1_554_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_552_1_554_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 553 2 ]
+    %tmp.22 = "--:--";
+    ret %tmp.22;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_552_1_554_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_551_1_554_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_551_1_554_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 555 1 ]
+    [ "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_539_0_561_0_start" "_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_539_0_561_0_stop" ]
+    %total.3 = local;
+    symbol [ total %total.3 555 5 10 ];
+    %tmp.23 = lgetv %paceSeconds.2;
+    symbol [ paceSeconds %tmp.23 555 14 25 ];
+    %tmp.24 = 0.5;
+    %tmp.25 = add %tmp.23 %tmp.24;
+    symbol [ toNumber %tmp.26 555 33 41 ];
+    %tmp.26 = getv function %tmp.25 :toNumber;
+    %tmp.27 = invoke %tmp.25 %tmp.26();
+    lputv %total.3 %tmp.27;
+    symbol [ total %total.3 555 5 10 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 556 1 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_556_1_559_1_if_stmt:
+    %tmp.28 = lgetv %total.3;
+    symbol [ total %tmp.28 556 5 10 ];
+    %tmp.29 = 0;
+    %tmp.30 = lte %tmp.28 %tmp.29;
+    bf %tmp.30 @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_556_1_559_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_556_1_559_1_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_557_1_559_1_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 558 2 ]
+    %tmp.31 = "--:--";
+    ret %tmp.31;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_557_1_559_1_stop:
+    goto @_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_556_1_559_1_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_556_1_559_1_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 560 1 ]
+    %tmp.32 = lgetv %total.3;
+    symbol [ total %tmp.32 560 9 14 ];
+    %tmp.33 = 60;
+    %tmp.34 = div %tmp.32 %tmp.33;
+    symbol [ toString %tmp.35 560 21 29 ];
+    %tmp.35 = getv function %tmp.34 :toString;
+    %tmp.36 = invoke %tmp.34 %tmp.35();
+    %tmp.37 = ":";
+    %tmp.38 = add %tmp.36 %tmp.37;
+    %tmp.39 = lgetv %total.3;
+    symbol [ total %tmp.39 560 41 46 ];
+    %tmp.40 = 60;
+    %tmp.41 = mod %tmp.39 %tmp.40;
+    symbol [ format %tmp.42 560 53 59 ];
+    %tmp.42 = getv function %tmp.41 :format;
+    %tmp.43 = "%02d";
+    %tmp.44 = invoke %tmp.41 %tmp.42(%tmp.43);
+    %tmp.45 = add %tmp.38 %tmp.44;
+    ret %tmp.45;
+_Users_sam_claude_hq_worktrees_glidator2_source_Utils_mc_539_0_561_0_stop:
+}
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc"; @line = 7; ]
 <init> {
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/Utils.mc" 464 6 ]
+    %tmp.46 = newa 7;
+    %tmp.47 = 5000;
+    %tmp.48 = dup %tmp.46;
+    %tmp.49 = aputv %tmp.48 0 %tmp.47;
+    %tmp.50 = 2000;
+    %tmp.51 = dup %tmp.49;
+    %tmp.52 = aputv %tmp.51 1 %tmp.50;
+    %tmp.53 = 1000;
+    %tmp.54 = dup %tmp.52;
+    %tmp.55 = aputv %tmp.54 2 %tmp.53;
+    %tmp.56 = 500;
+    %tmp.57 = dup %tmp.55;
+    %tmp.58 = aputv %tmp.57 3 %tmp.56;
+    %tmp.59 = 200;
+    %tmp.60 = dup %tmp.58;
+    %tmp.61 = aputv %tmp.60 4 %tmp.59;
+    %tmp.62 = 100;
+    %tmp.63 = dup %tmp.61;
+    %tmp.64 = aputv %tmp.63 5 %tmp.62;
+    %tmp.65 = 50;
+    %tmp.66 = dup %tmp.64;
+    %tmp.67 = aputv %tmp.66 6 %tmp.65;
+    putv self :SCALE_BAR_LENGTHS_M %tmp.67;
 }

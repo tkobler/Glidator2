@@ -66,7 +66,7 @@ class FlyInstrumentView extends WatchUi.View
 	        	}
 	   			return;
 	        }
-	        display.altitude (altitude == null ? null: Math.round(altitude).toNumber().toString(), record);
+	        display.altitude ($.formatFlightAltitude(altitude), record); // m, "--" outside -500..9000
 			
 			var speed = data.getSpeed ();
 			if (speed != null)

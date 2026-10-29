@@ -1,390 +1,240 @@
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; ]
 using Toybox.WatchUi;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [System,2,13,19]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [System,2,13,19]; ]
 using Toybox.System;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [Graphics,3,13,21]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [Graphics,3,13,21]; ]
 using Toybox.Graphics;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Math,4,13,17]; ]
-using Toybox.Math;
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 9; @symbol_classdef = [HikePaceView,9,6,18]; @symbol_extends<0> = [WatchUi,9,27,34]; @symbol_extends<1> = [View,9,35,39]; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 8; @symbol_classdef = [HikePaceView,8,6,18]; @symbol_extends<0> = [WatchUi,8,27,34]; @symbol_extends<1> = [View,8,35,39]; ]
 class HikePaceView extends WatchUi.View {
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 9; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 8; ]
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 9; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 8; ]
     static
     <init> {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 10; @position = 8; @symbol_vardef = [app,10,8,11]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 9; @position = 8; @symbol_vardef = [app,9,8,11]; ]
     var app;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 11; @position = 8; @symbol_vardef = [display,11,8,15]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 10; @position = 8; @symbol_vardef = [display,10,8,15]; ]
     var display;
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 13; @symbol_functiondef = [initialize,13,13,23]; @symbol_param<0> = [appInstance,13,24,35]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 12; @symbol_functiondef = [initialize,12,13,23]; @symbol_param<0> = [appInstance,12,24,35]; ]
     function initialize(appInstance) as Void {
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_13_37_16_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 14 8 ]
-        symbol [ View %tmp.2 14 8 12 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_12_37_15_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 13 8 ]
+        symbol [ View %tmp.2 13 8 12 ];
         %tmp.2 = getv ? :View;
-        symbol [ initialize %tmp.3 14 13 23 ];
+        symbol [ initialize %tmp.3 13 13 23 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 15 8 ]
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 14 8 ]
         %tmp.4 = lgetv %appInstance;
-        symbol [ appInstance %tmp.4 15 14 25 ];
-        symbol [ app ? 15 8 11 ];
+        symbol [ appInstance %tmp.4 14 14 25 ];
+        symbol [ app ? 14 8 11 ];
         putv self :app %tmp.4;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_13_37_16_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_12_37_15_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 18; @symbol_functiondef = [onLayout,18,13,21]; @symbol_param<0> = [dc,18,22,24]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 17; @symbol_functiondef = [onLayout,17,13,21]; @symbol_param<0> = [dc,17,22,24]; ]
     function onLayout(dc) {
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_18_26_20_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 19 8 ]
-        symbol [ WatchDisplay %tmp.4 19 22 34 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_17_26_19_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 18 8 ]
+        symbol [ WatchDisplay %tmp.4 18 22 34 ];
         %tmp.4 = getv ? :WatchDisplay;
         %tmp.5 = lgetv %dc;
-        symbol [ dc %tmp.5 19 35 37 ];
+        symbol [ dc %tmp.5 18 35 37 ];
         %tmp.1 = newc %tmp.4 (%tmp.5);
-        symbol [ display ? 19 8 15 ];
+        symbol [ display ? 18 8 15 ];
         putv self :display %tmp.1;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_18_26_20_4_stop:
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_17_26_19_4_stop:
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 22; @symbol_functiondef = [onShow,22,13,19]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 21; @symbol_functiondef = [onShow,21,13,19]; ]
     function onShow() {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 25; @symbol_functiondef = [onHide,25,13,19]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 24; @symbol_functiondef = [onHide,24,13,19]; ]
     function onHide() {
     }
-    [ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 28; @symbol_functiondef = [onUpdate,28,13,21]; @symbol_param<0> = [dc,28,22,24]; ]
+    [ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 27; @symbol_functiondef = [onUpdate,27,13,21]; @symbol_param<0> = [dc,27,22,24]; ]
     function onUpdate(dc) {
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 29 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_29_8_31_8_if_stmt:
-        symbol [ display %tmp.2 29 12 19 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 28 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_28_8_30_8_if_stmt:
+        symbol [ display %tmp.2 28 12 19 ];
         %tmp.2 = getv ? :display;
         %tmp.3 = null;
         %tmp.4 = eq %tmp.2 %tmp.3;
-        bf %tmp.4 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_29_8_31_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_29_8_31_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_29_29_31_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 30 12 ]
+        bf %tmp.4 @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_28_8_30_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_28_8_30_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_28_29_30_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 29 12 ]
         ret ?;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_29_29_31_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_29_8_31_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_29_8_31_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 33 8 ]
-        symbol [ display %tmp.5 33 8 15 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_28_29_30_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_28_8_30_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_28_8_30_8_if_end:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 32 8 ]
+        symbol [ display %tmp.5 32 8 15 ];
         %tmp.5 = getv self :display;
         %tmp.6 = lgetv %dc;
-        symbol [ dc %tmp.6 33 21 23 ];
-        symbol [ dc ? 33 16 18 ];
+        symbol [ dc %tmp.6 32 21 23 ];
+        symbol [ dc ? 32 16 18 ];
         putv %tmp.5 :dc %tmp.6;
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 35 8 ]
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 34 8 ]
         %tmp.7 = lgetv %dc;
-        symbol [ dc %tmp.7 35 8 10 ];
-        symbol [ setColor %tmp.8 35 11 19 ];
+        symbol [ dc %tmp.7 34 8 10 ];
+        symbol [ setColor %tmp.8 34 11 19 ];
         %tmp.8 = getv function %tmp.7 :setColor;
-        symbol [ Graphics %tmp.9 35 20 28 ];
+        symbol [ Graphics %tmp.9 34 20 28 ];
         %tmp.9 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.10 35 29 40 ];
+        symbol [ COLOR_WHITE %tmp.10 34 29 40 ];
         %tmp.10 = getv %tmp.9 :COLOR_WHITE;
-        symbol [ Graphics %tmp.11 35 42 50 ];
+        symbol [ Graphics %tmp.11 34 42 50 ];
         %tmp.11 = getm $.Toybox.Graphics;
-        symbol [ COLOR_WHITE %tmp.12 35 51 62 ];
+        symbol [ COLOR_WHITE %tmp.12 34 51 62 ];
         %tmp.12 = getv %tmp.11 :COLOR_WHITE;
         invoke %tmp.7 %tmp.8(%tmp.10, %tmp.12);
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 36 8 ]
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 35 8 ]
         %tmp.13 = lgetv %dc;
-        symbol [ dc %tmp.13 36 8 10 ];
-        symbol [ clear %tmp.14 36 11 16 ];
+        symbol [ dc %tmp.13 35 8 10 ];
+        symbol [ clear %tmp.14 35 11 16 ];
         %tmp.14 = getv function %tmp.13 :clear;
         invoke %tmp.13 %tmp.14();
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 38 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_stop" ]
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 37 8 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_start" "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_stop" ]
         %data.1 = local;
-        symbol [ data %data.1 38 12 16 ];
-        symbol [ app %tmp.16 38 19 22 ];
+        symbol [ data %data.1 37 12 16 ];
+        symbol [ app %tmp.16 37 19 22 ];
         %tmp.16 = getv ? :app;
-        symbol [ mainView %tmp.17 38 23 31 ];
+        symbol [ mainView %tmp.17 37 23 31 ];
         %tmp.17 = getv %tmp.16 :mainView;
-        symbol [ data %tmp.18 38 32 36 ];
+        symbol [ data %tmp.18 37 32 36 ];
         %tmp.18 = getv %tmp.17 :data;
         lputv %data.1 %tmp.18;
-        symbol [ data %data.1 38 12 16 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 40 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_stop" ]
+        symbol [ data %data.1 37 12 16 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 39 8 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_start" "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_stop" ]
         %heartRate.2 = local;
-        symbol [ heartRate %heartRate.2 40 12 21 ];
+        symbol [ heartRate %heartRate.2 39 12 21 ];
         %tmp.19 = lgetv %data.1;
-        symbol [ data %tmp.19 40 24 28 ];
-        symbol [ getHeartRate %tmp.20 40 29 41 ];
+        symbol [ data %tmp.19 39 24 28 ];
+        symbol [ getHeartRate %tmp.20 39 29 41 ];
         %tmp.20 = getv function %tmp.19 :getHeartRate;
         %tmp.21 = invoke %tmp.19 %tmp.20();
         lputv %heartRate.2 %tmp.21;
-        symbol [ heartRate %heartRate.2 40 12 21 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 41 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_stop" ]
+        symbol [ heartRate %heartRate.2 39 12 21 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 40 8 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_start" "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_stop" ]
         %hrStr.3 = local;
-        symbol [ hrStr %hrStr.3 41 12 17 ];
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_begin:
-        %tmp.22 = lgetv %heartRate.2;
-        symbol [ heartRate %tmp.22 41 21 30 ];
-        %tmp.23 = null;
-        %tmp.24 = eq %tmp.22 %tmp.23;
-        bf %tmp.24 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_else_false;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_true:
-        %tmp.25 = "--";
-        push %tmp.25;
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_else_false:
-        %tmp.26 = lgetv %heartRate.2;
-        symbol [ heartRate %tmp.26 41 49 58 ];
-        %tmp.27 = as %tmp.26 { (!Null) };
-        symbol [ toString %tmp.28 41 59 67 ];
-        %tmp.28 = getv function %tmp.27 :toString;
-        %tmp.29 = invoke %tmp.27 %tmp.28();
-        push %tmp.29;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_end:
-        %tmp.30 = phi [%tmp.24 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_begin] [%tmp.25 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_true] [%tmp.29 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_else_false] [%tmp.30 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_41_20_41_68_end];
-        lputv %hrStr.3 %tmp.30;
-        symbol [ hrStr %hrStr.3 41 12 17 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 45 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_stop" ]
-        %vario.4 = local;
-        symbol [ vario %vario.4 45 12 17 ];
-        %tmp.31 = lgetv %data.1;
-        symbol [ data %tmp.31 45 20 24 ];
-        symbol [ getVario %tmp.32 45 25 33 ];
-        %tmp.32 = getv function %tmp.31 :getVario;
-        %tmp.33 = invoke %tmp.31 %tmp.32();
-        lputv %vario.4 %tmp.33;
-        symbol [ vario %vario.4 45 12 17 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 46 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_stop" ]
-        %vPaceStr.5 = local;
-        symbol [ vPaceStr %vPaceStr.5 46 12 20 ];
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_begin:
-        %tmp.34 = lgetv %vario.4;
-        symbol [ vario %tmp.34 46 24 29 ];
-        %tmp.35 = null;
-        %tmp.36 = eq %tmp.34 %tmp.35;
-        bf %tmp.36 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_else_false;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_true:
-        %tmp.37 = "--";
-        push %tmp.37;
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_else_false:
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_begin:
-        %tmp.38 = lgetv %vario.4;
-        symbol [ vario %tmp.38 46 49 54 ];
-        %tmp.39 = as %tmp.38 { (!Null) };
-        %tmp.40 = 0;
-        %tmp.41 = gte %tmp.39 %tmp.40;
-        bf %tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_else_false;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_true:
-        %tmp.42 = "+";
-        push %tmp.42;
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_else_false:
-        %tmp.43 = "";
-        push %tmp.43;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_end:
-        %tmp.44 = phi [%tmp.41 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_begin] [%tmp.42 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_true] [%tmp.43 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_else_false] [%tmp.44 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_49_46_68_end];
-        symbol [ Math %tmp.45 46 74 78 ];
-        %tmp.45 = getm $.Toybox.Math;
-        symbol [ round %tmp.46 46 79 84 ];
-        %tmp.46 = getv function %tmp.45 :round;
-        %tmp.47 = lgetv %vario.4;
-        symbol [ vario %tmp.47 46 85 90 ];
-        %tmp.48 = as %tmp.47 { (!Null) };
-        %tmp.49 = 3600;
-        %tmp.50 = mul %tmp.48 %tmp.49;
-        %tmp.51 = invoke %tmp.45 %tmp.46(%tmp.50);
-        symbol [ toNumber %tmp.52 46 99 107 ];
-        %tmp.52 = getv function %tmp.51 :toNumber;
-        %tmp.53 = invoke %tmp.51 %tmp.52();
-        symbol [ toString %tmp.54 46 110 118 ];
-        %tmp.54 = getv function %tmp.53 :toString;
-        %tmp.55 = invoke %tmp.53 %tmp.54();
-        %tmp.56 = add %tmp.44 %tmp.55;
-        push %tmp.56;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_end:
-        %tmp.57 = phi [%tmp.36 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_begin] [%tmp.37 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_true] [%tmp.56 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_else_false] [%tmp.57 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_46_23_46_119_end];
-        lputv %vPaceStr.5 %tmp.57;
-        symbol [ vPaceStr %vPaceStr.5 46 12 20 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 48 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_stop" ]
-        %speed.6 = local;
-        symbol [ speed %speed.6 48 12 17 ];
-        %tmp.58 = lgetv %data.1;
-        symbol [ data %tmp.58 48 20 24 ];
-        symbol [ getSpeed %tmp.59 48 25 33 ];
-        %tmp.59 = getv function %tmp.58 :getSpeed;
-        %tmp.60 = invoke %tmp.58 %tmp.59();
-        lputv %speed.6 %tmp.60;
-        symbol [ speed %speed.6 48 12 17 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 49 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_stop" ]
-        %hPaceStr.7 = local;
-        symbol [ hPaceStr %hPaceStr.7 49 12 20 ];
-        %tmp.61 = "--:--";
-        lputv %hPaceStr.7 %tmp.61;
-        symbol [ hPaceStr %hPaceStr.7 49 12 20 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 50 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_8_55_8_if_stmt:
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_12_50_37_begin:
-        %tmp.62 = lgetv %speed.6;
-        symbol [ speed %tmp.62 50 12 17 ];
-        %tmp.63 = null;
-        %tmp.64 = ne %tmp.62 %tmp.63;
-        bf %tmp.64 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_8_55_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_29_50_37_true:
-        %tmp.65 = lgetv %speed.6;
-        symbol [ speed %tmp.65 50 29 34 ];
-        %tmp.66 = as %tmp.65 { (!Null) };
-        %tmp.67 = 0.0;
-        %tmp.68 = gt %tmp.66 %tmp.67;
-        push %tmp.68;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_29_50_37_end:
-        %tmp.69 = phi [%tmp.64 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_12_50_37_begin] [%tmp.68 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_29_50_37_true] [%tmp.69 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_29_50_37_end];
-        bf %tmp.69 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_8_55_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_8_55_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_42_55_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 51 12 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_42_55_8_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_42_55_8_stop" ]
-        %paceMinPerKm.8 = local;
-        symbol [ paceMinPerKm %paceMinPerKm.8 51 16 28 ];
-        %tmp.70 = 1000.0;
-        %tmp.71 = lgetv %speed.6;
-        symbol [ speed %tmp.71 51 41 46 ];
-        %tmp.72 = as %tmp.71 { (!Null) };
-        %tmp.73 = 60.0;
-        %tmp.74 = mul %tmp.72 %tmp.73;
-        %tmp.75 = div %tmp.70 %tmp.74;
-        lputv %paceMinPerKm.8 %tmp.75;
-        symbol [ paceMinPerKm %paceMinPerKm.8 51 16 28 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 52 12 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_42_55_8_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_42_55_8_stop" ]
-        %paceMinutes.9 = local;
-        symbol [ paceMinutes %paceMinutes.9 52 16 27 ];
-        %tmp.76 = lgetv %paceMinPerKm.8;
-        symbol [ paceMinPerKm %tmp.76 52 30 42 ];
-        symbol [ toNumber %tmp.77 52 43 51 ];
-        %tmp.77 = getv function %tmp.76 :toNumber;
-        %tmp.78 = invoke %tmp.76 %tmp.77();
-        lputv %paceMinutes.9 %tmp.78;
-        symbol [ paceMinutes %paceMinutes.9 52 16 27 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 53 12 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_42_55_8_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_42_55_8_stop" ]
-        %paceSeconds.10 = local;
-        symbol [ paceSeconds %paceSeconds.10 53 16 27 ];
-        symbol [ Math %tmp.79 53 30 34 ];
-        %tmp.79 = getm $.Toybox.Math;
-        symbol [ round %tmp.80 53 35 40 ];
-        %tmp.80 = getv function %tmp.79 :round;
-        %tmp.81 = lgetv %paceMinPerKm.8;
-        symbol [ paceMinPerKm %tmp.81 53 42 54 ];
-        %tmp.82 = lgetv %paceMinutes.9;
-        symbol [ paceMinutes %tmp.82 53 57 68 ];
-        %tmp.83 = sub %tmp.81 %tmp.82;
-        %tmp.84 = 60;
-        %tmp.85 = mul %tmp.83 %tmp.84;
-        %tmp.86 = invoke %tmp.79 %tmp.80(%tmp.85);
-        symbol [ toNumber %tmp.87 53 76 84 ];
-        %tmp.87 = getv function %tmp.86 :toNumber;
-        %tmp.88 = invoke %tmp.86 %tmp.87();
-        lputv %paceSeconds.10 %tmp.88;
-        symbol [ paceSeconds %paceSeconds.10 53 16 27 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 54 12 ]
-        %tmp.89 = lgetv %paceMinutes.9;
-        symbol [ paceMinutes %tmp.89 54 23 34 ];
-        symbol [ toString %tmp.90 54 35 43 ];
-        %tmp.90 = getv function %tmp.89 :toString;
-        %tmp.91 = invoke %tmp.89 %tmp.90();
-        %tmp.92 = ":";
-        %tmp.93 = add %tmp.91 %tmp.92;
-        %tmp.94 = lgetv %paceSeconds.10;
-        symbol [ paceSeconds %tmp.94 54 54 65 ];
-        symbol [ format %tmp.95 54 66 72 ];
-        %tmp.95 = getv function %tmp.94 :format;
-        %tmp.96 = "%02d";
-        %tmp.97 = invoke %tmp.94 %tmp.95(%tmp.96);
-        %tmp.98 = add %tmp.93 %tmp.97;
-        lputv %hPaceStr.7 %tmp.98;
-        symbol [ hPaceStr %hPaceStr.7 54 12 20 ];
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_42_55_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_8_55_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_50_8_55_8_if_end:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 57 8 ]
-        [ "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_start" "_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_stop" ]
-        %timerStr.11 = local;
-        symbol [ timerStr %timerStr.11 57 12 20 ];
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_begin:
-        symbol [ $ %tmp.99 57 23 24 ];
-        %tmp.99 = getm $;
-        symbol [ hasActiveSession %tmp.100 57 25 41 ];
-        %tmp.100 = getv function %tmp.99 :hasActiveSession;
-        %tmp.101 = invoke %tmp.99 %tmp.100();
-        bf %tmp.101 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_else_false;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_true:
-        %tmp.102 = self;
-        symbol [ formatDuration %tmp.103 57 46 60 ];
-        %tmp.103 = getv function %tmp.102 :formatDuration;
-        %tmp.104 = lgetv %data.1;
-        symbol [ data %tmp.104 57 61 65 ];
-        symbol [ getTimerTime %tmp.105 57 66 78 ];
-        %tmp.105 = getv function %tmp.104 :getTimerTime;
-        %tmp.106 = invoke %tmp.104 %tmp.105();
-        %tmp.107 = invoke %tmp.102 %tmp.103(%tmp.106);
-        push %tmp.107;
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_else_false:
-        %tmp.108 = "--:--";
-        push %tmp.108;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_end:
-        %tmp.109 = phi [%tmp.101 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_begin] [%tmp.107 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_true] [%tmp.108 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_else_false] [%tmp.109 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_57_23_57_84_end];
-        lputv %timerStr.11 %tmp.109;
-        symbol [ timerStr %timerStr.11 57 12 20 ];
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 59 8 ]
-        symbol [ display %tmp.111 59 8 15 ];
-        %tmp.111 = getv ? :display;
-        symbol [ hikeGrid %tmp.112 59 16 24 ];
-        %tmp.112 = getv function %tmp.111 :hikeGrid;
-        %tmp.113 = "Heart Rate";
-        %tmp.114 = lgetv %hrStr.3;
-        symbol [ hrStr %tmp.114 60 26 31 ];
-        %tmp.115 = true;
-        %tmp.116 = "VERT. SPD.";
-        %tmp.117 = lgetv %vPaceStr.5;
-        symbol [ vPaceStr %tmp.117 61 26 34 ];
-        %tmp.118 = "PACE";
-        %tmp.119 = lgetv %hPaceStr.7;
-        symbol [ hPaceStr %tmp.119 62 20 28 ];
-        %tmp.120 = "TIMER";
-        %tmp.121 = lgetv %timerStr.11;
-        symbol [ timerStr %tmp.121 63 21 29 ];
-        invoke %tmp.111 %tmp.112(%tmp.113, %tmp.114, %tmp.115, %tmp.116, %tmp.117, %tmp.118, %tmp.119, %tmp.120, %tmp.121);
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 66 8 ]
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_66_8_68_8_if_stmt:
-        symbol [ $ %tmp.122 66 12 13 ];
-        %tmp.122 = getm $;
-        symbol [ isRecordFlashActive %tmp.123 66 14 33 ];
-        %tmp.123 = getv function %tmp.122 :isRecordFlashActive;
-        %tmp.124 = invoke %tmp.122 %tmp.123();
-        bf %tmp.124 @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_66_8_68_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_66_8_68_8_if_true:
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_66_37_68_8_start:
-[ "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc" 67 12 ]
-        symbol [ display %tmp.126 67 12 19 ];
-        %tmp.126 = getv ? :display;
-        symbol [ recordingStartIcon %tmp.127 67 20 38 ];
-        %tmp.127 = getv function %tmp.126 :recordingStartIcon;
-        invoke %tmp.126 %tmp.127();
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_66_37_68_8_stop:
-        goto @_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_66_8_68_8_if_end;
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_66_8_68_8_if_end:
-_Users_tk_Desktop_Claude_Glidator2_source_HikePaceView_mc_28_26_69_4_stop:
+        symbol [ hrStr %hrStr.3 40 12 17 ];
+        symbol [ $ %tmp.22 40 20 21 ];
+        %tmp.22 = getm $;
+        symbol [ formatHeartRate %tmp.23 40 22 37 ];
+        %tmp.23 = getv function %tmp.22 :formatHeartRate;
+        %tmp.24 = lgetv %heartRate.2;
+        symbol [ heartRate %tmp.24 40 38 47 ];
+        %tmp.25 = invoke %tmp.22 %tmp.23(%tmp.24);
+        lputv %hrStr.3 %tmp.25;
+        symbol [ hrStr %hrStr.3 40 12 17 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 46 8 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_start" "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_stop" ]
+        %vPaceStr.4 = local;
+        symbol [ vPaceStr %vPaceStr.4 46 12 20 ];
+        symbol [ $ %tmp.26 46 23 24 ];
+        %tmp.26 = getm $;
+        symbol [ formatVerticalSpeed %tmp.27 46 25 44 ];
+        %tmp.27 = getv function %tmp.26 :formatVerticalSpeed;
+        %tmp.28 = lgetv %data.1;
+        symbol [ data %tmp.28 46 45 49 ];
+        symbol [ getHikeVerticalSpeed %tmp.29 46 50 70 ];
+        %tmp.29 = getv function %tmp.28 :getHikeVerticalSpeed;
+        %tmp.30 = invoke %tmp.28 %tmp.29();
+        %tmp.31 = invoke %tmp.26 %tmp.27(%tmp.30);
+        lputv %vPaceStr.4 %tmp.31;
+        symbol [ vPaceStr %vPaceStr.4 46 12 20 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 51 8 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_start" "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_stop" ]
+        %hPaceStr.5 = local;
+        symbol [ hPaceStr %hPaceStr.5 51 12 20 ];
+        symbol [ $ %tmp.32 51 23 24 ];
+        %tmp.32 = getm $;
+        symbol [ formatPace %tmp.33 51 25 35 ];
+        %tmp.33 = getv function %tmp.32 :formatPace;
+        %tmp.34 = lgetv %data.1;
+        symbol [ data %tmp.34 51 36 40 ];
+        symbol [ getHikeSpeed %tmp.35 51 41 53 ];
+        %tmp.35 = getv function %tmp.34 :getHikeSpeed;
+        %tmp.36 = invoke %tmp.34 %tmp.35();
+        %tmp.37 = invoke %tmp.32 %tmp.33(%tmp.36);
+        lputv %hPaceStr.5 %tmp.37;
+        symbol [ hPaceStr %hPaceStr.5 51 12 20 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 53 8 ]
+        [ "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_start" "_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_stop" ]
+        %timerStr.6 = local;
+        symbol [ timerStr %timerStr.6 53 12 20 ];
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_begin:
+        symbol [ $ %tmp.38 53 23 24 ];
+        %tmp.38 = getm $;
+        symbol [ hasActiveSession %tmp.39 53 25 41 ];
+        %tmp.39 = getv function %tmp.38 :hasActiveSession;
+        %tmp.40 = invoke %tmp.38 %tmp.39();
+        bf %tmp.40 @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_else_false;
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_true:
+        %tmp.41 = self;
+        symbol [ formatDuration %tmp.42 53 46 60 ];
+        %tmp.42 = getv function %tmp.41 :formatDuration;
+        %tmp.43 = lgetv %data.1;
+        symbol [ data %tmp.43 53 61 65 ];
+        symbol [ getTimerTime %tmp.44 53 66 78 ];
+        %tmp.44 = getv function %tmp.43 :getTimerTime;
+        %tmp.45 = invoke %tmp.43 %tmp.44();
+        %tmp.46 = invoke %tmp.41 %tmp.42(%tmp.45);
+        push %tmp.46;
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_else_false:
+        %tmp.47 = "--:--";
+        push %tmp.47;
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_end:
+        %tmp.48 = phi [%tmp.40 @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_begin] [%tmp.46 @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_true] [%tmp.47 @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_else_false] [%tmp.48 @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_53_23_53_84_end];
+        lputv %timerStr.6 %tmp.48;
+        symbol [ timerStr %timerStr.6 53 12 20 ];
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 55 8 ]
+        symbol [ display %tmp.50 55 8 15 ];
+        %tmp.50 = getv ? :display;
+        symbol [ hikeGrid %tmp.51 55 16 24 ];
+        %tmp.51 = getv function %tmp.50 :hikeGrid;
+        %tmp.52 = "Heart Rate";
+        %tmp.53 = lgetv %hrStr.3;
+        symbol [ hrStr %tmp.53 56 26 31 ];
+        %tmp.54 = true;
+        %tmp.55 = "VERT. SPD.";
+        %tmp.56 = lgetv %vPaceStr.4;
+        symbol [ vPaceStr %tmp.56 57 26 34 ];
+        %tmp.57 = "PACE";
+        %tmp.58 = lgetv %hPaceStr.5;
+        symbol [ hPaceStr %tmp.58 58 20 28 ];
+        %tmp.59 = "TIMER";
+        %tmp.60 = lgetv %timerStr.6;
+        symbol [ timerStr %tmp.60 59 21 29 ];
+        invoke %tmp.50 %tmp.51(%tmp.52, %tmp.53, %tmp.54, %tmp.55, %tmp.56, %tmp.57, %tmp.58, %tmp.59, %tmp.60);
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 62 8 ]
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_62_8_64_8_if_stmt:
+        symbol [ $ %tmp.61 62 12 13 ];
+        %tmp.61 = getm $;
+        symbol [ isRecordFlashActive %tmp.62 62 14 33 ];
+        %tmp.62 = getv function %tmp.61 :isRecordFlashActive;
+        %tmp.63 = invoke %tmp.61 %tmp.62();
+        bf %tmp.63 @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_62_8_64_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_62_8_64_8_if_true:
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_62_37_64_8_start:
+[ "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc" 63 12 ]
+        symbol [ display %tmp.65 63 12 19 ];
+        %tmp.65 = getv ? :display;
+        symbol [ recordingStartIcon %tmp.66 63 20 38 ];
+        %tmp.66 = getv function %tmp.65 :recordingStartIcon;
+        invoke %tmp.65 %tmp.66();
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_62_37_64_8_stop:
+        goto @_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_62_8_64_8_if_end;
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_62_8_64_8_if_end:
+_Users_sam_claude_hq_worktrees_glidator2_source_HikePaceView_mc_27_26_65_4_stop:
     }
 }
-[ @file = "/Users/tk/Desktop/Claude/Glidator2/source/HikePaceView.mc"; @line = 1; ]
+[ @file = "/Users/sam/claude-hq/worktrees/glidator2/source/HikePaceView.mc"; @line = 1; ]
 <init> {
 }

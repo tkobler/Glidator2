@@ -42,15 +42,15 @@ class HikePositionView extends WatchUi.View {
         var data = app.mainView.data;
 
         var altitude = data.getAltitude();
-        var altStr = (altitude == null) ? "--" : Math.round(altitude).toNumber().toString(); // m
+        var altStr = $.formatHikeAltitude(altitude); // m, "--" outside -100..6000
 
         var hasSession = $.hasActiveSession();
 
         var ascent = data.getTotalAscent();
-        var ascentStr = (!hasSession || ascent == null) ? "--" : Math.round(ascent).toNumber().toString(); // m
+        var ascentStr = hasSession ? $.formatHikeAscent(ascent) : "--"; // m, "--" outside 0..20000
 
         var distance = data.getDistance();
-        var distStr = (!hasSession || distance == null) ? "--" : (distance / 1000.0).format("%.1f"); // km
+        var distStr = hasSession ? $.formatDistanceKm(distance) : "--"; // km
 
         var timerStr = hasSession ? formatDuration(data.getTimerTime()) : "--:--";
 
