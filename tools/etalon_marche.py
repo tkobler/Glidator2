@@ -636,6 +636,11 @@ def totals_report(lap, tcx_lap):
                _TCX_HR.get((tcx_lap.start, "avg"), "?"), _TCX_HR.get((tcx_lap.start, "max"), "?"), min(hrs)))
     else:
         hr_line = "  FC : aucune (trace sans frequence cardiaque)"
+    max_speed = "%.3f m/s" % max(speeds) if speeds else "n/a (pas de Speed)"
+    if tcx_lap.total_time_s:
+        mean_speed = "%.4f m/s" % (tcx_lap.distance_m / tcx_lap.total_time_s)
+    else:
+        mean_speed = "n/a (duree nulle)"
     return [
         "Tour %s : %d points GPX (index %d..%d, lignes %s..%s), %s -> %s"
         % (tcx_lap.start, len(pts), pts[0].index, pts[-1].index, pts[0].line, pts[-1].line,
@@ -654,8 +659,7 @@ def totals_report(lap, tcx_lap):
         "  D+ : brut %.1f m ; hysteresis 1 m %.1f m ; hysteresis 3 m %.1f m ; hysteresis 5 m %.1f m (aucun total dans le TCX)"
         % (lap.gain_raw[-1], lap.gain_h1[-1], lap.gain_h3[-1], gain_series(elev, 5.0)[-1]),
         hr_line,
-        "  vitesse : max du champ Speed %.3f m/s ; moyenne distance/duree %.4f m/s"
-        % (max(speeds), tcx_lap.distance_m / tcx_lap.total_time_s),
+        "  vitesse : max du champ Speed %s ; moyenne distance/duree %s" % (max_speed, mean_speed),
     ]
 
 

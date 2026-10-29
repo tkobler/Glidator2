@@ -104,5 +104,30 @@ class TotalsReportHrTest(unittest.TestCase):
         self.assertIn("max 120 bpm", text)
 
 
+class TotalsReportSpeedTest(unittest.TestCase):
+    def setUp(self):
+        em._TCX_HR.clear()
+
+    def test_without_speed_field_does_not_crash(self):
+        lap, tcx_lap = _fake_lap([100, 110, 120, 130, 140])
+        for p in tcx_lap.points:
+            p.speed = None
+        text = "\n".join(em.totals_report(lap, tcx_lap))
+        self.assertIn("n/a (pas de Speed)", text)
+        self.assertIn("moyenne distance/duree 1.0000 m/s", text)  # 40 m / 40 s still reported
+
+    def test_zero_lap_duration_does_not_crash(self):
+        lap, tcx_lap = _fake_lap([100, 110, 120, 130, 140])
+        tcx_lap.total_time_s = 0.0
+        text = "\n".join(em.totals_report(lap, tcx_lap))
+        self.assertIn("max du champ Speed 1.000 m/s", text)
+        self.assertIn("duree nulle", text)
+
+    def test_speed_present_unchanged(self):
+        lap, tcx_lap = _fake_lap([100, 110, 120, 130, 140])
+        text = "\n".join(em.totals_report(lap, tcx_lap))
+        self.assertIn("max du champ Speed 1.000 m/s ; moyenne distance/duree 1.0000 m/s", text)
+
+
 if __name__ == "__main__":
     unittest.main()
