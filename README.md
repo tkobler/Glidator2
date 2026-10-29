@@ -75,14 +75,15 @@ To develop and build Glidator2, you need the following tools:
 2. Configure your IDE:
    - For Eclipse, import the project and set up the Connect IQ SDK path in Preferences > Connect IQ.
    - For VS Code, configure the SDK path in the Connect IQ extension settings.
-3. Clone the repository: `git clone https://github.com/yourusername/glidator2.git`.
+3. Clone the repository: `git clone https://github.com/tkobler/Glidator2.git`.
 
 ### Building and Running
 - **Command Line**: Use `monkeyc` to compile the project:
   ```bash
-  monkeyc -f monkey.jungle -o bin/Glidator2.prg -d <device_id> -y developer_key
+  mkdir -p /tmp/glidator-build
+  monkeyc -f monkey.jungle -o /tmp/glidator-build/Glidator2.prg -d <device_id> -y developer_key
   ```
-  Replace `<device_id>` with your target device (e.g., `fenix7`, `fr965`, `instinct2`). Find supported devices in the SDK's `devices` folder. `-y` gives the private key used to sign the build (here `developer_key` at the repository root): `monkeyc` refuses to build without it.
+  Build outside the repository (here `/tmp/glidator-build`): `bin/` holds generated files and is not meant to be written by hand. Replace `<device_id>` with your target device (e.g., `fenix7`, `fr965`, `instinct2`). Find supported devices in the SDK's `devices` folder. `-y` gives the private key used to sign the build (here `developer_key` at the repository root): `monkeyc` refuses to build without it.
 - **IDE**:
   - In VS Code, use the Connect IQ extension's build task (Ctrl+Shift+B or Cmd+Shift+B).
   - In VS Code, open a .mc file of the source folder and use the "run and debug" button to build and run the app in the simulator.
@@ -154,7 +155,8 @@ The `-s tools -p 'test_*.py'` arguments are needed: a bare `python3 -m unittest`
 ### Exporting .iq File
 - Package the app with the `-e` flag and sign it with your developer key (`-y`) to generate the `.iq` file for distribution (it builds every device of `manifest.xml`, which takes a few minutes):
   ```bash
-  monkeyc -e -f monkey.jungle -o bin/Glidator2.iq -y developer_key
+  mkdir -p /tmp/glidator-build
+  monkeyc -e -f monkey.jungle -o /tmp/glidator-build/Glidator2.iq -y developer_key
   ```
 - Alternatively, in VS Code, select the >Monkey C: Export Project option, which packages the app with your developer key (that you can generate also with a Monkey C command ).
 - The resulting `.iq` file is ready for sideloading or publishing.
