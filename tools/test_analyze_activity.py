@@ -17,8 +17,6 @@ sys.path.insert(0, HERE)
 
 import analyze_activity as aa  # noqa: E402
 
-SALVAN_TCX = os.path.join(HERE, "..", "garmin_data", "activity_24346302742.tcx")
-
 T0 = 1789294723.0  # 2026-09-13T10:18:43Z
 
 
@@ -812,51 +810,78 @@ class MissingLapMessageTest(unittest.TestCase):
         self.assertIn("<Lap> found in namespace (none)", msg)
 
 
-@unittest.skipUnless(os.path.exists(SALVAN_TCX), "Salvan TCX not present")
-class SalvanTest(unittest.TestCase):
-    """Real data: Salvan, 2026-09-13. Expected figures from the corrections plan."""
+def _two_lap_activity():
+    """Synthetic two-lap activity (climb with irregular sampling, then a
+    faster descent), standing in for the former real-trace test."""
+    climb = climb_points(1800, rate_mh=640.0, speed=0.0, horizontal_mps=0.6,
+                         steps=[1, 1, 2, 1, 4, 1, 1, 3])
+    for i, p in enumerate(climb):
+        if i % 4 == 0:
+            p["speed"] = 0.9
+        # Barometer-like noise of +-0.2 m, deterministic.
+        p["alt"] += (0.2, -0.2, 0.0, 0.2, -0.2)[i % 5]
+    t_end = climb[-1]["t"]
+    flight = []
+    for i in range(0, 601, 2):
+        flight.append({
+            "t": t_end + 60 + i,
+            "lat": 46.01 + 8.0 * i / M_PER_DEG_LAT,
+            "lon": 7.0,
+            "alt": 2500.0 - 1.5 * i,
+            "dist": 8.0 * i,
+            "hr": 100,
+            "speed": 8.0,
+        })
+    return [
+        {"points": climb, "total_time": 1800.0, "distance": 1080.0},
+        {"points": flight, "total_time": 600.0, "distance": 4800.0},
+    ]
+
+
+class TwoLapSyntheticTest(unittest.TestCase):
+    """Synthetic data only: no real trace is kept in the repository."""
 
     @classmethod
     def setUpClass(cls):
-        cls.laps = aa.parse_tcx(SALVAN_TCX)
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.path = os.path.join(cls.tmp.name, "two_laps.tcx")
+        with open(cls.path, "w") as f:
+            f.write(make_tcx(_two_lap_activity()))
+        cls.laps = aa.parse_tcx(cls.path)
         cls.climb = aa.summarize_lap(cls.laps[0])
         cls.flight = aa.summarize_lap(cls.laps[1])
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
 
     def test_two_laps(self):
         self.assertEqual(len(self.laps), 2)
         self.assertEqual(self.laps[0].start, "2026-09-13T10:18:43.000Z")
-        self.assertEqual(self.laps[1].start, "2026-09-13T12:20:25.000Z")
+        self.assertEqual(self.laps[1].start, _iso(self.laps[1].points[0].t))
 
     def test_climb_points_and_zero_speed(self):
-        self.assertEqual(self.climb["points"], 2211)
-        self.assertEqual(self.climb["zero_speed"], 1748)
-        self.assertEqual(self.climb["with_speed"], 2211)
-        share = 100.0 * self.climb["zero_speed"] / self.climb["with_speed"]
-        self.assertAlmostEqual(share, 79.1, delta=0.05)
+        self.assertEqual(self.climb["with_speed"], self.climb["points"])
+        self.assertGreater(self.climb["zero_speed"], 0.6 * self.climb["points"])
+        self.assertLess(self.climb["zero_speed"], self.climb["points"])
 
     def test_climb_recorded_distance(self):
-        self.assertAlmostEqual(self.climb["recorded_distance_m"], 3904.6, delta=0.05)
-        self.assertAlmostEqual(self.climb["duration_s"], 7302.217, delta=0.001)
+        self.assertAlmostEqual(self.climb["recorded_distance_m"], 1080.0, delta=0.05)
+        self.assertAlmostEqual(self.climb["duration_s"], 1800.0, delta=0.001)
 
     def test_climb_gps_distance(self):
-        self.assertAlmostEqual(self.climb["gps_distance_m"], 4011.0, delta=0.02 * 4011.0)
+        self.assertAlmostEqual(self.climb["gps_distance_m"], 1080.0, delta=0.02 * 1080.0)
 
     def test_climb_vertical_speed_regression(self):
-        self.assertAlmostEqual(self.climb["vs_regression"]["median"], 636.0, delta=0.05 * 636.0)
+        self.assertAlmostEqual(self.climb["vs_regression"]["median"], 640.0, delta=0.05 * 640.0)
 
-    def test_climb_vertical_speed_diff_reproduces_plan(self):
-        # The plan's +636 m/h, p5 -129, p95 +891 come from the endpoint
-        # difference over a trailing 60 s window, evaluated at every point.
-        vs = self.climb["vs_diff"]
-        self.assertAlmostEqual(vs["median"], 636.0, delta=1.0)
-        self.assertAlmostEqual(vs["p5"], -129.0, delta=1.0)
-        self.assertAlmostEqual(vs["p95"], 891.0, delta=1.0)
+    def test_climb_vertical_speed_diff(self):
+        self.assertAlmostEqual(self.climb["vs_diff"]["median"], 640.0, delta=0.1 * 640.0)
 
     def test_climb_elevation_gain_bounds(self):
-        # Checked on this real series only (not general properties of the
-        # algorithm): the hysteresis D+ lies between the net climb (last -
-        # first altitude) and the sum of every rise (threshold 0), and a
-        # 3 m threshold does not give more than 1 m.
+        # The hysteresis D+ lies between the net climb (last - first
+        # altitude) and the sum of every rise (threshold 0), and a 3 m
+        # threshold does not give more than 1 m.
         alts = [p.alt for p in self.laps[0].points]
         net = alts[-1] - alts[0]
         all_rises = aa.elevation_gain_m(alts, threshold=0.0)
@@ -866,12 +891,9 @@ class SalvanTest(unittest.TestCase):
         self.assertLessEqual(aa.elevation_gain_m(alts, threshold=3.0), gain)
 
     def test_climb_elevation_gain_value(self):
-        # Regression value of the symmetric hysteresis (1 m). The asymmetric
-        # version gave 908.2 m. Lap 1 has 11 confirmed climbs (the first
-        # starts from the first point, 10 follow a confirmed descent); the
-        # old version could lose up to 1 m at the foot (reference above the
-        # low point) and at the top (residual rise) of each of them.
-        self.assertAlmostEqual(self.climb["elevation_gain_m"], 917.2, delta=0.05)
+        # 640 m/h for 1800 s = 320 m; noise of +-0.2 m stays below the 1 m
+        # threshold, so the symmetric hysteresis finds the climb within 1 m.
+        self.assertAlmostEqual(self.climb["elevation_gain_m"], 320.0, delta=1.5)
 
     def test_gain_minus_loss_matches_net_climb(self):
         # With the reference on the true extremes, D+ - D- equals the net
@@ -891,15 +913,15 @@ class SalvanTest(unittest.TestCase):
         self.assertEqual(self.climb["jumps"], [])
 
     def test_flight_points_and_zero_speed(self):
-        self.assertEqual(self.flight["points"], 2100)
-        self.assertEqual(self.flight["zero_speed"], 130)
-        self.assertAlmostEqual(self.flight["duration_s"], 3250.0, delta=1.0)
-        self.assertAlmostEqual(self.flight["recorded_distance_m"], 22756.0, delta=1.0)
+        self.assertEqual(self.flight["points"], 301)
+        self.assertEqual(self.flight["zero_speed"], 0)
+        self.assertAlmostEqual(self.flight["duration_s"], 600.0, delta=1.0)
+        self.assertAlmostEqual(self.flight["recorded_distance_m"], 4800.0, delta=1.0)
 
     def test_report_runs(self):
         out = io.StringIO()
         with redirect_stdout(out):
-            self.assertEqual(aa.main([SALVAN_TCX]), 0)
+            self.assertEqual(aa.main([self.path]), 0)
         self.assertIn("Lap 2", out.getvalue())
 
 
