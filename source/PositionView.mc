@@ -46,7 +46,6 @@ class PositionView extends WatchUi.View {
 
         // Get heading, latitude, and longitude
         var heading = data.getHeading();
-        var trueNorth = data.getNorth();
 
         var lat = data.getLat();
         var lon = data.getLon();
