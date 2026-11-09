@@ -1163,9 +1163,8 @@ function testHikeHistoryWindow300s(logger)
 	return true;
 }
 
-// Real data: Salvan outing, 13/09/2026, lap 1 (climb), from
-// garmin_data/activity_24346302742.tcx, 11:07:11 -> 11:09:21 UTC (TCX lines
-// 16806-17832). The TCX is smart-recorded (1-4 s irregular spacing); samples
+// Real data: Salvan outing, 13/09/2026, lap 1 (climb), 11:07:11 -> 11:09:21
+// UTC (trace not kept in the public repository). The TCX was smart-recorded (1-4 s irregular spacing); samples
 // kept here follow add()'s own rule: first record >= 5 s after the last kept
 // one. 11:07:11 is the first record after a 37 s stop (11:06:34), which would
 // reset the history anyway. Columns: seconds since 11:07:11, AltitudeMeters,
@@ -1475,9 +1474,8 @@ function testFormatVerticalSpeedCap(logger)
 	Test.assertEqualMessage($.formatVerticalSpeed(3000.1d), "--", "Double 3000.1 -> --");
 	Test.assertEqualMessage($.formatVerticalSpeed(1.0e300d), "--", "Double 1e300 -> --");
 
-	// Real Salvan climb (garmin_data/activity_24346302742.tcx, lap 1, 60 s
-	// trailing window, endpoint difference; pinned by
-	// tools/test_analyze_activity.py test_climb_vertical_speed_diff_reproduces_plan):
+	// Real Salvan climb (lap 1, 60 s trailing window, endpoint difference;
+	// trace not kept in the public repository):
 	// median +636 m/h, p95 +891 m/h, p5 -129 m/h. All stay displayed.
 	Test.assertEqualMessage($.formatVerticalSpeed(636.4), "+640", "Salvan median 636.4 still +640");
 	Test.assertEqualMessage($.formatVerticalSpeed(891.0), "+890", "Salvan p95 891 still +890");
@@ -3291,9 +3289,8 @@ class MapTestHelper
 		return { "lat" => lat, "long" => lon, "accuracy" => acc };
 	}
 
-	// Real Salvan extract: the first 20 GPX track points of
-	// garmin_data/activity_24346302742.gpx (10:18:43 UTC onward, lines 17-197),
-	// truncated to 9 decimals. Spacing 1-7 m, about 50 m in total.
+	// Real Salvan extract: the first 20 GPX track points (10:18:43 UTC
+	// onward; trace not kept in the public repository), truncated to 9 decimals. Spacing 1-7 m, about 50 m in total.
 	static function salvanLats()
 	{
 		return [46.118051251, 46.118069272, 46.118082432, 46.118100202, 46.118111601,

@@ -412,8 +412,8 @@ class LayoutBench
 
 	// --- States (injected data) --------------------------------------------
 
-	// Real extract M (steep climb, lap 1 of garmin_data/activity_24346302742.tcx):
-	// HikeHistory samples 10:50:30 -> 10:51:28 UTC (line 11859), [seconds
+	// Real extract M (steep climb, lap 1 of the Salvan outing; trace not kept
+	// in the public repository): HikeHistory samples 10:50:30 -> 10:51:28 UTC, [seconds
 	// before 10:51:28, AltitudeMeters, DistanceMeters]: +944.6 m/h ("+940"),
 	// 36.06 m / 58 s ("26:48").
 	static function extractM()

@@ -306,8 +306,8 @@ class ChainHelper
 	}
 
 	// Real extract M (steep climb, lap 1): HikeHistory samples 10:50:30 ->
-	// 10:51:28 UTC of garmin_data/activity_24346302742.tcx (10:51:28 is line
-	// 11859). [seconds before 10:51:28, AltitudeMeters, DistanceMeters].
+	// 10:51:28 UTC of the Salvan outing (trace not kept in the public
+	// repository). [seconds before 10:51:28, AltitudeMeters, DistanceMeters].
 	static function extractM()
 	{
 		return [

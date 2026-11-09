@@ -39,8 +39,8 @@ function testFormatDistanceKm(logger)
 	Test.assertEqualMessage(formatDistanceKm(-MapTestHelper.inf()), "--", "-Inf");
 	Test.assertEqualMessage(formatDistanceKm(1500), "1.5", "Number 1500 m");
 	Test.assertEqualMessage(formatDistanceKm(999900.0), "999.9", "999.9 km");
-	// Real values (garmin_data/activity_24346302742.tcx, DistanceMeters at
-	// 10:51:28 and 13:01:47 UTC).
+	// Real values from the Salvan outing of 13/09/2026 (trace not kept in
+	// the public repository).
 	Test.assertEqualMessage(formatDistanceKm(1692.49), "1.7", "Salvan 10:51:28");
 	Test.assertEqualMessage(formatDistanceKm(22048.72), "22.0", "Salvan 13:01:47");
 	return true;
@@ -76,8 +76,8 @@ function testFormatHikeAltitude(logger)
 	Test.assertEqualMessage(formatHikeAltitude(MapTestHelper.inf()), "--", "+Inf");
 	Test.assertEqualMessage(formatHikeAltitude(-MapTestHelper.inf()), "--", "-Inf");
 	Test.assertEqualMessage(formatHikeAltitude(2149.4d), "2149", "Double");
-	// Real values (garmin_data/activity_24346302742.tcx, AltitudeMeters at
-	// 10:51:28 and 13:01:47 UTC).
+	// Real values from the Salvan outing of 13/09/2026 (trace not kept in
+	// the public repository).
 	Test.assertEqualMessage(formatHikeAltitude(2149.4), "2149", "Salvan 10:51:28");
 	Test.assertEqualMessage(formatHikeAltitude(1732.2), "1732", "Salvan 13:01:47");
 	return true;
@@ -122,8 +122,8 @@ function testFormatHikeAscent(logger)
 	Test.assertEqualMessage(formatHikeAscent(-0.001d), "--", "Double just below 0");
 	Test.assertEqualMessage(formatHikeAscent(-0.0d), "0", "Double -0.0");
 	Test.assertEqualMessage(formatHikeAscent(1.0e300d), "--", "Double 1e300");
-	// Real value (garmin_data/activity_24346302742.tcx): D+ of lap 1, the
-	// Salvan climb, 908 m.
+	// Real value from the Salvan outing of 13/09/2026 (trace not kept in
+	// the public repository): D+ of the climb, 908 m.
 	Test.assertEqualMessage(formatHikeAscent(908.0), "908", "Salvan climb D+");
 	return true;
 }
@@ -147,8 +147,8 @@ function testFormatHeartRate(logger)
 	Test.assertEqualMessage(formatHeartRate(139.6), "140", "Float rounded");
 	Test.assertEqualMessage(formatHeartRate(MapTestHelper.nan()), "--", "NaN");
 	Test.assertEqualMessage(formatHeartRate(MapTestHelper.inf()), "--", "+Inf");
-	// Real value (garmin_data/activity_24346302742.tcx, HeartRateBpm at
-	// 10:51:28 UTC).
+	// Real value from the Salvan outing of 13/09/2026 (trace not kept in
+	// the public repository).
 	Test.assertEqualMessage(formatHeartRate(139), "139", "Salvan 10:51:28");
 	return true;
 }
@@ -245,8 +245,8 @@ function testFormatFlightAltitude(logger)
 	Test.assertEqualMessage(formatFlightAltitude(MapTestHelper.inf()), "--", "+Inf");
 	Test.assertEqualMessage(formatFlightAltitude(-MapTestHelper.inf()), "--", "-Inf");
 	Test.assertEqualMessage(formatFlightAltitude(2149.4d), "2149", "Double");
-	// Real values (garmin_data/activity_24346302742.tcx, AltitudeMeters at
-	// 10:51:28 and 13:01:47 UTC).
+	// Real values from the Salvan outing of 13/09/2026 (trace not kept in
+	// the public repository).
 	Test.assertEqualMessage(formatFlightAltitude(2149.4), "2149", "Salvan 10:51:28");
 	Test.assertEqualMessage(formatFlightAltitude(1732.2), "1732", "Salvan 13:01:47");
 	return true;
