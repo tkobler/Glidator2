@@ -1,25 +1,28 @@
 # Captures pour la fiche du Store
 
-Statut (2026-11-09) : aucune capture n'a été produite. Deux tentatives ont échoué :
-`screencapture -x` depuis l'agent a été refusé lors d'un round précédent, puis, une
-fois autorisé (round now-1307), il répond « could not create image from display »
-(pas d'accès à l'affichage depuis la session de l'agent, probablement la permission
-Enregistrement de l'écran de macOS). De plus, le chargement de l'activité synthétique
-(`Simulation > Activity`) et la navigation par touches demandent de piloter l'interface
-du simulateur, ce que l'agent ne peut pas faire (`osascript` refusé). Aucune image n'a
-été inventée : ce dossier ne contient que cette procédure, à faire à la main, une fois,
-sur le Mac.
+Statut (2026-11-09) : les planches sont faites à partir des **photos du test terrain**
+(fenix 6 Pro Solar au poignet) et d'une capture du simulateur, plus de captures
+automatiques : `screencapture` échoue depuis l'agent et le simulateur ne peut pas être
+piloté. Les photos brutes restent hors dépôt (dossier de dépôt du lab, lecture seule) ;
+seules les planches assemblées sont dans `docs/store/`.
 
 Une seule montre : fenix 6 Pro Solar (produit `fenix6pro` dans le simulateur).
 
-Cible : 4 planches PNG au plus, rangées dans `docs/store/` :
+Planches produites par `swift tools/make_store_boards.swift` (relançable ; argument
+facultatif : dossier des photos) :
 
-| Fichier à produire | Contenu | Captures à assembler |
-|---|---|---|
-| `store-1-vol.png` | Mode Vol | Instrument de vol, Boussole (avec coordonnées inventées) |
-| `store-2-marche.png` | Mode Marche | Position, Allure, Heure |
-| `store-3-pause.png` | Pause | Menu Pause (Resume / Pause / Save / Ignore), écran Pause |
-| `store-4-apercu.png` (facultatif) | Aperçu | Une page au choix, seule, en grand |
+| Fichier | Contenu |
+|---|---|
+| `store-marche.png` (2900 x 1000) | Mode Marche, trois photos côte à côte : Altitude / D+ / Distance / Timer ; FC / Vitesse verticale / Allure / Timer ; Heure et batterie |
+| `store-reglages.png` (521 x 671) | Capture du simulateur : menu Preferences (Beep, VS window) |
+
+Photos redressées selon l'EXIF, recadrées sur la montre, même hauteur, fond gris
+neutre, sans retouche. Aucune coordonnée visible.
+
+Hors planches, volontairement : pas de page Carte (masquée dans l'app) ni d'ancien écran
+Pause (l'écran Pause a changé, plus représentatif). Le mode Vol est déjà sur le store.
+
+## Procédure manuelle d'origine (si de nouvelles captures du simulateur sont voulues)
 
 ## Règles (dépôt public)
 
