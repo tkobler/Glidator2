@@ -8,8 +8,9 @@ seules les planches assemblées sont dans `docs/store/`.
 
 Une seule montre : fenix 6 Pro Solar (produit `fenix6pro` dans le simulateur).
 
-Planches produites par `swift tools/make_store_boards.swift` (relançable ; argument
-facultatif : dossier des photos) :
+Planches produites par `swift tools/make_store_boards.swift <dossier-des-photos>`
+(relançable, depuis la racine du dépôt ; le script est propre à ce lot : photos
+`IMG_9380` à `IMG_9382` et capture du simulateur du 09/11, recadrages réglés à la main) :
 
 | Fichier | Contenu |
 |---|---|
@@ -23,6 +24,9 @@ Hors planches, volontairement : pas de page Carte (masquée dans l'app) ni d'anc
 Pause (l'écran Pause a changé, plus représentatif). Le mode Vol est déjà sur le store.
 
 ## Procédure manuelle d'origine (si de nouvelles captures du simulateur sont voulues)
+
+Les sections ci-dessous sont l'ancienne procédure par captures du simulateur ; les noms
+de planches de la section 5 (`store-1-vol.png`…) ne sont plus ceux des planches actuelles.
 
 ## Règles (dépôt public)
 

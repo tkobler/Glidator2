@@ -1,6 +1,6 @@
 // Assemble les planches du store a partir des photos du test terrain.
 // Usage (depuis la racine du depot) :
-//   swift tools/make_store_boards.swift [dossier-des-photos]
+//   swift tools/make_store_boards.swift <dossier-des-photos>
 // Les photos sont lues seulement (jamais copiees dans le depot) ; sorties :
 //   docs/store/store-marche.png   trois photos redressees (EXIF), recadrees sur la montre,
 //                                 cote a cote, meme hauteur, fond neutre, sans retouche
@@ -10,8 +10,12 @@ import CoreGraphics
 import ImageIO
 import UniformTypeIdentifiers
 
-let defaultDir = "/Users/sam/agent-lab/data/inbox/glidator2/store-shots"
-let dir = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : defaultDir
+// Le script est propre a ce lot de photos (noms IMG_9380..9382 et recadrages reglés a la main).
+guard CommandLine.arguments.count > 1 else {
+    print("usage : swift tools/make_store_boards.swift <dossier-des-photos>")
+    exit(2)
+}
+let dir = CommandLine.arguments[1]
 let outDir = "docs/store"
 
 // Fichier, centre de la montre (fractions de l'image redressee), cote du carre (fraction de la largeur).
