@@ -59,7 +59,7 @@ Total : 62 montres (7 de référence + 55 autres). `PASSED (passed=223, failed=0
 
 **Préparation** (une fois)
 - [ ] `monkeyc -f monkey.jungle -o /tmp/glidator-build/fenix6pro.prg -d fenix6pro -y developer_key` (sans `-t`, attendu : `BUILD SUCCESSFUL`), simulateur ouvert, puis `monkeydo /tmp/glidator-build/fenix6pro.prg fenix6pro`.
-- [ ] Charger `garmin_data/activity_24346302742.gpx` dans le simulateur (*Simulation > Activity Data* ou *Data Playback* selon la version). Ne pas lancer la lecture tout de suite.
+- [ ] Charger le GPX de Salvan (retiré du dépôt public, conservé hors dépôt) dans le simulateur (*Simulation > Activity Data* ou *Data Playback* selon la version). Ne pas lancer la lecture tout de suite.
 - [ ] Fenêtre VS laissée à 1 min (valeur par défaut).
 - [ ] Page ALTITUDE affichée, puis **SELECT (START) avant de lancer la lecture** : le chronomètre de la session démarre à 0:00 en même temps que le GPX.
 

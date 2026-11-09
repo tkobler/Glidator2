@@ -121,7 +121,7 @@ Totaux : 62 vertes, 0 en échec, 0 bloquée à l'état final. Lots lancés : 12 
 - [ ] Ouvrir le simulateur (`connectiq`), confirmer qu'il répond.
 - [ ] `zsh tools/run-watches.zsh fenix6s fr170 fenix6pro fenix5 instinct2 fr965 fenix7x`. Attendu : « 194 tests: 194 passed, 0 failed » partout, aucune ligne `MISMATCH`, `NOT RUN` ou `BLOCKED`. Répéter fenix6s 3 fois pour juger de l'intermittence.
 
-### B. Mode vol (Playback d'un GPX, p. ex. garmin_data/activity_24346302742.gpx), montres fenix6pro, fenix7x, fr965, instinct2
+### B. Mode vol (Playback d'un GPX, p. ex. le GPX de Salvan, retiré du dépôt public et conservé hors dépôt), montres fenix6pro, fenix7x, fr965, instinct2
 Pour chaque montre, passer en mode vol :
 - [ ] Page principale : altitude lisible en m (« 1234 m ») ; avec altitude invalide (hors −500..9000 m ou absente) : « -- » seul, sans « m ».
 - [ ] Vitesse : ligne vitesse non coupée ; sur instinct2 elle est décalée à gauche et ne touche pas la sous-fenêtre ; une vitesse négative s'affiche telle quelle (« -4 »).

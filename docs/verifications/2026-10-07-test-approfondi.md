@@ -106,7 +106,7 @@ Sur les 17 montres testées, **les seuls échecs sont des `LayoutBenchTests.test
 À défaut de temps, fr55 (G1, sans baromètre ni boussole) peut remplacer instinct3amoled45mm : ses tests passent tous, seule l'étape 8 le concerne.
 
 ## Protocole manuel pour l'utilisateur
-Préparation : `monkeyc -f monkey.jungle -o /tmp/glidator-build/Glidator-<id>-release.prg -d <id> -y developer_key`, puis `monkeydo /tmp/glidator-build/Glidator-<id>-release.prg <id>`. Charger `garmin_data/activity_24346302742.gpx` dans *Simulation > Activity Data* (ou *Data Playback*). La distance du simulateur est calculée sur le GPX : environ +2,7 % par rapport au TCX. Fenêtre VS à 1 min (défaut), sauf à l'étape 7.
+Préparation : `monkeyc -f monkey.jungle -o /tmp/glidator-build/Glidator-<id>-release.prg -d <id> -y developer_key`, puis `monkeydo /tmp/glidator-build/Glidator-<id>-release.prg <id>`. Charger le GPX de Salvan (retiré du dépôt public, conservé hors dépôt) dans *Simulation > Activity Data* (ou *Data Playback*). La distance du simulateur est calculée sur le GPX : environ +2,7 % par rapport au TCX. Fenêtre VS à 1 min (défaut), sauf à l'étape 7.
 
 **1. Pace (fenix6pro, puis fr265s et fr965)**
 - [ ] SELECT démarre l'enregistrement. Page Pace au passage de **10:51:28** : VERT. SPD. entre **+900 et +1000** (code : `+950`), PACE entre **25:00 et 27:00** (code : `26:00` sur le TCX, un peu plus rapide sur le GPX), Heart Rate `139` si la FC du GPX est jouée.

@@ -9,7 +9,7 @@ Question : les valeurs affichées par la montre (photos) et enregistrées (TCX, 
 Verdict de l'utilisateur : boutons et enregistrement OK, valeurs de marche et de vol « semblent bonnes ».
 
 Données (hors dépôt sauf le GPX de la montre) :
-- GPX de la montre : `garmin_data/2026-10-22-villeneuve/activity_24813284437.gpx` (dans le dépôt, 3796 points).
+- GPX de la montre : `activity_24813284437.gpx` (retiré du dépôt public, conservé hors dépôt, 3796 points).
 - TCX de la montre : `activity_24813284437.tcx` (2 tours, 3799 points), lu hors dépôt.
 - Trace SportsTrackLive : `2026-10-22-1572838-sportstracklive.gpx` (1196 points, 09:00:50Z à 10:42:43Z, sans FC), lue hors dépôt, et le GPX de la montre dans le dépôt.
 - 17 photos de la montre (IMG_9371 à IMG_9388, sans 9379), lues hors dépôt. Photos, FIT, TCX et zip ne sont pas dans le dépôt.
@@ -130,10 +130,10 @@ Le D+ du tour 1 (1221,0 m) inclut les 91 m environ gagnés ou comptés pendant l
 
 Commandes exactes (depuis la copie de travail, sorties hors dépôt dans `/tmp/glidator-build/`) :
 ```
-python3 tools/analyze_activity.py garmin_data/2026-10-22-villeneuve/activity_24813284437.gpx      (refusé : « no <Lap> found », le script lit des TCX)
+python3 tools/analyze_activity.py <dossier hors dépôt>/activity_24813284437.gpx      (refusé : « no <Lap> found », le script lit des TCX)
 python3 tools/analyze_activity.py <dossier inbox>/activity_24813284437.tcx
 python3 tools/analyze_activity.py <dossier inbox>/activity_24813284437.tcx --csv /tmp/glidator-build/villeneuve-60s.csv
-python3 tools/etalon_marche.py garmin_data/2026-10-22-villeneuve/activity_24813284437.gpx <dossier inbox>/activity_24813284437.tcx --lap 1
+python3 tools/etalon_marche.py <dossier hors dépôt>/activity_24813284437.gpx <dossier inbox>/activity_24813284437.tcx --lap 1
 python3 tools/etalon_marche.py <même GPX> <même TCX> --lap 1 --minutes-csv /tmp/glidator-build/villeneuve-minutes.csv
 python3 tools/etalon_marche.py <même GPX> <même TCX> --lap 1 --at 1079   (puis 2612, 4020, 5932, 5966, 5982)
 python3 tools/etalon_marche.py <GPX SportsTrackLive> <même TCX> --lap 1   (échec, voir plus bas)

@@ -110,7 +110,7 @@ Les valeurs affichées par les tests correspondent à la spec : montée de 600 m
 
 Préparation :
 - [ ] Compiler hors de `bin/` : `monkeyc -f monkey.jungle -o /tmp/glidator-build/fenix6pro.prg -d fenix6pro -y developer_key`, puis `monkeydo /tmp/glidator-build/fenix6pro.prg fenix6pro`.
-- [ ] Dans le simulateur, charger `garmin_data/activity_24346302742.gpx` dans *Simulation > Activity Data* (ou *Data Playback* selon la version du SDK), sans encore lancer la lecture.
+- [ ] Dans le simulateur, charger le GPX de Salvan (retiré du dépôt public, conservé hors dépôt) dans *Simulation > Activity Data* (ou *Data Playback* selon la version du SDK), sans encore lancer la lecture.
 
 **A. Vitesse verticale de marche (Marche 1b)**
 - [ ] L'app démarre en mode Marche (vue Position). Appuyer sur DOWN pour aller à la page Pace (cases Heart Rate / VERT. SPD. / PACE / TIMER).

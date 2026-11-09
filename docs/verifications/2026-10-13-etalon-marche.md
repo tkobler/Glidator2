@@ -1,7 +1,7 @@
 # Étalon du tour de marche de Salvan et données de test du mode marche
 
 - **Date** : 13/10/2026 (analyse faite le 12/10 au soir), branche `claude/corrections-marche`.
-- **Données** : `garmin_data/activity_24346302742.gpx` et `.tcx` (sortie « Salvan Glide » du 13/09/2026, montre fenix 6 Pro Solar, firmware 28.2 : TCX lignes 73341-73349), journal du manageur `journal-diag-lecture-gpx.log` (diagnostic du simulateur du 12/10, chemin local retiré ; lecture du GPX au simulateur fenix6pro).
+- **Données** : GPX et TCX de Salvan (retirés du dépôt public, conservés hors dépôt) (sortie « Salvan Glide » du 13/09/2026, montre fenix 6 Pro Solar, firmware 28.2 : TCX lignes 73341-73349), journal du manageur `journal-diag-lecture-gpx.log` (diagnostic du simulateur du 12/10, chemin local retiré ; lecture du GPX au simulateur fenix6pro).
 - **Outil** : `tools/etalon_marche.py` (Python stdlib, commit `39136c9`), qui réutilise `tools/analyze_activity.py`. Commande exacte en fin de note.
 - **Fichiers produits** (dossier `docs/verifications/data/`) :
   - `2026-10-13-etalon-marche-minutes.csv` : table minute par minute du tour de marche (123 lignes) ;
@@ -23,7 +23,7 @@
 
 ## Inventaire des fichiers
 
-Source : sortie de la commande (section Méthode) et `python3 tools/analyze_activity.py garmin_data/activity_24346302742.tcx`.
+Source : sortie de la commande (section Méthode) et `python3 tools/analyze_activity.py <TCX de Salvan hors dépôt>`.
 
 | | Tour 1 (marche) | Tour 2 (vol) | Ensemble |
 |---|---|---|---|
@@ -189,8 +189,8 @@ Pour un test Monkey C : appeler `h.add(t0 + t_s * 1000, ele, dist_m)` pour chaqu
 ## Méthode (reproductible)
 
 ```
-python3 tools/etalon_marche.py garmin_data/activity_24346302742.gpx garmin_data/activity_24346302742.tcx --at 253 --minutes-csv docs/verifications/data/2026-10-13-etalon-marche-minutes.csv --extracts-prefix docs/verifications/data/2026-10-13-etalon-marche-extrait --sim-log <journal-diag-lecture-gpx.log>
-python3 tools/analyze_activity.py garmin_data/activity_24346302742.tcx
+python3 tools/etalon_marche.py <GPX de Salvan hors dépôt> <TCX de Salvan hors dépôt> --at 253 --minutes-csv docs/verifications/data/2026-10-13-etalon-marche-minutes.csv --extracts-prefix docs/verifications/data/2026-10-13-etalon-marche-extrait --sim-log <journal-diag-lecture-gpx.log>
+python3 tools/analyze_activity.py <TCX de Salvan hors dépôt>
 python3 -m unittest tools/test_etalon_marche.py tools/test_analyze_activity.py   # 112 tests, OK
 ```
 

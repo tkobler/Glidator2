@@ -1,6 +1,6 @@
 # Plan de test approfondi : Glidator2 (marche et vol)
 
-*Testeur Connect IQ. Plan commencé le 05/10 (`e55a5ac`) et rédigé le 06/10 à `d07ba5d`, **avant** tout nouveau test : les valeurs attendues viennent de la lecture du code (`source/`), de `garmin_data/activity_24346302742.tcx` (via `python3 tools/analyze_activity.py ... --csv /dev/stdout`), puis de calculs refaits à la main. Il a été complété les 06 et 07/10 avec les résultats des tâches (a) et (b), puis **relu le 08/10 à `f306659`** : statuts des défauts, nombres de tests et décisions de l'utilisateur remis à jour (voir « Relecture du 08/10 » en fin de document).*
+*Testeur Connect IQ. Plan commencé le 05/10 (`e55a5ac`) et rédigé le 06/10 à `d07ba5d`, **avant** tout nouveau test : les valeurs attendues viennent de la lecture du code (`source/`), de la trace TCX de Salvan (retirée du dépôt public, conservée hors dépôt ; via `python3 tools/analyze_activity.py ... --csv /dev/stdout`), puis de calculs refaits à la main. Il a été complété les 06 et 07/10 avec les résultats des tâches (a) et (b), puis **relu le 08/10 à `f306659`** : statuts des défauts, nombres de tests et décisions de l'utilisateur remis à jour (voir « Relecture du 08/10 » en fin de document).*
 
 Le plan sert de base à trois tâches qui doivent pouvoir s'exécuter telles quelles :
 - **(a)** tests fonctionnels de l'axe 1, en Monkey C (`(:test)`, `Toybox.Test`) : 30 tests prévus, **32 écrits**, § 3.1 (`source/TestsChain.mc`, 06 et 07/10) ;
@@ -16,7 +16,7 @@ Le plan sert de base à trois tâches qui doivent pouvoir s'exécuter telles que
 | Code lu | `source/*.mc` à `d07ba5d` : WatchData, HikeHistory, Utils, BreadcrumbTrail, WatchDisplay, les 7 vues (HikePosition, HikePace, HikeMap, Time, FlyInstrument, Position, **Paused**), FlyInstrumentApp (règles de session, pause, capteurs), FlyInstrumentDelegate (menu Paused) |
 | Tests existants | `source/Tests.mc` : 67 fonctions `test*` à `d07ba5d`, 76 après la préférence de fenêtre VS (06/10, +9), **88** à `f306659` ; `source/TestsFormat.mc` : 7 (fonctions de format pures, 06-07/10) |
 | Suite complète à `f306659` | **166** tests par montre = 88 (`Tests.mc`) + 7 (`TestsFormat.mc`) + 32 (`TestsChain.mc`) + 39 (`TestsLayout.mc`) |
-| Données réelles | `garmin_data/activity_24346302742.tcx` : 2 tours, 4311 points. Tour 1 (montée) : 10:18:43 → 12:20:25 UTC, 2211 points, D+ 908 m. Tour 2 (vol) : 12:20:25 → 13:14:35, 2100 points |
+| Données réelles | Trace TCX de Salvan (retirée du dépôt public, conservée hors dépôt) : 2 tours, 4311 points. Tour 1 (montée) : 10:18:43 → 12:20:25 UTC, 2211 points, D+ 908 m. Tour 2 (vol) : 12:20:25 → 13:14:35, 2100 points |
 | Profils des montres | `~/Library/Application Support/Garmin/ConnectIQ/Devices/<id>/compiler.json` (résolution, `deviceFamily`, `displayType`, `bitsPerPixel`) et `simulator.json` (`isTouch`, emplacement de la sous-fenêtre) |
 | SDK | `monkeyc`, `monkeydo` et `connectiq` présents dans `~/.local/bin/` (SDK 9.2.0 ; non utilisés pour rédiger le plan, utilisés pour les tâches a, b et c) |
 
@@ -483,7 +483,7 @@ Les deux jungles compilent sur fenix6pro (07/10). Le 07/10, le .prg complet (166
 
 ## 5. Protocole manuel (simulateur, puis montre)
 
-Préparation : compiler fenix6pro hors de `bin/`, lancer `monkeydo /tmp/glidator-build/fenix6pro.prg fenix6pro`, puis charger `garmin_data/activity_24346302742.gpx` dans *Simulation > Activity Data* (ou *Data Playback*). Le simulateur calcule la distance à partir des positions GPX : prévoir environ +2,7 % par rapport au TCX, donc un pace un peu plus rapide. Fenêtre VS laissée à **1 min** (valeur par défaut) sauf en M13.
+Préparation : compiler fenix6pro hors de `bin/`, lancer `monkeydo /tmp/glidator-build/fenix6pro.prg fenix6pro`, puis charger le GPX de Salvan (retiré du dépôt public, conservé hors dépôt) dans *Simulation > Activity Data* (ou *Data Playback*). Le simulateur calcule la distance à partir des positions GPX : prévoir environ +2,7 % par rapport au TCX, donc un pace un peu plus rapide. Fenêtre VS laissée à **1 min** (valeur par défaut) sauf en M13.
 
 - [ ] **M01 Montée raide** : sur la page Pace, au passage de 10:51:28 dans la trace, VERT. SPD. lit entre **+900 et +1000** (attendu dans le code : +950, fenêtre 1 min), PACE entre **25:00 et 27:00**, et la vitesse instantanée en vol (BACK maintenu) vaut `0` à ce moment. Sur la page Position : ALTITUDE environ **2149**, DISTANCE environ **1.7** km.
 - [ ] **M02 Spirale** : en mode Marche, au passage de 13:01:47, VERT. SPD. lit **`--`** (−14 420 m/h, au-delà du plafond marche de ±3000 m/h, décision du 07/10 (plafond VS)) ; la valeur la plus large affichable est désormais `-3000`, à vérifier dans la demi-case sur fenix6pro, fr55, instinct2 et instinct2s.
