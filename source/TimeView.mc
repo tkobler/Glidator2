@@ -44,5 +44,9 @@ class TimeView extends WatchUi.View {
               System.getSystemStats().battery;
 
         display.time_and_battery(timeStr, battery);
+
+        if ($.isRecordFlashActive()) {
+            display.recordingStartIcon();
+        }
     }
 }

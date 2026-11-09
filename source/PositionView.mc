@@ -46,7 +46,6 @@ class PositionView extends WatchUi.View {
 
         // Get heading, latitude, and longitude
         var heading = data.getHeading();
-        var trueNorth = data.getNorth();
 
         var lat = data.getLat();
         var lon = data.getLon();
@@ -54,5 +53,9 @@ class PositionView extends WatchUi.View {
         // Draw the compass with coordinates using WatchDisplay
         // Show the true north, latitude, and longitude
         display.compass(heading, lat, lon);   //!!!!!
+
+        if ($.isRecordFlashActive()) {
+            display.recordingStartIcon();
+        }
     }
 }

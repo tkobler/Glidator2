@@ -46,7 +46,7 @@ class FlyInstrumentView extends WatchUi.View
 		display.dc = dc; // !!!
     
 		var vario  = data.getVario ();
-		var record = Toybox has :ActivityRecording && $.session != null && $.session.isRecording();
+		var record = $.isRecording();
 	
        	display.start (vario == null ? 0.0: vario);
        	
@@ -60,9 +60,13 @@ class FlyInstrumentView extends WatchUi.View
 	        if (altitude == null)
 	        {
 	        	display.waitForAltitude ();
+	        	if ($.isRecordFlashActive())
+	        	{
+	        		display.recordingStartIcon();
+	        	}
 	   			return;
 	        }
-	        display.altitude (altitude == null ? null: Math.round(altitude).toNumber().toString(), record);
+	        display.altitude ($.formatFlightAltitude(altitude), record); // m, "--" outside -500..9000
 			
 			var speed = data.getSpeed ();
 			if (speed != null)
@@ -74,10 +78,15 @@ class FlyInstrumentView extends WatchUi.View
 				
 			if (vario != null)
 			{
-				display.vario (vario); 
-		} 
-		
+				display.vario (vario);
+		}
+
 		display.end ();
+
+		if ($.isRecordFlashActive())
+		{
+			display.recordingStartIcon();
+		}
 		
 		
 		// DEBUG
@@ -88,7 +97,7 @@ class FlyInstrumentView extends WatchUi.View
 			dc.setColor( Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT );
 			dc.drawText (dc.getWidth () / 2, (3.5 * dc.getHeight()) / 4, Graphics.FONT_XTINY, heartRate.toString (), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 		}
-		if (Toybox has :ActivityRecording && $.session != null && $.session.isRecording())
+		if ($.isRecording())
 		{
 			dc.setColor( Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT );
 			dc.drawText (dc.getWidth () / 2, (3.5 * dc.getHeight()) / 4, Graphics.FONT_XTINY, "recording", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
