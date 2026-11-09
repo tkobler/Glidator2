@@ -878,6 +878,16 @@ class TwoLapSyntheticTest(unittest.TestCase):
     def test_climb_vertical_speed_diff(self):
         self.assertAlmostEqual(self.climb["vs_diff"]["median"], 640.0, delta=0.1 * 640.0)
 
+    def test_climb_vertical_speed_p5_p95_bounds(self):
+        # Steady 640 m/h climb with irregular sampling and +-0.2 m noise:
+        # the percentiles bracket the median and stay in a realistic band.
+        for key in ("vs_regression", "vs_diff"):
+            st = self.climb[key]
+            self.assertLessEqual(st["p5"], st["median"], key)
+            self.assertLessEqual(st["median"], st["p95"], key)
+            self.assertGreater(st["p5"], 0.4 * 640.0, key)
+            self.assertLess(st["p95"], 1.6 * 640.0, key)
+
     def test_climb_elevation_gain_bounds(self):
         # The hysteresis D+ lies between the net climb (last - first
         # altitude) and the sum of every rise (threshold 0), and a 3 m

@@ -1310,7 +1310,8 @@ function testHikeHistoryNullAltitudeKeepsDistance(logger)
 }
 
 // Red test of D2 A on real data: the Salvan climb of testHikePaceSalvanRealClimb
-// (activity_24346302742.tcx, 11:07:11 -> 11:08:48) replayed twice through
+// (Salvan TCX, 11:07:11 -> 11:08:48; trace not kept in the public
+// repository) replayed twice through
 // WatchData, once with its altitude and once with Activity.Info.altitude null
 // (D1: getAltitude() stays null, not corrected). Same samples kept, same
 // speed, PACE "15:12" in both; only the vertical speed goes to "--".

@@ -11,7 +11,7 @@ Verdict de l'utilisateur : boutons et enregistrement OK, valeurs de marche et de
 Données (hors dépôt sauf le GPX de la montre) :
 - GPX de la montre : `activity_24813284437.gpx` (retiré du dépôt public, conservé hors dépôt, 3796 points).
 - TCX de la montre : `activity_24813284437.tcx` (2 tours, 3799 points), lu hors dépôt.
-- Trace SportsTrackLive : `2026-10-22-1572838-sportstracklive.gpx` (1196 points, 09:00:50Z à 10:42:43Z, sans FC), lue hors dépôt, et le GPX de la montre dans le dépôt.
+- Trace SportsTrackLive : `2026-10-22-1572838-sportstracklive.gpx` (1196 points, 09:00:50Z à 10:42:43Z, sans FC), lue hors dépôt, comme le GPX de la montre (retiré du dépôt public).
 - 17 photos de la montre (IMG_9371 à IMG_9388, sans 9379), lues hors dépôt. Photos, FIT, TCX et zip ne sont pas dans le dépôt.
 - Montre : Fenix (affichage de type fenix 6). Heure locale des photos = UTC + 2 h (11:18 sur la montre = 09:18Z).
 
